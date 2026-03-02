@@ -1,0 +1,100 @@
+postgres-1  | 2026-02-26 00:36:42.812 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,662] INFO trytond.modules update index for sale.reporting.product.category.tree
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,662] INFO trytond.modules update index for party.party.account
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,664] INFO trytond.modules update index for stock.shipment.out
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,666] INFO trytond.modules update index for ir.queue
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,668] INFO trytond.modules update index for ir.cron
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,669] INFO trytond.modules update index for res.user
+postgres-1  | 2026-02-26 00:36:42.894 UTC [32] LOG:  database system was interrupted; last known up at 2026-02-25 01:41:02 UTC
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,670] INFO trytond.modules update index for account.invoice.payment_term
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,671] INFO trytond.modules update index for project.work
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,673] INFO trytond.modules update index for bank.account.number
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,675] INFO trytond.modules update index for product.image
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,677] INFO trytond.modules update index for stock.period
+postgres-1  | 2026-02-26 00:36:44.004 UTC [32] LOG:  database system was not properly shut down; automatic recovery in progress
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,678] INFO trytond.modules update index for account.statement.origin.information
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,679] INFO trytond.modules update index for purchase.purchase
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,683] INFO trytond.modules update index for party.address
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,685] INFO trytond.modules update index for account.invoice.report.revision
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,686] INFO trytond.modules update index for product.category.image
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,688] INFO trytond.modules update index for country.organization
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,689] INFO trytond.modules update index for account.tax.code
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,691] INFO trytond.modules update index for account.period
+postgres-1  | 2026-02-26 00:36:44.009 UTC [32] LOG:  redo starts at 0/936D588
+postgres-1  | 2026-02-26 00:36:44.009 UTC [32] LOG:  invalid record length at 0/936D690: expected at least 24, got 0
+postgres-1  | 2026-02-26 00:36:44.009 UTC [32] LOG:  redo done at 0/936D658 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+postgres-1  | 2026-02-26 00:36:44.017 UTC [30] LOG:  checkpoint starting: end-of-recovery immediate wait
+postgres-1  | 2026-02-26 00:36:44.110 UTC [30] LOG:  checkpoint complete: wrote 0 buffers (0.0%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.077 s, sync=0.003 s, total=0.096 s; sync files=2, longest=0.002 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/936D690, redo lsn=0/936D690
+postgres-1  | 2026-02-26 00:36:44.121 UTC [1] LOG:  database system is ready to accept connections
+postgres-1  | 2026-02-26 00:36:50.259 UTC [36] LOG:  incomplete startup packet
+postgres-1  | 2026-02-26 00:37:26.852 UTC [62] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 00:41:44.153 UTC [30] LOG:  checkpoint starting: time
+postgres-1  | 2026-02-26 00:43:37.692 UTC [30] LOG:  checkpoint complete: wrote 1132 buffers (6.9%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=113.496 s, sync=0.030 s, total=113.539 s; sync files=105, longest=0.004 s, average=0.001 s; distance=12292 kB, estimate=12292 kB; lsn=0/9F6E890, redo lsn=0/9F6E800
+postgres-1  | 2026-02-26 01:01:27.837 UTC [1] LOG:  received fast shutdown request
+postgres-1  | 2026-02-26 01:01:27.857 UTC [1] LOG:  aborting any active transactions
+postgres-1  | 2026-02-26 01:01:27.858 UTC [1] LOG:  background worker "logical replication launcher" (PID 35) exited with exit code 1
+postgres-1  | 2026-02-26 01:01:27.858 UTC [30] LOG:  shutting down
+postgres-1  | 2026-02-26 01:01:27.877 UTC [30] LOG:  checkpoint starting: shutdown immediate
+postgres-1  | 2026-02-26 01:01:27.964 UTC [30] LOG:  checkpoint complete: wrote 0 buffers (0.0%), wrote 0 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.106 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=11063 kB; lsn=0/9F6E940, redo lsn=0/9F6E940
+postgres-1  | 2026-02-26 01:01:28.028 UTC [1] LOG:  database system is shut down
+postgres-1  | 
+postgres-1  | PostgreSQL Database directory appears to contain a database; Skipping initialization
+postgres-1  | 
+postgres-1  | 2026-02-26 21:50:57.826 UTC [1] LOG:  starting PostgreSQL 18.2 (Debian 18.2-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+postgres-1  | 2026-02-26 21:50:57.827 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+postgres-1  | 2026-02-26 21:50:57.827 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+postgres-1  | 2026-02-26 21:50:57.833 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres-1  | 2026-02-26 21:50:57.842 UTC [32] LOG:  database system was shut down at 2026-02-26 01:01:27 UTC
+postgres-1  | 2026-02-26 21:50:57.858 UTC [1] LOG:  database system is ready to accept connections
+postgres-1  | 2026-02-26 21:51:03.739 UTC [36] LOG:  incomplete startup packet
+postgres-1  | 2026-02-26 21:55:02.412 UTC [81] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 21:55:57.924 UTC [30] LOG:  checkpoint starting: time
+postgres-1  | 2026-02-26 21:58:00.159 UTC [30] LOG:  checkpoint complete: wrote 1222 buffers (7.5%), wrote 3 SLRU buffers; 0 WAL file(s) added, 1 removed, 0 recycled; write=122.133 s, sync=0.018 s, total=122.236 s; sync files=50, longest=0.003 s, average=0.001 s; distance=14042 kB, estimate=14042 kB; lsn=0/AD25260, redo lsn=0/AD251D0
+postgres-1  | 2026-02-26 23:04:38.263 UTC [394] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:07:23.222 UTC [440] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:09:37.477 UTC [484] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:09:48.329 UTC [492] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:12:35.821 UTC [538] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:18:24.269 UTC [596] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:19:57.581 UTC [623] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:22:02.351 UTC [653] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:24:51.061 UTC [685] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:26:56.806 UTC [714] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:28:58.575 UTC [743] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:32:11.039 UTC [778] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:36:05.417 UTC [829] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:37:24.329 UTC [855] FATAL:  role "admin" does not exist
+postgres-1  | 2026-02-26 23:45:58.778 UTC [30] LOG:  checkpoint starting: time
+postgres-1  | 2026-02-26 23:46:00.004 UTC [30] LOG:  checkpoint complete: wrote 12 buffers (0.1%), wrote 0 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=1.204 s, sync=0.006 s, total=1.227 s; sync files=5, longest=0.005 s, average=0.002 s; distance=74 kB, estimate=12645 kB; lsn=0/AD37CE8, redo lsn=0/AD37C90
+postgres-1  | 2026-02-26 23:47:30.282 UTC [924] FATAL:  role "admin" does not exist
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,694] INFO trytond.modules update index for party.party.location
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,695] INFO trytond.modules update index for account.tax.rule.line
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,697] INFO trytond.modules update index for ir.model
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,698] INFO trytond.modules update index for ir.model.field
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,699] INFO trytond.modules update index for ir.trigger
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,700] INFO trytond.modules update index for sale.sale
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,704] INFO trytond.modules update index for company.company.tax_identifier
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,705] INFO trytond.modules update index for ir.ui.view_search
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,706] INFO trytond.modules update index for ir.rule
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,708] INFO trytond.modules update index for party.category
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,709] INFO trytond.modules update index for production.routing
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,710] INFO trytond.modules update index for party.party.payment_direct_debit
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,711] INFO trytond.modules update index for account.account.deferral
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,712] INFO trytond.modules update index for product.attribute.set
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,713] INFO trytond.modules update index for ir.error
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,714] INFO trytond.modules update index for account.tax.code.template
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,716] INFO trytond.modules update index for ir.email.template
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,717] INFO trytond.modules update index for account.move.template.keyword
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,720] INFO trytond.modules update index for product.product-production.bom
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,721] INFO trytond.modules update index for account.statement.journal
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,723] INFO trytond.modules update index for party.relation
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,725] INFO trytond.modules update index for account.general_ledger.line
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,725] INFO trytond.modules update index for account.tax.template
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,728] INFO trytond.modules update index for party.party.customer_currency
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,729] INFO trytond.modules update index for account.tax.code.line
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,730] INFO trytond.modules update index for ir.translation
+server-1    | 10 132834033926208 [2026-02-26 21:51:31,754] INFO trytond.modules all modules loaded
+server-1    | [2026-02-26 21:51:32 +0000] [17] [INFO] Starting gunicorn 20.1.0
+server-1    | [2026-02-26 21:51:32 +0000] [17] [INFO] Listening at: http://0.0.0.0:8000 (17)
+server-1    | [2026-02-26 21:51:32 +0000] [17] [INFO] Using worker: sync
+server-1    | [2026-02-26 21:51:32 +0000] [18] [INFO] Booting worker with pid: 18

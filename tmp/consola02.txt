@@ -1,0 +1,34 @@
+﻿**********************
+Inicio de la transcripción de Windows PowerShell
+Hora de inicio: 20260223015859
+Nombre de usuario: MARIANO\mariano
+Usuario RunAs: MARIANO\mariano
+Nombre de la configuración: 
+Máquina: MARIANO (Microsoft Windows NT 10.0.19045.0)
+Aplicación host: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Id. de proceso: 40880
+PSVersion: 5.1.19041.6456
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6456
+BuildVersion: 10.0.19041.6456
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+La transcripción ha comenzado. El archivo de salida es D:\ERP\tryton\TryDockCmd\tmp\consola02.txt
+PS D:\erp\tryton\trydockcmd> cmd /k .\tcd.bat
+
+D:\erp\tryton\trydockcmd>Stop-Transcript
+"Stop-Transcript" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+D:\erp\tryton\trydockcmd>exit
+PS D:\erp\tryton\trydockcmd> Start-Transcript 
+La transcripción ha comenzado. El archivo de salida es E:\Users\documentos\PowerShell_transcript.MARIANO.ufRfgX3n.20260223020257.txt
+PS D:\erp\tryton\trydockcmd> Start-Transcript -Path "D:\ERP\tryton\TryDockCmd\tmp\consola03.txt"
+La transcripción ha comenzado. El archivo de salida es D:\ERP\tryton\TryDockCmd\tmp\consola03.txt
+PS D:\erp\tryton\trydockcmd> cmd /c .\tcd.bat
+
+PS D:\erp\tryton\trydockcmd> Stop-Transcript
+La transcripción se ha detenido. El archivo de salida es D:\ERP\tryton\TryDockCmd\tmp\consola03.txt

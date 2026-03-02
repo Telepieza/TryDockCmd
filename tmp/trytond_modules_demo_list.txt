@@ -1,0 +1,232 @@
+================================================================================
+# Listar los módulos instalados 
+================================================================================
+-+-----------------------------------------------+-----------------+ 
+-| Nombre                                        | Estado          | 
+-+-----------------------------------------------+-----------------+ 
+| account...................................... | activated       | 
+|    +-- account_asset......................... | not activated   | 
+|    +-- account_be............................ | not activated   | 
+|    +-- account_budget........................ | not activated   | 
+|    +-- account_cash_rounding................. | not activated   | 
+|    +-- account_consolidation................. | not activated   | 
+|    +-- account_credit_limit.................. | not activated   | 
+|    +-- account_deposit....................... | not activated   | 
+|    +-- account_de_skr03...................... | not activated   | 
+|    +-- account_dunning....................... | not activated   | 
+|    +-- account_dunning_email................. | not activated   | 
+|    +-- account_dunning_fee................... | not activated   | 
+|    +-- account_dunning_letter................ | not activated   | 
+|    +-- account_es............................ | not activated   | 
+|    +-- account_es_sii........................ | not activated   | 
+|    +-- account_eu............................ | not activated   | 
+|    +-- account_export........................ | not activated   | 
+|    +-- account_export_winbooks............... | not activated   | 
+|    +-- account_fr............................ | not activated   | 
+|    +-- account_fr_chorus..................... | not activated   | 
+|    +-- account_invoice....................... | activated       | 
+|    +-- account_invoice_correction............ | not activated   | 
+|    +-- account_invoice_defer................. | not activated   | 
+|    +-- account_invoice_history............... | not activated   | 
+|    +-- account_invoice_line_standalone....... | not activated   | 
+|    +-- account_invoice_secondary_unit........ | not activated   | 
+|    +-- account_invoice_stock................. | activated       | 
+|    +-- account_invoice_watermark............. | not activated   | 
+|    +-- account_move_line_grouping............ | not activated   | 
+|    +-- account_payment....................... | activated       | 
+|    +-- account_payment_braintree............. | not activated   | 
+|    +-- account_payment_clearing.............. | not activated   | 
+|    +-- account_payment_sepa.................. | not activated   | 
+|    +-- account_payment_sepa_cfonb............ | not activated   | 
+|    +-- account_payment_stripe................ | not activated   | 
+|    +-- account_product....................... | activated       | 
+|    +-- account_receivable_rule............... | not activated   | 
+|    +-- account_rule.......................... | not activated   | 
+|    +-- account_statement..................... | activated       | 
+|    +-- account_statement_aeb43............... | not activated   | 
+|    +-- account_statement_coda................ | not activated   | 
+|    +-- account_statement_mt940............... | not activated   | 
+|    +-- account_statement_ofx................. | not activated   | 
+|    +-- account_statement_rule................ | not activated   | 
+|    +-- account_statement_sepa................ | not activated   | 
+|    +-- account_stock_anglo_saxon............. | not activated   | 
+|    +-- account_stock_continental............. | not activated   | 
+|    +-- account_stock_eu...................... | not activated   | 
+|    +-- account_stock_landed_cost............. | not activated   | 
+|    +-- account_stock_landed_cost_weight...... | not activated   | 
+|    +-- account_stock_shipment_cost........... | not activated   | 
+|    +-- account_stock_shipment_cost_weight.... | not activated   | 
+|    +-- account_syscohada..................... | not activated   | 
+|    +-- account_tax_cash...................... | not activated   | 
+|    +-- account_tax_non_deductible............ | not activated   | 
+|    +-- account_tax_rule_country.............. | not activated   | 
+| analytic_account............................. | not activated   | 
+|    +-- analytic_budget....................... | not activated   | 
+|    +-- analytic_invoice...................... | not activated   | 
+|    +-- analytic_purchase..................... | not activated   | 
+|    +-- analytic_sale......................... | not activated   | 
+| attendance................................... | not activated   | 
+| authentication_saml.......................... | not activated   | 
+|    +-- authentication_sms.................... | not activated   | 
+| bank......................................... | activated       | 
+| carrier...................................... | not activated   | 
+|    +-- carrier_carriage...................... | not activated   | 
+|    +-- carrier_percentage.................... | not activated   | 
+|    +-- carrier_subdivision................... | not activated   | 
+|    +-- carrier_weight........................ | not activated   | 
+| commission................................... | not activated   | 
+|    +-- commission_waiting.................... | not activated   | 
+| company...................................... | activated       | 
+|    +-- company_work_time..................... | activated       | 
+| country...................................... | activated       | 
+| currency..................................... | activated       | 
+|    +-- currency_ro........................... | not activated   | 
+|    +-- currency_rs........................... | not activated   | 
+| customs...................................... | not activated   | 
+| dashboard.................................... | not activated   | 
+| document_incoming............................ | not activated   | 
+|    +-- document_incoming_invoice............. | not activated   | 
+|    +-- document_incoming_ocr................. | not activated   | 
+|    +-- document_incoming_ocr_typless......... | not activated   | 
+| edocument_peppol............................. | not activated   | 
+|    +-- edocument_peppol_peppyrus............. | not activated   | 
+|    +-- edocument_ubl......................... | not activated   | 
+|    +-- edocument_uncefact.................... | not activated   | 
+|    +-- edocument_unece....................... | not activated   | 
+| google_maps.................................. | not activated   | 
+| inbound_email................................ | not activated   | 
+| incoterm..................................... | not activated   | 
+| ir........................................... | activated       | 
+| ldap_authentication.......................... | not activated   | 
+| marketing.................................... | not activated   | 
+|    +-- marketing_automation.................. | not activated   | 
+|    +-- marketing_campaign.................... | not activated   | 
+|    +-- marketing_email....................... | not activated   | 
+| notification_email........................... | not activated   | 
+| party........................................ | activated       | 
+|    +-- party_avatar.......................... | activated       | 
+|    +-- party_relationship.................... | not activated   | 
+|    +-- party_siret........................... | not activated   | 
+| product...................................... | activated       | 
+|    +-- product_attribute..................... | not activated   | 
+|    +-- product_classification................ | not activated   | 
+|    +-- product_classification_taxonomic...... | not activated   | 
+|    +-- product_cost_fifo..................... | not activated   | 
+|    +-- product_cost_history.................. | not activated   | 
+|    +-- product_cost_warehouse................ | not activated   | 
+|    +-- product_image......................... | not activated   | 
+|    +-- product_image_attribute............... | not activated   | 
+| production................................... | activated       | 
+|    +-- production_outsourcing................ | not activated   | 
+|    +-- production_routing.................... | activated       | 
+|    +-- production_split...................... | not activated   | 
+|    +-- production_work....................... | activated       | 
+|    +-- production_work_timesheet............. | not activated   | 
+| product_kit.................................. | not activated   | 
+|    +-- product_measurements.................. | not activated   | 
+|    +-- product_price_list.................... | not activated   | 
+|    +-- product_price_list_cache.............. | not activated   | 
+|    +-- product_price_list_dates.............. | not activated   | 
+|    +-- product_price_list_parent............. | not activated   | 
+| project...................................... | activated       | 
+|    +-- project_invoice....................... | not activated   | 
+|    +-- project_plan.......................... | not activated   | 
+|    +-- project_revenue....................... | not activated   | 
+| purchase..................................... | activated       | 
+|    +-- purchase_amendment.................... | not activated   | 
+|    +-- purchase_blanket_agreement............ | not activated   | 
+|    +-- purchase_history...................... | not activated   | 
+|    +-- purchase_invoice_line_standalone...... | not activated   | 
+|    +-- purchase_price_list................... | not activated   | 
+|    +-- purchase_product_quantity............. | not activated   | 
+|    +-- purchase_request...................... | not activated   | 
+|    +-- purchase_request_quotation............ | not activated   | 
+|    +-- purchase_requisition.................. | not activated   | 
+|    +-- purchase_secondary_unit............... | not activated   | 
+|    +-- purchase_shipment_cost................ | not activated   | 
+| quality...................................... | not activated   | 
+| res.......................................... | activated       | 
+| sale......................................... | activated       | 
+|    +-- sale_advance_payment.................. | not activated   | 
+|    +-- sale_amendment........................ | not activated   | 
+|    +-- sale_blanket_agreement................ | not activated   | 
+|    +-- sale_complaint........................ | not activated   | 
+|    +-- sale_credit_limit..................... | not activated   | 
+|    +-- sale_discount......................... | not activated   | 
+|    +-- sale_extra............................ | not activated   | 
+|    +-- sale_gift_card........................ | not activated   | 
+|    +-- sale_history.......................... | not activated   | 
+|    +-- sale_invoice_date..................... | not activated   | 
+|    +-- sale_invoice_grouping................. | not activated   | 
+|    +-- sale_opportunity...................... | not activated   | 
+|    +-- sale_payment.......................... | not activated   | 
+|    +-- sale_point............................ | not activated   | 
+|    +-- sale_price_list....................... | not activated   | 
+|    +-- sale_product_customer................. | not activated   | 
+|    +-- sale_product_quantity................. | not activated   | 
+|    +-- sale_product_recommendation........... | not activated   | 
+|    +-- sale_product_recommendation_associatio | not activated   | 
+|    +-- sale_promotion........................ | not activated   | 
+|    +-- sale_promotion_coupon................. | not activated   | 
+|    +-- sale_promotion_coupon_payment......... | not activated   | 
+|    +-- sale_rental........................... | not activated   | 
+|    +-- sale_rental_progress_invoice.......... | not activated   | 
+|    +-- sale_secondary_unit................... | not activated   | 
+|    +-- sale_shipment_cost.................... | not activated   | 
+|    +-- sale_shipment_grouping................ | not activated   | 
+|    +-- sale_shipment_tolerance............... | not activated   | 
+|    +-- sale_stock_quantity................... | not activated   | 
+|    +-- sale_subscription..................... | not activated   | 
+|    +-- sale_subscription_asset............... | not activated   | 
+|    +-- sale_supply........................... | not activated   | 
+|    +-- sale_supply_drop_shipment............. | not activated   | 
+|    +-- sale_supply_production................ | not activated   | 
+| stock........................................ | activated       | 
+|    +-- stock_assign_manual................... | not activated   | 
+|    +-- stock_consignment..................... | not activated   | 
+|    +-- stock_forecast........................ | not activated   | 
+|    +-- stock_inventory_location.............. | not activated   | 
+|    +-- stock_location_move................... | not activated   | 
+|    +-- stock_location_sequence............... | not activated   | 
+|    +-- stock_lot............................. | not activated   | 
+|    +-- stock_lot_sled........................ | not activated   | 
+|    +-- stock_lot_unit........................ | not activated   | 
+|    +-- stock_package......................... | not activated   | 
+|    +-- stock_package_shipping................ | not activated   | 
+|    +-- stock_package_shipping_dpd............ | not activated   | 
+|    +-- stock_package_shipping_mygls.......... | not activated   | 
+|    +-- stock_package_shipping_sendcloud...... | not activated   | 
+|    +-- stock_package_shipping_ups............ | not activated   | 
+|    +-- stock_product_location................ | not activated   | 
+|    +-- stock_product_location_place.......... | not activated   | 
+|    +-- stock_quantity_early_planning......... | not activated   | 
+|    +-- stock_quantity_issue.................. | not activated   | 
+|    +-- stock_secondary_unit.................. | not activated   | 
+|    +-- stock_shipment_cost................... | not activated   | 
+|    +-- stock_shipment_cost_weight............ | not activated   | 
+|    +-- stock_shipment_customs................ | not activated   | 
+|    +-- stock_shipment_measurements........... | not activated   | 
+|    +-- stock_shipping_point.................. | not activated   | 
+|    +-- stock_split........................... | not activated   | 
+|    +-- stock_supply.......................... | not activated   | 
+|    +-- stock_supply_day...................... | not activated   | 
+|    +-- stock_supply_forecast................. | not activated   | 
+|    +-- stock_supply_production............... | not activated   | 
+| timesheet.................................... | activated       | 
+|    +-- timesheet_cost........................ | not activated   | 
+| user_role.................................... | not activated   | 
+| web_shop..................................... | not activated   | 
+|    +-- web_shop_product_data_feed............ | not activated   | 
+|    +-- web_shop_shopify...................... | not activated   | 
+|    +-- web_shop_vue_storefront............... | not activated   | 
+|    +-- web_shop_vue_storefront_stripe........ | not activated   | 
+|    +-- web_shortener......................... | not activated   | 
+|    +-- web_user.............................. | not activated   | 
+-+-----------------------------------------------+-----------------+ 
+---------------------------------------------------------------------------------
+# Resumen auditoría:
+# Fecha inicío: 25/02/2026 - 00:07:53
+# Fecha final: 25/02/2026 - 00:08:09
+# Tiempo de ejecución: 00:00:15,94
+# Total registros: 218
+---------------------------------------------------------------------------------

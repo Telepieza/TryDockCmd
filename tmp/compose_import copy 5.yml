@@ -1,0 +1,56 @@
+
+# Importar : docker compose -f compose.yml -f compose_data.yml run --rm data-init
+# Exportar : docker compose -f compose.yml -f compose_data.yml run --rm data-export
+# Validar  : docker compose -f compose.yml -f compose_data.yml config
+
+services:
+  postgres:
+    image: postgres:${PG_VERSION:-latest}
+    container_name: trydockcmd-postgres
+    environment:
+      POSTGRES_USER: tryton
+      POSTGRES_PASSWORD: tryton
+      POSTGRES_DB: tryton
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - trydocknet
+
+  server:
+    image: tryton/tryton:${VERSION:-latest}
+    container_name: trydockcmd-server
+    depends_on:
+      - postgres
+    environment:
+      DB_NAME: ${DB_NAME:-tryton}
+      TRYTOND_CONFIG: /config/trytond.conf
+    volumes:
+      - ./config:/config
+      - ./data:/data
+    ports:
+      - "8000:8000"
+    networks:
+      - trydocknet
+
+  data-init:
+    image: tryton/tryton:${VERSION:-latest}
+    container_name: tryton-data-init
+    depends_on:
+      - server
+    environment:
+      DB_NAME: ${DB_NAME:-tryton}
+      TRYTOND_CONFIG: /config/trytond.conf
+    volumes:
+      - ./config:/config
+      - ./python:/python
+      - ./log:/log
+    working_dir: /python
+    entrypoint: ["/bin/bash", "-c"]
+    command: python3 auto_full_setup.py
+
+volumes:
+  postgres-data:
+  tryton-data:
+
+networks:
+  trydocknet:

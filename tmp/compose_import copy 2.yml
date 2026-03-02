@@ -1,0 +1,13 @@
+
+# Importar : docker compose -f compose.yml -f compose_data.yml run --rm data-init
+# Exportar : docker compose -f compose.yml -f compose_data.yml run --rm data-export
+# Validar  : docker compose -f compose.yml -f compose_data.yml config
+
+services:
+  data-init:
+    image: tryton/tryton:${VERSION:-latest}
+    volumes:
+      - ./python:/python
+    working_dir: /python
+    command: python3 auto_full_setup.py
+  

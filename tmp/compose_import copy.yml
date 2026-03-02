@@ -1,0 +1,37 @@
+
+# Importar : docker compose -f compose.yml -f compose_data.yml run --rm data-init
+# Exportar : docker compose -f compose.yml -f compose_data.yml run --rm data-export
+# Validar  : docker compose -f compose.yml -f compose_data.yml config
+
+services:
+  data-init:
+    image: tryton/tryton:${VERSION:-latest}
+    container_name: tryton-data-init
+    user: root  # Asegura lectura de volúmenes si hay conflictos de permisos
+    depends_on:
+      - postgres
+#      - server
+    environment:
+      DB_NAME: ${DB_NAME:-tryton}
+      TRYTOND_CONFIG: /config/trytond.conf
+      TRYTOND_DATABASE_URI: postgresql://postgres:clave1234@postgres:5432/
+    volumes:
+      - ./data:/data
+      - ./config:/config
+      - ./python:/python
+    working_dir: /python
+#    entrypoint: ["/bin/bash", "-c"]
+#    command: python3 auto_full_setup.py
+    entrypoint: ["python3"]
+    command: ["auto_full_setup.py"]
+#    command: >
+#      /bin/bash -c "
+#      echo '--- Contenido de /config ---' &&
+#      ls -la /config &&
+#      echo '--- Contenido de /python ---' &&
+#      ls -la /python &&
+#      if [ -f /config/trytond.conf ]; then
+#        python3 auto_full_setup.py;
+#      else
+#        echo 'ERROR: No se encuentra trytond.conf en /config';
+#      fi"
