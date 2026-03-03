@@ -39,7 +39,7 @@ set "POSTGRES=postgres"
 :: Ficheros para importar los datos necesarios para el proyecto
 set "ENV_FILE=.env"
 set "COMPOSE_FILE=compose.yml"
-set "COMPOSE_FILE_DEMO=compose_demo.yml"
+set "COMPOSE_DATA=compose_import.yml"
 set "READ_FILEPS1=read-compose.ps1"
 :: Tipo de mensajes para visualizar colores
 set "ERR=[ERROR]"
@@ -55,6 +55,7 @@ set "DAT=[DATE]"
 set "TIM=[TIME]"
 set "DEMO=[DEMO]"
 set "LANG=[LANG]"
+set "PYTH=[PYTHON]"
 set "ERROR_PATTERNS=error fatal fail exception traceback panic"
 set "EXT_TXT=.txt"
 set "EXT_CSV=.csv"
@@ -197,6 +198,9 @@ set "action_ins=%INS%"
   )
   call :logger "%TXT%" "!START_MSG! !MENU_TRYDOCK! !MENU-OPTION_MAIN!"
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "timeout_start" "5" "1" "N"
+
+  call "%DIR_SCRIPT%install_python.bat" "%TRYTON%" "%INS%"
+
 :menu
   cls
   :: Banner

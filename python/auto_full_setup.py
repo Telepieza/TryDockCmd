@@ -12,9 +12,8 @@ from trytond.pool import Pool
 # -------------------------------------------------
 # CONFIGURACIÓN DE LOGGING
 # -------------------------------------------------
-log_path = "/python/auto_full_setup.log"
+log_path = "/tmp/trytond_proteus.txt"
 os.makedirs(os.path.dirname(log_path), exist_ok=True)
-
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",

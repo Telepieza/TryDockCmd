@@ -1,6 +1,5 @@
 
 # Importar : docker compose -f compose.yml -f compose_data.yml run --rm data-init
-# Exportar : docker compose -f compose.yml -f compose_data.yml run --rm data-export
 # Validar  : docker compose -f compose.yml -f compose_data.yml config
 
 services:
@@ -20,6 +19,8 @@ services:
     volumes:
       - ./config/.passwd:/tmp/.passwd
       - ./data:/data
+      - ./log:/log
+      - ./tmp:/tmp
       - ./config:/config
       - ./python:/python
     working_dir: /python

@@ -34,6 +34,7 @@ if /i "%ins_head_action%"=="%INS%" set "log_action=%INS%"
 set "sufijo="
 if /i "%type%"=="%DEMO%" set "sufijo=_demo"
 if /i "%type%"=="%LANG%" if "%ins_head_action%"=="%APP%" set "sufijo=_lang"
+if /i "%type%"=="%PYTH%" set "sufijo=_pyth"
 
 set "file_err=%wfile_err%%sufijo%%EXT_TXT%"
 set "file_log=%wfile_log%%sufijo%%EXT_TXT%"
