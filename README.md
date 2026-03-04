@@ -1,10 +1,16 @@
 # 🛡️ Tryton ERP Docker Manager 🚀
 
-
-
 An intuitive, menu-driven automation framework to deploy, manage, and protect your **Tryton ERP** environment on Windows.
 This suite transforms complex Docker orchestration into a reliable, audited, and resilient infrastructure.
 This project simplifies ERP maintenance, making it easy, secure, and professional for administrators and developers.
+
+The true "magic" lies in the integration of Proteus (Python API), which acts as the system's brain. Once the infrastructure is live, the orchestrator takes control to:
+
+- __Automated Post-Installation:__ It completes all configuration Wizards (Company, Currency, Users) without human intervention.
+- __Instant Fiscal Engineering:__ Automatically creates fiscal years (2026-2028), invoicing sequences, and monthly accounting periods.
+- __Dynamic Localization:__ Activates and synchronizes languages (en, es, fr, de) and links specific accounting charts based on the selected legislation.
+- __Dual-Environment Ready:__ Delivers a clean production database tryton and a tryton_demo instance with real data in record time.
+
 
 ---
 
@@ -62,8 +68,31 @@ PASSWORD=YourPassword          # <-- This will be your 'admin' login password
 EMAIL=yourUser@yourDomain.com  # <-- Your admin email address
 #TRYDOCKCMD MANAGER Initial language /lang es-ES y en-US
 LANGUAGE=es-ES                # <-- Change to language aplication (GESTOR DE TRYTON -DOCKER-
-# Puede ser es,fr,de o blanco. Si es blanco no gestiona ningun lenguaje de forma automática al instalar
+# It can be "es,fr,de,blank". If it's blank, it doesn't automatically manage any language upon installation.
 TRYTON_LANGUAGE=es            # <-- Change to language Tryton and modules (es,fr,de)
+```
+
+📄 4.1. ERP Configuration (conf/trytond.conf)
+The Proteus Engine relies on this file to automatically configure your business identity. Ensure your conf/trytond.conf follows this structure so the automated setup can "hot-read" your company profile:
+
+```bash
+[database]
+# Connection URI for the Docker bridge
+uri = postgresql://postgres:YourPassword@tryton-postgres-1:5432/ # <-- Change YourPassword to match the value of the DB_PASSWORD
+path = /var/lib/trytond/db
+
+[company]
+# Business Identity (Read by auto_full_setup.py)
+name = My company name       # <-- Change your company name
+currency = EUR               # <-- Change the currency the company uses
+
+[web]
+# Network binding for the container
+listen = 0.0.0.0:8000
+
+[logging]
+level = INFO
+
 ```
 ---
 
@@ -75,6 +104,17 @@ The system orchestrates three specialized services defined in the compose.yml fi
 - cron: A dedicated container for background tasks, ensuring the main user interface remains fast and responsive.
 - postgres: The database engine. It uses persistent Docker volumes, so your business data stays safe even if containers are stopped or removed.
 
+## 🏗️ 5.1. Data Injection Bridge (compose_import.yml)
+
+The system extends the core infrastructure using a specialized orchestration layer to inject business logic and automate the initial setup:
+
+- data-init: An ephemeral, high-performance container designed to execute the Proteus Engine. It operates as a "Run & Remove" (--rm) service that connects the Python logic with the active database.
+- external-network: It utilizes the tryton_default bridge to ensure secure, high-speed communication between the setup script and the PostgreSQL engine.
+- volume-mapping: It synchronizes the /python and /config directories, allowing the system to hot-read your trytond.conf and execute the auto_full_setup.py script without modifying the core server images.
+- Execution Tip: This bridge is triggered automatically by the manager using:
+```bash  
+         docker compose -f compose.yml -f compose_import.yml run --rm data-init
+```
 ---
 
 ## 🚀 6. Launching the Manager (The Pre-Flight Sequence)
@@ -123,10 +163,34 @@ The next step is to navigate the menus to check your options:
 | **9**  | `install_demo.bat`  | (DEMO) Install database-X.X.dump in (tryton_demo)     |
 | **10** | `client.bat` | Start client webpage                  |
 
+---
+
+## 🧠 8. The Proteus Engine: Zero-Touch Configuration ⚡
+
+Forget about manual clicking. The Tryton Docker Manager features a high-performance orchestration layer powered by the Proteus API. This is the "secret sauce" that compresses days of consulting into seconds of execution.
+
+Dynamic Infrastructure Mounting:
+
+- The manager orchestrates a Temporary Volume & Container Bridge (trydockcmd_). This ephemeral infrastructure allows the Python environment to inject data directly into the heart of the Docker stack without compromising production stability.
+
+Automated Business Logic (auto_full_setup.py): Once the containers are live, the Proteus Brain takes over the terminal to execute a 6-stage surgical configuration:
+
+* **1.- Intelligent Module Sync:** Automatically reads all activated modules and feeds them into the configuration Wizard.
+* **2.-Config Discovery:** Hot-reads company metadata and currency directly from /conf/trytond.conf.
+* **3.-Entity Architecture:** Creates the Legal Entity (Company) , Maps Third Parties (Parties), Currencies, and User permissions, finalizes the Business Identity Wizard via API.
+* **4.-Global I18n Activation:** Triggers multi-language support (es, fr, de) based on your .env TRYTON_LANGUAGE variable.
+* **5.-User-Centric Localization:** Binds the interface language to the Admin profile.
+Forces a global translation sync across all installed modules.
+* **6.-Fiscal Engineering (The Master Stroke):** Generates Fiscal Years (2026, 2027, 2028).
+Initializes Invoicing and Accounting sequences. Builds all monthly accounting periods automatically.
+
+🚀 Why this is a Game Changer?
+
+While other ERP installers leave you with an empty shell, __Tryton ERP Docker Manager__ delivers a ready-to-invoice environment.
 
 ---
 
-## 🛠️ 8. Running the Manager
+## 🛠️ 9. Running the Manager
 
 Once Docker is installed and your .env is configured:
 
@@ -136,7 +200,7 @@ Once Docker is installed and your .env is configured:
 
 ---
 
-## 🧠 9. Connectivity & Traceability (The Project Quid)
+## 🧠 10. Connectivity & Traceability (The Project Quid)
 
 ### Verified Connectivity (client.bat)
 

@@ -7,14 +7,24 @@
 
 ## 🚀 1. Quick Start (Turnkey)
 
-1. **Config:** Edit `.env` with your credentials and `LANGUAGE` (es-ES / en-US).
-2. **Launch:** Run `tcd.bat` (automatic installation).
+1. **Config Tryton:** Edit `.env` with your credentials and `LANGUAGE` (es-ES / en-US).
+2. **Config Proteus:** Edit `config/trytond.conf` Company name & Currency
+3. **Launch:** Run `tcd.bat` (automatic installation).
 * *The manager will auto-pull images, create DBs (Real & Demo), inject dynamic data for v7.8.x+, and activate 41 core modules.*
 
 
 ---
 
-## 📊 2. Main Menu & Operations
+## 🧠 2. The Proteus Engine (Zero-Touch Setup)
+
+The system includes a Python Proteus Brain (auto_full_setup.py) that bypasses hours of manual configuration:
+
+1. **Auto-Identity:** Hot-reads company info from trytond.conf.
+2. **Fiscal Engineering:** Automatically generates Fiscal Years (2026-28), Periods, and Sequences.
+3. **Smart Localization:** Auto-activates es, fr, or de and links accounting charts.
+4. **Wizard Mastery:** Completes all post-install assistants via API.
+
+## 📊 3. Main Menu & Operations
 
 | Option | Script        |           Description                                       |
 | :---:  | :-------------| :-----------------------------------------------------------|
@@ -28,12 +38,12 @@
 | **7**  | `restore.bat` | Disaster recovery from your backup files.                   |
 | **8**  | `install_tryton.bat`| (REAL) install modules in trytond in the tryton database |
 | **9**  | `install_demo.bat`  | (DEMO) Install database-X.X.dump in (tryton_demo)     |
-| **10** | `client.bat` | Start client webpage                  |
+| **10** | `client.bat` | Verified connectivity & Browser launch.               |
 
 
 ---
 
-## 🔍 3. Advanced Forensic Auditing
+## 🔍 4. Advanced Forensic Auditing
 
 The system performs a **3-Layer Audit** in < 4 seconds:
 
@@ -43,7 +53,7 @@ The system performs a **3-Layer Audit** in < 4 seconds:
 
 ---
 
-## 🌍 4. Smart Features
+## 🌍 5. Smart Features
 
 * **Dynamic I18n:** Adaptive table formatting for English and Spanish (Elastic Pipes).
 * **Version-Aware:** Automatically fetches the correct `.dump` via `curl` based on the active Docker tag.
@@ -52,12 +62,12 @@ The system performs a **3-Layer Audit** in < 4 seconds:
 
 ---
 
-## 🛠️ 5. Requirements
+## 🛠️ 6. Requirements
 
 * **Docker Desktop** (WSL 2 recommended).
 * **PowerShell 5.1+** (Internal bridge).
-* **Permissions:** Write access for `/log` `/tmp` `/sql`and `/backup`.
-
+* **Permissions:** Write access for `/log` `/tmp` `/sql` and `/backup`.
+* **Configuration:** Valid [company] section in conf/trytond.conf and file .env
 ---
 
 ## 📄 License

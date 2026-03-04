@@ -56,7 +56,7 @@ docker compose -f "%DIR_HOME%%COMPOSE_FILE%" run --rm ^
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timepyt10!" "1"
 
 call :logger "%INS%" "[3/9] !INSTALL_MODU_HEAD44!" "3"
-call :logger "%INS%" "[3.1] !BCK_FILE_ZIP %DIR_TMP%\tmp\trytond_proteus.txt!" "5"
+call :logger "%INS%" "[3.1] !BCK_FILE_ZIP! %DIR_TMP%\tmp\trytond_proteus.txt!" "5"
 call :logger "%INS%" "[3.2] !INSTALL_MODU_HEAD45!" "5"
 call :logger "%INS%" "[3.3] !INSTALL_MODU_HEAD46!" "5"
 call :logger "%INS%" "[3.4] !INSTALL_MODU_HEAD47!" "5"
@@ -64,7 +64,12 @@ call :logger "%INS%" "[3.5] !INSTALL_MODU_HEAD48!" "5"
 call :logger "%INS%" "[3.6] !INSTALL_MODU_HEAD49!" "5"
 call :logger "%INS%" "[3.7] !INSTALL_MODU_HEAD50!" "5"
 :: 2. Ejecutar el script de carga de datos y configuración
-docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -f "%DIR_HOME%%COMPOSE_DATA%" run --rm -e PYTHONUNBUFFERED=1 data-init
+docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -f "%DIR_HOME%%COMPOSE_DATA%" run --rm ^
+-e PYTHONUNBUFFERED=1 ^
+-e COMPANY_NAME="!CURRENT_COMPANY_NAME!" ^
+-e COMPANY_CURRENCY="!CURRENT_COMPANY_CURRENCY!" ^
+-e APP_LANGUAGE="!LOCALE!" ^
+data-init
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timepyt10!" "1"
 
 :: 3. Levantar el servidor principal una vez configurado

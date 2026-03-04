@@ -24,7 +24,7 @@ Thank you for considering contributing to **TryDockCmd**! Your help makes this t
 
 ---
 
-### 📏 Coding Standards (The "TryDock" Way)
+### 📏 Coding Standards (The "TryDockCmd" Way)
 
 To maintain the project's integrity, please follow these core principles:
 
@@ -41,7 +41,7 @@ To maintain the project's integrity, please follow these core principles:
 
 Feel free to open a discussion or contact the maintainer at **[Telepieza - Mariano Vallespín]**.
 
-**Let's build the best Tryton management tool together!**
+**Let's build the best TryDockCmd management tool together!**
 
 ---
 

@@ -29,6 +29,7 @@ set "DIR_BACKUP=%DIR_HOME%backup"
 set "DIR_LANG=%DIR_HOME%lang"
 set "DIR_TMP=%DIR_HOME%tmp"
 set "DIR_SQL=%DIR_HOME%sql"
+set "DIR_CONFIG=%DIR_HOME%config"
 set "DIR_SCRIPT=%DIR_HOME%scripts\"
 :: Proyecto, variable principal del trydockcmd
 set "TRYTON=tryton" 
@@ -41,6 +42,7 @@ set "ENV_FILE=.env"
 set "COMPOSE_FILE=compose.yml"
 set "COMPOSE_DATA=compose_import.yml"
 set "READ_FILEPS1=read-compose.ps1"
+set "CONF_FILE_TRY=trytond.conf"
 :: Tipo de mensajes para visualizar colores
 set "ERR=[ERROR]"
 set "TXT=[TXT]"
@@ -78,6 +80,8 @@ set "CURRENT_VERSION="
 set "CURRENT_VER_MENU="
 set "CURRENT_PG_VERSION="
 set "CURRENT_PGALL_VERSION="
+set "CURRENT_COMPANY_NAME="
+set "CURRENT_COMPANY_CURRENCY="
 :: Variables de trabajo
 set "LOAD_FILE=0"
 set "MESSAGE="
@@ -112,6 +116,8 @@ if not exist "%DIR_BACKUP%" mkdir "%DIR_BACKUP%"
 if not exist "%DIR_LANG%"   mkdir "%DIR_LANG%"
 if not exist "%DIR_SCRIPT%" mkdir "%DIR_SCRIPT%"
 if not exist "%DIR_SQL%"    mkdir "%DIR_SQL%"
+if not exist "%DIR_CONFIG%" mkdir "%DIR_CONFIG%"
+if not exist "%DIR_TMP%"    mkdir "%DIR_TMP%"
 :: graba en el log fecha hora y nombre del script de arranque
 set "PROGRAM=tcd"
 call :logger "%APP%" "%PROGRAM%"
@@ -169,24 +175,37 @@ if not "%MESSAGE%"=="" (
    call :logger "%ERR%" "%MESSAGE%"
    pause & goto :exit
 )
+
+call :logger "%TXT%" "[+] 7.-!LOG_INFO_DATA! EMPRESA/MONEDA. !WORD_ROUTE!: %DIR_CONFIG%/%CONF_FILE_TRY%" "3"
+if exist "%DIR_CONFIG%/%CONF_FILE_TRY%" (
+    for /f "usebackq tokens=1,2 delims== " %%A in ("%DIR_CONFIG%/%CONF_FILE_TRY%") do (
+        if /i "%%A"=="name" set "CURRENT_COMPANY_NAME=%%B"
+        if /i "%%A"=="currency" set "CURRENT_COMPANY_CURRENCY=%%B"
+    )
+)
+
+:: Validar si se cargaron los datos, si no, usar fallbacks de seguridad
+if "!CURRENT_COMPANY_NAME!"=="" set "CURRENT_COMPANY_NAME=Company"
+if "!CURRENT_COMPANY_CURRENCY!"=="" set "CURRENT_COMPANY_CURRENCY=EUR"
+
 set "action_ins=%INS%"
 :verify_docker
   set "LOAD_FILE=0"
-  call :logger "%MENU%" "[+] 7.-!LOG_INFO_DOCKER!" "3"
+  call :logger "%MENU%" "[+] 8.-!LOG_INFO_DOCKER!" "3"
   :: Verifica si las imágenes y los contenedores existen en Docker.
   :: El control es para que todas las demás opciones funcionen más controladas y rápidas.
   call "%DIR_SCRIPT%checkdocker.bat" "%TRYTON%"
   if %errorlevel% equ 0 (
     set "action_ins=%APP%"
-    call :logger "%MENU%" "[+] 8.-!LOG_INFO_VERSION!" "3"
+    call :logger "%MENU%" "[+] 9.-!LOG_INFO_VERSION!" "3"
     call "%DIR_SCRIPT%checkversion.bat" "%TRYTON%"
     if /i "!CURRENT_PGALL_VERSION!"=="%LATEST%" set "CURRENT_PGALL_VERSION=PostgreSQL %LATEST%"
-    call :logger "%MENU%" "8.1.- %APPLICATION% - !START_MSG! - %TRYTON%: [!CURRENT_VER_MENU!] " "7"
-    call :logger "%MENU%" "8.2.- %APPLICATION% - !START_MSG! - %POSTGRES%: [!CURRENT_PGALL_VERSION!]" "7"
+    call :logger "%MENU%" "9.1.- %APPLICATION% - !START_MSG! - %TRYTON%: [!CURRENT_VER_MENU!] " "7"
+    call :logger "%MENU%" "9.2.- %APPLICATION% - !START_MSG! - %POSTGRES%: [!CURRENT_PGALL_VERSION!]" "7"
     call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "timeout_start" "!wait_time!" "1"
   ) 
   if "!CURRENT_VER_MENU!" EQU "" set "CURRENT_VER_MENU=%LATEST%"
-  call :logger "%MENU%" "[+] 9.-!LOG_INFO_DOCKER!" "3"
+  call :logger "%MENU%" "[+] 10.-!LOG_INFO_DOCKER!" "3"
   call :logger "%LOG-SUCC%" "tcd !LOG_INFO_PROCES!"
   for /f %%A in ('"prompt $H & echo on & for %%B in (1) do rem"') do set "BS=%%A"
   echo.
@@ -199,7 +218,9 @@ set "action_ins=%INS%"
   call :logger "%TXT%" "!START_MSG! !MENU_TRYDOCK! !MENU-OPTION_MAIN!"
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "timeout_start" "5" "1" "N"
 
-  call "%DIR_SCRIPT%install_python.bat" "%TRYTON%" "%INS%"
+
+  
+  :: call "%DIR_SCRIPT%install_python.bat" "%TRYTON%" "%INS%"
 
 :menu
   cls

@@ -253,6 +253,7 @@ INSTALL_MODU_HEAD49=Associates the language with the user. Activates translation
 INSTALL_MODU_HEAD50=Fiscal years, their sequences and periods are created in accounting, sending the information to the wizard.
 INSTALL_MODU_HEAD51=Starting containers and temporary volumes in Docker.
 INSTALL_MODU_HEAD52=Removing all containers and temporary volumes.
+INSTALL_MODU_HEAD53=Mount temporary structure of volumes and containers trydockcmd_ in Docker
 INSTALL_MODU_HEADCO=Language to install: 
 INSTALL_MODU_FOOT01=Audit summary
 INSTALL_MODU_FOOT02=Start date

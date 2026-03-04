@@ -15,13 +15,13 @@ Ensure your system meets these standards:
 * **PowerShell 5.1+:** Built-in on Windows 10/11 (Required for YAML parsing).
 * **Permissions:** Admin privileges are recommended for the first installation to manage network bridges.
 * **Terminal:** CMD or PowerShell with administrator privileges (recommended for the first install).
-* **Git (Optional):** To clone the repository.
-
+  
 ---
 
 ### 2. Setup & Configuration
 
-1. **Clone/Download** this repository to your preferred folder.
+#### Step A: Environment Variables (.env) ####
+1. **Clone/Download** [TryDockCmd](https://github.com/Telepieza/TryDockCmd.git) this repository to your preferred folder.
 2. **Edit `.env`:** Update your credentials. **TryDockCmd** will use these to build your safe environment.
 ```bash
     DB_PASSWORD=your_db_secret_pass    # <-- Set a secure password for PostgreSQL
@@ -31,7 +31,16 @@ Ensure your system meets these standards:
     TRYTON_LANGUAGE=es                 # <-- Set your Tryton language (es or fr or de)
 
 ```
+#### Step B: ERP Business Identity (conf/trytond.conf) ####
 
+Crucial for Automation: The Proteus Engine reads this file to set up your company.
+```bash
+[database]
+uri = postgresql://postgres:password@tryton-postgres-1:5432/
+[company]
+name = My Empresa                    # <-- Company Name (Auto-created)
+currency = EUR                       # <-- Base Currency (Auto-linked)
+```
 ---
 
 ### 3. Launching the Manager (The 8-Step Trace)
@@ -48,13 +57,19 @@ When you execute **`tcd.bat`**, the system performs a **Pre-Flight Sequence**:
 
 ### 4. First Deployment & Connectivity
 
-Once inside the menu, option **0 (Install)**. The manager will:
+By selecting **Option 0 (Install)**, the manager executes a two-phase surgical strike:
 
-1. **Orchestrate:** Pull images, create networks, and persistent volumes.
-2. **Initialize tryton:** Build the tryton DB and setup the admin user.
-3. **Initialize tryton-demo:** Build the tryton-demo database with official data and log in as user demo password demo.
-4. **Verify:** Run the **Verified Launch Protocol** (netstat check + HTTP Handshake).
-5. **Access:** Automatically open `http://localhost:8000` only if the service is 100% ready.
+#### Phase 1: Infrastructure
+  1. **Orchestrate:** Pull images, create networks, and persistent volumes.
+  2. **Initialize tryton:** Build the tryton DB and setup the admin user.
+  3. **Initialize tryton-demo:** Build the tryton-demo database with official data and log in as user demo password demo.
+  4. **Verify:** Run the **Verified Launch Protocol** (netstat check + HTTP Handshake).
+  5. **Access:** Automatically open `http://localhost:8000` only if the service is 100% ready.
+
+#### Phase 2: The Proteus Brain (auto_full_setup.py)
+   1. **Auto-Wizard:** Completes all post-install assistants via API.
+   2. **Fiscal Setup:** Generates Years (2026-2028), monthly periods, and sequences.
+   3. **I18n Sync: Binds** languages to users and translates the entire database.
 
 ---
 
@@ -98,7 +113,7 @@ If TryDockCmd is not behaving as expected, check these common scenarios before o
 
    - Symptom: "Role 'postgres' does not exist" or "Connection refused".
    - Solution: * Ensure the DB_PASSWORD in .env matches the one used when the volume was first created.
-      - Crucial: If you change the password in .env after the first install, you must delete the volume (docker volume rm ...) for the change to take effect in a new database.
+   - Crucial: If you change the password in .env after the first install, you must delete the volume (docker volume rm ...) for the change to take effect in a new database.
 
 #### 6. Special Characters in Passwords
 
