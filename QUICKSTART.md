@@ -12,7 +12,6 @@ Understanding the root folder:
 │   read-compose.ps1          <-- YAML Intelligence Bridge (PowerShell)
 │   .env                      <-- User Configuration & Credentials
 │   compose.yml               <-- Docker Orchestration Logic trytond
-│   compose_import.yml        <-- Docker Orchestration Logic proteus
 │   README.md                 <-- Project Overview & Technical Docs
 │   README_SUMMATORY.md       <-- Project Overview & Technical Docs (Summatory)
 │   QUICKSTART.md             <-- The 5-minute guide

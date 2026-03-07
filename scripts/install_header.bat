@@ -16,6 +16,7 @@ set "proyecto=%~1"
 set "ins_head_action=%~2"
 set "type=%~3"
 set "pgm=%~4"
+set "log_error=0"
 
 set "wfile_err=%DIR_TMP%\trytond_err"
 set "wfile_log=%DIR_TMP%\trytond_log"
@@ -51,24 +52,44 @@ set "DB_URI=postgresql://%POSTGRES%:%DB_PASSWORD%@%DB_HOSTNAME%:%DB_PORT%/"
 :: 1. Verificar existencia del proyecto tryton en docker
 if /i "%ins_head_action%"=="%APP%" if /i "%CURRENT_TRYTON%"=="" if /i "%CURRENT_POSTGRES%"=="" (
   call "%DIR_SCRIPT%inspectdocker.bat" "%proyecto%" "%APP%"
-  if %errorlevel% equ 2 exit /b 2
+  if %ERRORLEVEL% EQU 2 set "log_error=2" & goto :error
 )
 :: 2. Analiza estado de los contenedores y si están parados se arrancan
 if /i "%ins_head_action%" NEQ "%INS%" (
   call "%DIR_SCRIPT%status.bat" %proyecto% "%CHECK%"
-  if %errorlevel% NEQ 0 (
-    :: Nos aseguramos que los contenedores están activos
+  if %ERRORLEVEL% NEQ 0 (
     call "%DIR_SCRIPT%startup.bat" "%proyecto%" "%CHECK%"
-    if %errorlevel% equ 4 exit /b 4
+    if %ERRORLEVEL% EQU 4 set "log_error=3" & goto :error
   )
 )
+
 :: 3.- Localizar la version de tryton y postgreSQL
 if "!CURRENT_VERSION!"=="" call "%DIR_SCRIPT%checkversion.bat" "%proyecto%"
-if %errorlevel% equ 4 exit /b 4
-:: 4.- Localizar los modulos de tryton (Base y lenguajes)
+if %ERRORLEVEL% EQU 4 set "log_error=4" & goto :error
+:: 4.- Copiar archivos al temporal del servidor Docker
+if "%ACTIVE_COPY%" EQU "0" (
+  docker cp "%DIR_PYTHON%auto_full_setup.py" !CURRENT_TRYTON!:/tmp/auto_full_setup.py >nul
+  if %ERRORLEVEL% NEQ 0 set "log_error=5" & goto :error
+  docker cp "%DIR_CONFIG%trytond.conf" !CURRENT_TRYTON!:/tmp/trytond_setup.conf  >nul
+  if %ERRORLEVEL% NEQ 0 set "log_error=6" & goto :error
+  set "ACTIVE_COPY=1"
+)
+
+:: 5.- Localizar los modulos de tryton (Base y lenguajes)
 call :logger "%CHECK%" "!INSTALL_MODU_35!"
 call "%DIR_SCRIPT%base_modules.bat" "%proyecto%"
 exit /b 0
+
+:error
+  set "MESSAGE="
+  if "%log_error%" EQU "2" set "MESSAGE=!STAT_ERR_NOT_INSTALLED:PROYECTO=%proyecto%!"
+  if "%log_error%" EQU "3" set "MESSAGE=!STAT_ERR_NOT_INSTALLED:PROYECTO=%proyecto%!"
+  if "%log_error%" EQU "4" set "MESSAGE=!BCK_CONT_STOP:PROYECTO=%proyecto%!"
+  if "%log_error%" EQU "5" set "MESSAGE=!LOG_ERR_FILE:ARCHIVO=%DIR_PYTHON%auto_full_setup.py!"
+  if "%log_error%" EQU "6" set "MESSAGE=!LOG_ERR_FILE:ARCHIVO=%DIR_CONFIG%trytond.conf!"
+  if /i "!MESSAGE!" NEQ "" call :logger "!LOG-ERROR!" "!MESSAGE!"
+  pause & exit /b 2
+
 :: 5.- Llamar al programa de mensajes si hay problemas 
 :logger
   call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"

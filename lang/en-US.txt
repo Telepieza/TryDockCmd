@@ -77,6 +77,7 @@ LOG_SUCC_BACKUP=Backup file saved successfully.
 LOG_SUCC_RESTORE=Database restored and synchronized.
 LOG_ERR_DOCKER=Docker is not installed or service is stopped.
 LOG_ERR_ENV=The file .env could not be located.
+LOG_ERR_FILE=The file ARCHIVO could not be located.
 LOG_ERR_COMPOSE=The file compose.yml could not be located.
 LOG_ERR_PS1=The file read-compose.ps1 could not be located.
 LOG_ERR_PS2=The program powershell.exe could not be found.
@@ -120,6 +121,9 @@ WORD_EXISTS=if it exists
 WORD_SPAIN=(ES) SPAIN
 WORD_FRANCE=(FR) FRANCE
 WORD_GERMANY=(DE) GERMANY
+WORD_COMPANY=Company
+WORD_CURRENCY=Currency
+WORD_INSTALL=Install
 
 # --- install.bat ---
 # --- PROYECTO, FILE, CONEXION It is a variable that is replaced in the program install.bat
@@ -254,6 +258,13 @@ INSTALL_MODU_HEAD50=Fiscal years, their sequences and periods are created in acc
 INSTALL_MODU_HEAD51=Starting containers and temporary volumes in Docker.
 INSTALL_MODU_HEAD52=Removing all containers and temporary volumes.
 INSTALL_MODU_HEAD53=Mount temporary structure of volumes and containers trydockcmd_ in Docker
+INSTALL_MODU_HEAD54=Geodata Engine: Importing Countries and Postal Codes for:
+INSTALL_MODU_HEAD55=Connection failed with:
+INSTALL_MODU_HEAD56=Database setup connection:
+INSTALL_MODU_HEAD57=Geodata failure for countries and postal codes of country:
+INSTALL_MODU_HEAD58=Official script for postal codes of country:
+INSTALL_MODU_HEAD59=Language activation failed:
+INSTALL_MODU_HEAD60=Accounting configuration failed company:
 INSTALL_MODU_HEADCO=Language to install: 
 INSTALL_MODU_FOOT01=Audit summary
 INSTALL_MODU_FOOT02=Start date
@@ -309,6 +320,8 @@ BCK_TEMPORARY=The working folder DESTINO was successfully deleted.
 BCK_TEMPORARY_2=The DESTINO working folder will be deleted once the backup process is complete.
 BCK_NOT_TEMPORARY=The DESTINO work folder could not be deleted.
 BCK_ERR_NOTFOUND=None of the containers (CONTENEDOR) were detected in execution.
+BCK_COPY_SERVER=Copy file ARCHIVO to the trytind server in Docker.
+BCK_COPY_CLIENT=Copying file from Docker server ARCHIVO to computer DESTINO.
 
 # --- inspectcontainer.bat ---
 # --- PROYECTO, NAME It is a variable that is replaced in the program inspectcontainer.bat

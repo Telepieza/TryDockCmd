@@ -17,24 +17,17 @@ set "proyecto=%~1"
 set "ins_lang_action=%~2"
 set "log_action=!LOG-INFO!"
 set /a "wait_timelan=10"
+set "file_lang_tmp=%DIR_TMP%\trytond_lang"
 
+if /i "!ins_lang_action!"=="%INS%" set "log_action=%INS%"
 call "%DIR_SCRIPT%install_header.bat" "%proyecto%" "%ins_lang_action%" "%LANG%" "install_language"
-if %errorlevel% EQU 2 (
-   set "MESSAGE=!STAT_ERR_NOT_INSTALLED:PROYECTO=%proyecto%!"
-   call :logger "!LOG-ERROR!" "!MESSAGE!"
-   pause & goto :exit
-)
-if %errorlevel% EQU 4 (
-   set "MESSAGE=!BCK_CONT_STOP:PROYECTO=%proyecto%!"
-   call :logger "!LOG-ERROR!" "!MESSAGE!"
-   pause & goto :exit
- )
+if %ERRORLEVEL% NEQ 0 goto :exit
 
- :: Si es de install.bat seguimos en el proceso de instalacion
- if /i "!ins_lang_action!"=="%INS%" (
-  set "log_action=%INS%"
-  goto :language_modules_country
- )
+set "COM1=TRYTOND_DATABASE_URI=!DB_URI! trytond-admin -c /etc/trytond.conf -d %DB_NAME%"
+set "COM2=TRYTONPASSFILE=/tmp/.passwd"
+set "COM3= --email !EMAIL! -vv"
+:: Si es de install.bat seguimos en el proceso de instalacion
+if /i "!ins_lang_action!"=="%INS%" goto :language_modules_country
 
 :menu_trytond_lang
   cls
@@ -62,8 +55,9 @@ if %errorlevel% EQU 4 (
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "5" "1" "N"
     goto :menu_trytond_lang
   )
+
   if /i "%wlang%" NEQ "!TRYTON_LANGUAGE!" (
-    set "!TRYTON_LANGUAGE!=%wlang%"
+    set "TRYTON_LANGUAGE=%wlang%"
     set "LX="
     set "LL="
     if /i "!TRYTON_LANGUAGE!" EQU "es"  set "LX=!LS!" & set "LL=!ES!"
@@ -72,45 +66,98 @@ if %errorlevel% EQU 4 (
   )  
   if "%LX%"=="" if /i "%LL%"=="" (
     call :logger "!LOG-WARN!" "!INSTALL_MODU_34!"
-    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "5" "1" "N"
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
     goto :menu_trytond_lang
   )
   echo.
   set "confirm="
   set "MESSAGE=!INSTALL_MODU_EMPLG:PROYECTO=%wlang%!"
   set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
-  if /i not "%confirm%"=="YES" (
+  if /i "%confirm%" NEQ "YES" (
     echo.
     call :logger "!LOG-CANCEL!" "!LOG_INSTALL_CANCEL!"
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "5" "1" "N"
     goto :menu_trytond_lang
   )
 
-  call :database_process_lang
   echo.
+  :: 1.- Parar el servicio de postgres para desactivar posibles conexiones de usuarios
+  call :logger "%log_action%" "[1.-] !INSTALL_MODU_HEAD11! - stop %POSTGRES%" "3"
+  docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps "%POSTGRES%" | findstr /I "Up" >nul
+  if %ERRORLEVEL% EQU 0 (
+    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" stop "%POSTGRES%" >nul 2>&1
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timelan!" "1"
+  )  
+  :: 2.- Activar el servicio de postgres
+  call :logger "%log_action%" "[2.-] !INSTALL_MODU_HEAD12! - start %POSTGRES%" "3"
+  docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" start "%POSTGRES%" >nul 2>&1 
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timelan!" "1"
+  :: 3.- Probando conexión a la base de datos
+  call :logger "%log_action%" "[3.-] !INSTALL_MODU_HEAD16! %DB_NAME%" "3"
+  set  "cmd=SELECT current_database();"
+  call :run_trytond_lang "%POSTGRES%" "!cmd!"
 
 :language_modules_country
-  call :logger "%log_action%" "!INSTALL_MODU_LG!" "3"
-  set "COM1=TRYTOND_DATABASE_URI=!DB_URI! trytond-admin -c /etc/trytond.conf -d %DB_NAME%"
-  set "COM2=TRYTONPASSFILE=/tmp/.passwd"
-  set "COM3= --email !EMAIL! -vv"
-
   set "noclear_file="
-  if /i "%ins_lang_action%"=="%INS%" set "noclear_file=YES"
+  if /i "%ins_lang_action%"=="%INS%" (
+    call :logger "%log_action%" "!INSTALL_MODU_LG! !WORD_INSTALL! !WORD_LANGUAGE!:!TRYTON_LANGUAGE!" "3"
+    set "noclear_file=YES"
+    echo.
+  )
+
+  :: 1. Actualizar lista de módulos
   call :logger "%log_action%" "!INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
   call :run_trytond_lang "%SERVER%" "!cmd!" "" "%file_base%" "%noclear_file%"
 
+  :: 2. Activar el idioma seleccionado
   call :logger "%log_action%" "!INSTALL_MODU_HEADCO! -l CODE !TRYTON_LANGUAGE!" "3"
   set "cmd=!COM2! !COM1! -l CODE !TRYTON_LANGUAGE! !COM3!"
   call :run_trytond_lang "%SERVER%" "!cmd!" "" "%file_base%" "YES"
 
+  :: 3. Instalar módulos del país (!LL! contiene el nombre del módulo: account_es, etc.)
   call :logger "%log_action%" "%LX%" "3"
   set "cmd=!COM2! !COM1! -u !LL! --activate-dependencies !COM3!"
   call :run_trytond_lang "%SERVER%" "!cmd!" "" "%file_base%" "YES"
 
-  if /i "%ins_lang_action%"=="%INS%" exit /b
+ :: 4. Importar Paises , subdivisiones y códigos postales 
+  call :logger "%log_action%" "!INSTALL_MODU_HEAD54! !TRYTON_LANGUAGE!" "3"
+  set "iso_code=!TRYTON_LANGUAGE!"
+  if /i "!iso_code!"=="es" set "iso_code=ES"
+  if /i "!iso_code!"=="fr" set "iso_code=FR"
+  if /i "!iso_code!"=="de" set "iso_code=DE"
+  set "ACCION=GEO"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1"
   
+  docker exec -t ^
+  -e COMPANY_NAME="!CURRENT_COMPANY_NAME!" ^
+  -e COMPANY_CURRENCY="!CURRENT_COMPANY_CURRENCY!" ^
+  -e APP_LANGUAGE="!LOCALE!" ^
+  !CURRENT_TRYTON! python3 /tmp/auto_full_setup.py !DB_NAME! /tmp/trytond_setup.conf !iso_code! !ACCION!
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
+  if %ERRORLEVEL% GEQ 10 (
+    set "MESSAGE=ERROR %ERRORLEVEL%:"
+    if %ERRORLEVEL% equ 10 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD55! !DB_NAME!."
+    if %ERRORLEVEL% equ 15 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD56! !DB_NAME!."
+    if %ERRORLEVEL% equ 20 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD57! [!iso_code!]."
+    if %ERRORLEVEL% equ 21 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD58! [!iso_code!]."
+    call :logger "!LOG-ERROR!" "!MESSAGE!"
+  )
+
+  :: Traemos el log actual del contenedor a un temporal
+  set "temp_file=%file_lang_tmp%_!iso_code!.txt"
+  set "logger_tmp=%DIR_LOG%\%TRYTON%_logger_!iso_code!.log"
+  set "MESSAGE=!BCK_COPY_CLIENT:ARCHIVO=/tmp/trytond_proteus.txt!"
+  call :logger "%log_action%" "!MESSAGE:DESTINO=%logger_tmp%!" "3"
+  docker cp !CURRENT_TRYTON!:/tmp/trytond_proteus.txt %temp_file% >nul
+  echo [!DATE!] [!TIME!] [!ACCION!]  > "%logger_tmp%"
+  type "%temp_file%" >> "%logger_tmp%"
+  docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_proteus.txt >nul
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
+  :: ==============================================================================
+  
+  if /i "%ins_lang_action%"=="%INS%" exit /b
+
   call :logger "%log_action%" "!INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
   call :run_trytond_lang "%SERVER%" "!cmd!" "" "%file_base%" "YES"
@@ -128,26 +175,6 @@ if %errorlevel% EQU 4 (
   call :logger "!LOG-SUCC!" "!INSTALL_MODU_END!" "3"
   echo.
   pause & goto :menu_trytond_lang
-
-:database_process_lang
-   echo.
-   :: 1.- Parar el servicio de postgres para desactivar posibles conexiones de usuarios
-   call :logger "%log_action%" "[1.-] !INSTALL_MODU_HEAD11! - stop %POSTGRES%" "3"
-   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps "%POSTGRES%" | findstr /I "Up" >nul
-   if %errorlevel% EQU 0 (
-     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" stop "%POSTGRES%" >nul 2>&1
-     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timelan!" "1"
-   )  
-   :: 2.- Activar el servicio de postgres
-   call :logger "%log_action%" "[2.-] !INSTALL_MODU_HEAD12! - start %POSTGRES%" "3"
-   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" start "%POSTGRES%" >nul 2>&1 
-   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timelan!" "1"
-   :: 3.- Probando conexión a la base de datos
-   call :logger "%log_action%" "[3.-] !INSTALL_MODU_HEAD16! %DB_NAME%" "3"
-   set  "cmd=SELECT current_database();"
-   call :run_trytond_lang "%POSTGRES%" "!cmd!"
-   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timelan!" "1"
-   exit /b
 
 :: 08 04-01
 :listing_modules_lang
@@ -211,7 +238,7 @@ if %errorlevel% EQU 4 (
     REM Para POSTGRES, usamos psql directamente
     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d "!DB_NAME!" -At -c "%cmd%" %redir_out% %redir_err%
   )
-  set "status=%errorlevel%"
+  set "status=%ERRORLEVEL%"
   :: --- Esperar si OK ---
   if %status% EQU 0 (
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timelan!"

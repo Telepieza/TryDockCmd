@@ -76,6 +76,12 @@ call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timei
   call :logger "%INS%" "!MESSAGE!"
   call "%DIR_SCRIPT%client.bat" "%proyecto%" "%INS%"
   if %errorlevel% NEQ 0 call :logger "!LOG-ERROR!" "!STAT_NOT_HTTP!"  
+  
+  if "%ACTIVE_COPY%" NEQ "0" (
+    docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/auto_full_setup.py
+    docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_setup.conf
+    set "ACTIVE_COPY=0"
+  )
   :: Buscar errores en los log de Docker
   call "%DIR_SCRIPT%errors.bat" "%proyecto%" "%INS%"
   echo.

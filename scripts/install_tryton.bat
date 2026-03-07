@@ -19,17 +19,7 @@ set "log_action=!LOG-INFO!"
 set /a "wait_timetry=10"
 
 call "%DIR_SCRIPT%install_header.bat" "%proyecto%" "%ins_tryton_action%" "%INS%" "install_tryton"
-if %errorlevel% EQU 2 (
-   set "MESSAGE=!STAT_ERR_NOT_INSTALLED:PROYECTO=%proyecto%!"
-   call :logger "!LOG-ERROR!" "!MESSAGE!"
-   pause & goto :exit
-)
-if %errorlevel% EQU 4 (
-   set "MESSAGE=!BCK_CONT_STOP:PROYECTO=%proyecto%!"
-   call :logger "!LOG-ERROR!" "!MESSAGE!"
-   pause & goto :exit
- )
-
+if %ERRORLEVEL% NEQ 0 goto :exit
 :: Si es de install.bat seguimos en el proceso de instalacion
 if /i "%ins_tryton_action%"=="%INS%" goto :run_install_modules
 
@@ -75,7 +65,7 @@ if /i "%ins_tryton_action%"=="%INS%" goto :run_install_modules
 :check_database
   set "command=\l"
   call :run_trytond "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
-  if %errorlevel%==0 (
+  if %ERRORLEVEL%==0 (
     call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "L" "!INSTALL_MODU_01!" "0" "%file_table%" 
   )
   if /i "%ins_tryton_action%"=="%INS%" exit /b
@@ -84,7 +74,7 @@ if /i "%ins_tryton_action%"=="%INS%" goto :run_install_modules
 :check_rules
   set "command=\du"
   call :run_trytond "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
-  if %errorlevel%==0 (
+  if %ERRORLEVEL%==0 (
     call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "U" "!INSTALL_MODU_02!" "0" "%file_table%" 
   )
   if /i "%ins_tryton_action%"=="%INS%" exit /b
@@ -93,7 +83,7 @@ if /i "%ins_tryton_action%"=="%INS%" goto :run_install_modules
 :check_extensions
   set "command=\dx"
   call :run_trytond "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
-  if %errorlevel%==0 (
+  if %ERRORLEVEL%==0 (
    call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "X" "!INSTALL_MODU_03!" "0" "%file_table%" 
   )
   if /i "%ins_tryton_action%"=="%INS%" exit /b
@@ -233,7 +223,7 @@ pause & goto :menu_trytond
    call :logger "%INS%" "[1.-] !INSTALL_MODU_HEAD11! -stop %POSTGRES%" "3"
    :: docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps --status running -q | findstr "^" >nul 2>&1
    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps "%POSTGRES%" | findstr /I "Up" >nul
-   if %errorlevel% EQU 0 (
+   if %ERRORLEVEL% EQU 0 (
      docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" stop "%POSTGRES%" >nul 2>&1
      call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" 
    )  
@@ -364,7 +354,7 @@ pause & goto :menu_trytond
     REM Para POSTGRES, usamos psql directamente
     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d "!DB_NAME!" -At -c "%cmd%" %redir_out% %redir_err%
   )
-  set "status=%errorlevel%"
+  set "status=%ERRORLEVEL%"
   :: --- Esperar si OK ---
   if %status% EQU 0 (
     if /i "%ins_tryton_action%" EQU "%INS%" (

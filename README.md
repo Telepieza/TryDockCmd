@@ -104,17 +104,24 @@ The system orchestrates three specialized services defined in the compose.yml fi
 - cron: A dedicated container for background tasks, ensuring the main user interface remains fast and responsive.
 - postgres: The database engine. It uses persistent Docker volumes, so your business data stays safe even if containers are stopped or removed.
 
-## 🏗️ 5.1. Data Injection Bridge (compose_import.yml)
+## 🚀 5.1. Data Injection Engine (Hot-Loading)
 
-The system extends the core infrastructure using a specialized orchestration layer to inject business logic and automate the initial setup:
+Unlike traditional methods, this system utilizes a Hot-Loading Injection architecture. This allows the business logic to be configured without spinning up additional infrastructure or modifying the official compose.yml file.
 
-- data-init: An ephemeral, high-performance container designed to execute the Proteus Engine. It operates as a "Run & Remove" (--rm) service that connects the Python logic with the active database.
-- external-network: It utilizes the tryton_default bridge to ensure secure, high-speed communication between the setup script and the PostgreSQL engine.
-- volume-mapping: It synchronizes the /python and /config directories, allowing the system to hot-read your trytond.conf and execute the auto_full_setup.py script without modifying the core server images.
-- Execution Tip: This bridge is triggered automatically by the manager using:
-```bash  
-         docker compose -f compose.yml -f compose_import.yml run --rm data-init
-```
+### 🛠️ Automated Setup Process
+
+The installer (tcd.bat) manages the configuration through the auto_full_setup.py engine:
+
+- Injection: The script is copied on-the-fly into the active server service.
+- Native Execution: It runs using the official Tryton/Proteus environment and libraries.
+- Modularity: It supports different execution modes depending on the needs:
+   - FULL: Complete configuration (Company, Accounting, Geodata, Fiscal Years).
+   - EO: Exclusive update for Countries and Postal Codes (ES, FR, DE).
+   - ACC: Exclusive configuration for Chart of Accounts and Fiscal Years.
+
+### 💡 Technical Advantage
+
+By eliminating the need for temporary containers (--rm), the system reduces RAM consumption during installation, prevents network conflicts between containers, and guarantees a 100% stable connection to the database by utilizing the existing official server tunnel.
 ---
 
 ## 🚀 6. Launching the Manager (The Pre-Flight Sequence)

@@ -77,6 +77,7 @@ LOG_SUCC_BACKUP=Copia de seguridad guardada correctamente.
 LOG_SUCC_RESTORE=Base de datos restaurada y sincronizada.
 LOG_ERR_DOCKER=Docker no está instalado o el servicio está parado.
 LOG_ERR_ENV=No se ha localizado el fichero .env.
+LOG_ERR_FILE=No se ha localizado el fichero ARCHIVO.
 LOG_ERR_COMPOSE=No se ha localizado el fichero compose.yml.
 LOG_ERR_PS1=No se ha localizado el archivo read-compose.ps1.
 LOG_ERR_PS2=No se ha encontrado el programa powershell.exe.
@@ -120,7 +121,9 @@ WORD_EXISTS=si existe
 WORD_SPAIN=(ES) ESPAÑA
 WORD_FRANCE=(FR) FRANCIA
 WORD_GERMANY=(DE) ALEMANIA
-
+WORD_COMPANY=Empresa
+WORD_CURRENCY=Moneda
+WORD_INSTALL=Instalar
 # --- install.bat ---
 # --- PROYECTO, CONEXION, COUNT, FILE son variables que se sustituye en el programa install.bat ---
 INSTALL_TITLE=Se ha detectado que no existe Tryton, se activa la instalación de forma automática.
@@ -254,6 +257,13 @@ INSTALL_MODU_HEAD50=Se crean ejercicios fiscales, sus secuencias y periodos en c
 INSTALL_MODU_HEAD51=Levantando contenedores y volúmenes temporales en Docker.
 INSTALL_MODU_HEAD52=Eliminando todos los contenedores y volúmenes temporales.
 INSTALL_MODU_HEAD53=Montar (mount) estructura temporal de volúmenes y contenedores trydockcmd_ en Docker
+INSTALL_MODU_HEAD54=Motor Geodata: Importando Países y Códigos Postales para:
+INSTALL_MODU_HEAD55=Conexión fallida con:
+INSTALL_MODU_HEAD56=Conexión setup en base de datos:
+INSTALL_MODU_HEAD57=Fallo en Geodata de países y códigos postales del país:
+INSTALL_MODU_HEAD58=Fallo en script oficial de códigos postales del país:
+INSTALL_MODU_HEAD59=Fallo en activacion del idioma:
+INSTALL_MODU_HEAD60=Fallo en configuracion Contable/Empresa:
 INSTALL_MODU_HEADCO=Lenguaje a instalar: 
 INSTALL_MODU_FOOT01=Resumen auditoría
 INSTALL_MODU_FOOT02=Fecha inicío
@@ -309,6 +319,8 @@ BCK_TEMPORARY=La carpeta temporal DESTINO se ha eliminado.
 BCK_TEMPORARY_2=La carpeta temporal DESTINO se borrará una vez completado el proceso del backup.
 BCK_NOT_TEMPORARY=La carpeta temporal DESTINO no se ha podido borrar.
 BCK_ERR_NOTFOUND=No se detectó ninguno de los contenedores (CONTENEDOR) en ejecución.
+BCK_COPY_SERVER=Copiando fichero ARCHIVO al servidor de trytond en Docker.
+BCK_COPY_CLIENT=Copiando fichero del servidor de Docker ARCHIVO al ordenador DESTINO.
 
 # --- inspectcontainer.bat  ---
 # --- PROYECTO, CONTAINER son variables que se sustituye en el programa inspectcontainer.bat ---

@@ -20,17 +20,7 @@ set /a "wait_timedem=10"
 set "confirm="
 
 call "%DIR_SCRIPT%install_header.bat" "%proyecto%" "%ins_demo_action%" "%DEMO%" "install_demo"
-if %errorlevel% EQU 2 (
-   set "MESSAGE=!STAT_ERR_NOT_INSTALLED:PROYECTO=%proyecto%!"
-   call :logger "!LOG-ERROR!" "!MESSAGE!"
-   pause & goto :exit
-)
-if %errorlevel% EQU 4 (
-   set "MESSAGE=!BCK_CONT_STOP:PROYECTO=%proyecto%!"
-   call :logger "!LOG-ERROR!" "!MESSAGE!"
-   pause & goto :exit
- )
-
+if %ERRORLEVEL% NEQ 0 goto :exit
 :: Si es de install.bat seguimos en el proceso de instalacion
 if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 
@@ -74,7 +64,7 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 :check_database_demo
   set "command=\l"
   call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
-  if %errorlevel%==0 (
+  if %ERRORLEVEL%==0 (
     call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "L" "!INSTALL_MODU_01!" "0" "%file_table%" "%DEMO%"
   )
   if /i "%ins_demo_action%"=="%INS%" exit /b
@@ -83,7 +73,7 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 :check_rules_demo
   set "command=\du"
   call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
-  if %errorlevel%==0 (
+  if %ERRORLEVEL%==0 (
     call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "U" "!INSTALL_MODU_02!" "0" "%file_table%" "%DEMO%"
   )
   if /i "%ins_demo_action%"=="%INS%" exit /b
@@ -92,7 +82,7 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 :check_extensions_demo
   set "command=\dx"
   call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
-  if %errorlevel%==0 (
+  if %ERRORLEVEL%==0 (
     call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "X" "!INSTALL_MODU_03!" "0" "%file_table%" "%DEMO%"
   )
   if /i "%ins_demo_action%"=="%INS%" exit /b
@@ -102,7 +92,7 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 :run_install_modules_demo
   set "cmd=SELECT 1 FROM pg_catalog.pg_database WHERE datname='!DB_NAME_DEMO!';"
   call :run_trytond_demo "%POSTGRES%" "!cmd!" "%file_log%" "%file_err%"
-  if %errorlevel% EQU 0 (
+  if %ERRORLEVEL% EQU 0 (
     call :check_database_demo
     call :check_rules_demo
     call :check_extensions_demo
@@ -208,7 +198,7 @@ pause & goto :menu_trytond_demo
    call :logger "%INS%" "[1.-] !INSTALL_MODU_HEAD11! - stop %POSTGRES%" "3"
    :: docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps --status running -q | findstr "^" >nul 2>&1
    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps "%POSTGRES%" | findstr /I "Up" >nul
-   if %errorlevel% EQU 0 (
+   if %ERRORLEVEL% EQU 0 (
      docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" stop "%POSTGRES%" >nul 2>&1
      call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timedem!"  
    )  
@@ -266,7 +256,7 @@ pause & goto :menu_trytond_demo
   set "numer=%~3"
   set "cmd=SELECT name, state FROM ir_module ORDER BY name;"
   call :run_trytond_demo "%POSTGRES%" "!cmd!" "%file_modules%" "%file_err%"
-  if %errorlevel% NEQ 0 exit /b
+  if %ERRORLEVEL% NEQ 0 exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "8" "%event%" "%title%" "%numer%" "%file_modules%" "%DEMO%"
   exit /b
   
@@ -277,7 +267,7 @@ pause & goto :menu_trytond_demo
   set "numer=%~3"
   set  "cmd=SELECT name FROM ir_module WHERE state='activated' ORDER BY name;"
   call :run_trytond_demo "%POSTGRES%" "!cmd!" "%file_activ%" "%file_err%"
-  if %errorlevel% NEQ 0  exit /b
+  if %ERRORLEVEL% NEQ 0  exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "6" "%event%" "%title%" "%numer%" "%file_activ%" "%DEMO%"
   exit /b
 
@@ -321,7 +311,7 @@ pause & goto :menu_trytond_demo
     REM Para POSTGRES, usamos psql directamente
     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d "!DB_NAME_DEMO!" -At -c "%cmd%" %redir_out% %redir_err%
   )
-  set "status=%errorlevel%"
+  set "status=%ERRORLEVEL%"
   :: --- Esperar si OK ---
   if %status% EQU 0 (
     if /i "%ins_demo_action%" EQU "%INS%" (
