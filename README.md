@@ -194,7 +194,7 @@ Implemented setup tasks include:
 - Company resolution/creation from `trytond.conf`/environment.
 - Language activation and admin language assignment.
 - Chart/account linkage by localization package.
-- Fiscal years (2026, 2027, 2028), periods, and invoice sequences.
+- Fiscal years (2026 to 2030), periods, and invoice sequences.
 - Countries from /trytond/modules/country/scripts/import_countries.py. Extract information from the Python library pycountry standards 3166-1
 - Subdivisions from /trytond/modules/country/scripts/import_countries.py. Extract information from the Python library pycountry standards 3166-2
 - Postal codes from /trytond/modules/country/scripts/import_postal_codes.py. Extract information from the GeoNames download path: http://download.geonames.org/export/zip/

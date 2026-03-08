@@ -167,17 +167,22 @@ call :logger "%INS%" "[9.-] !INSTALL_MODU_HEAD34!" "3"
 set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
 call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
 
+:: Crear Emprea, Ejercicio fiscal. secuencias y periodos contables
+call :logger "%INS%" "[10.-] !INSTALL_MODU_HEAD44!" "3"
+call "%DIR_SCRIPT%install_accounts.bat" "%proyecto%" "%INS%"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1"
+
 :: Reports Verificar y comprobar que todos los módulos están activated
-call :logger "%INS%" "[10.-] !INSTALL_MODU_HEAD18!" "3"
+call :logger "%INS%" "[11.-] !INSTALL_MODU_HEAD18!" "3"
 call :compare_modules_install "%INS%" "!INSTALL_MODU_HEAD18!" "3"
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1"
 
 :: Reports Listar todos los modulos 
-call :logger "%INS%" "[11.-] !INSTALL_MODU_HEAD19!" "3"
+call :logger "%INS%" "[12.-] !INSTALL_MODU_HEAD19!" "3"
 call :listing_modules "%INS%" "!INSTALL_MODU_HEAD19!" "3"
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1"
 
-call :logger "%INS%" "[12.-] !INSTALL_MODU_HEAD20!" "3"
+call :logger "%INS%" "[13.-] !INSTALL_MODU_HEAD20!" "3"
 call :extract_xml_from_log "%file_base%" "%file_xml%"
 
 if /i "%ins_tryton_action%"=="%INS%" (

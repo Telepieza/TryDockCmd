@@ -93,7 +93,7 @@ Tareas implementadas:
 - Resolución/creación de empresa desde `trytond.conf`/entorno.
 - Activación de idiomas y asignación de idioma a admin.
 - Vinculación contable por localización.
-- Ejercicios fiscales (2026, 2027, 2028), periodos y secuencias.
+- Ejercicios fiscales (2026 al 2030), periodos y secuencias.
 - Países, subdivisiones y códigos postal
 
 ## Configuración

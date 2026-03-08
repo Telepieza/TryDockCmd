@@ -218,8 +218,6 @@ set "action_ins=%INS%"
   call :logger "%TXT%" "!START_MSG! !MENU_TRYDOCK! !MENU-OPTION_MAIN!"
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "timeout_start" "!wait_time!" "1" "N"
 
-  :: call "%DIR_SCRIPT%install_python.bat" "%TRYTON%" "%INS%"
-
 :menu
   cls
   :: Banner
@@ -271,9 +269,9 @@ set "action_ins=%INS%"
     echo.
     call :logger "%MENU%" "!LOG_INSTALL_OPC!" "3"
     echo.
-    call :logger "%MENU%" "- !MENU-OPTION_8!" "5" 
-    call :logger "%MENU%" "- !MENU-OPTION_9:VERSION=%CURRENT_VERSION%!" "5"
-    call :logger "%MENU%" "- !LOG_INSTALL_OP1!" "5"
+    call :logger "%MENU%" "1.- !MENU-OPTION_8!" "5" 
+    call :logger "%MENU%" "2.- !MENU-OPTION_9:VERSION=%CURRENT_VERSION%!" "5"
+    call :logger "%MENU%" "3.- !LOG_INSTALL_OP1!" "5"
     echo.
     pause & goto :menu
   )

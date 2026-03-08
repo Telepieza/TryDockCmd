@@ -1,3 +1,11 @@
+# ===============================================================================
+# PROGRAM:   auto_full_setup.py
+# PROJECT:   Tryton Docker Manager
+# VERSION:   1.0.0
+# DATE:      01/03/2026
+# LICENSE:   MIT License
+# DESCRIPTION: Enlace TryDockCmd con proteus
+# ==============================================================================
 import os
 import logging
 from datetime import date
@@ -377,10 +385,19 @@ def get_sequence_type_id(module, name, fallback_id):
 
 def create_fiscalyear(year, company):
     FiscalYear = Model.get('account.fiscalyear')
+    Period = Model.get('account.period')
     SequenceStrict = Model.get('ir.sequence.strict')
     SequenceType = Model.get('ir.sequence.type') 
+    def _create_periods(fy):
+        Wizard('account.fiscalyear.create_periods', [fy]).execute('create_periods')
     existing = FiscalYear.find([('name', '=', str(year)), ('company', '=', company.id)])
-    if existing: return existing[0]
+    if existing:
+        fy = existing[0]
+        has_periods = bool(Period.find([('fiscalyear', '=', fy.id)], limit=1))
+        if not has_periods:
+            _create_periods(fy)
+            logging.info(msg['fisc_year'].format(year))
+        return fy
     fy = FiscalYear(name=str(year), company=company)
     fy.start_date = date(year, 1, 1)
     fy.end_date = date(year, 12, 31)
@@ -403,10 +420,7 @@ def create_fiscalyear(year, company):
     inv_seq_link.in_invoice_sequence = _make_seq("SUP_INV")
     inv_seq_link.in_credit_note_sequence = _make_seq("SUP_CRN")
     fy.save()
-    wiz = Wizard('account.fiscalyear.create_periods')
-    wiz.execute('start')
-    wiz.form.fiscalyear = fy
-    wiz.execute('create_periods')
+    _create_periods(fy)
     logging.info(msg['fisc_year'].format(year))
     return fy
 
@@ -499,7 +513,7 @@ def run_setup():
             sync_and_clean_modules()
             company = setup_or_get_company(conf_data['name'], conf_data['currency'])
             setup_accounts(company, chart_mapping)
-            for year in [2026, 2027, 2028]:
+            for year in range(2026, 2031):
                 create_fiscalyear(year, company)
             logging.info(msg['success'])
         except Exception as e:

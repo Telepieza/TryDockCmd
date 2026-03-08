@@ -4,3 +4,4 @@
 /tmp
 /test
 /config/.passwd
+/python/__pycache__

@@ -28,6 +28,9 @@ set "COM2=TRYTONPASSFILE=/tmp/.passwd"
 set "COM3= --email !EMAIL! -vv"
 :: Si es de install.bat seguimos en el proceso de instalacion
 
+if not exist "%DIR_LOG%" mkdir "%DIR_LOG%"
+if not exist "%DIR_TMP%" mkdir "%DIR_TMP%"
+
 if /i "!ins_lang_action!"=="%INS%" (
   set "iso_code=!TRYTON_LANGUAGE!"
   if /i "!iso_code!"=="es" set "iso_code=ES"
@@ -37,6 +40,7 @@ if /i "!ins_lang_action!"=="%INS%" (
   call :head_modules_lang
   goto :language_modules_country
 )
+
 :menu_trytond_lang
   cls
   set "option="
@@ -47,10 +51,15 @@ if /i "!ins_lang_action!"=="%INS%" (
   echo ==========================================================================================
   call :logger %MENU% "!INSTALL_MODU_LG!" "5"
   echo ==========================================================================================
+  echo.
   call :logger "%MENU%" "1. !INSTALL_MODU_30!" "5"
   call :logger "%MENU%" "2. !INSTALL_MODU_31!" "5"
   call :logger "%MENU%" "3. !INSTALL_MODU_32!" "5"
   call :logger "%MENU%" "Q. !INSTALL_MODU_33!" "5"
+  echo.
+  call :logger "%MENU%" "!INSTALL_MODU_36!" "2"
+  call :logger "%MENU%" "!INSTALL_MODU_37!" "2"
+  echo.
   echo ==========================================================================================
   echo.
   set /p "option=%BS%        !C_M_YELLOW!%SELECT_OPT%!C_M_RESET! "
@@ -136,7 +145,6 @@ if /i "!ins_lang_action!"=="%INS%" (
  :: 4. Importar Paises , subdivisiones y códigos postales 
   call :logger "%log_action%" "!INSTALL_MODU_HEAD54! !TRYTON_LANGUAGE!" "3"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1"
-  
   docker exec -t ^
   -e COMPANY_NAME="!CURRENT_COMPANY_NAME!" ^
   -e COMPANY_CURRENCY="!CURRENT_COMPANY_CURRENCY!" ^
@@ -152,7 +160,7 @@ if /i "!ins_lang_action!"=="%INS%" (
     call :logger "!LOG-ERROR!" "!MESSAGE!"
   )
 
-  :: Traemos el log actual del contenedor a un temporal
+  :: 5 Traemos el log actual del contenedor a un temporal para grabar los datos en el pc
   set "temp_file=%file_lang_tmp%_!iso_code!.txt"
   set "logger_tmp=%DIR_LOG%\%TRYTON%_logger_!iso_code!.log"
   set "MESSAGE=!BCK_COPY_CLIENT:ARCHIVO=/tmp/trytond_proteus.txt!"
@@ -162,10 +170,36 @@ if /i "!ins_lang_action!"=="%INS%" (
   type "%temp_file%" >> "%logger_tmp%"
   docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_proteus.txt >nul
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
-  :: ==============================================================================
-  
+
+  :: 6 Ejecuta la inyección combinada
+  call :logger "%log_action%" "!INSTALL_MODU_HEAD68! !TRYTON_LANGUAGE!" "3"
+  set "ACCION=LANG"
+  docker exec -t ^
+  -e COMPANY_NAME="!CURRENT_COMPANY_NAME!" ^
+  -e COMPANY_CURRENCY="!CURRENT_COMPANY_CURRENCY!" ^
+  -e APP_LANGUAGE="!LOCALE!" ^
+  !CURRENT_TRYTON! python3 /tmp/auto_full_setup.py !DB_NAME! /tmp/trytond_setup.conf !iso_code! !ACCION!
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timelan!" "1"
+  if %ERRORLEVEL% GEQ 10 (
+    set "MESSAGE=ERROR %ERRORLEVEL%:"
+    if %ERRORLEVEL% equ 10 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD55! !DB_NAME!."
+    if %ERRORLEVEL% equ 15 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD56! !DB_NAME!."
+    if %ERRORLEVEL% equ 30 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD59! [!LOCALE!]"
+    call :logger "!LOG-ERROR!" "!MESSAGE!"
+  ) 
+
+  :: ======Localizar los idiomas configurados en Tryton=============
+  call :logger "%log_action%" "!INSTALL_MODU_HEAD67! !DB_NAME!" "3"
+  set "temp_file=%file_lang_tmp%_count.txt"
+  set "cmd=SELECT count(*) FROM ir_lang WHERE translatable=true;"
+  call :run_trytond_lang "%POSTGRES%" "!cmd!" "%temp_file%"
+  set "LANGUAGES=0"
+  for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "LANGUAGES=%%i"
+  call :logger "%log_action%" "!WORD_ACT_LANGUAGES!: !LANGUAGES! !WORD_CONFIGURED!" "3"
+
   if /i "%ins_lang_action%"=="%INS%" exit /b
 
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
   call :logger "%log_action%" "!INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
   call :run_trytond_lang "%SERVER%" "!cmd!" "" "%file_base%" "YES"
@@ -250,7 +284,7 @@ if /i "!ins_lang_action!"=="%INS%" (
   :: --- Esperar si OK ---
   if %status% EQU 0 (
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timelan!"
-    exit /b 0
+    goto :exit
   )
   if %status% NEQ 0 (
     if not "%errfile%"=="" if exist "%errfile%" call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "display_file_event_all" "!LOG-ERROR!" "%errfile%"
@@ -280,6 +314,7 @@ if /i "!ins_lang_action!"=="%INS%" (
   call :logger "%MENU%" "!INSTALL_MODU_HEAD64!" "16"
   call :logger "%MENU%" "[+] 5.-!INSTALL_MODU_HEAD65!" "3"
   call :logger "%MENU%" "!INSTALL_MODU_HEAD66:FILE=%iso_code%.zip!" "16"
+  call :logger "%MENU%" "[+] 6.-!INSTALL_MODU_HEAD69! !iso_code!" "3"
   echo.
   exit /b
 
