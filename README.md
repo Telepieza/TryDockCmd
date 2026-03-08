@@ -1,16 +1,15 @@
 # 🛡️ Tryton ERP Docker Manager 🚀
 
-An intuitive, menu-driven automation framework to deploy, manage, and protect your **Tryton ERP** environment on Windows.
+An intuitive, menu-driven automation framework to deploy, manage, and protect your **Tryton ERP** environment on Windows with Docker.
 This suite transforms complex Docker orchestration into a reliable, audited, and resilient infrastructure.
-This project simplifies ERP maintenance, making it easy, secure, and professional for administrators and developers.
+This project simplifies ERP maintenance, making it easy, secure, and users, professional for administrators and developers.
 
-The true "magic" lies in the integration of Proteus (Python API), which acts as the system's brain. Once the infrastructure is live, the orchestrator takes control to:
+The true "magic" lies in the integration of Proteus (Python API), which acts as the system's brain. Once the infrastructure is live, the TryDockCmd takes control to:
 
-- __Automated Post-Installation:__ It completes all configuration Wizards (Company, Currency, Users) without human intervention.
-- __Instant Fiscal Engineering:__ Automatically creates fiscal years (2026-2028), invoicing sequences, and monthly accounting periods.
-- __Dynamic Localization:__ Activates and synchronizes languages (en, es, fr, de) and links specific accounting charts based on the selected legislation.
-- __Dual-Environment Ready:__ Delivers a clean production database tryton and a tryton_demo instance with real data in record time.
-
+- **Automated Post-Installation:** It completes all configuration Wizards (Company, Currency, Users) without human intervention.
+- **Instant Fiscal Engineering:** Automatically creates fiscal years (2026-2028), invoicing sequences, and monthly accounting periods.
+- **Dynamic Localization:** Activates and synchronizes languages ​​(es, fr, de), countries, subdivisions, postal codes, and links specific accounting charts according to the selected legislation.
+- **Dual-Environment Ready:** Delivers a clean production database tryton and a tryton_demo instance with real data in record time.
 
 ---
 
@@ -18,10 +17,10 @@ The true "magic" lies in the integration of Proteus (Python API), which acts as 
 
 Before launching the manager, ensure your environment meets these standards:
 
-   1.  **Download Docker Desktop:** [Official Download for Windows](https://www.docker.com/products/docker-desktop/)
-   2.  **Installation:** Follow the installer prompts. We recommend using the **WSL 2 backend** for superior performance.
-   3.  **Scripting:** PowerShell 5.1+: Required for advanced YAML parsing and smart port detection via the read-compose.ps1 bridge.
-   4.  **Verification:** Open your terminal and type `docker --version`. If it returns a version number, you are ready!.
+   1. **Download Docker Desktop:** [Official Download for Windows](https://www.docker.com/products/docker-desktop/)
+   2. **Installation:** Follow the installer prompts. We recommend using the **WSL 2 backend** for superior performance.
+   3. **Scripting:** PowerShell 5.1+: Required for advanced YAML parsing and smart port detection via the read-compose.ps1 bridge.
+   4. **Verification:** Open your terminal and type `docker --version`. If it returns a version number, you are ready!.
    
    Note: Terminal Permissions: The manager requires write access to the project directory to generate /log /tmp /sql and /backup folders.
 
@@ -46,7 +45,7 @@ Before launching the manager, ensure your environment meets these standards:
 ---
 ## 🌍 3. Multi-language Support (i18n)
 
-This project features a robust Internationalization Engine that allows switching between English and Spanish seamlessly.
+This project (TryDockCmd) features a robust Internationalization Engine that allows switching between English and Spanish seamlessly.
 
 - Sanitization: The engine automatically cleans white spaces and handles special characters in translation files to prevent script execution errors.
 - Dynamic Substitution: Translation keys (e.g., PROYECTO, DESTINO, CONEXION, COUNT, FILE, VERSION, NAME, LINES) are replaced in real-time with actual system values.
@@ -115,13 +114,12 @@ The installer (tcd.bat) manages the configuration through the auto_full_setup.py
 - Injection: The script is copied on-the-fly into the active server service.
 - Native Execution: It runs using the official Tryton/Proteus environment and libraries.
 - Modularity: It supports different execution modes depending on the needs:
-   - FULL: Complete configuration (Company, Accounting, Geodata, Fiscal Years).
-   - EO: Exclusive update for Countries and Postal Codes (ES, FR, DE).
-   - ACC: Exclusive configuration for Chart of Accounts and Fiscal Years.
+- FULL: Complete configuration (Company, Accounting, Geodata, Country, postal codes, Fiscal Years, Lenguage).
 
 ### 💡 Technical Advantage
 
-By eliminating the need for temporary containers (--rm), the system reduces RAM consumption during installation, prevents network conflicts between containers, and guarantees a 100% stable connection to the database by utilizing the existing official server tunnel.
+  By eliminating the need for temporary containers (--rm), the system reduces RAM consumption during installation, prevents network conflicts between containers, and guarantees a 100% stable connection to the database by utilizing the existing official server tunnel.
+
 ---
 
 ## 🚀 6. Launching the Manager (The Pre-Flight Sequence)
@@ -148,13 +146,21 @@ When you execute tcd.bat, the system performs an 8-Step Surgical Initialization 
 - Network Creation: Sets up the internal Docker bridge.
 - Schema Initialization tryton:Automatically creates the tryton database and sets up the admin user using the .env credentials.
 - Schema initialization tryton-demo: Automatically creates the tryton-demo database with its official data using the demo user and demo password.
+- Creation of official data: Company, users, parties, fiscal year, sequences, accounting periods, countries, subdivisions and postal codes.
 - Client Launch: Upon success, it triggers the Verified Connectivity Protocol.
 
 The next step is to navigate the menus to check your options:
 
-### Main Menu & Operations
+## 📋 8. Main Menu Options
 
-### 📋 Main Menu Options
+The operations menu is organized as an execution lifecycle:
+
+- `0` performs initial installation/bootstrap when the environment is not yet prepared.
+- `1` to `3` cover daily runtime control (status, start, stop).
+- `4` and `5` focus on observability (logs and error audit).
+- `6` and `7` provide data protection (backup and restore).
+- `8` and `9` are setup paths for production/demo module and database flows.
+- `10` validates connectivity and opens the web client when checks pass.
 
 | Option | Script        |           Description                                       |
 | :---:  | :-------------| :-----------------------------------------------------------|
@@ -174,22 +180,25 @@ The next step is to navigate the menus to check your options:
 
 ## 🧠 8. The Proteus Engine: Zero-Touch Configuration ⚡
 
-Forget about manual clicking. The Tryton Docker Manager features a high-performance orchestration layer powered by the Proteus API. This is the "secret sauce" that compresses days of consulting into seconds of execution.
+The automation engine runs inside the Tryton container and supports targeted execution modes:
 
-Dynamic Infrastructure Mounting:
+- `FULL`: Runs end-to-end setup (module sync, geodata, language flow, company/accounting setup, fiscal years and sequences).
+- `GEO`:  Runs only countries/postal-codes import for selected ISO (`es`, `fr`, `de`).
+- `LANG`: Runs only language/translation activation and upgrade flow.
+- `ACC`:  Runs only company/accounting/fiscal setup (chart linkage, fiscal years, periods, invoice/account sequences).
 
-- The manager orchestrates a Temporary Volume & Container Bridge (trydockcmd_). This ephemeral infrastructure allows the Python environment to inject data directly into the heart of the Docker stack without compromising production stability.
+Implemented setup tasks include:
 
-Automated Business Logic (auto_full_setup.py): Once the containers are live, the Proteus Brain takes over the terminal to execute a 6-stage surgical configuration:
-
-* **1.- Intelligent Module Sync:** Automatically reads all activated modules and feeds them into the configuration Wizard.
-* **2.-Config Discovery:** Hot-reads company metadata and currency directly from /conf/trytond.conf.
-* **3.-Entity Architecture:** Creates the Legal Entity (Company) , Maps Third Parties (Parties), Currencies, and User permissions, finalizes the Business Identity Wizard via API.
-* **4.-Global I18n Activation:** Triggers multi-language support (es, fr, de) based on your .env TRYTON_LANGUAGE variable.
-* **5.-User-Centric Localization:** Binds the interface language to the Admin profile.
-Forces a global translation sync across all installed modules.
-* **6.-Fiscal Engineering (The Master Stroke):** Generates Fiscal Years (2026, 2027, 2028).
-Initializes Invoicing and Accounting sequences. Builds all monthly accounting periods automatically.
+- Connection/bootstrap retries against Tryton/DB.
+- Module synchronization and config wizard cleanup.
+- Company resolution/creation from `trytond.conf`/environment.
+- Language activation and admin language assignment.
+- Chart/account linkage by localization package.
+- Fiscal years (2026, 2027, 2028), periods, and invoice sequences.
+- Countries from /trytond/modules/country/scripts/import_countries.py. Extract information from the Python library pycountry standards 3166-1
+- Subdivisions from /trytond/modules/country/scripts/import_countries.py. Extract information from the Python library pycountry standards 3166-2
+- Postal codes from /trytond/modules/country/scripts/import_postal_codes.py. Extract information from the GeoNames download path: http://download.geonames.org/export/zip/
+- Operational logging to `/tmp/trytond_proteus.txt` (container path).
 
 🚀 Why this is a Game Changer?
 
@@ -201,9 +210,9 @@ While other ERP installers leave you with an empty shell, __Tryton ERP Docker Ma
 
 Once Docker is installed and your .env is configured:
 
-* **Initialize:** Run `tcd.bat`
-* **Access:** Open browser at `http://localhost:8000`.
-* **Manage:** Use the main menu for all daily operations.
+- **Initialize:** Run `tcd.bat`
+- **Access:** Open browser at `http://localhost:8000`.
+- **Manage:** Use the main menu for all daily operations.
 
 ---
 
@@ -213,17 +222,17 @@ Once Docker is installed and your .env is configured:
 
 Accessing Tryton follows a **4-Layer Protocol**:
 
-* **Layer 1:** Inspects Docker container state.
-* **Layer 2:** Verifies Port 8000 via `netstat`.
-* **Layer 3:** PowerShell probes for a valid HTTP 200/302 response.
-* **Layer 4:** Launches browser only if layers 1-3 pass.
+- **Layer 1:** Inspects Docker container state.
+- **Layer 2:** Verifies Port 8000 via `netstat`.
+- **Layer 3:** PowerShell probes for a valid HTTP 200/302 response.
+- **Layer 4:** Launches browser only if layers 1-3 pass.
 
 
 The manager includes a **High-Fidelity Audit Suite**:
 
-* **XML Integrity:** Scans all `.xml` files, classifying them as **STRUCTURE** or **DATA**.
-* **Module Audit:** Verifies the `activated` status of all 41 modules vs the `.env` requirements.
-* **DB Audit:** Validates PostgreSQL Roles (Superuser check), Extensions (`plpgsql`), and UTF8 encoding in **<1 second**.
+- **XML Integrity:** Scans all `.xml` files, classifying them as **STRUCTURE** or **DATA**.
+- **Module Audit:** Verifies the `activated` status of all 41 modules vs the `.env` requirements.
+- **DB Audit:** Validates PostgreSQL Roles (Superuser check), Extensions (`plpgsql`), and UTF8 encoding in **<1 second**.
 
 Advanced Diagnostics:
 
@@ -247,7 +256,6 @@ The manager includes a **High-Fidelity Audit Suite**:
 -Module Audit: Verifies the `activated` status of all 41 modules vs the `.env` requirements.
 -DB Audit: Validates PostgreSQL Roles (Superuser check), Extensions (`plpgsql`), and UTF8 encoding in **<1 second**.
 
-
 ### ❓ Troubleshooting
 
 - Access Denied: Verify the DIR_HOME variable and ensure you are running the terminal with sufficient permissions.
@@ -258,7 +266,6 @@ The manager includes a **High-Fidelity Audit Suite**:
 - Database connection fails: Ensure DB_PASSWORD in .env matches the one used during the first installation.
 - Port 8000 blocked: Check if another application is using port 8000.
 - For more information, see the Troubleshooting Guide (Common Issues) in GUIDE.md
-
 
 ### 🤝 Contributing
 
@@ -271,12 +278,14 @@ This project is licensed under the MIT License.
 Tryton-Docker-Manager - Making Tryton ERP management easy and secure.
 
 ---
-- __Author:__ [Telepieza - Mariano Vallespín]
-- __Collaborator:__ Gemini (Google AI)
-- __Platform:__ Windows (CMD/Batch)
-- __Engine:__ Docker & Docker Compose
-- __License:__ MIT  
-- __Project Status:__ v1.0.0 Stable
+
+- **Author:** [Telepieza - Mariano Vallespín]
+- **Collaborator:** Gemini (Google AI)
+- **Platform:** Windows (CMD/Batch)
+- **Engine:** Docker & Docker Compose
+- **License:** MIT  
+- **Project Status:** v1.0.0 Stable
+  
 ---
 
 ##### Optimized & Documented with the help of Gemini (Google AI)

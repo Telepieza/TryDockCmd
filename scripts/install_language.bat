@@ -27,8 +27,16 @@ set "COM1=TRYTOND_DATABASE_URI=!DB_URI! trytond-admin -c /etc/trytond.conf -d %D
 set "COM2=TRYTONPASSFILE=/tmp/.passwd"
 set "COM3= --email !EMAIL! -vv"
 :: Si es de install.bat seguimos en el proceso de instalacion
-if /i "!ins_lang_action!"=="%INS%" goto :language_modules_country
 
+if /i "!ins_lang_action!"=="%INS%" (
+  set "iso_code=!TRYTON_LANGUAGE!"
+  if /i "!iso_code!"=="es" set "iso_code=ES"
+  if /i "!iso_code!"=="fr" set "iso_code=FR"
+  if /i "!iso_code!"=="de" set "iso_code=DE"
+  set "ACCION=GEO"
+  call :head_modules_lang
+  goto :language_modules_country
+)
 :menu_trytond_lang
   cls
   set "option="
@@ -36,14 +44,14 @@ if /i "!ins_lang_action!"=="%INS%" goto :language_modules_country
   set "wlang="
   :: Banner
   call "%DIR_SCRIPT%banner.bat" %TRYTON%
-  echo =================================================================================
+  echo ==========================================================================================
   call :logger %MENU% "!INSTALL_MODU_LG!" "5"
-  echo =================================================================================
+  echo ==========================================================================================
   call :logger "%MENU%" "1. !INSTALL_MODU_30!" "5"
   call :logger "%MENU%" "2. !INSTALL_MODU_31!" "5"
   call :logger "%MENU%" "3. !INSTALL_MODU_32!" "5"
   call :logger "%MENU%" "Q. !INSTALL_MODU_33!" "5"
-  echo ========================================================
+  echo ==========================================================================================
   echo.
   set /p "option=%BS%        !C_M_YELLOW!%SELECT_OPT%!C_M_RESET! "
   if /i "%option%"=="Q" goto :exit
@@ -69,6 +77,12 @@ if /i "!ins_lang_action!"=="%INS%" goto :language_modules_country
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
     goto :menu_trytond_lang
   )
+  set "iso_code=!TRYTON_LANGUAGE!"
+  if /i "!iso_code!"=="es" set "iso_code=ES"
+  if /i "!iso_code!"=="fr" set "iso_code=FR"
+  if /i "!iso_code!"=="de" set "iso_code=DE"
+  set "ACCION=GEO"
+  call :head_modules_lang
   echo.
   set "confirm="
   set "MESSAGE=!INSTALL_MODU_EMPLG:PROYECTO=%wlang%!"
@@ -119,14 +133,8 @@ if /i "!ins_lang_action!"=="%INS%" goto :language_modules_country
   call :logger "%log_action%" "%LX%" "3"
   set "cmd=!COM2! !COM1! -u !LL! --activate-dependencies !COM3!"
   call :run_trytond_lang "%SERVER%" "!cmd!" "" "%file_base%" "YES"
-
  :: 4. Importar Paises , subdivisiones y códigos postales 
   call :logger "%log_action%" "!INSTALL_MODU_HEAD54! !TRYTON_LANGUAGE!" "3"
-  set "iso_code=!TRYTON_LANGUAGE!"
-  if /i "!iso_code!"=="es" set "iso_code=ES"
-  if /i "!iso_code!"=="fr" set "iso_code=FR"
-  if /i "!iso_code!"=="de" set "iso_code=DE"
-  set "ACCION=GEO"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1"
   
   docker exec -t ^
@@ -249,6 +257,31 @@ if /i "!ins_lang_action!"=="%INS%" goto :language_modules_country
     if not "%logfile%"=="" if exist "%logfile%" call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "display_file_event_all" "!LOG-INFO!" "%logfile%"
   )
   exit /b %status%
+
+:head_modules_lang
+  echo.
+  call :logger "%MENU%" "!INSTALL_MODU_HEAD02! %DB_NAME%" "8"
+  echo         -------------------------------------------
+  echo.
+  call :logger "%MENU%" "!INSTALL_MODU_HEAD04! %proyecto%" "3"
+  call :logger "%MENU%" "!INSTALL_MODU_HEAD07! [!CURRENT_VER_MENU!]" "3"
+  call :logger "%MENU%" "!INSTALL_MODU_HEAD05! %DB_NAME%" "3" 
+  call :logger "%MENU%" "!INSTALL_MODU_HEADEM! !CURRENT_COMPANY_NAME!" "3"
+  echo.
+  echo    ==================================================================================
+  call :logger "%MENU%" "!INSTALL_MODU_HEAD10! %DB_NAME%"  "8"
+  echo    ==================================================================================
+  echo.
+  call :logger "%MENU%" "[+] 1.-!INSTALL_MODU_HEADCO! !iso_code!" "3"
+  call :logger "%MENU%" "[+] 2.-!INSTALL_MODU_HEADMO! !LX!" "3"
+  call :logger "%MENU%" "[+] 3.-!INSTALL_MODU_HEAD61!" "3"
+  call :logger "%MENU%" "!INSTALL_MODU_HEAD62!" "16"
+  call :logger "%MENU%" "[+] 4.-!INSTALL_MODU_HEAD63!" "3"
+  call :logger "%MENU%" "!INSTALL_MODU_HEAD64!" "16"
+  call :logger "%MENU%" "[+] 5.-!INSTALL_MODU_HEAD65!" "3"
+  call :logger "%MENU%" "!INSTALL_MODU_HEAD66:FILE=%iso_code%.zip!" "16"
+  echo.
+  exit /b
 
 :logger
   call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"

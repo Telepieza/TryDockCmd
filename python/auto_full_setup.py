@@ -14,7 +14,9 @@ from trytond.pool import Pool
 # -------------------------------------------------
 # CONFIGURACIÓN DE LOGGING (Tu original mejorada)
 # -------------------------------------------------
-log_path = "/tmp/trytond_proteus.txt"
+# Ruta fija por compatibilidad con scripts .bat (docker cp desde /tmp)
+# Permite override opcional con SETUP_LOG_PATH.
+log_path = os.environ.get("SETUP_LOG_PATH", "/tmp/trytond_proteus.txt")
 os.makedirs(os.path.dirname(log_path), exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
@@ -62,7 +64,12 @@ MESSAGES = {
         'geo_skip2': "Ya existen códigos postales para {}. Se omite el paso 2/2.",
         'geo_error': "Error durante la ejecución: {}",
         'seq_move': "Asientos {}",
-        'geo_error1': "Error en script oficial (Código {})"
+        'geo_error1': "Error en script oficial (Código {})",
+        'currency_not_found': "Moneda no encontrada: {}",
+        'company_not_created': "El asistente no creó la empresa: {}",
+        'admin_lang_skip': "Actualización de idioma admin omitida: {}",
+        'invoice_seq_missing': "No hay secuencias de factura para el ejercicio.",
+        'unsupported_action': "Acción no soportada: {}"
     },
     'en': {
         'start': "--- CONNECTION SUCCESSFUL ---",
@@ -95,7 +102,12 @@ MESSAGES = {
         'geo_skip2': "Postal codes already exist for {}. Skipping Step 2/2.",
         'geo_error': "Error during execution {}",
         'seq_move': "Account Moves {}",
-        'geo_error1': "Error in official script (Code {})"
+        'geo_error1': "Error in official script (Code {})",
+        'currency_not_found': "Currency not found: {}",
+        'company_not_created': "Company wizard did not create company: {}",
+        'admin_lang_skip': "Admin language update skipped: {}",
+        'invoice_seq_missing': "No invoice sequence links available for fiscal year.",
+        'unsupported_action': "Unsupported action: {}"
     },
     'fr': {
         'start': "--- CONNEXION RÉUSSIE ---",
@@ -128,7 +140,12 @@ MESSAGES = {
         'geo_skip2': "Les codes postaux existent déjà pour {}. Saut de l'étape 2/2.",
         'geo_error': "Erreur lors de l'exécution {}",
         'seq_move': "Écritures comptables {}",
-        'geo_error1': "Erreur dans le script officiel (Code {})"
+        'geo_error1': "Erreur dans le script officiel (Code {})",
+        'currency_not_found': "Devise introuvable : {}",
+        'company_not_created': "L'assistant n'a pas créé l'entreprise : {}",
+        'admin_lang_skip': "Mise à jour de la langue admin ignorée : {}",
+        'invoice_seq_missing': "Aucun lien de séquence de facture disponible pour l'exercice.",
+        'unsupported_action': "Action non prise en charge : {}"
     },
     'de': {
         'start': "--- VERBINDUNG ERFOLGREICH ---",
@@ -161,7 +178,12 @@ MESSAGES = {
         'geo_skip2': "Postleitzahlen existieren bereits für {}. Schritt 2/2 wird übersprungen.",
         'geo_error': "Fehler bei der Ausführung {}",
         'seq_move': "Buchungssätze {}",
-        'geo_error1': "Fehler im offiziellen Skript (Code {})"
+        'geo_error1': "Fehler im offiziellen Skript (Code {})",
+        'currency_not_found': "Währung nicht gefunden: {}",
+        'company_not_created': "Der Assistent hat das Unternehmen nicht erstellt: {}",
+        'admin_lang_skip': "Admin-Sprachaktualisierung übersprungen: {}",
+        'invoice_seq_missing': "Keine Rechnungssequenz-Verknüpfungen für das Geschäftsjahr verfügbar.",
+        'unsupported_action': "Nicht unterstützte Aktion: {}"
     }
 }
 
@@ -173,7 +195,7 @@ msg = MESSAGES.get(requested_lang, MESSAGES['en'])
 # NUEVA FUNCIÓN: IMPORTACIÓN DE GEODATA (Inyectada)
 # -------------------------------------------------
 def run_geodata_import(database, config_file, iso_code):
-    logging.info(msg['geo_start'])
+    logging.info(msg['geo_start'].format(iso_code))
     base_mod = os.environ.get('TRYTON_BASE_MODULE', '/usr/local/lib/python3.11/dist-packages/trytond/modules')
     scripts_path = f"{base_mod}/country/scripts"
     iso_up = iso_code.upper()
@@ -190,10 +212,12 @@ def run_geodata_import(database, config_file, iso_code):
             logging.info(msg['geo_skip1'])
         else:
             logging.info(msg['geo_step1'])
-            subprocess.run(
-                ["python3", f"{scripts_path}/import_countries.py", "-d", database, "-c", config_file],
+            result = subprocess.run(
+                [sys.executable, f"{scripts_path}/import_countries.py", "-d", database, "-c", config_file],
                 capture_output=True, text=True, check=True
             )
+            if result.stderr:
+                logging.debug(result.stderr.strip())
             # Refresco del Pool usando el alias p_config
             p_config.get_config().pool.init()
 
@@ -210,25 +234,19 @@ def run_geodata_import(database, config_file, iso_code):
             logging.info(msg['geo_skip2'].format(iso_up))
         else:
             logging.info(msg['geo_step2'].format(iso_up))
-            try:
-                # Popen con line buffering para ver la "lluvia" de distritos
-                process = subprocess.Popen(
-                    ["python3", f"{scripts_path}/import_postal_codes.py", "-d", database, "-c", config_file, iso_up],
-                    stdout=sys.stdout, 
-                    stderr=sys.stderr,
-                    text=True,
-                    bufsize=1,
-                    universal_newlines=True
-                )
-                process.wait()
-                
-                if process.returncode != 0:
-                    # LANZAMOS EL ERROR HACIA ARRIBA
-                    raise RuntimeError(msg['geo_error1'].format(process.returncode))
-            except Exception as e:
-                logging.error(msg['geo_error'].format(str(e)))
+            # Ejecutamos con salida en vivo para facilitar diagnóstico de cargas grandes.
+            subprocess.run(
+                [sys.executable, f"{scripts_path}/import_postal_codes.py", "-d", database, "-c", config_file, iso_up],
+                stdout=sys.stdout,
+                stderr=sys.stderr,
+                text=True,
+                check=True
+            )
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError(msg['geo_error1'].format(e.returncode)) from e
     except Exception as e:
         logging.debug(msg['geo_techn'].format(str(e)))
+        raise
                         
 # -------------------------------------------------
 # FUNCIONES ORIGINALES (Tal cual me las pasaste)
@@ -298,7 +316,10 @@ def setup_or_get_company(company_name, currency_code):
         logging.info(msg['comp_found'].format(company.party.name))
     else:
         logging.info(msg['comp_create'].format(company_name))
-        currency = Currency.find([('code', '=', currency_code)])[0]
+        currencies = Currency.find([('code', '=', currency_code)])
+        if not currencies:
+            raise ValueError(msg['currency_not_found'].format(currency_code))
+        currency = currencies[0]
         company_config = Wizard('company.company.config')
         company_config.execute('company')
         new_party = Party(name=company_name)
@@ -306,7 +327,10 @@ def setup_or_get_company(company_name, currency_code):
         company_config.form.party = new_party
         company_config.form.currency = currency
         company_config.execute('add')
-        company = Company.find([('party.name', '=', company_name)])[0]
+        companies = Company.find([('party.name', '=', company_name)])
+        if not companies:
+            raise RuntimeError(msg['company_not_created'].format(company_name))
+        company = companies[0]
     
     cfg = proteus.config.get_config()
     old_user = cfg.user
@@ -335,10 +359,13 @@ def activate_languages(dependencies):
                 Wizard('ir.module.activate_upgrade').execute('upgrade')
     try:
         admin = Model.get('res.user')(1)
-        admin.language = Lang.find([('code', '=', 'es')])[0]
-        admin.save()
-        logging.info(msg['admin_es'])
-    except: pass
+        es_lang = Lang.find([('code', '=', 'es')])
+        if es_lang:
+            admin.language = es_lang[0]
+            admin.save()
+            logging.info(msg['admin_es'])
+    except Exception as e:
+        logging.debug(msg['admin_lang_skip'].format(str(e)))
 
 def get_sequence_type_id(module, name, fallback_id):
     ModelData = Model.get('ir.model.data')
@@ -367,6 +394,8 @@ def create_fiscalyear(year, company):
         s = SequenceStrict(name=f"{n} {year}", sequence_type=st_inv, company=company, padding=6)
         s.save()
         return s
+    if not fy.invoice_sequences:
+        raise RuntimeError(msg['invoice_seq_missing'])
     inv_seq_link = fy.invoice_sequences[0]
     inv_seq_link.company = company
     inv_seq_link.out_invoice_sequence = _make_seq("INV")
@@ -423,8 +452,8 @@ def run_setup():
     # Parámetros desde el .bat: DB_NAME CONF_PATH LANG ACTION
     DB_NAME = sys.argv[1] if len(sys.argv) > 1 else os.environ.get('DB_NAME', 'tryton')
     CONF_FILE = sys.argv[2] if len(sys.argv) > 2 else '/etc/trytond.conf'
-    TARGET_LANG = sys.argv[3] if len(sys.argv) > 3 else APP_LANG
-    ACTION = sys.argv[4] if len(sys.argv) > 4 else 'FULL'
+    TARGET_LANG = (sys.argv[3] if len(sys.argv) > 3 else APP_LANG).lower()
+    ACTION = (sys.argv[4] if len(sys.argv) > 4 else 'FULL').upper()
 
     if not connect_and_init(DB_NAME, CONF_FILE): sys.exit(10)
     
@@ -481,5 +510,12 @@ def run_setup():
         logging.info(msg['end_phase'].format(ACTION))
         logging.shutdown()  
         sys.exit(0)
+    if ACTION not in ['FULL', 'GEO', 'LANG', 'ACC']:
+        logging.error(msg['unsupported_action'].format(ACTION))
+        logging.shutdown()
+        sys.exit(11)
+    logging.info(msg['end_phase'].format(ACTION))
+    logging.shutdown()
+    sys.exit(0)
 if __name__ == "__main__":
     run_setup()

@@ -1,147 +1,117 @@
+# TryDockCmd Guide
 
+Operational guide for deploying and managing Tryton ERP on Docker (Windows).
 
-# 📖 TryDockCmd: Full Guide & Troubleshooting
+## 1. Prerequisites
 
-Follow this guide to master the deployment and maintenance of your **Tryton ERP** environment on Windows.
+- Docker Desktop installed and running.
+- PowerShell 5.1+ available.
+- Write permissions in project folders:
+  `log`, `tmp`, `backup`, `sql`.
 
----
+## 2. Required Configuration
 
-### 1. Prerequisites (Infrastructure Check)
+### 2.1 `.env`
 
-Ensure your system meets these standards:
+Minimum values:
 
-* **Docker Desktop:** [Official Download](https://www.docker.com/products/docker-desktop/).
-* **WSL 2 Backend:** Recommended for 3x faster database I/O.
-* **PowerShell 5.1+:** Built-in on Windows 10/11 (Required for YAML parsing).
-* **Permissions:** Admin privileges are recommended for the first installation to manage network bridges.
-* **Terminal:** CMD or PowerShell with administrator privileges (recommended for the first install).
-  
----
-
-### 2. Setup & Configuration
-
-#### Step A: Environment Variables (.env) ####
-1. **Clone/Download** [TryDockCmd](https://github.com/Telepieza/TryDockCmd.git) this repository to your preferred folder.
-2. **Edit `.env`:** Update your credentials. **TryDockCmd** will use these to build your safe environment.
 ```bash
-    DB_PASSWORD=your_db_secret_pass    # <-- Set a secure password for PostgreSQL
-    PASSWORD=your_admin_pass           # <-- Set your Tryton 'admin' login password
-    LANGUAGE=es-ES                     # <-- Set your UI preference (es-ES or en-US)
-    EMAIL=youremail@yourdomain.com     # <-- Set your email
-    TRYTON_LANGUAGE=es                 # <-- Set your Tryton language (es or fr or de)
-
+DB_PASSWORD=your_db_password
+PASSWORD=your_tryton_admin_password
+EMAIL=admin@example.com
+LANGUAGE=es-ES
+TRYTON_LANGUAGE=es
 ```
-#### Step B: ERP Business Identity (conf/trytond.conf) ####
 
-Crucial for Automation: The Proteus Engine reads this file to set up your company.
-```bash
+### 2.2 `config/trytond.conf`
+
+```ini
 [database]
-uri = postgresql://postgres:password@tryton-postgres-1:5432/
+uri = postgresql://postgres:your_db_password@tryton-postgres-1:5432/
+
 [company]
-name = My Empresa                    # <-- Company Name (Auto-created)
-currency = EUR                       # <-- Base Currency (Auto-linked)
+name = My Company
+currency = EUR
 ```
----
 
-### 3. Launching the Manager (The 8-Step Trace)
+## 3. Startup Flow
 
-When you execute **`tcd.bat`**, the system performs a **Pre-Flight Sequence**:
+1. Run `tcd.bat`.
+2. Pre-flight checks validate files, environment, compose metadata, and docker state.
+3. If no stack is detected, use option `0` to install.
 
-* **I18n Init:** Loads and cleans your language file (Elastic Pipe logic).
-* **Env Injector:** Synchronizes credentials.
-* **YAML Parser:** Connects with PowerShell to read `compose.yml` metadata.
-* **Docker Engine Pulse:** Automatically wakes up Docker Desktop if inactive.
-* **Image Audit:** Verifies existence of Tryton & Postgres images before starting.
+## 4. Main Menu
 
----
+| Option | Script | Description |
+|---|---|---|
+| 0 | `install.bat` | Full install/bootstrap |
+| 1 | `status.bat` | Status and checks |
+| 2 | `startup.bat` | Start services |
+| 3 | `startdown.bat` | Stop services |
+| 4 | `logger.bat` | View logs |
+| 5 | `errors.bat` | Error-focused audit |
+| 6 | `backup.bat` | Backup |
+| 7 | `restore.bat` | Restore |
+| 8 | `install_tryton.bat` | Production DB module flow |
+| 9 | `install_demo.bat` | Demo DB/module flow |
+| 10 | `client.bat` | Connectivity checks + browser launch |
 
-### 4. First Deployment & Connectivity
+## 5. Python/Proteus Setup Engine
 
-By selecting **Option 0 (Install)**, the manager executes a two-phase surgical strike:
+`python/auto_full_setup.py` is executed inside the Tryton container and supports:
 
-#### Phase 1: Infrastructure
-  1. **Orchestrate:** Pull images, create networks, and persistent volumes.
-  2. **Initialize tryton:** Build the tryton DB and setup the admin user.
-  3. **Initialize tryton-demo:** Build the tryton-demo database with official data and log in as user demo password demo.
-  4. **Verify:** Run the **Verified Launch Protocol** (netstat check + HTTP Handshake).
-  5. **Access:** Automatically open `http://localhost:8000` only if the service is 100% ready.
+- `FULL`: Runs the complete sequence (module sync, geodata import, language activation, company/account setup, fiscal years and sequences).
+- `GEO`: Imports/updates countries and postal codes for the selected ISO code (`es`, `fr`, `de`), without running accounting setup.
+- `LANG`: Activates translatable languages and executes translation/module upgrade flow, without creating fiscal/accounting structures.
+- `ACC`: Executes company/accounting setup (company context, chart linkage, fiscal years, periods, invoice/account sequences), without geodata import.
 
-#### Phase 2: The Proteus Brain (auto_full_setup.py)
-   1. **Auto-Wizard:** Completes all post-install assistants via API.
-   2. **Fiscal Setup:** Generates Years (2026-2028), monthly periods, and sequences.
-   3. **I18n Sync: Binds** languages to users and translates the entire database.
+Main tasks:
 
----
+- Module sync and wizard cleanup.
+- Company and currency setup.
+- Language activation.
+- Account mapping by localization.
+- Fiscal years, periods, and sequences.
+- cCuntries, subdivisions and postal codes.
 
-### 🛠️ Common Operations Reference
+## 6. Troubleshooting
 
-| Goal | Action |
-| --- | --- |
-| **Start Services** | Press **2** (Start) |
-| **Stop Services** | Press **3** (Stop) |
-| **Health Check** | Press **1** (Status) - Audits DB, Roles, and Modules. |
-| **View Errors** | Press **5** (Smart Audit) - Filters last 24h of logs. |
-| **Safety Backup** | Press **6** (Hot-Backup) - Instant SQL export. |
+### Docker not available
 
----
+- Ensure Docker Desktop is fully started.
+- Re-run option `2` or restart through menu.
 
-### 🆘 Troubleshooting Guide (Common Issues)
+### Port conflict (8000 / 5432)
 
-If TryDockCmd is not behaving as expected, check these common scenarios before opening an issue.
+- Check with:
+  `netstat -ano | findstr :8000`
+  `netstat -ano | findstr :5432`
 
-#### 1. "Docker is not running" Error
+### Language/setup mismatch
 
-* **Symptom:** Script stops after the banner.
-* **Fix:** Wait for the Docker whale icon to turn solid green. The manager's **Auto-Healing** will try to start it for you, but manual wake-up is sometimes needed on slow HDDs.
+- Confirm `LANGUAGE` and `TRYTON_LANGUAGE` in `.env`.
+- Ensure `lang/es-ES.txt` and `lang/en-US.txt` exist.
 
-#### 2. Port 8000 or 5432 is Busy
+### Restore/auth issues
 
-* **Symptom:** "Address already in use" in logs.
-* **Fix:** Run `netstat -ano | findstr :8000`. Kill the PID or change the ports in `.env`.
+- Verify current `.env` password matches the one used when the volume was initialized.
+- If not, reset/update DB credentials according to your docker data policy.
 
-#### 3. Forensic Audit Failures
+## 7. Operational Recommendations
 
-* **Symptom:** Option 1 or 8 shows **[NOT ACTIVATED]** for core modules.
-* **Fix:** Your `ir.model.data` might be out of sync. Run Option 0 again to trigger a module update (`-u all`).
-
-#### 4. Database Restore / Permission Issues
-
-* **Symptom:** "Role 'postgres' does not exist".
-* **Fix:** Ensure `DB_PASSWORD` in `.env` matches the original one used during the first install. If you changed it later, you must reset the volume or update the role manually via psql.
-
-#### 5. Database Restore Fails (Permission/Connection)
-
-   - Symptom: "Role 'postgres' does not exist" or "Connection refused".
-   - Solution: * Ensure the DB_PASSWORD in .env matches the one used when the volume was first created.
-   - Crucial: If you change the password in .env after the first install, you must delete the volume (docker volume rm ...) for the change to take effect in a new database.
-
-#### 6. Special Characters in Passwords
-
-   - Symptom: Random crashes or "Variable not defined" errors.
-   - Solution: Batch scripts can be sensitive to characters like &, |, or ^. Try using alphanumeric passwords or wrap them in double quotes within your logic if the script supports it.
-
-#### 7. log or tmp Files are Empty
-
-   - Symptom: Option 4 and 5 show no data.
-   - Solution: Ensure the /log or /tmp folder has write permissions and that your docker-compose.yml is correctly redirecting stdout to the driver.
+- Run backups before large module updates.
+- Keep docs and script behavior aligned in the same PR.
+- Prefer small, testable changes in Batch and Python logic.
 
 ---
 
-### 🔍 How to provide a good Bug Report
-
-If the **Smart Audit (Option 5)** doesn't solve it, please provide:
-
-1. A screenshot of the terminal.
-2. The last 20 lines of the relevant log in `/log`.
-3. The output of the **Forensic Audit** (Option 1).
-
----
-- __Author:__ [Telepieza - Mariano Vallespín]
-- __Collaborator:__ Gemini (Google AI)
-- __Platform:__ Windows (CMD/Batch)
-- __Engine:__ Docker & Docker Compose
-- __License:__ MIT  
-- __Project Status:__ v1.0.0 Stable
+- **Author:** [Telepieza - Mariano Vallespín]
+- **Collaborator:** Gemini (Google AI)
+- **Platform:** Windows (CMD/Batch)
+- **Engine:** Docker & Docker Compose
+- **License:** MIT  
+- **Project Status:** v1.0.0 Stable
+  
 ---
 
 ##### Optimized & Documented with the help of Gemini (Google AI)
