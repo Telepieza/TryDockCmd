@@ -280,8 +280,56 @@ def get_company_config(conf_path='/config/trytond.conf'):
                 logging.warning(msg['conf_warn'])
         except Exception as e:
             logging.error(msg['read_error'].format(e))
+    # Normaliza entradas potencialmente sucias desde entorno/.conf (espacios, comillas o comentarios inline).
+    data['currency'] = normalize_currency_code(data.get('currency'))
+    data['name'] = (data.get('name') or 'Telepieza').strip()
     logging.info(msg['conf_active'].format(data['name'], data['currency']))       
     return data
+
+def normalize_currency_code(value):
+    cleaned = (value or '').strip()
+    if len(cleaned) >= 2 and cleaned[0] == cleaned[-1] and cleaned[0] in ("'", '"'):
+        cleaned = cleaned[1:-1].strip()
+    for marker in ('#', ';'):
+        if marker in cleaned:
+            cleaned = cleaned.split(marker, 1)[0].strip()
+    return (cleaned or 'EUR').upper()
+
+def ensure_currency_available(currency_code, db_name=None, config_file=None):
+    Currency = Model.get('currency.currency')
+    normalized = normalize_currency_code(currency_code)
+    currencies = Currency.find([('code', '=', normalized)])
+    if currencies:
+        return currencies[0]
+    if db_name and config_file:
+        base_mod = os.environ.get('TRYTON_BASE_MODULE', '/usr/local/lib/python3.11/dist-packages/trytond/modules')
+        import_script = f"{base_mod}/currency/scripts/import_currencies.py"
+        if os.path.exists(import_script):
+            try:
+                result = subprocess.run(
+                    [sys.executable, import_script, "-d", db_name, "-c", config_file],
+                    capture_output=True, text=True, check=True
+                )
+                if result.stderr:
+                    logging.debug(result.stderr.strip())
+                p_config.get_config().pool.init()
+                Currency = Model.get('currency.currency')
+                currencies = Currency.find([('code', '=', normalized)])
+                if currencies:
+                    return currencies[0]
+            except Exception as e:
+                logging.debug(msg['geo_techn'].format(str(e)))
+    raise ValueError(msg['currency_not_found'].format(normalized))
+
+def get_company_language(lang_code):
+    Lang = Model.get('ir.lang')
+    normalized = (lang_code or APP_LANG or 'en').lower()
+    short_code = normalized[:2]
+    found = Lang.find([('code', '=', short_code)], limit=1)
+    if found:
+        return found[0]
+    found = Lang.find([('code', '=', 'en')], limit=1)
+    return found[0] if found else None
 
 def connect_and_init(db_name, config_file):
     trytond_config.update_etc(config_file)
@@ -312,11 +360,10 @@ def sync_and_clean_modules():
         item.save()
     return [m.name for m in Module.find([('state', '=', 'activated')])]
 
-def setup_or_get_company(company_name, currency_code):
+def setup_or_get_company(company_name, currency_code, db_name=None, config_file=None, lang_code=None):
     logging.info(msg['comp_phase'].format(company_name))
     Company = Model.get('company.company')
     Party = Model.get('party.party')
-    Currency = Model.get('currency.currency')
     User = Model.get('res.user')
     existing = Company.find([('party.name', '=', company_name)])
     if existing:
@@ -324,21 +371,30 @@ def setup_or_get_company(company_name, currency_code):
         logging.info(msg['comp_found'].format(company.party.name))
     else:
         logging.info(msg['comp_create'].format(company_name))
-        currencies = Currency.find([('code', '=', currency_code)])
-        if not currencies:
-            raise ValueError(msg['currency_not_found'].format(currency_code))
-        currency = currencies[0]
+        currency = ensure_currency_available(currency_code, db_name, config_file)
         company_config = Wizard('company.company.config')
         company_config.execute('company')
-        new_party = Party(name=company_name)
-        new_party.save()
-        company_config.form.party = new_party
+        # Algunas instalaciones devuelven form.party=None en este estado del wizard.
+        # Creamos/asignamos party de forma defensiva para evitar AttributeError.
+        party_record = company_config.form.party
+        if not party_record:
+            party_record = Party()
+            party_record.name = company_name
+            party_record.save()
+            company_config.form.party = party_record
+        else:
+            party_record.name = company_name
+            party_record.save()
         company_config.form.currency = currency
         company_config.execute('add')
         companies = Company.find([('party.name', '=', company_name)])
         if not companies:
             raise RuntimeError(msg['company_not_created'].format(company_name))
         company = companies[0]
+    company_lang = get_company_language(lang_code)
+    if company_lang and getattr(company, 'party', None):
+        company.party.lang = company_lang
+        company.party.save()
     
     cfg = proteus.config.get_config()
     old_user = cfg.user
@@ -346,7 +402,7 @@ def setup_or_get_company(company_name, currency_code):
     new_context = User.get_preferences(True, {'company': company.id})
     cfg.context.update(new_context)
     cfg.user = old_user
-    logging.info(msg['ctx_upd'].format(company_name, currency_code))
+    logging.info(msg['ctx_upd'].format(company_name, normalize_currency_code(currency_code)))
     return company
 
 def activate_languages(dependencies):
@@ -511,7 +567,7 @@ def run_setup():
         try:
             conf_data = get_company_config(CONF_FILE)
             sync_and_clean_modules()
-            company = setup_or_get_company(conf_data['name'], conf_data['currency'])
+            company = setup_or_get_company(conf_data['name'], conf_data['currency'], DB_NAME, CONF_FILE, TARGET_LANG)
             setup_accounts(company, chart_mapping)
             for year in range(2026, 2031):
                 create_fiscalyear(year, company)

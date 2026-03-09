@@ -67,12 +67,18 @@ if /i "%ins_head_action%" NEQ "%INS%" (
 if "!CURRENT_VERSION!"=="" call "%DIR_SCRIPT%checkversion.bat" "%proyecto%"
 if %ERRORLEVEL% EQU 4 set "log_error=4" & goto :error
 :: 4.- Copiar archivos al temporal del servidor Docker
+:: En fase PYTH forzamos recopia para evitar ejecutar una versión obsoleta de /tmp/auto_full_setup.py.
 if "%ACTIVE_COPY%" EQU "0" (
   docker cp "%DIR_PYTHON%auto_full_setup.py" !CURRENT_TRYTON!:/tmp/auto_full_setup.py >nul
   if %ERRORLEVEL% NEQ 0 set "log_error=5" & goto :error
   docker cp "%DIR_CONFIG%trytond.conf" !CURRENT_TRYTON!:/tmp/trytond_setup.conf  >nul
   if %ERRORLEVEL% NEQ 0 set "log_error=6" & goto :error
   set "ACTIVE_COPY=1"
+) else if /i "%type%"=="%PYTH%" (
+  docker cp "%DIR_PYTHON%auto_full_setup.py" !CURRENT_TRYTON!:/tmp/auto_full_setup.py >nul
+  if %ERRORLEVEL% NEQ 0 set "log_error=5" & goto :error
+  docker cp "%DIR_CONFIG%trytond.conf" !CURRENT_TRYTON!:/tmp/trytond_setup.conf  >nul
+  if %ERRORLEVEL% NEQ 0 set "log_error=6" & goto :error
 )
 
 :: 5.- Localizar los modulos de tryton (Base y lenguajes)

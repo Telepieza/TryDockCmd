@@ -57,8 +57,8 @@ call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timep
 for /f "tokens=*" %%i in ('docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d %DB_NAME% -At -c "SELECT count(*) FROM account_account;"') do set ACCOUNTS=%%i
 for /f "tokens=*" %%i in ('docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d %DB_NAME% -At -c "SELECT count(*) FROM account_fiscalyear;"') do set FISCALYEARS=%%i
 for /f "tokens=*" %%i in ('docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d %DB_NAME% -At -c "SELECT count(*) FROM account_period;"') do set PERIODS=%%i
-for /f "tokens=*" %%i in ('docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d %DB_NAME% -At -c "SELECT count(*) FROM account_fiscalyear WHERE name >= ''2026'';"') do set FY_5Y=%%i
-for /f "tokens=*" %%i in ('docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d %DB_NAME% -At -c "SELECT count(*) FROM account_period p JOIN account_fiscalyear f ON f.id = p.fiscalyear WHERE f.name >= ''2026'';"') do set PERIODS_5Y=%%i
+for /f "tokens=*" %%i in ('docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d %DB_NAME% -At -c "SELECT count(*) FROM account_fiscalyear WHERE name >= '2026';"') do set FY_5Y=%%i
+for /f "tokens=*" %%i in ('docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d %DB_NAME% -At -c "SELECT count(*) FROM account_period p JOIN account_fiscalyear f ON f.id = p.fiscalyear WHERE f.name >= '2026';"') do set PERIODS_5Y=%%i
 call :logger "%log_action%" "!WORD_ACCOUNT_PLAN!: !ACCOUNTS! !WORD_ACCOUNT_CREATE!" "4"
 call :logger "%log_action%" "!WORD_FISCAL_YEARS!: !FISCALYEARS! !WORD_RECORDS!" "4"
 call :logger "%log_action%" "!WORD_ACCOUNT_PER!: !PERIODS! !WORD_RECORDS!" "4"
