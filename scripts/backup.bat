@@ -159,7 +159,7 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
   :: Usamos el nombre del servicio definido en el YAML (tryton-postgres), utilizando el comando pg_dumpall
   if exist %file_err% del %file_err% >nul
   set "file_sql=%destino%\tryton_%DB_HOSTNAME%_dumpall.sql"
-  docker exec "%CURRENT_POSTGRES%" pg_dumpall -U "%DB_HOSTNAME%" -d %DB_NAME%> "%file_sql%" 2>"%file_err%"
+  docker exec "%CURRENT_POSTGRES%" pg_dumpall -U "%DB_HOSTNAME%" >"%file_sql%" 2>"%file_err%"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
   : Verificación de integridad avanzada
   if not exist "%file_sql%" (
@@ -167,7 +167,6 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
       call :logger "!LOG-ERROR!" "!MESSAGE!"
       goto :exit
   )
-
   :: Obtener tamaño de forma segura para rutas con espacios
   for %%A in ("%file_sql%") do set "size=%%~zA"
   :: Si el tamaño es menor a 1KB, probablemente es un error de Postgres
@@ -244,7 +243,7 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
     )
   )
   if /i "%MODE%"=="data"  (
-    set "file_sql=!%destino!\!DB_NAME!_!MODE!.sql"
+    set "file_sql=!destino!\!DB_NAME!_!MODE!.sql"
     call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME% - !file_sql!"
     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -a -U "%DB_HOSTNAME%" --inserts --on-conflict-do-nothing -d !DB_NAME! > "!file_sql!" 2>"%file_err%"
     if "!DB_ERRDE!"=="0" (
