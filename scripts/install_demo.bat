@@ -117,14 +117,16 @@ set "FULL_DUMP=https://www.tryton.org/~demo/database-!CURRENT_VERSION!.dump"
 
 call :head_modules_demo
 
-:: Solicita confirmación por parte del usuario
-set "MESSAGE=!INSTALL_MODU_EMPTY:PROYECTO=%DB_NAME_DEMO%!"
-set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
-if /i not "%confirm%"=="YES" (
-   echo.
-   call :logger "!LOG-CANCEL!" "!LOG_INSTALL_CANCEL!"
-   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "5" "1" "N"
-   goto :menu_trytond_demo
+if /i "%ins_demo_action%" NEQ "%INS%" (
+  :: Solicita confirmación por parte del usuario
+  set "MESSAGE=!INSTALL_MODU_EMPTY:PROYECTO=%DB_NAME_DEMO%!"
+  set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
+  if /i not "%confirm%"=="YES" (
+     echo.
+     call :logger "!LOG-CANCEL!" "!LOG_INSTALL_CANCEL!"
+     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "5" "1" "N"
+     goto :menu_trytond_demo
+  )
 )
 
 :: del 1 al 6

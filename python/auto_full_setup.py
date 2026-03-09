@@ -13,6 +13,7 @@ import time
 import sys
 import configparser
 import subprocess
+from decimal import Decimal
 import proteus
 # Añadimos p_config como alias para que coincida con la subrutina
 from proteus import config as p_config, Model, Wizard 
@@ -265,35 +266,72 @@ def get_company_config(conf_path='/config/trytond.conf'):
     config = configparser.ConfigParser()
     env_name = os.environ.get('COMPANY_NAME')
     env_currency = os.environ.get('COMPANY_CURRENCY')
-    data = {'name': env_name or '', 'currency': env_currency or ''}
-    if not data['name'] or not data['currency']:
+    env_journal_name = os.environ.get('COMPANY_JOURNAL_NAME')
+    env_journal_code = os.environ.get('COMPANY_JOURNAL_CODE')
+    env_vat_rates = os.environ.get('COMPANY_VAT_RATES')
+    data = {
+        'name': env_name or '',
+        'currency': env_currency or '',
+        'journal_name': env_journal_name or '',
+        'journal_code': env_journal_code or '',
+        'vat_rates': env_vat_rates or '',
+    }
+    if (not data['name'] or not data['currency']
+            or not data['journal_name'] or not data['journal_code'] or not data['vat_rates']):
         try:
             if os.path.exists(conf_path):
                 config.read(conf_path)
                 if 'company' in config:
                     if not data['name']: data['name'] = config['company'].get('name', 'Telepieza')
                     if not data['currency']: data['currency'] = config['company'].get('currency', 'EUR')
+                    if not data['journal_name']: data['journal_name'] = config['company'].get('journal_name', 'Diario General')
+                    if not data['journal_code']: data['journal_code'] = config['company'].get('journal_code', 'GEN')
+                    if not data['vat_rates']: data['vat_rates'] = config['company'].get('vat_rates', '21,10,4')
                     logging.info(msg['conf_file'].format(conf_path))
             else:
                 if not data['name']: data['name'] = 'Telepieza'
                 if not data['currency']: data['currency'] = 'EUR'
+                if not data['journal_name']: data['journal_name'] = 'Diario General'
+                if not data['journal_code']: data['journal_code'] = 'GEN'
+                if not data['vat_rates']: data['vat_rates'] = '21,10,4'
                 logging.warning(msg['conf_warn'])
         except Exception as e:
             logging.error(msg['read_error'].format(e))
     # Normaliza entradas potencialmente sucias desde entorno/.conf (espacios, comillas o comentarios inline).
     data['currency'] = normalize_currency_code(data.get('currency'))
     data['name'] = (data.get('name') or 'Telepieza').strip()
+    data['journal_name'] = (data.get('journal_name') or 'Diario General').strip()
+    data['journal_code'] = normalize_conf_value(data.get('journal_code') or 'GEN').upper()[:10]
+    data['vat_rates'] = parse_vat_rates(data.get('vat_rates'))
     logging.info(msg['conf_active'].format(data['name'], data['currency']))       
     return data
 
 def normalize_currency_code(value):
+    cleaned = (value or '').strip()
+    cleaned = normalize_conf_value(cleaned)
+    return (cleaned or 'EUR').upper()
+
+def normalize_conf_value(value):
     cleaned = (value or '').strip()
     if len(cleaned) >= 2 and cleaned[0] == cleaned[-1] and cleaned[0] in ("'", '"'):
         cleaned = cleaned[1:-1].strip()
     for marker in ('#', ';'):
         if marker in cleaned:
             cleaned = cleaned.split(marker, 1)[0].strip()
-    return (cleaned or 'EUR').upper()
+    return cleaned
+
+def parse_vat_rates(raw_value):
+    cleaned = normalize_conf_value(raw_value)
+    if not cleaned:
+        return ['21', '10', '4']
+    parsed = []
+    for part in cleaned.split(','):
+        token = part.strip().replace('%', '').replace(' ', '')
+        if not token:
+            continue
+        if token.isdigit() and token not in parsed:
+            parsed.append(token)
+    return parsed or ['21', '10', '4']
 
 def ensure_currency_available(currency_code, db_name=None, config_file=None):
     Currency = Model.get('currency.currency')
@@ -515,6 +553,118 @@ def setup_accounts(company, dependencies):
         except Exception as e:
             logging.error(msg['acc_error'].format(code,str(e)))
 
+def _safe_set(record, field_name, value):
+    try:
+        setattr(record, field_name, value)
+        return True
+    except Exception:
+        return False
+
+def _safe_set_first(record, field_name, values):
+    for value in values:
+        if _safe_set(record, field_name, value):
+            return value
+    return None
+
+def _safe_set_any_field(record, field_names, values):
+    for field_name in field_names:
+        applied = _safe_set_first(record, field_name, values)
+        if applied is not None:
+            return field_name, applied
+    return None, None
+
+def is_module_activated(module_name):
+    Module = Model.get('ir.module')
+    return bool(Module.find([('name', '=', module_name), ('state', '=', 'activated')], limit=1))
+
+def ensure_general_journal(company, company_conf):
+    if not is_module_activated('account'):
+        return
+    Journal = Model.get('account.journal')
+    journal_code = company_conf.get('journal_code') or 'GEN'
+    journal_name = company_conf.get('journal_name') or 'Diario General'
+    existing = Journal.find([('code', '=', journal_code)], limit=1)
+    if existing:
+        return
+    journal = Journal()
+    journal.name = journal_name
+    journal.code = journal_code
+    _safe_set(journal, 'type', 'general')
+    _safe_set(journal, 'company', company)
+    journal.save()
+    logging.info("Diario contable %s creado.", journal_code)
+
+def _pick_account_for_taxes(company):
+    Account = Model.get('account.account')
+    account = Account.find([('company', '=', company.id), ('code', '=', '47700000')], limit=1)
+    if account:
+        return account[0]
+    account = Account.find([('company', '=', company.id), ('code', '=', '477')], limit=1)
+    if account:
+        return account[0]
+    account = Account.find([('company', '=', company.id), ('code', 'like', '477%')], limit=1)
+    if account:
+        return account[0]
+    account = Account.find([('company', '=', company.id), ('code', 'like', '470%')], limit=1)
+    if account:
+        return account[0]
+    account = Account.find([('company', '=', company.id), ('code', 'like', '7%')], limit=1)
+    if account:
+        return account[0]
+    account = Account.find([('company', '=', company.id), ('code', 'like', '6%')], limit=1)
+    return account[0] if account else None
+
+def ensure_spanish_vat_taxes(company, company_conf):
+    if not is_module_activated('account_es'):
+        logging.info("IVA España omitido: módulo account_es no activo.")
+        return
+    Tax = Model.get('account.tax')
+    base_account = _pick_account_for_taxes(company)
+    if not base_account:
+        logging.warning("No se pudo crear IVA: no hay cuentas contables disponibles.")
+        return
+
+    vat_rates = company_conf.get('vat_rates') or ['21', '10', '4']
+    created = []
+    already_present = []
+    for amount in vat_rates:
+        tax_name = f"IVA {amount}%"
+        existing_tax = Tax.find([
+            ('company', '=', company.id),
+            ('name', '=', tax_name),
+        ], limit=1)
+        if existing_tax:
+            already_present.append(amount)
+            continue
+        tax = Tax()
+        tax.name = tax_name
+        _safe_set(tax, 'description', tax_name)
+        tax_type = _safe_set_first(tax, 'type', ['percentage', 'percent'])
+        if not tax_type:
+            logging.warning("No se pudo crear %s: tipo de impuesto no compatible.", tax_name)
+            continue
+        # En Tryton suele ser fracción (0.21), no 21. Probamos varios campos según versión.
+        rate_fraction = Decimal(amount) / Decimal('100')
+        rate_field, _ = _safe_set_any_field(
+            tax,
+            ['rate', 'percentage', 'percent'],
+            [rate_fraction, float(rate_fraction), str(rate_fraction), amount]
+        )
+        if not rate_field:
+            logging.warning("No se pudo crear %s: campo de porcentaje no compatible.", tax_name)
+            continue
+        _safe_set(tax, 'company', company)
+        _safe_set(tax, 'account', base_account)
+        _safe_set(tax, 'refund_account', base_account)
+        _safe_set(tax, 'invoice_account', base_account)
+        _safe_set(tax, 'credit_note_account', base_account)
+        tax.save()
+        created.append(amount)
+    if created:
+        logging.info("IVA España creado para account_es: %s.", "/".join(created))
+    if already_present:
+        logging.info("IVA España ya existente, no recreado: %s.", "/".join(already_present))
+
 # -------------------------------------------------
 # EJECUCIÓN PRINCIPAL DINÁMICA
 # -------------------------------------------------
@@ -569,6 +719,8 @@ def run_setup():
             sync_and_clean_modules()
             company = setup_or_get_company(conf_data['name'], conf_data['currency'], DB_NAME, CONF_FILE, TARGET_LANG)
             setup_accounts(company, chart_mapping)
+            ensure_general_journal(company, conf_data)
+            ensure_spanish_vat_taxes(company, conf_data)
             for year in range(2026, 2031):
                 create_fiscalyear(year, company)
             logging.info(msg['success'])
