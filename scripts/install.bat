@@ -27,7 +27,7 @@ if %errorlevel% EQU 2 (
   echo.
   set "confirm="
   :: Solicita confirmación por parte del usuario para cancelar instalacion
-  set /p "confirm=%BS%        !C_M_GREEN!!INSTALL_EXITS!!C_M_RESET! "
+  set /p "confirm=%BS%        !C_M_GREEN!!INSTALL_EXITS!!C_M_RESET!"
   if /i not "!confirm!"=="YES" goto :cancel
   goto :continue
 )
@@ -47,7 +47,7 @@ if %errorlevel% NEQ 0 (
 set "MESSAGE=!LOG_INSTALL_SUCC:PROYECTO=%proyecto%!"
 call :logger "!LOG-SUCC!" "!MESSAGE!"
 :: Al llamar con el call nos esperamos 10 s, tiempo suficiente para dar tiempo de ejecucion a cada uno de ellos.
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins! " "1"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins!" "1"
 
 :continue
   call "%DIR_SCRIPT%status.bat" "%proyecto%" "%INS%"
@@ -58,18 +58,18 @@ call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timei
     :: Una vez solucionado se vuelve a llamar a status.bat
     if %errorlevel% NEQ 0 (
       call :logger "%INS%" "!STAT_START!"
-      call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins! " "1"
+      call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins!" "1"
       call "%DIR_SCRIPT%status.bat" "%proyecto%" "%INS%"
     )
   )
   :: Instalar modulos en tryton
   call :logger "%INS%" "!MENU-OPTION_8!"
   call "%DIR_SCRIPT%install_tryton.bat" "%proyecto%" "%INS%"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins! " "1"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins!" "1"
   :: Instalar demo con database-(version).dump
   call :logger "%INS%" "!MENU-OPTION_9:VERSION=%CURRENT_VERSION%!"
   call "%DIR_SCRIPT%install_demo.bat" "%proyecto%" "%INS%"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins! " "1"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins!" "1"
 
   :: Realizamos llamada al cliente para visualizar la página web
   set "MESSAGE=!STAT_HTTP:PROYECTO=%proyecto%!"
@@ -86,7 +86,7 @@ call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timei
   call "%DIR_SCRIPT%errors.bat" "%proyecto%" "%INS%"
   echo.
   call :logger "%LOG-SUCC%" "install !LOG_INFO_PROCES!"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins! " "1"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins!" "1"
 
   goto :exit
 

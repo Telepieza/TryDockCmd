@@ -82,6 +82,9 @@ set "CURRENT_PG_VERSION="
 set "CURRENT_PGALL_VERSION="
 set "CURRENT_COMPANY_NAME="
 set "CURRENT_COMPANY_CURRENCY="
+set "CURRENT_JOURNAL_CODE="
+set "CURRENT_JOURNAL_NAME="
+set "CURRENT_VAT_RATES="
 :: Variables de trabajo
 set "LOAD_FILE=0"
 set "MESSAGE="
@@ -176,16 +179,30 @@ if not "%MESSAGE%"=="" (
    call :logger "%ERR%" "%MESSAGE%"
    pause & goto :exit
 )
-call :logger "%TXT%" "[+] 7.-!LOG_INFO_DATA! !WORD_COMPANY!/!WORD_CURRENCY!. !WORD_ROUTE!: %DIR_CONFIG%%CONF_FILE_TRY%" "3"
+call :logger "%TXT%" "[+] 7.-!LOG_INFO_DATA! !WORD_ROUTE!: %DIR_CONFIG%%CONF_FILE_TRY%" "3"
 if exist "%DIR_CONFIG%%CONF_FILE_TRY%" (
-    for /f "usebackq tokens=1,2 delims== " %%A in ("%DIR_CONFIG%%CONF_FILE_TRY%") do (
-        if /i "%%A"=="name" set "CURRENT_COMPANY_NAME=%%B"
-        if /i "%%A"=="currency" set "CURRENT_COMPANY_CURRENCY=%%B"
+  for /f "usebackq tokens=1,* delims==" %%A in ("%DIR_CONFIG%%CONF_FILE_TRY%") do (
+    set "K=%%A"
+    set "V=%%B"
+    rem limpia espacios y tabulaciones en clave
+    set "K=!K: =!"
+    set "K=!K:	=!"
+    rem limpia espacios iniciales en valor
+    for /f "tokens=* delims= " %%Z in ("!V!") do set "V=%%Z"
+      if /i "!K!"=="name" set "CURRENT_COMPANY_NAME=!V!"
+      if /i "!K!"=="currency" set "CURRENT_COMPANY_CURRENCY=!V!"
+      if /i "!K!"=="journal_code" set "CURRENT_JOURNAL_CODE=!V!"
+      if /i "!K!"=="journal_name" set "CURRENT_JOURNAL_NAME=!V!"
+      if /i "!K!"=="vat_rates" set "CURRENT_VAT_RATES=!V!"
     )
 )
+
 :: Validar si se cargaron los datos, si no, usar fallbacks de seguridad
-if "!CURRENT_COMPANY_NAME!"=="" set "CURRENT_COMPANY_NAME=Company"
+if "!CURRENT_COMPANY_NAME!"=="" set "CURRENT_COMPANY_NAME=!WORD_COMPANY!"
 if "!CURRENT_COMPANY_CURRENCY!"=="" set "CURRENT_COMPANY_CURRENCY=EUR"
+if "!CURRENT_JOURNAL_CODE!"=="" set "CURRENT_JOURNAL_CODE=GEN"
+if "!CURRENT_JOURNAL_NAME!"=="" set "CURRENT_JOURNAL_NAME=!WORD_GEN_DIARY!"
+if "!CURRENT_VAT_RATES!"=="" set "CURRENT_VAT_RATES=!WORD_VAT_RATES!"
 
 set "action_ins=%INS%"
 :verify_docker

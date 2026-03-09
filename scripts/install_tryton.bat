@@ -17,12 +17,13 @@ set "proyecto=%~1"
 set "ins_tryton_action=%~2"
 set "log_action=!LOG-INFO!"
 set /a "wait_timetry=10"
+set /a "wait_timetry5=5"
+set /a "wait_timetry20=20"
 
 call "%DIR_SCRIPT%install_header.bat" "%proyecto%" "%ins_tryton_action%" "%INS%" "install_tryton"
 if %ERRORLEVEL% NEQ 0 goto :exit
 :: Si es de install.bat seguimos en el proceso de instalacion
 if /i "%ins_tryton_action%"=="%INS%" goto :run_install_modules
-
 :menu_trytond
   cls
   set "option="
@@ -61,6 +62,15 @@ if /i "%ins_tryton_action%"=="%INS%" goto :run_install_modules
   call :logger "%LOG-WARN%" "%MESSAGE%"
   pause & goto :menu_trytond
 
+:: Proceso install automatic.
+:run_install_modules
+ call :check_database
+ call :check_rules
+ call :check_extensions
+ call :run_modules
+ call :logs
+ exit /b
+
 :: 01
 :check_database
   set "command=\l"
@@ -89,27 +99,21 @@ if /i "%ins_tryton_action%"=="%INS%" goto :run_install_modules
   if /i "%ins_tryton_action%"=="%INS%" exit /b
   pause & goto :menu_trytond
 
-:: Proceso install.
-:run_install_modules
- call :check_database
- call :check_rules
- call :check_extensions
- call :run_modules
- call :logs
- exit /b
-
 :: 04
 :run_modules
 :: Visualizar datos cabecera
 call :head_modules
+if /i "%ins_tryton_action%" EQU "%INS%" call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timetry20%" "1" 
 :: Solicita confirmación por parte del usuario
-set "MESSAGE=!INSTALL_MODU_EMPTY:PROYECTO=%DB_NAME%!"
-set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
-if /i not "%confirm%"=="YES" (
-   echo.
-   call :logger "!LOG-CANCEL!" "!LOG_INSTALL_CANCEL!"
-   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "5" "1" "N"
-   goto :menu_trytond 
+if /i "%ins_tryton_action%" NEQ "%INS%" (
+  set "MESSAGE=!INSTALL_MODU_EMPTY:PROYECTO=%DB_NAME%!"
+  set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
+  if /i not "%confirm%"=="YES" (
+     echo.
+     call :logger "!LOG-CANCEL!" "!LOG_INSTALL_CANCEL!"
+     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timetry5%" "1" "N"
+     goto :menu_trytond 
+  )
 )
 
 :: del 1 al 6
@@ -153,7 +157,7 @@ call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
 call :logger "%INS%" "%F8%" "4"
 set "cmd=!COM2! !COM1! -u !C8! --activate-dependencies !COM3!"
 call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
-
+:: 7.1. UPDATE modules-list install language
 if /i "!TRYTON_LANGUAGE!" NEQ "" (
   call :logger "%INS%" "[7.1.-] !INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
@@ -208,7 +212,7 @@ pause & goto :menu_trytond
    if /i not "%confirm%"=="YES" (
      echo.
      call :logger "!LOG-CANCEL!" "!LOG_INSTALL_CANCEL!"
-     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "5" "1" "N"
+     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timetry5%" "1" "N"
      goto :menu_trytond 
    )
    echo.
@@ -217,7 +221,7 @@ pause & goto :menu_trytond
    set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
    call :database_process "%confirm%" "%APP%"
    call :logger "!LOG-SUCC!" "!INSTALL_MODU_END!"
-   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "5" "1" "N"
+   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timetry5%" "1" "N"
    goto :menu_trytond
    
 :database_process   
@@ -440,6 +444,10 @@ pause & goto :menu_trytond
     call :logger "%MENU%" "!znum!.4-!INSTALL_MODU_HEAD48!" "8"
     call :logger "%MENU%" "!znum!.5-!INSTALL_MODU_HEAD49!" "8"
     call :logger "%MENU%" "!znum!.6-!INSTALL_MODU_HEAD50!" "8"
+    call :logger "%MENU%" "!znum!.7-!INSTALL_MODU_HEAD51! !CURRENT_COMPANY_NAME!" "8"
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD52! (!CURRENT_JOURNAL_CODE!) !WORD_NAME!: !CURRENT_JOURNAL_NAME!" "13"
+    set "MESSAGE=!INSTALL_MODU_HEAD41:IMPUESTOS=%CURRENT_VAT_RATES%!"
+    call :logger "%MENU%" "!znum!.8-!MESSAGE! !CURRENT_COMPANY_NAME!" "8"
   echo.
 exit /b
 

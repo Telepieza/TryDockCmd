@@ -78,7 +78,14 @@ MESSAGES = {
         'company_not_created': "El asistente no creó la empresa: {}",
         'admin_lang_skip': "Actualización de idioma admin omitida: {}",
         'invoice_seq_missing': "No hay secuencias de factura para el ejercicio.",
-        'unsupported_action': "Acción no soportada: {}"
+        'unsupported_action': "Acción no soportada: {}",
+        'journal_created': "Diario contable {} creado.",
+        'vat_skipped_no_module': "IVA España omitido: módulo account_es no activo.",
+        'vat_skipped_no_account': "No se pudo crear IVA: no hay cuentas contables disponibles.",
+        'vat_skipped_bad_type': "No se pudo crear {}: tipo de impuesto no compatible.",
+        'vat_skipped_bad_rate': "No se pudo crear {}: campo de porcentaje no compatible.",
+        'vat_created': "IVA España creado para account_es: {}.",
+        'vat_already_present': "IVA España ya existente, no recreado: {}."
     },
     'en': {
         'start': "--- CONNECTION SUCCESSFUL ---",
@@ -116,7 +123,14 @@ MESSAGES = {
         'company_not_created': "Company wizard did not create company: {}",
         'admin_lang_skip': "Admin language update skipped: {}",
         'invoice_seq_missing': "No invoice sequence links available for fiscal year.",
-        'unsupported_action': "Unsupported action: {}"
+        'unsupported_action': "Unsupported action: {}",
+        'journal_created': "Accounting journal {} created.",
+        'vat_skipped_no_module': "Spanish VAT skipped: account_es module is not active.",
+        'vat_skipped_no_account': "Could not create VAT: no accounting accounts available.",
+        'vat_skipped_bad_type': "Could not create {}: incompatible tax type.",
+        'vat_skipped_bad_rate': "Could not create {}: incompatible percentage field.",
+        'vat_created': "Spanish VAT created for account_es: {}.",
+        'vat_already_present': "Spanish VAT already exists, not recreated: {}."
     },
     'fr': {
         'start': "--- CONNEXION RÉUSSIE ---",
@@ -154,7 +168,14 @@ MESSAGES = {
         'company_not_created': "L'assistant n'a pas créé l'entreprise : {}",
         'admin_lang_skip': "Mise à jour de la langue admin ignorée : {}",
         'invoice_seq_missing': "Aucun lien de séquence de facture disponible pour l'exercice.",
-        'unsupported_action': "Action non prise en charge : {}"
+        'unsupported_action': "Action non prise en charge : {}",
+        'journal_created': "Journal comptable {} créé.",
+        'vat_skipped_no_module': "TVA Espagne ignorée : le module account_es n'est pas actif.",
+        'vat_skipped_no_account': "Impossible de créer la TVA : aucun compte comptable disponible.",
+        'vat_skipped_bad_type': "Impossible de créer {} : type de taxe incompatible.",
+        'vat_skipped_bad_rate': "Impossible de créer {} : champ de pourcentage incompatible.",
+        'vat_created': "TVA Espagne créée pour account_es : {}.",
+        'vat_already_present': "TVA Espagne déjà existante, non recréée : {}."
     },
     'de': {
         'start': "--- VERBINDUNG ERFOLGREICH ---",
@@ -192,7 +213,14 @@ MESSAGES = {
         'company_not_created': "Der Assistent hat das Unternehmen nicht erstellt: {}",
         'admin_lang_skip': "Admin-Sprachaktualisierung übersprungen: {}",
         'invoice_seq_missing': "Keine Rechnungssequenz-Verknüpfungen für das Geschäftsjahr verfügbar.",
-        'unsupported_action': "Nicht unterstützte Aktion: {}"
+        'unsupported_action': "Nicht unterstützte Aktion: {}",
+        'journal_created': "Buchungsjournal {} erstellt.",
+        'vat_skipped_no_module': "Spanische MwSt. übersprungen: Modul account_es ist nicht aktiv.",
+        'vat_skipped_no_account': "MwSt. konnte nicht erstellt werden: keine Buchhaltungskonten verfügbar.",
+        'vat_skipped_bad_type': "{} konnte nicht erstellt werden: inkompatibler Steuertyp.",
+        'vat_skipped_bad_rate': "{} konnte nicht erstellt werden: inkompatibles Prozentfeld.",
+        'vat_created': "Spanische MwSt. für account_es erstellt: {}.",
+        'vat_already_present': "Spanische MwSt. bereits vorhanden, nicht neu erstellt: {}."
     }
 }
 
@@ -332,6 +360,16 @@ def parse_vat_rates(raw_value):
         if token.isdigit() and token not in parsed:
             parsed.append(token)
     return parsed or ['21', '10', '4']
+
+def parse_actions(raw_action):
+    action_text = (raw_action or 'FULL').strip()
+    if not action_text:
+        return {'FULL'}
+    normalized = action_text.replace('[', '').replace(']', '').replace("'", '').replace('"', '')
+    tokens = [part.strip().upper() for part in normalized.replace(';', ',').split(',') if part.strip()]
+    if not tokens:
+        tokens = [action_text.upper()]
+    return set(tokens)
 
 def ensure_currency_available(currency_code, db_name=None, config_file=None):
     Currency = Model.get('currency.currency')
@@ -592,7 +630,7 @@ def ensure_general_journal(company, company_conf):
     _safe_set(journal, 'type', 'general')
     _safe_set(journal, 'company', company)
     journal.save()
-    logging.info("Diario contable %s creado.", journal_code)
+    logging.info(msg['journal_created'].format(journal_code))
 
 def _pick_account_for_taxes(company):
     Account = Model.get('account.account')
@@ -616,12 +654,12 @@ def _pick_account_for_taxes(company):
 
 def ensure_spanish_vat_taxes(company, company_conf):
     if not is_module_activated('account_es'):
-        logging.info("IVA España omitido: módulo account_es no activo.")
+        logging.info(msg['vat_skipped_no_module'])
         return
     Tax = Model.get('account.tax')
     base_account = _pick_account_for_taxes(company)
     if not base_account:
-        logging.warning("No se pudo crear IVA: no hay cuentas contables disponibles.")
+        logging.warning(msg['vat_skipped_no_account'])
         return
 
     vat_rates = company_conf.get('vat_rates') or ['21', '10', '4']
@@ -641,7 +679,7 @@ def ensure_spanish_vat_taxes(company, company_conf):
         _safe_set(tax, 'description', tax_name)
         tax_type = _safe_set_first(tax, 'type', ['percentage', 'percent'])
         if not tax_type:
-            logging.warning("No se pudo crear %s: tipo de impuesto no compatible.", tax_name)
+            logging.warning(msg['vat_skipped_bad_type'].format(tax_name))
             continue
         # En Tryton suele ser fracción (0.21), no 21. Probamos varios campos según versión.
         rate_fraction = Decimal(amount) / Decimal('100')
@@ -651,7 +689,7 @@ def ensure_spanish_vat_taxes(company, company_conf):
             [rate_fraction, float(rate_fraction), str(rate_fraction), amount]
         )
         if not rate_field:
-            logging.warning("No se pudo crear %s: campo de porcentaje no compatible.", tax_name)
+            logging.warning(msg['vat_skipped_bad_rate'].format(tax_name))
             continue
         _safe_set(tax, 'company', company)
         _safe_set(tax, 'account', base_account)
@@ -661,9 +699,9 @@ def ensure_spanish_vat_taxes(company, company_conf):
         tax.save()
         created.append(amount)
     if created:
-        logging.info("IVA España creado para account_es: %s.", "/".join(created))
+        logging.info(msg['vat_created'].format("/".join(created)))
     if already_present:
-        logging.info("IVA España ya existente, no recreado: %s.", "/".join(already_present))
+        logging.info(msg['vat_already_present'].format("/".join(already_present)))
 
 # -------------------------------------------------
 # EJECUCIÓN PRINCIPAL DINÁMICA
@@ -673,7 +711,8 @@ def run_setup():
     DB_NAME = sys.argv[1] if len(sys.argv) > 1 else os.environ.get('DB_NAME', 'tryton')
     CONF_FILE = sys.argv[2] if len(sys.argv) > 2 else '/etc/trytond.conf'
     TARGET_LANG = (sys.argv[3] if len(sys.argv) > 3 else APP_LANG).lower()
-    ACTION = (sys.argv[4] if len(sys.argv) > 4 else 'FULL').upper()
+    ACTION = (sys.argv[4] if len(sys.argv) > 4 else 'FULL')
+    actions = parse_actions(ACTION)
 
     if not connect_and_init(DB_NAME, CONF_FILE): sys.exit(10)
     
@@ -690,7 +729,7 @@ def run_setup():
         sys.exit(15)
 
     # ACCIÓN: GEODATA (Solo países y postales)
-    if ACTION in ['FULL', 'GEO']:
+    if 'FULL' in actions or 'GEO' in actions:
         try:
             run_geodata_import(DB_NAME, CONF_FILE, TARGET_LANG)
         except RuntimeError as e:
@@ -704,7 +743,7 @@ def run_setup():
             sys.exit(21)
         
     # ACCIÓN: LANG (Traducciones e Idiomas)
-    if ACTION in ['FULL', 'LANG']:
+    if 'FULL' in actions or 'LANG' in actions:
         try:
             activate_languages(chart_mapping)
         except Exception as e:
@@ -713,30 +752,40 @@ def run_setup():
              sys.exit(30) # <--- Código específico para LANG
 
     # ACCIÓN: ACC (Solo contabilidad y empresa) o FULL
-    if ACTION in ['FULL', 'ACC']:
+    if 'FULL' in actions or 'ACC' in actions:
         try:
             conf_data = get_company_config(CONF_FILE)
             sync_and_clean_modules()
             company = setup_or_get_company(conf_data['name'], conf_data['currency'], DB_NAME, CONF_FILE, TARGET_LANG)
             setup_accounts(company, chart_mapping)
             ensure_general_journal(company, conf_data)
-            ensure_spanish_vat_taxes(company, conf_data)
             for year in range(2026, 2031):
                 create_fiscalyear(year, company)
-            logging.info(msg['success'])
         except Exception as e:
             logging.exception(msg['error'].format(str(e)))
             logging.shutdown()
             sys.exit(40) # <--- Código específico para ACC
-            
-        logging.info(msg['end_phase'].format(ACTION))
-        logging.shutdown()  
-        sys.exit(0)
-    if ACTION not in ['FULL', 'GEO', 'LANG', 'ACC']:
-        logging.error(msg['unsupported_action'].format(ACTION))
+
+    # ACCIÓN: TAX (IVA España) o FULL
+    if 'FULL' in actions or 'TAX' in actions:
+        try:
+            conf_data = get_company_config(CONF_FILE)
+            sync_and_clean_modules()
+            company = setup_or_get_company(conf_data['name'], conf_data['currency'], DB_NAME, CONF_FILE, TARGET_LANG)
+            ensure_spanish_vat_taxes(company, conf_data)
+        except Exception as e:
+            logging.exception(msg['error'].format(str(e)))
+            logging.shutdown()
+            sys.exit(50) # <--- Código específico para TAX
+
+    valid_actions = {'FULL', 'GEO', 'LANG', 'ACC', 'TAX'}
+    invalid_actions = sorted([item for item in actions if item not in valid_actions])
+    if invalid_actions:
+        logging.error(msg['unsupported_action'].format(", ".join(invalid_actions)))
         logging.shutdown()
         sys.exit(11)
-    logging.info(msg['end_phase'].format(ACTION))
+    logging.info(msg['success'])
+    logging.info(msg['end_phase'].format(", ".join(sorted(actions))))
     logging.shutdown()
     sys.exit(0)
 if __name__ == "__main__":
