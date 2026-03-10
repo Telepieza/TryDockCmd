@@ -436,63 +436,50 @@ def sync_and_clean_modules():
         item.save()
     return [m.name for m in Module.find([('state', '=', 'activated')])]
 
-def setup_or_get_company(company_name, currency_code, db_name=None, config_file=None, lang_code=None):
-    logging.info(msg['comp_phase'].format(company_name))
-    Company = Model.get('company.company')
-    Party = Model.get('party.party')
+def setup_or_get_company(company_name, currency_code, db_name, config_file, target_lang):
+    # 1. Aseguramos que Proteus tiene el contexto de preferencias cargado
     User = Model.get('res.user')
-    existing = Company.find([('party.name', '=', company_name)])
-    if existing:
-        company = existing[0]
-        logging.info(msg['comp_found'].format(company.party.name))
-    else:
-        logging.info(msg['comp_create'].format(company_name))
-        currency = ensure_currency_available(currency_code, db_name, config_file)
-        company_config = Wizard('company.company.config')
-        company_config.execute('company')
-        # Algunas instalaciones devuelven form.party=None en este estado del wizard.
-        # Creamos/asignamos party de forma defensiva para evitar AttributeError.
-        party_record = company_config.form.party
-        if not party_record:
-            existing_parties = Party.find([('name', '=', company_name)], limit=1)
-            if existing_parties:
-                party_record = existing_parties[0]
-            else:
-                # Algunas versiones/API requieren contexto explícito en create.
-                # En arranque en frío, heredar todo el contexto puede incluir claves
-                # (p.ej. company) que rompen create en ciertos módulos multivalue.
-                ctx = {}
-                try:
-                    created_parties = Party.create([{'name': company_name}], context=ctx)
-                except TypeError:
-                    created_parties = Party.create([{'name': company_name}], ctx)
-                if not created_parties:
-                    raise RuntimeError(msg['company_not_created'].format(company_name))
-                party_ref = created_parties[0]
-                party_record = Party(party_ref) if isinstance(party_ref, int) else party_ref
-            company_config.form.party = party_record
-        else:
-            party_record.name = company_name
-            party_record.save()
-        company_config.form.currency = currency
-        company_config.execute('add')
-        companies = Company.find([('party.name', '=', company_name)])
-        if not companies:
-            raise RuntimeError(msg['company_not_created'].format(company_name))
-        company = companies[0]
-    company_lang = get_company_language(lang_code)
-    if company_lang and getattr(company, 'party', None):
-        company.party.lang = company_lang
-        company.party.save()
+    p_config.get_config()._context = User.get_preferences(True, {})
+
+    Party = Model.get('party.party')
+    Company = Model.get('company.company')
+    Currency = Model.get('currency.currency')
+
+    # Intentar buscar si ya existe
+    existing_companies = Company.find([('party.name', '=', company_name)])
+    if existing_companies:
+        logging.info(f"Empresa {company_name} ya existe.")
+        return existing_companies[0]
+
+    logging.info(f"Creando empresa: {company_name}")
     
-    cfg = proteus.config.get_config()
-    old_user = cfg.user
-    cfg.user = 0 
-    new_context = User.get_preferences(True, {'company': company.id})
-    cfg.context.update(new_context)
-    cfg.user = old_user
-    logging.info(msg['ctx_upd'].format(company_name, normalize_currency_code(currency_code)))
-    return company
+    # 2. Asegurar moneda
+    usd_list = Currency.find([('code', '=', currency_code)])
+    if not usd_list:
+        currency = Currency(name=currency_code, code=currency_code, symbol=currency_code)
+        currency.save()
+    else:
+        currency = usd_list[0]
+
+    # 3. EL WIZARD (Copiando exactamente el flujo de la demo)
+    company_config = Wizard('company.company.config')
+    company_config.execute('company')
+    
+    # Crear el Party ANTES de asignarlo
+    party = Party(name=company_name)
+    party.save() # Si esto falla aquí, usa el bloque 'with cfg.set_context(company=None):' que pusimos antes
+    
+    company_form = company_config.form
+    company_form.party = party
+    company_form.currency = currency
+    company_config.execute('add')
+
+    # 4. RECARGAR CONTEXTO (Vital para que el resto del script sepa que ya hay empresa)
+    p_config.get_config()._context = User.get_preferences(True, {})
+    
+    new_company, = Company.find([('party.name', '=', company_name)])
+    return new_company
+
 
 def activate_languages(dependencies):
     logging.info(msg['lang_phase'])
