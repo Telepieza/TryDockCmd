@@ -17,10 +17,15 @@ set "proyecto=%~1"
 set "ins_demo_action=%~2"
 set "log_action=!LOG-INFO!"
 set /a "wait_timedem=10"
+set /a "wait_timedem20=20"
 set "confirm="
+set "exit_dbdemo="
 
 call "%DIR_SCRIPT%install_header.bat" "%proyecto%" "%ins_demo_action%" "%DEMO%" "install_demo"
 if %ERRORLEVEL% NEQ 0 goto :exit
+
+call :database_exist_demo
+
 :: Si es de install.bat seguimos en el proceso de instalacion
 if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 
@@ -62,41 +67,49 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 
 :: 01
 :check_database_demo
-  set "command=\l"
-  call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
-  if %ERRORLEVEL%==0 (
-    call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "L" "!INSTALL_MODU_01!" "0" "%file_table%" "%DEMO%"
+  if "!exit_dbdemo!"=="0" (
+    set "command=\l"
+    call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
+    if %ERRORLEVEL%==0 (
+      call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "L" "!INSTALL_MODU_01!" "0" "%file_table%" "%DEMO%"
+    )
   )
   if /i "%ins_demo_action%"=="%INS%" exit /b
+  if "!exit_dbdemo!"=="1" call :logger "%LOG-WARN%" "!BCK_NO_DDBB:PROYECTO=%DB_NAME_DEMO%!"
+  echo.
   pause & goto :menu_trytond_demo
 :: 02
 :check_rules_demo
-  set "command=\du"
-  call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
-  if %ERRORLEVEL%==0 (
-    call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "U" "!INSTALL_MODU_02!" "0" "%file_table%" "%DEMO%"
+  if "!exit_dbdemo!"=="0" (
+    set "command=\du"
+    call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
+    if %ERRORLEVEL%==0 (
+      call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "U" "!INSTALL_MODU_02!" "0" "%file_table%" "%DEMO%"
+    )
   )
   if /i "%ins_demo_action%"=="%INS%" exit /b
+  if "!exit_dbdemo!"=="1" call :logger "%LOG-WARN%" "!BCK_NO_DDBB:PROYECTO=%DB_NAME_DEMO%!"
+  echo.
   pause & goto :menu_trytond_demo
 :: 03
 :check_extensions_demo
-  set "command=\dx"
-  call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
-  if %ERRORLEVEL%==0 (
-    call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "X" "!INSTALL_MODU_03!" "0" "%file_table%" "%DEMO%"
+  if "!exit_dbdemo!"=="0" (
+    set "command=\dx"
+    call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
+    if %ERRORLEVEL%==0 (
+      call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "X" "!INSTALL_MODU_03!" "0" "%file_table%" "%DEMO%"
+    )
   )
   if /i "%ins_demo_action%"=="%INS%" exit /b
+  if "!exit_dbdemo!"=="1" call :logger "%LOG-WARN%" "!BCK_NO_DDBB:PROYECTO=%DB_NAME_DEMO%!"
+  echo.
   pause & goto :menu_trytond_demo
 
 :: Proceso install.
 :run_install_modules_demo
-  set "cmd=SELECT 1 FROM pg_catalog.pg_database WHERE datname='!DB_NAME_DEMO!';"
-  call :run_trytond_demo "%POSTGRES%" "!cmd!" "%file_log%" "%file_err%"
-  if %ERRORLEVEL% EQU 0 (
-    call :check_database_demo
-    call :check_rules_demo
-    call :check_extensions_demo
-  )
+  call :check_database_demo
+  call :check_rules_demo
+  call :check_extensions_demo
   call :run_modules_demo
   call :logs_demo
   exit /b
@@ -128,6 +141,8 @@ if /i "%ins_demo_action%" NEQ "%INS%" (
      goto :menu_trytond_demo
   )
 )
+
+if /i "%ins_demo_action%" EQU "%INS%" call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timedem20!" "1"
 
 :: del 1 al 6
 call :database_process_demo "YES" "%INS%"
@@ -172,6 +187,17 @@ if /i "%ins_demo_action%"=="%INS%"  exit /b
 echo.
 pause & goto :menu_trytond_demo
 
+:database_exist_demo
+ :: exit_dbdemo=0 (existe)
+  set "exit_dbdemo=1"
+  set "db_exists="
+  for /f "usebackq tokens=* delims=" %%i in (`
+    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" ^
+    psql -U postgres -d postgres -tA -c "SELECT 1 FROM pg_database WHERE datname='!DB_NAME_DEMO!';" 2^>nul
+  `) do set "db_exists=%%i"
+  if "!db_exists!"=="1" set "exit_dbdemo=0"
+exit /b
+
 :: 05
 :database_postgres_demo
    echo.
@@ -208,7 +234,7 @@ pause & goto :menu_trytond_demo
    call :logger "%INS%" "[2.-] !INSTALL_MODU_HEAD12! - start %POSTGRES%" "3"
    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" start "%POSTGRES%" >nul 2>&1 
    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timedem!"  
-   if /i "%ins_demo_action%" NEQ "%INS%" if /i "%confirm%"=="YES" (
+   if /i "%ins_demo_action%" NEQ "%INS%" if /i "%confirm%"=="YES" if "!exit_dbdemo!"=="0" (
      :: 3.- Realizar una copia de seguridad de la base de datos
      call :logger "%INS%" "[3.-] !INSTALL_MODU_HEAD13!" "3"
      call "%DIR_SCRIPT%backup.bat" "%TRYTON%" "%process%"
@@ -222,6 +248,7 @@ pause & goto :menu_trytond_demo
    call :logger "%INS%" "[5.-] !INSTALL_MODU_HEAD15! %DB_NAME_DEMO%" "3"
    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" createdb -U postgres "%DB_NAME_DEMO%"
    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timedem!"  
+   set "exit_dbdemo=0"
    :: 6.- Probando conexión a la base de datos
    call :logger "%INS%" "[6.-] !INSTALL_MODU_HEAD16! %DB_NAME_DEMO%" "3"
    set  "cmd=SELECT current_database();"
@@ -235,20 +262,26 @@ pause & goto :menu_trytond_demo
   ) else (
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "fill_in_field" "%TXT%" "7.- !INSTALL_MODU_12!" "3"
   )
-  call "%DIR_SCRIPT%logger.bat" "%TRYTON%" "%SQL%"
+  if "!exit_dbdemo!"=="0" call "%DIR_SCRIPT%logger.bat" "%TRYTON%" "%SQL%"
   if /i "%ins_demo_action%"=="%INS%" exit /b
+  if "!exit_dbdemo!"=="1" call :logger "%LOG-WARN%" "!BCK_NO_DDBB:PROYECTO=%DB_NAME_DEMO%!"
+  echo.
   pause & goto :menu_trytond_demo
 
 ::07
 :compare_menu_modules_demo
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "fill_in_field" "%TXT%" "7.- !INSTALL_MODU_14!" "3"
-  call :compare_modules_install_demo "%APP%" "!INSTALL_MODU_14!" "3"
+  if "!exit_dbdemo!"=="0" call :compare_modules_install_demo "%APP%" "!INSTALL_MODU_14!" "3"
+  if "!exit_dbdemo!"=="1" call :logger "%LOG-WARN%" "!BCK_NO_DDBB:PROYECTO=%DB_NAME_DEMO%!"
+  echo.
   pause & goto :menu_trytond_demo
 
 :: 08
 :listing_menu_modules_demo
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "fill_in_field" "%TXT%" "8.- !INSTALL_MODU_15!" "3"
-  call :listing_modules_demo "%APP%" "!INSTALL_MODU_15!" "3"
+  if "!exit_dbdemo!"=="0" call :listing_modules_demo "%APP%" "!INSTALL_MODU_15!" "3"
+  if "!exit_dbdemo!"=="1" call :logger "%LOG-WARN%" "!BCK_NO_DDBB:PROYECTO=%DB_NAME_DEMO%!"
+   echo.
   pause & goto :menu_trytond_demo
 
 :: 08 04-01

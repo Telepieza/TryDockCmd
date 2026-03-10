@@ -454,9 +454,22 @@ def setup_or_get_company(company_name, currency_code, db_name=None, config_file=
         # Creamos/asignamos party de forma defensiva para evitar AttributeError.
         party_record = company_config.form.party
         if not party_record:
-            party_record = Party()
-            party_record.name = company_name
-            party_record.save()
+            existing_parties = Party.find([('name', '=', company_name)], limit=1)
+            if existing_parties:
+                party_record = existing_parties[0]
+            else:
+                # Algunas versiones/API requieren contexto explícito en create.
+                # En arranque en frío, heredar todo el contexto puede incluir claves
+                # (p.ej. company) que rompen create en ciertos módulos multivalue.
+                ctx = {}
+                try:
+                    created_parties = Party.create([{'name': company_name}], context=ctx)
+                except TypeError:
+                    created_parties = Party.create([{'name': company_name}], ctx)
+                if not created_parties:
+                    raise RuntimeError(msg['company_not_created'].format(company_name))
+                party_ref = created_parties[0]
+                party_record = Party(party_ref) if isinstance(party_ref, int) else party_ref
             company_config.form.party = party_record
         else:
             party_record.name = company_name

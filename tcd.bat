@@ -85,6 +85,7 @@ set "CURRENT_COMPANY_CURRENCY="
 set "CURRENT_JOURNAL_CODE="
 set "CURRENT_JOURNAL_NAME="
 set "CURRENT_VAT_RATES="
+set "CURRENT_URI="
 :: Variables de trabajo
 set "LOAD_FILE=0"
 set "MESSAGE="
@@ -194,6 +195,7 @@ if exist "%DIR_CONFIG%%CONF_FILE_TRY%" (
       if /i "!K!"=="journal_code" set "CURRENT_JOURNAL_CODE=!V!"
       if /i "!K!"=="journal_name" set "CURRENT_JOURNAL_NAME=!V!"
       if /i "!K!"=="vat_rates" set "CURRENT_VAT_RATES=!V!"
+      if /i "!K!"=="uri"       set "CURRENT_URI=!V!"
     )
 )
 
@@ -221,7 +223,6 @@ set "action_ins=%INS%"
     call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "timeout_start" "!wait_time!" "1"
   ) 
   if "!CURRENT_VER_MENU!" EQU "" set "CURRENT_VER_MENU=%LATEST%"
-  call :logger "%MENU%" "[+] 10.-!LOG_INFO_DOCKER!" "3"
   echo.
   call :logger "%LOG-SUCC%" "tcd !LOG_INFO_PROCES!"
   for /f %%A in ('"prompt $H & echo on & for %%B in (1) do rem"') do set "BS=%%A"
@@ -234,6 +235,8 @@ set "action_ins=%INS%"
   )
   call :logger "%TXT%" "!START_MSG! !MENU_TRYDOCK! !MENU-OPTION_MAIN!"
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "timeout_start" "!wait_time!" "1" "N"
+
+  :: call "%DIR_SCRIPT%install_accounts.bat" "%proyecto%" "%INS%"
 
 :menu
   cls
@@ -293,6 +296,9 @@ set "action_ins=%INS%"
     pause & goto :menu
   )
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "fill_in_field" "%TXT%" "0.- %MENU-OPTION_0%" "3"
+  set "LOAD_FILE=0"
+  call :check_configuration
+  if "!LOAD_FILE!"=="1" goto :exit
   :: action_ins = APP o INS
   call %DIR_SCRIPT%install.bat "%TRYTON%" "%action_ins%"
   :: Error o cancel en install
@@ -300,6 +306,7 @@ set "action_ins=%INS%"
   :: No ha localizado la version
   if "!CURRENT_VERSION!"=="" goto :verify_docker
   pause & goto :menu
+  
 :status
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "fill_in_field" "%TXT%" "1.- %MENU-OPTION_1%" "3"
   call "%DIR_SCRIPT%status.bat" "%TRYTON%" "%APP%"
@@ -428,6 +435,36 @@ exit /b
   :: Solicita confirmación YES por parte del usuario para continuar. 
   set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
   if /i not "%confirm%"=="YES" set "LOAD_FILE=1"
+  exit /b
+
+:check_configuration
+  set "confirm="
+  set "language_name=!WORD_SPAIN!"
+  if /i "!TRYTON_LANGUAGE!"=="fr" set "language_name=!WORD_FRACE!" 
+  if /i "!TRYTON_LANGUAGE!"=="de" set "language_name=!WORD_GERMANY!" 
+  set "db_uri_menu=postgresql://%POSTGRES%:%DB_PASSWORD%@%DB_HOSTNAME%:%DB_PORT%/"
+  echo    ==============================================================
+     call :logger "%MENU%" "!INSTALL_MODU_HEAD02! %DB_NAME%" "8"
+  echo    ==============================================================
+  echo.
+    call :logger "%MENU%" "!INSTALL_MODU_HEADEM! !CURRENT_COMPANY_NAME!" "3"
+    call :logger "%MENU%" "!INSTALL_MODU_HEADCO! !language_name!" "3"
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD36! !EMAIL!" "3"
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD04! %TRYTON%" "3"
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD07! [!CURRENT_VER_MENU!]" "3"
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD05! %DB_NAME%" "3"
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD05! %DB_NAME_DEMO%" "3"
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD08! [!CURRENT_PG_VERSION!]" "3"   
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD06! %db_uri_menu%" "3"
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD37! %CURRENT_URI%" "3"
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD03! %DIR_HOME%%COMPOSE_FILE%" "3"
+    set "MESSAGE=!INSTALL_MODU_HEAD33:USUARIO=%DB_USER%!"
+    call :logger "%MENU%" "!MESSAGE:CLAVE=%DB_PASSWORD%!" "3"
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD52! (!CURRENT_JOURNAL_CODE!) !WORD_NAME!: !CURRENT_JOURNAL_NAME!" "3"
+    call :logger "%MENU%" "!INSTALL_MODU_HEAD41:IMPUESTOS=%CURRENT_VAT_RATES%! !CURRENT_COMPANY_NAME!" "3"
+  echo.
+  set /p "confirm=%BS%        !C_M_GREEN!!INSTALL_CONFIRM!!C_M_RESET! "
+  if /i "%confirm%" NEQ "YES" set "LOAD_FILE=1"
   exit /b
 
 :logger
