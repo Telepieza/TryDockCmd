@@ -150,7 +150,6 @@ if /i "!ins_lang_action!"=="%INS%" (
   -e COMPANY_CURRENCY="!CURRENT_COMPANY_CURRENCY!" ^
   -e APP_LANGUAGE="!LOCALE!" ^
   !CURRENT_TRYTON! python3 /tmp/auto_full_setup.py !DB_NAME! /tmp/trytond_setup.conf !iso_code! !ACCION!
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
   if %ERRORLEVEL% GEQ 10 (
     set "MESSAGE=ERROR %ERRORLEVEL%:"
     if %ERRORLEVEL% equ 10 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD55! !DB_NAME!."
@@ -159,7 +158,6 @@ if /i "!ins_lang_action!"=="%INS%" (
     if %ERRORLEVEL% equ 21 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD58! [!iso_code!]."
     call :logger "!LOG-ERROR!" "!MESSAGE!"
   )
-
   :: 5 Traemos el log actual del contenedor a un temporal para grabar los datos en el pc
   set "temp_file=%file_lang_tmp%_!iso_code!.txt"
   set "logger_tmp=%DIR_LOG%\%TRYTON%_logger_!iso_code!.log"
@@ -199,12 +197,11 @@ if /i "!ins_lang_action!"=="%INS%" (
 
   if /i "%ins_lang_action%"=="%INS%" exit /b
 
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
   call :logger "%log_action%" "!INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
   call :run_trytond_lang "%SERVER%" "!cmd!" "" "%file_base%" "YES"
-  :: Reports Verificar y comprobar que todos los módulos están activated
 
+  :: Reports Verificar y comprobar que todos los módulos están activated
   call :logger "%log_action%" "!INSTALL_MODU_HEAD18!" "3"
   call :compare_modules_install_lang "%MENU%" "!INSTALL_MODU_HEAD18!" "3"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timelan!"

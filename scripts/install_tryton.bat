@@ -22,8 +22,17 @@ set /a "wait_timetry20=20"
 
 call "%DIR_SCRIPT%install_header.bat" "%proyecto%" "%ins_tryton_action%" "%INS%" "install_tryton"
 if %ERRORLEVEL% NEQ 0 goto :exit
+
 :: Si es de install.bat seguimos en el proceso de instalacion
-if /i "%ins_tryton_action%"=="%INS%" goto :run_install_modules
+if /i "%ins_tryton_action%"=="%INS%" (
+  call :check_database
+  call :check_rules
+  call :check_extensions
+  call :run_modules
+  call :logs
+  goto :exit
+)
+
 :menu_trytond
   cls
   set "option="
@@ -61,15 +70,6 @@ if /i "%ins_tryton_action%"=="%INS%" goto :run_install_modules
   set "MESSAGE=%option% %LOG_ERR_OPT%"
   call :logger "%LOG-WARN%" "%MESSAGE%"
   pause & goto :menu_trytond
-
-:: Proceso install automatic.
-:run_install_modules
- call :check_database
- call :check_rules
- call :check_extensions
- call :run_modules
- call :logs
- exit /b
 
 :: 01
 :check_database

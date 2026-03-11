@@ -15,6 +15,7 @@ chcp 65001 >nul
 :: Analiza si la llamada es del tcd.bat
 set "proyecto=%~1"
 set /a "wait_timeins=10"
+set /a "wait_timeins20=20"
 set "active_client=YES"
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
 call :logger "%APP%" "install %APP%"
@@ -65,11 +66,11 @@ call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timei
   :: Instalar modulos en tryton
   call :logger "%INS%" "!MENU-OPTION_8!"
   call "%DIR_SCRIPT%install_tryton.bat" "%proyecto%" "%INS%"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins!" "1"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins20!" "1" 
   :: Instalar demo con database-(version).dump
   call :logger "%INS%" "!MENU-OPTION_9:VERSION=%CURRENT_VERSION%!"
   call "%DIR_SCRIPT%install_demo.bat" "%proyecto%" "%INS%"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins!" "1"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeins20!" "1"
 
   :: Realizamos llamada al cliente para visualizar la página web
   set "MESSAGE=!STAT_HTTP:PROYECTO=%proyecto%!"

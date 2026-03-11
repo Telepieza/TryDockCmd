@@ -156,7 +156,7 @@ if /i "%option%"== "9" (
   echo.
 exit /b
  
-:: 01,02,03 (install_tryton)
+:: 01,02,03 (install_reports)
 :format_pg_table
   set "event=%~1"
   set "text=%~2"
