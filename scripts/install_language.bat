@@ -162,13 +162,15 @@ if /i "!ins_lang_action!"=="%INS%" (
   set "temp_file=%file_lang_tmp%_!iso_code!.txt"
   set "logger_tmp=%DIR_LOG%\%TRYTON%_logger_!iso_code!.log"
   set "MESSAGE=!BCK_COPY_CLIENT:ARCHIVO=/tmp/trytond_proteus.txt!"
-  call :logger "%log_action%" "!MESSAGE:DESTINO=%logger_tmp%!" "3"
+  set "acc_message=!MESSAGE:DESTINO=%logger_tmp%!"
+  call :logger "%log_action%" "[!ACCION!] !acc_message!" "3"
   docker cp !CURRENT_TRYTON!:/tmp/trytond_proteus.txt %temp_file% >nul
-  echo [!DATE!] [!TIME!] [!ACCION!]  > "%logger_tmp%"
-  type "%temp_file%" >> "%logger_tmp%"
-  docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_proteus.txt >nul
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
-
+  if %ERRORLEVEL% EQU 0 (
+    echo [!DATE!] [!TIME!] [!ACCION!]  > "%logger_tmp%"
+    type "%temp_file%" >> "%logger_tmp%"
+    docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_proteus.txt >nul
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
+  )
   :: 6 Ejecuta la inyección combinada
   call :logger "%log_action%" "!INSTALL_MODU_HEAD68! !TRYTON_LANGUAGE!" "3"
   set "ACCION=LANG"
@@ -185,6 +187,16 @@ if /i "!ins_lang_action!"=="%INS%" (
     if %ERRORLEVEL% equ 30 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD59! [!LOCALE!]"
     call :logger "!LOG-ERROR!" "!MESSAGE!"
   ) 
+
+  :: 7 Traemos el log actual del contenedor a un temporal para grabar los datos en el pc
+  call :logger "%log_action%" "[!ACCION!] !acc_message!" "3"
+  docker cp !CURRENT_TRYTON!:/tmp/trytond_proteus.txt %temp_file% >nul
+  if %ERRORLEVEL% EQU 0 (
+    echo [!DATE!] [!TIME!] [!ACCION!]  >> "%logger_tmp%"
+    type "%temp_file%" >> "%logger_tmp%"
+    docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_proteus.txt >nul
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
+  )
 
   :: ======Localizar los idiomas configurados en Tryton=============
   call :logger "%log_action%" "!INSTALL_MODU_HEAD67! !DB_NAME!" "3"

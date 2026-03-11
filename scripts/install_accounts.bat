@@ -52,9 +52,20 @@ docker exec -t ^
     if %ERRORLEVEL% equ 40 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD60! [!CURRENT_COMPANY_NAME!]."
     call :logger "!LOG-ERROR!" "!MESSAGE!"
   )
-  
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timepyt10!" "1"
 
+:: 5 Traemos el log actual del contenedor a un temporal para grabar los datos en el pc
+set "temp_file=%file_acc_tmp%_!iso_code!.txt"
+set "logger_tmp=%DIR_LOG%\%TRYTON%_logger_!iso_code!.log"
+set "MESSAGE=!BCK_COPY_CLIENT:ARCHIVO=/tmp/trytond_proteus.txt!"
+set "acc_message=!MESSAGE:DESTINO=%logger_tmp%!"
+call :logger "%log_action%" "[!ACCION!] !acc_message!" "3"
+docker cp !CURRENT_TRYTON!:/tmp/trytond_proteus.txt %temp_file% >nul
+if %ERRORLEVEL% EQU 0 (
+  echo [!DATE!] [!TIME!] [!ACCION!]  >> "%logger_tmp%"
+  type "%temp_file%" >> "%logger_tmp%"
+  docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_proteus.txt >nul
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timepyt10%" "1" "N"
+)  
 set "ACCOUNTS="
 set "cmd=SELECT count(*) FROM account_account;"
 call :run_trytond_account "%POSTGRES%" "!cmd!" "%temp_file%"
@@ -99,6 +110,15 @@ docker exec -t ^
     call :logger "!LOG-ERROR!" "!MESSAGE!"
   )
 
+:: 5 Traemos el log actual del contenedor a un temporal para grabar los datos en el pc
+  call :logger "%log_action%" "[!ACCION!] !acc_message!" "3"
+  docker cp !CURRENT_TRYTON!:/tmp/trytond_proteus.txt %temp_file% >nul
+  if %ERRORLEVEL% EQU 0 (
+    echo [!DATE!] [!TIME!] [!ACCION!]  >> "%logger_tmp%"
+    type "%temp_file%" >> "%logger_tmp%"
+    docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_proteus.txt >nul
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
+  )
 :: Recuperar datos reales de IVA (account_tax) por empresa
 set "COMPANY_NAME_SQL=!CURRENT_COMPANY_NAME:'=''!"
 set "COMPANY_ID="
