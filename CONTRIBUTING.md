@@ -32,7 +32,7 @@ Please include:
 - Prefer incremental, defensive changes.
 - Keep script flow explicit (`ERRORLEVEL`, controlled exits).
 - Maintain current architecture: `tcd.bat` as entry point, `scripts/` as modular operations.
-- For Python updates: Preserve action modes (`FULL`, `GEO`, `LANG`, `ACC`) and log compatibility.
+- For Python updates: Preserve action modes (`FULL`, `GEO`, `LANG`, `ACC`,`TAX`) and log compatibility.
 
 ## Validation Before PR
 

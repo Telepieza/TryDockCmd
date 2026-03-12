@@ -32,6 +32,10 @@ uri = postgresql://postgres:your_db_password@tryton-postgres-1:5432/
 [company]
 name = My Company
 currency = EUR
+journal_name = Diario General
+journal_code = GEN            
+vat_rates = 21,10,4 
+
 ```
 
 ## 3. Flujo de arranque
@@ -64,6 +68,7 @@ currency = EUR
 - `GEO`: Importa/actualiza países y códigos postales para el ISO seleccionado (`es`, `fr`, `de`), sin ejecutar configuración contable.
 - `LANG`: Activa idiomas traducibles y ejecuta el flujo de upgrade de traducciones/módulos, sin crear estructura fiscal/contable.
 - `ACC`: Ejecuta configuración de empresa/contabilidad (contexto de empresa, enlace de plan, ejercicios, periodos y secuencias), sin importar geodata.
+- `TAX`: Ejecuta configuración de empresa/impuestos.
 
 Tareas principales:
 

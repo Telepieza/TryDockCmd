@@ -82,9 +82,11 @@ path = /var/lib/trytond/db
 
 [company]
 # Business Identity (Read by auto_full_setup.py)
-name = My company name       # <-- Change your company name
-currency = EUR               # <-- Change the currency the company uses
-
+name = My company name         # <-- Change your company name
+currency = EUR                 # <-- Change the currency the company uses
+journal_name = Diario General  # <-- Name of the accounting journal
+journal_code = GEN             # <-- Code of the accounting journal
+vat_rates = 21,10,4            # <-- Percentages VAT code
 [web]
 # Network binding for the container
 listen = 0.0.0.0:8000
@@ -186,6 +188,7 @@ The automation engine runs inside the Tryton container and supports targeted exe
 - `GEO`:  Runs only countries/postal-codes import for selected ISO (`es`, `fr`, `de`).
 - `LANG`: Runs only language/translation activation and upgrade flow.
 - `ACC`:  Runs only company/accounting/fiscal setup (chart linkage, fiscal years, periods, invoice/account sequences).
+- `TAX`:  Runs only company/accounting/taxes setup.
 
 Implemented setup tasks include:
 

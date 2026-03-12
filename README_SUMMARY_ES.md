@@ -14,9 +14,10 @@ TryDockCmd is an operations layer for Tryton ERP in Docker, on the Windows opera
 ## Modos del motor de setup
 
 - `FULL`: flujo completo
-- `GEO`: solo importación geodata (Países, provincias, códigos postales)
+- `GEO`:  solo importación geodata (Países, provincias, códigos postales)
 - `LANG`: solo flujo de idiomas
-- `ACC`: solo contabilidad/empresa/fiscal
+- `ACC`:  solo contabilidad/empresa/fiscal
+- `TAX`:  solo contabilidad/empresa/impuestos
 
 ## Puntos técnicos
 

@@ -21,6 +21,10 @@ uri = postgresql://postgres:your_db_password@tryton-postgres-1:5432/
 [company]
 name = Mi Empresa
 currency = EUR
+journal_name = Diario General
+journal_code = GEN            
+vat_rates = 21,10,4 
+
 ```
 
 ## 2. Lanzar
@@ -55,7 +59,7 @@ tcd.bat
 ## 6. Notas
 
 - Producción y demo se gestionan por separado (`tryton`, `tryton_demo`).
-- El motor de setup soporta acciones `FULL`, `GEO`, `LANG`, `ACC`.
+- El motor de setup soporta acciones `FULL`, `GEO`, `LANG`, `ACC`, `TAX`.
 
 ---
 

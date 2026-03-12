@@ -27,7 +27,7 @@ Combina orquestación Batch (`tcd.bat`) con automatización Python/Proteus (`pyt
 - Stack Docker Compose de tres servicios: `server`, `cron`, `postgres`.
 - Interfaz del gestor multiidioma mediante `/lang`: `es-ES`, `en-US`.
 - Automatización de idiomas/módulos Tryton: `TRYTON_LANGUAGE=es|fr|de`.
-- Automatización Python por acción: `FULL`, `GEO`, `LANG`, `ACC`.
+- Automatización Python por acción: `FULL`, `GEO`, `LANG`, `ACC`, `TAX`.
 - Inyección en caliente de archivos hacia el contenedor activo: `/tmp/auto_full_setup.py`, `/tmp/trytond_setup.conf`.
 
 ## Fuera de alcance (no incluido)
@@ -85,7 +85,8 @@ El motor se ejecuta dentro del contenedor Tryton y soporta:
 - `GEO`:  Ejecuta solo importación de paises/codigos postales para ISO seleccionado (`es`, `fr`, `de`).
 - `LANG`: Ejecuta solo activación de idiomas/traducciones y flujo de upgrade.
 - `ACC`:  Ejecuta solo configuracion de empresa/contabilidad/fiscal (plan contable, ejercicios, periodos y secuencias).
-
+- `TAX`:  Ejecuta configuración de empresa/impuestos.
+- 
 Tareas implementadas:
 
 - Reintentos de conexión y Bootstrap Tryton/DB.
@@ -117,6 +118,10 @@ uri = postgresql://postgres:tu_password_db@tryton-postgres-1:5432/
 [company]
 name = Mi Empresa
 currency = EUR
+journal_name = Diario General
+journal_code = GEN            
+vat_rates = 21,10,4 
+
 ```
 
 ## Requisitos

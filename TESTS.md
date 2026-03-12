@@ -14,8 +14,8 @@ This document outlines the validation scenarios performed to ensure the resilien
 
 Full execution traces are available in the `/log` folder. These files contain every micro-step performed by the manager:
 
-* **`tryton_20260223_en-US.log`**: Full deployment sequence (English).
-* **`tryton_20260223_es-ES.log`**: Smart-Audit and Forensic trace (Spanish).
+* **`tryton_20260312_en-US.log`**: Full deployment sequence (English).
+* **`tryton_20260312_es-ES.log`**: Smart-Audit and Forensic trace (Spanish).
 
 ---
 

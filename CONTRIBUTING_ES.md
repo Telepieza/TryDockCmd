@@ -33,7 +33,7 @@ Incluye:
 - Flujo explícito de scripts (`ERRORLEVEL`, salidas controladas).
 - Mantener la arquitectura actual:
   `tcd.bat` como entry point y `scripts/` como operaciones modulares.
-- En Python: Preservar modos `FULL`, `GEO`, `LANG`, `ACC` y compatibilidad de logs.
+- En Python: Preservar modos `FULL`, `GEO`, `LANG`, `ACC`, `TAX` y compatibilidad de logs.
 
 ## Validacion previa al PR
 
