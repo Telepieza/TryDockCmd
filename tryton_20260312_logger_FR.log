@@ -1,0 +1,2884 @@
+[12/03/2026] [ 1:46:30,31] [GEO]  
+2026-03-12 00:37:13,443 - INFO - using /tmp/trytond_setup.conf as configuration files
+2026-03-12 00:37:13,444 - INFO - using /tmp/trytond_setup.conf as configuration files
+2026-03-12 00:37:13,528 - INFO - ir register
+2026-03-12 00:37:13,529 - INFO - res register
+2026-03-12 00:37:13,843 - INFO - Resource 'XMLSchema.xsd' is already loaded
+2026-03-12 00:37:14,368 - INFO - authentication_saml register
+2026-03-12 00:37:14,369 - INFO - web_shortener register
+2026-03-12 00:37:14,369 - INFO - authentication_sms register
+2026-03-12 00:37:14,370 - INFO - country register
+2026-03-12 00:37:14,371 - INFO - currency register
+2026-03-12 00:37:14,371 - INFO - dashboard register
+2026-03-12 00:37:14,372 - INFO - inbound_email register
+2026-03-12 00:37:14,373 - INFO - ldap_authentication register
+2026-03-12 00:37:14,373 - INFO - marketing register
+2026-03-12 00:37:14,373 - INFO - user_role register
+2026-03-12 00:37:14,374 - INFO - currency_ro register
+2026-03-12 00:37:14,374 - INFO - currency_rs register
+2026-03-12 00:37:14,375 - INFO - party register
+2026-03-12 00:37:14,376 - INFO - bank register
+2026-03-12 00:37:14,377 - INFO - company register
+2026-03-12 00:37:14,378 - INFO - google_maps register
+2026-03-12 00:37:14,379 - INFO - party_relationship register
+2026-03-12 00:37:14,380 - INFO - web_user register
+2026-03-12 00:37:14,380 - INFO - account register
+2026-03-12 00:37:14,381 - INFO - company_work_time register
+2026-03-12 00:37:14,382 - INFO - document_incoming register
+2026-03-12 00:37:14,383 - INFO - marketing_email register
+2026-03-12 00:37:14,384 - INFO - party_avatar register
+2026-03-12 00:37:14,384 - INFO - party_siret register
+2026-03-12 00:37:14,385 - INFO - product register
+2026-03-12 00:37:14,386 - INFO - account_budget register
+2026-03-12 00:37:14,386 - INFO - account_de_skr03 register
+2026-03-12 00:37:14,387 - INFO - account_dunning register
+2026-03-12 00:37:14,388 - INFO - account_export register
+2026-03-12 00:37:14,388 - INFO - account_move_line_grouping register
+2026-03-12 00:37:14,389 - INFO - account_syscohada register
+2026-03-12 00:37:14,389 - INFO - analytic_account register
+2026-03-12 00:37:14,389 - INFO - carrier register
+2026-03-12 00:37:14,390 - INFO - customs register
+2026-03-12 00:37:14,390 - INFO - edocument_unece register
+2026-03-12 00:37:14,390 - INFO - product_classification register
+2026-03-12 00:37:14,391 - INFO - product_image register
+2026-03-12 00:37:14,392 - INFO - product_price_list register
+2026-03-12 00:37:14,392 - INFO - stock register
+2026-03-12 00:37:14,393 - INFO - timesheet register
+2026-03-12 00:37:14,394 - INFO - account_credit_limit register
+2026-03-12 00:37:14,395 - INFO - account_dunning_letter register
+2026-03-12 00:37:14,395 - INFO - account_product register
+2026-03-12 00:37:14,396 - INFO - analytic_budget register
+2026-03-12 00:37:14,397 - INFO - attendance register
+2026-03-12 00:37:14,397 - INFO - product_classification_taxonomic register
+2026-03-12 00:37:14,397 - INFO - product_cost_fifo register
+2026-03-12 00:37:14,398 - INFO - product_cost_history register
+2026-03-12 00:37:14,398 - INFO - product_measurements register
+2026-03-12 00:37:14,399 - INFO - product_price_list_cache register
+2026-03-12 00:37:14,399 - INFO - product_price_list_parent register
+2026-03-12 00:37:14,399 - INFO - project register
+2026-03-12 00:37:14,400 - INFO - stock_forecast register
+2026-03-12 00:37:14,400 - INFO - stock_inventory_location register
+2026-03-12 00:37:14,400 - INFO - stock_location_sequence register
+2026-03-12 00:37:14,401 - INFO - stock_product_location_place register
+2026-03-12 00:37:14,401 - INFO - stock_secondary_unit register
+2026-03-12 00:37:14,402 - INFO - stock_shipment_cost register
+2026-03-12 00:37:14,402 - INFO - stock_split register
+2026-03-12 00:37:14,403 - INFO - timesheet_cost register
+2026-03-12 00:37:14,403 - INFO - account_dunning_email register
+2026-03-12 00:37:14,404 - INFO - account_dunning_fee register
+2026-03-12 00:37:14,404 - INFO - account_invoice register
+2026-03-12 00:37:14,405 - INFO - account_stock_continental register
+2026-03-12 00:37:14,405 - INFO - project_plan register
+2026-03-12 00:37:14,406 - INFO - account_consolidation register
+2026-03-12 00:37:14,406 - INFO - account_eu register
+2026-03-12 00:37:14,406 - INFO - account_invoice_correction register
+2026-03-12 00:37:14,407 - INFO - account_invoice_defer register
+2026-03-12 00:37:14,408 - INFO - account_invoice_history register
+2026-03-12 00:37:14,408 - INFO - account_invoice_line_standalone register
+2026-03-12 00:37:14,409 - INFO - account_invoice_secondary_unit register
+2026-03-12 00:37:14,409 - INFO - account_invoice_stock register
+2026-03-12 00:37:14,410 - INFO - account_invoice_watermark register
+2026-03-12 00:37:14,410 - INFO - account_statement register
+2026-03-12 00:37:14,411 - INFO - account_stock_shipment_cost register
+2026-03-12 00:37:14,411 - INFO - account_tax_cash register
+2026-03-12 00:37:14,412 - INFO - account_tax_non_deductible register
+2026-03-12 00:37:14,412 - INFO - document_incoming_invoice register
+2026-03-12 00:37:14,413 - INFO - edocument_uncefact register
+2026-03-12 00:37:14,413 - INFO - account_fr_chorus register
+2026-03-12 00:37:14,414 - INFO - account_receivable_rule register
+2026-03-12 00:37:14,414 - INFO - account_statement_aeb43 register
+2026-03-12 00:37:14,415 - INFO - account_statement_coda register
+2026-03-12 00:37:14,415 - INFO - account_statement_mt940 register
+2026-03-12 00:37:14,416 - INFO - account_statement_ofx register
+2026-03-12 00:37:14,417 - INFO - account_statement_rule register
+2026-03-12 00:37:14,417 - INFO - account_statement_sepa register
+2026-03-12 00:37:14,418 - INFO - account_stock_anglo_saxon register
+2026-03-12 00:37:14,419 - INFO - product_cost_warehouse register
+2026-03-12 00:37:14,420 - INFO - purchase register
+2026-03-12 00:37:14,421 - INFO - sale register
+2026-03-12 00:37:14,422 - INFO - account_asset register
+2026-03-12 00:37:14,422 - INFO - account_cash_rounding register
+2026-03-12 00:37:14,423 - INFO - account_payment register
+2026-03-12 00:37:14,424 - INFO - commission register
+2026-03-12 00:37:14,424 - INFO - document_incoming_ocr register
+2026-03-12 00:37:14,425 - INFO - marketing_automation register
+2026-03-12 00:37:14,426 - INFO - product_attribute register
+2026-03-12 00:37:14,426 - INFO - project_revenue register
+2026-03-12 00:37:14,427 - INFO - purchase_blanket_agreement register
+2026-03-12 00:37:14,427 - INFO - purchase_history register
+2026-03-12 00:37:14,428 - INFO - purchase_invoice_line_standalone register
+2026-03-12 00:37:14,428 - INFO - purchase_price_list register
+2026-03-12 00:37:14,429 - INFO - purchase_request register
+2026-03-12 00:37:14,430 - INFO - sale_blanket_agreement register
+2026-03-12 00:37:14,430 - INFO - sale_credit_limit register
+2026-03-12 00:37:14,431 - INFO - sale_discount register
+2026-03-12 00:37:14,431 - INFO - sale_opportunity register
+2026-03-12 00:37:14,432 - INFO - sale_point register
+2026-03-12 00:37:14,432 - INFO - sale_price_list register
+2026-03-12 00:37:14,433 - INFO - sale_shipment_grouping register
+2026-03-12 00:37:14,433 - INFO - sale_shipment_tolerance register
+2026-03-12 00:37:14,434 - INFO - sale_subscription register
+2026-03-12 00:37:14,434 - INFO - stock_supply_day register
+2026-03-12 00:37:14,435 - INFO - account_payment_braintree register
+2026-03-12 00:37:14,436 - INFO - account_payment_clearing register
+2026-03-12 00:37:14,436 - INFO - account_payment_stripe register
+2026-03-12 00:37:14,437 - INFO - analytic_invoice register
+2026-03-12 00:37:14,438 - INFO - commission_waiting register
+2026-03-12 00:37:14,438 - INFO - document_incoming_ocr_typless register
+2026-03-12 00:37:14,439 - INFO - edocument_ubl register
+2026-03-12 00:37:14,440 - INFO - marketing_campaign register
+2026-03-12 00:37:14,440 - INFO - notification_email register
+2026-03-12 00:37:14,441 - INFO - product_image_attribute register
+2026-03-12 00:37:14,442 - INFO - product_price_list_dates register
+2026-03-12 00:37:14,442 - INFO - project_invoice register
+2026-03-12 00:37:14,443 - INFO - purchase_amendment register
+2026-03-12 00:37:14,444 - INFO - purchase_product_quantity register
+2026-03-12 00:37:14,444 - INFO - purchase_requisition register
+2026-03-12 00:37:14,445 - INFO - sale_extra register
+2026-03-12 00:37:14,447 - INFO - sale_gift_card register
+2026-03-12 00:37:14,448 - INFO - sale_history register
+2026-03-12 00:37:14,449 - INFO - sale_product_quantity register
+2026-03-12 00:37:14,450 - INFO - sale_product_recommendation register
+2026-03-12 00:37:14,451 - INFO - sale_promotion register
+2026-03-12 00:37:14,452 - INFO - sale_rental register
+2026-03-12 00:37:14,453 - INFO - stock_supply register
+2026-03-12 00:37:14,453 - INFO - account_deposit register
+2026-03-12 00:37:14,454 - INFO - account_payment_sepa register
+2026-03-12 00:37:14,455 - INFO - analytic_purchase register
+2026-03-12 00:37:14,455 - INFO - analytic_sale register
+2026-03-12 00:37:14,456 - INFO - edocument_peppol register
+2026-03-12 00:37:14,457 - INFO - purchase_request_quotation register
+2026-03-12 00:37:14,457 - INFO - purchase_secondary_unit register
+2026-03-12 00:37:14,458 - INFO - sale_amendment register
+2026-03-12 00:37:14,459 - INFO - sale_invoice_grouping register
+2026-03-12 00:37:14,459 - INFO - sale_payment register
+2026-03-12 00:37:14,460 - INFO - sale_product_recommendation_association_rule register
+2026-03-12 00:37:14,461 - INFO - sale_promotion_coupon register
+2026-03-12 00:37:14,461 - INFO - sale_rental_progress_invoice register
+2026-03-12 00:37:14,462 - INFO - sale_shipment_cost register
+2026-03-12 00:37:14,463 - INFO - sale_supply register
+2026-03-12 00:37:14,463 - INFO - stock_consignment register
+2026-03-12 00:37:14,464 - INFO - stock_location_move register
+2026-03-12 00:37:14,465 - INFO - stock_supply_forecast register
+2026-03-12 00:37:14,466 - INFO - account_payment_sepa_cfonb register
+2026-03-12 00:37:14,467 - INFO - account_tax_rule_country register
+2026-03-12 00:37:14,468 - INFO - edocument_peppol_peppyrus register
+2026-03-12 00:37:14,469 - INFO - product_kit register
+2026-03-12 00:37:14,471 - INFO - sale_advance_payment register
+2026-03-12 00:37:14,472 - INFO - sale_complaint register
+2026-03-12 00:37:14,473 - INFO - sale_invoice_date register
+2026-03-12 00:37:14,474 - INFO - sale_product_customer register
+2026-03-12 00:37:14,475 - INFO - sale_promotion_coupon_payment register
+2026-03-12 00:37:14,475 - INFO - sale_stock_quantity register
+2026-03-12 00:37:14,476 - INFO - sale_supply_drop_shipment register
+2026-03-12 00:37:14,476 - INFO - account_be register
+2026-03-12 00:37:14,477 - INFO - account_es register
+2026-03-12 00:37:14,478 - INFO - account_fr register
+2026-03-12 00:37:14,478 - INFO - account_stock_landed_cost register
+2026-03-12 00:37:14,479 - INFO - purchase_shipment_cost register
+2026-03-12 00:37:14,480 - INFO - sale_secondary_unit register
+2026-03-12 00:37:14,480 - INFO - stock_lot register
+2026-03-12 00:37:14,481 - INFO - web_shop register
+2026-03-12 00:37:14,482 - INFO - account_es_sii register
+2026-03-12 00:37:14,482 - INFO - account_export_winbooks register
+2026-03-12 00:37:14,483 - INFO - account_rule register
+2026-03-12 00:37:14,484 - INFO - carrier_percentage register
+2026-03-12 00:37:14,484 - INFO - carrier_weight register
+2026-03-12 00:37:14,485 - INFO - production register
+2026-03-12 00:37:14,486 - INFO - sale_subscription_asset register
+2026-03-12 00:37:14,487 - INFO - stock_lot_sled register
+2026-03-12 00:37:14,489 - INFO - web_shop_product_data_feed register
+2026-03-12 00:37:14,490 - INFO - web_shop_vue_storefront register
+2026-03-12 00:37:14,491 - INFO - production_split register
+2026-03-12 00:37:14,492 - INFO - quality register
+2026-03-12 00:37:14,493 - INFO - stock_assign_manual register
+2026-03-12 00:37:14,494 - INFO - stock_lot_unit register
+2026-03-12 00:37:14,495 - INFO - stock_package register
+2026-03-12 00:37:14,496 - INFO - stock_product_location register
+2026-03-12 00:37:14,497 - INFO - stock_quantity_early_planning register
+2026-03-12 00:37:14,497 - INFO - stock_quantity_issue register
+2026-03-12 00:37:14,498 - INFO - stock_supply_production register
+2026-03-12 00:37:14,499 - INFO - web_shop_vue_storefront_stripe register
+2026-03-12 00:37:14,499 - INFO - production_routing register
+2026-03-12 00:37:14,500 - INFO - stock_shipment_measurements register
+2026-03-12 00:37:14,500 - INFO - account_stock_landed_cost_weight register
+2026-03-12 00:37:14,501 - INFO - account_stock_shipment_cost_weight register
+2026-03-12 00:37:14,502 - INFO - production_outsourcing register
+2026-03-12 00:37:14,503 - INFO - production_work register
+2026-03-12 00:37:14,503 - INFO - sale_supply_production register
+2026-03-12 00:37:14,504 - INFO - stock_package_shipping register
+2026-03-12 00:37:14,505 - INFO - stock_shipment_cost_weight register
+2026-03-12 00:37:14,505 - INFO - stock_shipping_point register
+2026-03-12 00:37:14,506 - INFO - incoterm register
+2026-03-12 00:37:14,507 - INFO - production_work_timesheet register
+2026-03-12 00:37:14,507 - INFO - stock_package_shipping_mygls register
+2026-03-12 00:37:14,509 - INFO - web_shop_shopify register
+2026-03-12 00:37:14,510 - INFO - carrier_carriage register
+2026-03-12 00:37:14,511 - INFO - stock_shipment_customs register
+2026-03-12 00:37:14,513 - INFO - account_stock_eu register
+2026-03-12 00:37:14,514 - INFO - carrier_subdivision register
+2026-03-12 00:37:14,514 - INFO - stock_package_shipping_dpd register
+2026-03-12 00:37:14,515 - INFO - stock_package_shipping_sendcloud register
+2026-03-12 00:37:14,516 - INFO - stock_package_shipping_ups register
+2026-03-12 00:37:14,518 - INFO - init pool for "tryton"
+2026-03-12 00:37:14,536 - INFO - connection to "tryton" succeeded
+2026-03-12 00:37:14,692 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:14,696 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:14,704 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:14,704 - INFO - ir load
+2026-03-12 00:37:14,704 - INFO - res load
+2026-03-12 00:37:14,704 - INFO - country load
+2026-03-12 00:37:14,705 - INFO - currency load
+2026-03-12 00:37:14,709 - INFO - dashboard load
+2026-03-12 00:37:14,710 - INFO - marketing load
+2026-03-12 00:37:14,710 - INFO - party load
+2026-03-12 00:37:14,753 - INFO - bank load
+2026-03-12 00:37:14,937 - INFO - company load
+2026-03-12 00:37:14,956 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:14,956 - INFO - party_relationship load
+2026-03-12 00:37:14,957 - INFO - account load
+2026-03-12 00:37:15,044 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,044 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,044 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,044 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,044 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,044 - INFO - company_work_time load
+2026-03-12 00:37:15,045 - INFO - party_avatar load
+2026-03-12 00:37:15,046 - INFO - party_siret load
+2026-03-12 00:37:15,048 - INFO - product load
+2026-03-12 00:37:15,051 - INFO - account_product load
+2026-03-12 00:37:15,053 - INFO - carrier load
+2026-03-12 00:37:15,054 - INFO - product_image load
+2026-03-12 00:37:15,055 - INFO - product_price_list load
+2026-03-12 00:37:15,056 - INFO - stock load
+2026-03-12 00:37:15,067 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,067 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,067 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,067 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,067 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,067 - INFO - timesheet load
+2026-03-12 00:37:15,070 - INFO - account_invoice load
+2026-03-12 00:37:15,077 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,077 - INFO - product_measurements load
+2026-03-12 00:37:15,078 - INFO - project load
+2026-03-12 00:37:15,079 - INFO - stock_lot load
+2026-03-12 00:37:15,082 - INFO - stock_shipment_cost load
+2026-03-12 00:37:15,083 - INFO - account_eu load
+2026-03-12 00:37:15,084 - INFO - account_fr load
+2026-03-12 00:37:15,085 - INFO - account_fr_chorus load
+2026-03-12 00:37:15,099 - INFO - account_invoice_stock load
+2026-03-12 00:37:15,100 - INFO - account_statement load
+2026-03-12 00:37:15,104 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,104 - INFO - production load
+2026-03-12 00:37:15,108 - INFO - account_payment load
+2026-03-12 00:37:15,112 - INFO - purchase load
+2026-03-12 00:37:15,119 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,119 - INFO - sale load
+2026-03-12 00:37:15,126 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,126 - INFO - account_payment_sepa load
+2026-03-12 00:37:15,130 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,130 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:15,130 - INFO - product_attribute load
+2026-03-12 00:37:15,131 - INFO - purchase_request load
+2026-03-12 00:37:15,133 - INFO - sale_shipment_cost load
+2026-03-12 00:37:15,135 - INFO - account_payment_sepa_cfonb load
+2026-03-12 00:37:15,135 - INFO - incoterm load
+2026-03-12 00:37:15,139 - INFO - stock_supply load
+2026-03-12 00:37:15,147 - INFO - stock_supply_production load
+2026-03-12 00:37:15,149 - INFO - production_routing load
+2026-03-12 00:37:15,152 - INFO - production_work load
+2026-03-12 00:37:15,155 - INFO - setup pool for "tryton"
+2026-03-12 00:37:16,008 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,011 - INFO - all modules loaded
+2026-03-12 00:37:16,027 - INFO - init pool for "tryton"
+2026-03-12 00:37:16,029 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,030 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,030 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,030 - INFO - ir load
+2026-03-12 00:37:16,030 - INFO - res load
+2026-03-12 00:37:16,030 - INFO - country load
+2026-03-12 00:37:16,030 - INFO - currency load
+2026-03-12 00:37:16,030 - INFO - dashboard load
+2026-03-12 00:37:16,031 - INFO - marketing load
+2026-03-12 00:37:16,031 - INFO - party load
+2026-03-12 00:37:16,031 - INFO - bank load
+2026-03-12 00:37:16,031 - INFO - company load
+2026-03-12 00:37:16,032 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,032 - INFO - party_relationship load
+2026-03-12 00:37:16,032 - INFO - account load
+2026-03-12 00:37:16,033 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,033 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,033 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,033 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,034 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,034 - INFO - company_work_time load
+2026-03-12 00:37:16,034 - INFO - party_avatar load
+2026-03-12 00:37:16,034 - INFO - party_siret load
+2026-03-12 00:37:16,035 - INFO - product load
+2026-03-12 00:37:16,035 - INFO - account_product load
+2026-03-12 00:37:16,035 - INFO - carrier load
+2026-03-12 00:37:16,035 - INFO - product_image load
+2026-03-12 00:37:16,036 - INFO - product_price_list load
+2026-03-12 00:37:16,036 - INFO - stock load
+2026-03-12 00:37:16,037 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,037 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,037 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,037 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,037 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,037 - INFO - timesheet load
+2026-03-12 00:37:16,038 - INFO - account_invoice load
+2026-03-12 00:37:16,039 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,039 - INFO - product_measurements load
+2026-03-12 00:37:16,039 - INFO - project load
+2026-03-12 00:37:16,039 - INFO - stock_lot load
+2026-03-12 00:37:16,040 - INFO - stock_shipment_cost load
+2026-03-12 00:37:16,040 - INFO - account_eu load
+2026-03-12 00:37:16,040 - INFO - account_fr load
+2026-03-12 00:37:16,040 - INFO - account_fr_chorus load
+2026-03-12 00:37:16,041 - INFO - account_invoice_stock load
+2026-03-12 00:37:16,041 - INFO - account_statement load
+2026-03-12 00:37:16,041 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,042 - INFO - production load
+2026-03-12 00:37:16,042 - INFO - account_payment load
+2026-03-12 00:37:16,043 - INFO - purchase load
+2026-03-12 00:37:16,043 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,043 - INFO - sale load
+2026-03-12 00:37:16,044 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,044 - INFO - account_payment_sepa load
+2026-03-12 00:37:16,045 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,045 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,045 - INFO - product_attribute load
+2026-03-12 00:37:16,046 - INFO - purchase_request load
+2026-03-12 00:37:16,046 - INFO - sale_shipment_cost load
+2026-03-12 00:37:16,046 - INFO - account_payment_sepa_cfonb load
+2026-03-12 00:37:16,047 - INFO - incoterm load
+2026-03-12 00:37:16,048 - INFO - stock_supply load
+2026-03-12 00:37:16,048 - INFO - stock_supply_production load
+2026-03-12 00:37:16,048 - INFO - production_routing load
+2026-03-12 00:37:16,049 - INFO - production_work load
+2026-03-12 00:37:16,049 - INFO - setup pool for "tryton"
+2026-03-12 00:37:16,793 - INFO - setup mixin for "tryton"
+2026-03-12 00:37:16,795 - INFO - all modules loaded
+2026-03-12 00:37:16,797 - INFO - --- CONEXIÓN EXITOSA ---
+2026-03-12 00:37:16,797 - INFO - --- ESCANEANDO MÓDULOS Y ASISTENTES ---
+2026-03-12 00:37:17,059 - INFO - Motor Geodata: Importando Países y Códigos Postales para fr
+2026-03-12 00:37:17,077 - INFO - Paso 1/2: Importando Países (Scripts oficiales)...
+2026-03-12 00:38:19,917 - INFO - init pool for "tryton"
+2026-03-12 00:38:19,920 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,920 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,921 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,921 - INFO - ir load
+2026-03-12 00:38:19,921 - INFO - res load
+2026-03-12 00:38:19,921 - INFO - country load
+2026-03-12 00:38:19,921 - INFO - currency load
+2026-03-12 00:38:19,921 - INFO - dashboard load
+2026-03-12 00:38:19,921 - INFO - marketing load
+2026-03-12 00:38:19,921 - INFO - party load
+2026-03-12 00:38:19,922 - INFO - bank load
+2026-03-12 00:38:19,922 - INFO - company load
+2026-03-12 00:38:19,923 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,923 - INFO - party_relationship load
+2026-03-12 00:38:19,923 - INFO - account load
+2026-03-12 00:38:19,924 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,924 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,924 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,924 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,924 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,924 - INFO - company_work_time load
+2026-03-12 00:38:19,924 - INFO - party_avatar load
+2026-03-12 00:38:19,925 - INFO - party_siret load
+2026-03-12 00:38:19,925 - INFO - product load
+2026-03-12 00:38:19,925 - INFO - account_product load
+2026-03-12 00:38:19,925 - INFO - carrier load
+2026-03-12 00:38:19,925 - INFO - product_image load
+2026-03-12 00:38:19,926 - INFO - product_price_list load
+2026-03-12 00:38:19,926 - INFO - stock load
+2026-03-12 00:38:19,927 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,927 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,927 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,928 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,928 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,928 - INFO - timesheet load
+2026-03-12 00:38:19,929 - INFO - account_invoice load
+2026-03-12 00:38:19,930 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,931 - INFO - product_measurements load
+2026-03-12 00:38:19,931 - INFO - project load
+2026-03-12 00:38:19,932 - INFO - stock_lot load
+2026-03-12 00:38:19,934 - INFO - stock_shipment_cost load
+2026-03-12 00:38:19,934 - INFO - account_eu load
+2026-03-12 00:38:19,935 - INFO - account_fr load
+2026-03-12 00:38:19,935 - INFO - account_fr_chorus load
+2026-03-12 00:38:19,936 - INFO - account_invoice_stock load
+2026-03-12 00:38:19,936 - INFO - account_statement load
+2026-03-12 00:38:19,937 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,937 - INFO - production load
+2026-03-12 00:38:19,939 - INFO - account_payment load
+2026-03-12 00:38:19,940 - INFO - purchase load
+2026-03-12 00:38:19,941 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,941 - INFO - sale load
+2026-03-12 00:38:19,942 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,942 - INFO - account_payment_sepa load
+2026-03-12 00:38:19,943 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,943 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:19,943 - INFO - product_attribute load
+2026-03-12 00:38:19,943 - INFO - purchase_request load
+2026-03-12 00:38:19,944 - INFO - sale_shipment_cost load
+2026-03-12 00:38:19,944 - INFO - account_payment_sepa_cfonb load
+2026-03-12 00:38:19,944 - INFO - incoterm load
+2026-03-12 00:38:19,945 - INFO - stock_supply load
+2026-03-12 00:38:19,946 - INFO - stock_supply_production load
+2026-03-12 00:38:19,947 - INFO - production_routing load
+2026-03-12 00:38:19,947 - INFO - production_work load
+2026-03-12 00:38:19,948 - INFO - setup pool for "tryton"
+2026-03-12 00:38:20,705 - INFO - setup mixin for "tryton"
+2026-03-12 00:38:20,709 - INFO - all modules loaded
+2026-03-12 00:38:20,719 - INFO - Paso 2/2: Importando Códigos Postales (FR). Proceso lento (Esperar) ...
+2026-03-12 00:46:29,789 - INFO - === SETUP COMPLETADO EXITOSAMENTE ===
+2026-03-12 00:46:29,789 - INFO - --- FASE GEO FINALIZADA ---
+[12/03/2026] [ 1:47:31,38] [LANG]  
+2026-03-12 00:46:40,506 - INFO - using /tmp/trytond_setup.conf as configuration files
+2026-03-12 00:46:40,506 - INFO - using /tmp/trytond_setup.conf as configuration files
+2026-03-12 00:46:40,563 - INFO - ir register
+2026-03-12 00:46:40,564 - INFO - res register
+2026-03-12 00:46:40,972 - INFO - Resource 'XMLSchema.xsd' is already loaded
+2026-03-12 00:46:41,540 - INFO - authentication_saml register
+2026-03-12 00:46:41,541 - INFO - web_shortener register
+2026-03-12 00:46:41,541 - INFO - authentication_sms register
+2026-03-12 00:46:41,542 - INFO - country register
+2026-03-12 00:46:41,542 - INFO - currency register
+2026-03-12 00:46:41,542 - INFO - dashboard register
+2026-03-12 00:46:41,543 - INFO - inbound_email register
+2026-03-12 00:46:41,543 - INFO - ldap_authentication register
+2026-03-12 00:46:41,544 - INFO - marketing register
+2026-03-12 00:46:41,544 - INFO - user_role register
+2026-03-12 00:46:41,544 - INFO - currency_ro register
+2026-03-12 00:46:41,545 - INFO - currency_rs register
+2026-03-12 00:46:41,546 - INFO - party register
+2026-03-12 00:46:41,546 - INFO - bank register
+2026-03-12 00:46:41,547 - INFO - company register
+2026-03-12 00:46:41,547 - INFO - google_maps register
+2026-03-12 00:46:41,547 - INFO - party_relationship register
+2026-03-12 00:46:41,548 - INFO - web_user register
+2026-03-12 00:46:41,548 - INFO - account register
+2026-03-12 00:46:41,549 - INFO - company_work_time register
+2026-03-12 00:46:41,549 - INFO - document_incoming register
+2026-03-12 00:46:41,550 - INFO - marketing_email register
+2026-03-12 00:46:41,551 - INFO - party_avatar register
+2026-03-12 00:46:41,551 - INFO - party_siret register
+2026-03-12 00:46:41,552 - INFO - product register
+2026-03-12 00:46:41,553 - INFO - account_budget register
+2026-03-12 00:46:41,553 - INFO - account_de_skr03 register
+2026-03-12 00:46:41,553 - INFO - account_dunning register
+2026-03-12 00:46:41,554 - INFO - account_export register
+2026-03-12 00:46:41,554 - INFO - account_move_line_grouping register
+2026-03-12 00:46:41,555 - INFO - account_syscohada register
+2026-03-12 00:46:41,555 - INFO - analytic_account register
+2026-03-12 00:46:41,556 - INFO - carrier register
+2026-03-12 00:46:41,556 - INFO - customs register
+2026-03-12 00:46:41,556 - INFO - edocument_unece register
+2026-03-12 00:46:41,557 - INFO - product_classification register
+2026-03-12 00:46:41,557 - INFO - product_image register
+2026-03-12 00:46:41,557 - INFO - product_price_list register
+2026-03-12 00:46:41,558 - INFO - stock register
+2026-03-12 00:46:41,558 - INFO - timesheet register
+2026-03-12 00:46:41,559 - INFO - account_credit_limit register
+2026-03-12 00:46:41,559 - INFO - account_dunning_letter register
+2026-03-12 00:46:41,560 - INFO - account_product register
+2026-03-12 00:46:41,560 - INFO - analytic_budget register
+2026-03-12 00:46:41,560 - INFO - attendance register
+2026-03-12 00:46:41,561 - INFO - product_classification_taxonomic register
+2026-03-12 00:46:41,561 - INFO - product_cost_fifo register
+2026-03-12 00:46:41,562 - INFO - product_cost_history register
+2026-03-12 00:46:41,562 - INFO - product_measurements register
+2026-03-12 00:46:41,563 - INFO - product_price_list_cache register
+2026-03-12 00:46:41,563 - INFO - product_price_list_parent register
+2026-03-12 00:46:41,564 - INFO - project register
+2026-03-12 00:46:41,564 - INFO - stock_forecast register
+2026-03-12 00:46:41,564 - INFO - stock_inventory_location register
+2026-03-12 00:46:41,565 - INFO - stock_location_sequence register
+2026-03-12 00:46:41,566 - INFO - stock_product_location_place register
+2026-03-12 00:46:41,566 - INFO - stock_secondary_unit register
+2026-03-12 00:46:41,567 - INFO - stock_shipment_cost register
+2026-03-12 00:46:41,569 - INFO - stock_split register
+2026-03-12 00:46:41,569 - INFO - timesheet_cost register
+2026-03-12 00:46:41,570 - INFO - account_dunning_email register
+2026-03-12 00:46:41,571 - INFO - account_dunning_fee register
+2026-03-12 00:46:41,572 - INFO - account_invoice register
+2026-03-12 00:46:41,572 - INFO - account_stock_continental register
+2026-03-12 00:46:41,573 - INFO - project_plan register
+2026-03-12 00:46:41,574 - INFO - account_consolidation register
+2026-03-12 00:46:41,574 - INFO - account_eu register
+2026-03-12 00:46:41,575 - INFO - account_invoice_correction register
+2026-03-12 00:46:41,575 - INFO - account_invoice_defer register
+2026-03-12 00:46:41,576 - INFO - account_invoice_history register
+2026-03-12 00:46:41,576 - INFO - account_invoice_line_standalone register
+2026-03-12 00:46:41,576 - INFO - account_invoice_secondary_unit register
+2026-03-12 00:46:41,577 - INFO - account_invoice_stock register
+2026-03-12 00:46:41,577 - INFO - account_invoice_watermark register
+2026-03-12 00:46:41,578 - INFO - account_statement register
+2026-03-12 00:46:41,578 - INFO - account_stock_shipment_cost register
+2026-03-12 00:46:41,579 - INFO - account_tax_cash register
+2026-03-12 00:46:41,579 - INFO - account_tax_non_deductible register
+2026-03-12 00:46:41,580 - INFO - document_incoming_invoice register
+2026-03-12 00:46:41,580 - INFO - edocument_uncefact register
+2026-03-12 00:46:41,580 - INFO - account_fr_chorus register
+2026-03-12 00:46:41,581 - INFO - account_receivable_rule register
+2026-03-12 00:46:41,581 - INFO - account_statement_aeb43 register
+2026-03-12 00:46:41,581 - INFO - account_statement_coda register
+2026-03-12 00:46:41,582 - INFO - account_statement_mt940 register
+2026-03-12 00:46:41,582 - INFO - account_statement_ofx register
+2026-03-12 00:46:41,583 - INFO - account_statement_rule register
+2026-03-12 00:46:41,584 - INFO - account_statement_sepa register
+2026-03-12 00:46:41,584 - INFO - account_stock_anglo_saxon register
+2026-03-12 00:46:41,585 - INFO - product_cost_warehouse register
+2026-03-12 00:46:41,585 - INFO - purchase register
+2026-03-12 00:46:41,586 - INFO - sale register
+2026-03-12 00:46:41,586 - INFO - account_asset register
+2026-03-12 00:46:41,587 - INFO - account_cash_rounding register
+2026-03-12 00:46:41,587 - INFO - account_payment register
+2026-03-12 00:46:41,588 - INFO - commission register
+2026-03-12 00:46:41,588 - INFO - document_incoming_ocr register
+2026-03-12 00:46:41,589 - INFO - marketing_automation register
+2026-03-12 00:46:41,589 - INFO - product_attribute register
+2026-03-12 00:46:41,590 - INFO - project_revenue register
+2026-03-12 00:46:41,590 - INFO - purchase_blanket_agreement register
+2026-03-12 00:46:41,591 - INFO - purchase_history register
+2026-03-12 00:46:41,591 - INFO - purchase_invoice_line_standalone register
+2026-03-12 00:46:41,591 - INFO - purchase_price_list register
+2026-03-12 00:46:41,592 - INFO - purchase_request register
+2026-03-12 00:46:41,592 - INFO - sale_blanket_agreement register
+2026-03-12 00:46:41,593 - INFO - sale_credit_limit register
+2026-03-12 00:46:41,593 - INFO - sale_discount register
+2026-03-12 00:46:41,593 - INFO - sale_opportunity register
+2026-03-12 00:46:41,594 - INFO - sale_point register
+2026-03-12 00:46:41,595 - INFO - sale_price_list register
+2026-03-12 00:46:41,595 - INFO - sale_shipment_grouping register
+2026-03-12 00:46:41,596 - INFO - sale_shipment_tolerance register
+2026-03-12 00:46:41,596 - INFO - sale_subscription register
+2026-03-12 00:46:41,597 - INFO - stock_supply_day register
+2026-03-12 00:46:41,597 - INFO - account_payment_braintree register
+2026-03-12 00:46:41,598 - INFO - account_payment_clearing register
+2026-03-12 00:46:41,598 - INFO - account_payment_stripe register
+2026-03-12 00:46:41,599 - INFO - analytic_invoice register
+2026-03-12 00:46:41,600 - INFO - commission_waiting register
+2026-03-12 00:46:41,601 - INFO - document_incoming_ocr_typless register
+2026-03-12 00:46:41,601 - INFO - edocument_ubl register
+2026-03-12 00:46:41,602 - INFO - marketing_campaign register
+2026-03-12 00:46:41,603 - INFO - notification_email register
+2026-03-12 00:46:41,603 - INFO - product_image_attribute register
+2026-03-12 00:46:41,604 - INFO - product_price_list_dates register
+2026-03-12 00:46:41,604 - INFO - project_invoice register
+2026-03-12 00:46:41,605 - INFO - purchase_amendment register
+2026-03-12 00:46:41,605 - INFO - purchase_product_quantity register
+2026-03-12 00:46:41,606 - INFO - purchase_requisition register
+2026-03-12 00:46:41,606 - INFO - sale_extra register
+2026-03-12 00:46:41,607 - INFO - sale_gift_card register
+2026-03-12 00:46:41,607 - INFO - sale_history register
+2026-03-12 00:46:41,607 - INFO - sale_product_quantity register
+2026-03-12 00:46:41,608 - INFO - sale_product_recommendation register
+2026-03-12 00:46:41,608 - INFO - sale_promotion register
+2026-03-12 00:46:41,608 - INFO - sale_rental register
+2026-03-12 00:46:41,609 - INFO - stock_supply register
+2026-03-12 00:46:41,609 - INFO - account_deposit register
+2026-03-12 00:46:41,610 - INFO - account_payment_sepa register
+2026-03-12 00:46:41,610 - INFO - analytic_purchase register
+2026-03-12 00:46:41,610 - INFO - analytic_sale register
+2026-03-12 00:46:41,611 - INFO - edocument_peppol register
+2026-03-12 00:46:41,611 - INFO - purchase_request_quotation register
+2026-03-12 00:46:41,611 - INFO - purchase_secondary_unit register
+2026-03-12 00:46:41,612 - INFO - sale_amendment register
+2026-03-12 00:46:41,612 - INFO - sale_invoice_grouping register
+2026-03-12 00:46:41,613 - INFO - sale_payment register
+2026-03-12 00:46:41,614 - INFO - sale_product_recommendation_association_rule register
+2026-03-12 00:46:41,614 - INFO - sale_promotion_coupon register
+2026-03-12 00:46:41,615 - INFO - sale_rental_progress_invoice register
+2026-03-12 00:46:41,616 - INFO - sale_shipment_cost register
+2026-03-12 00:46:41,616 - INFO - sale_supply register
+2026-03-12 00:46:41,617 - INFO - stock_consignment register
+2026-03-12 00:46:41,617 - INFO - stock_location_move register
+2026-03-12 00:46:41,618 - INFO - stock_supply_forecast register
+2026-03-12 00:46:41,618 - INFO - account_payment_sepa_cfonb register
+2026-03-12 00:46:41,618 - INFO - account_tax_rule_country register
+2026-03-12 00:46:41,619 - INFO - edocument_peppol_peppyrus register
+2026-03-12 00:46:41,619 - INFO - product_kit register
+2026-03-12 00:46:41,620 - INFO - sale_advance_payment register
+2026-03-12 00:46:41,620 - INFO - sale_complaint register
+2026-03-12 00:46:41,621 - INFO - sale_invoice_date register
+2026-03-12 00:46:41,621 - INFO - sale_product_customer register
+2026-03-12 00:46:41,622 - INFO - sale_promotion_coupon_payment register
+2026-03-12 00:46:41,622 - INFO - sale_stock_quantity register
+2026-03-12 00:46:41,622 - INFO - sale_supply_drop_shipment register
+2026-03-12 00:46:41,623 - INFO - account_be register
+2026-03-12 00:46:41,623 - INFO - account_es register
+2026-03-12 00:46:41,624 - INFO - account_fr register
+2026-03-12 00:46:41,624 - INFO - account_stock_landed_cost register
+2026-03-12 00:46:41,624 - INFO - purchase_shipment_cost register
+2026-03-12 00:46:41,625 - INFO - sale_secondary_unit register
+2026-03-12 00:46:41,625 - INFO - stock_lot register
+2026-03-12 00:46:41,626 - INFO - web_shop register
+2026-03-12 00:46:41,626 - INFO - account_es_sii register
+2026-03-12 00:46:41,626 - INFO - account_export_winbooks register
+2026-03-12 00:46:41,627 - INFO - account_rule register
+2026-03-12 00:46:41,627 - INFO - carrier_percentage register
+2026-03-12 00:46:41,628 - INFO - carrier_weight register
+2026-03-12 00:46:41,628 - INFO - production register
+2026-03-12 00:46:41,628 - INFO - sale_subscription_asset register
+2026-03-12 00:46:41,629 - INFO - stock_lot_sled register
+2026-03-12 00:46:41,629 - INFO - web_shop_product_data_feed register
+2026-03-12 00:46:41,630 - INFO - web_shop_vue_storefront register
+2026-03-12 00:46:41,630 - INFO - production_split register
+2026-03-12 00:46:41,630 - INFO - quality register
+2026-03-12 00:46:41,631 - INFO - stock_assign_manual register
+2026-03-12 00:46:41,631 - INFO - stock_lot_unit register
+2026-03-12 00:46:41,631 - INFO - stock_package register
+2026-03-12 00:46:41,632 - INFO - stock_product_location register
+2026-03-12 00:46:41,632 - INFO - stock_quantity_early_planning register
+2026-03-12 00:46:41,633 - INFO - stock_quantity_issue register
+2026-03-12 00:46:41,633 - INFO - stock_supply_production register
+2026-03-12 00:46:41,633 - INFO - web_shop_vue_storefront_stripe register
+2026-03-12 00:46:41,634 - INFO - production_routing register
+2026-03-12 00:46:41,634 - INFO - stock_shipment_measurements register
+2026-03-12 00:46:41,635 - INFO - account_stock_landed_cost_weight register
+2026-03-12 00:46:41,635 - INFO - account_stock_shipment_cost_weight register
+2026-03-12 00:46:41,636 - INFO - production_outsourcing register
+2026-03-12 00:46:41,636 - INFO - production_work register
+2026-03-12 00:46:41,636 - INFO - sale_supply_production register
+2026-03-12 00:46:41,637 - INFO - stock_package_shipping register
+2026-03-12 00:46:41,637 - INFO - stock_shipment_cost_weight register
+2026-03-12 00:46:41,638 - INFO - stock_shipping_point register
+2026-03-12 00:46:41,638 - INFO - incoterm register
+2026-03-12 00:46:41,639 - INFO - production_work_timesheet register
+2026-03-12 00:46:41,639 - INFO - stock_package_shipping_mygls register
+2026-03-12 00:46:41,640 - INFO - web_shop_shopify register
+2026-03-12 00:46:41,641 - INFO - carrier_carriage register
+2026-03-12 00:46:41,641 - INFO - stock_shipment_customs register
+2026-03-12 00:46:41,642 - INFO - account_stock_eu register
+2026-03-12 00:46:41,642 - INFO - carrier_subdivision register
+2026-03-12 00:46:41,643 - INFO - stock_package_shipping_dpd register
+2026-03-12 00:46:41,644 - INFO - stock_package_shipping_sendcloud register
+2026-03-12 00:46:41,645 - INFO - stock_package_shipping_ups register
+2026-03-12 00:46:41,648 - INFO - init pool for "tryton"
+2026-03-12 00:46:41,663 - INFO - connection to "tryton" succeeded
+2026-03-12 00:46:41,796 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:41,796 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:41,802 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:41,802 - INFO - ir load
+2026-03-12 00:46:41,802 - INFO - res load
+2026-03-12 00:46:41,802 - INFO - country load
+2026-03-12 00:46:41,804 - INFO - currency load
+2026-03-12 00:46:41,806 - INFO - dashboard load
+2026-03-12 00:46:41,807 - INFO - marketing load
+2026-03-12 00:46:41,807 - INFO - party load
+2026-03-12 00:46:41,827 - INFO - bank load
+2026-03-12 00:46:42,030 - INFO - company load
+2026-03-12 00:46:42,046 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,047 - INFO - party_relationship load
+2026-03-12 00:46:42,048 - INFO - account load
+2026-03-12 00:46:42,122 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,122 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,122 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,122 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,122 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,123 - INFO - company_work_time load
+2026-03-12 00:46:42,123 - INFO - party_avatar load
+2026-03-12 00:46:42,124 - INFO - party_siret load
+2026-03-12 00:46:42,125 - INFO - product load
+2026-03-12 00:46:42,128 - INFO - account_product load
+2026-03-12 00:46:42,129 - INFO - carrier load
+2026-03-12 00:46:42,130 - INFO - product_image load
+2026-03-12 00:46:42,131 - INFO - product_price_list load
+2026-03-12 00:46:42,133 - INFO - stock load
+2026-03-12 00:46:42,157 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,157 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,158 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,158 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,158 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,158 - INFO - timesheet load
+2026-03-12 00:46:42,163 - INFO - account_invoice load
+2026-03-12 00:46:42,173 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,174 - INFO - product_measurements load
+2026-03-12 00:46:42,176 - INFO - project load
+2026-03-12 00:46:42,178 - INFO - stock_lot load
+2026-03-12 00:46:42,184 - INFO - stock_shipment_cost load
+2026-03-12 00:46:42,187 - INFO - account_eu load
+2026-03-12 00:46:42,188 - INFO - account_fr load
+2026-03-12 00:46:42,190 - INFO - account_fr_chorus load
+2026-03-12 00:46:42,222 - INFO - account_invoice_stock load
+2026-03-12 00:46:42,224 - INFO - account_statement load
+2026-03-12 00:46:42,229 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,229 - INFO - production load
+2026-03-12 00:46:42,233 - INFO - account_payment load
+2026-03-12 00:46:42,238 - INFO - purchase load
+2026-03-12 00:46:42,245 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,246 - INFO - sale load
+2026-03-12 00:46:42,257 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,257 - INFO - account_payment_sepa load
+2026-03-12 00:46:42,261 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,261 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:42,261 - INFO - product_attribute load
+2026-03-12 00:46:42,262 - INFO - purchase_request load
+2026-03-12 00:46:42,264 - INFO - sale_shipment_cost load
+2026-03-12 00:46:42,268 - INFO - account_payment_sepa_cfonb load
+2026-03-12 00:46:42,269 - INFO - incoterm load
+2026-03-12 00:46:42,272 - INFO - stock_supply load
+2026-03-12 00:46:42,275 - INFO - stock_supply_production load
+2026-03-12 00:46:42,276 - INFO - production_routing load
+2026-03-12 00:46:42,277 - INFO - production_work load
+2026-03-12 00:46:42,279 - INFO - setup pool for "tryton"
+2026-03-12 00:46:43,062 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,065 - INFO - all modules loaded
+2026-03-12 00:46:43,081 - INFO - init pool for "tryton"
+2026-03-12 00:46:43,084 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,085 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,085 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,085 - INFO - ir load
+2026-03-12 00:46:43,085 - INFO - res load
+2026-03-12 00:46:43,085 - INFO - country load
+2026-03-12 00:46:43,086 - INFO - currency load
+2026-03-12 00:46:43,086 - INFO - dashboard load
+2026-03-12 00:46:43,086 - INFO - marketing load
+2026-03-12 00:46:43,086 - INFO - party load
+2026-03-12 00:46:43,087 - INFO - bank load
+2026-03-12 00:46:43,087 - INFO - company load
+2026-03-12 00:46:43,088 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,088 - INFO - party_relationship load
+2026-03-12 00:46:43,088 - INFO - account load
+2026-03-12 00:46:43,089 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,089 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,090 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,090 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,090 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,090 - INFO - company_work_time load
+2026-03-12 00:46:43,090 - INFO - party_avatar load
+2026-03-12 00:46:43,091 - INFO - party_siret load
+2026-03-12 00:46:43,091 - INFO - product load
+2026-03-12 00:46:43,091 - INFO - account_product load
+2026-03-12 00:46:43,092 - INFO - carrier load
+2026-03-12 00:46:43,092 - INFO - product_image load
+2026-03-12 00:46:43,092 - INFO - product_price_list load
+2026-03-12 00:46:43,092 - INFO - stock load
+2026-03-12 00:46:43,093 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,093 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,093 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,093 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,094 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,094 - INFO - timesheet load
+2026-03-12 00:46:43,094 - INFO - account_invoice load
+2026-03-12 00:46:43,095 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,096 - INFO - product_measurements load
+2026-03-12 00:46:43,096 - INFO - project load
+2026-03-12 00:46:43,096 - INFO - stock_lot load
+2026-03-12 00:46:43,097 - INFO - stock_shipment_cost load
+2026-03-12 00:46:43,097 - INFO - account_eu load
+2026-03-12 00:46:43,097 - INFO - account_fr load
+2026-03-12 00:46:43,097 - INFO - account_fr_chorus load
+2026-03-12 00:46:43,098 - INFO - account_invoice_stock load
+2026-03-12 00:46:43,098 - INFO - account_statement load
+2026-03-12 00:46:43,099 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,099 - INFO - production load
+2026-03-12 00:46:43,100 - INFO - account_payment load
+2026-03-12 00:46:43,100 - INFO - purchase load
+2026-03-12 00:46:43,101 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,102 - INFO - sale load
+2026-03-12 00:46:43,103 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,103 - INFO - account_payment_sepa load
+2026-03-12 00:46:43,104 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,104 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,104 - INFO - product_attribute load
+2026-03-12 00:46:43,104 - INFO - purchase_request load
+2026-03-12 00:46:43,105 - INFO - sale_shipment_cost load
+2026-03-12 00:46:43,106 - INFO - account_payment_sepa_cfonb load
+2026-03-12 00:46:43,106 - INFO - incoterm load
+2026-03-12 00:46:43,108 - INFO - stock_supply load
+2026-03-12 00:46:43,109 - INFO - stock_supply_production load
+2026-03-12 00:46:43,109 - INFO - production_routing load
+2026-03-12 00:46:43,110 - INFO - production_work load
+2026-03-12 00:46:43,110 - INFO - setup pool for "tryton"
+2026-03-12 00:46:43,857 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:43,860 - INFO - all modules loaded
+2026-03-12 00:46:43,862 - INFO - --- CONEXIÓN EXITOSA ---
+2026-03-12 00:46:43,862 - INFO - --- ESCANEANDO MÓDULOS Y ASISTENTES ---
+2026-03-12 00:46:44,139 - INFO - --- CONFIGURACIÓN DE IDIOMAS Y TRADUCCIONES ---
+2026-03-12 00:46:46,887 - INFO - init pool for "tryton"
+2026-03-12 00:46:46,890 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:46,890 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:46,890 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:46,890 - INFO - setup pool for "tryton"
+2026-03-12 00:46:47,006 - INFO - setup pool for "tryton"
+2026-03-12 00:46:47,145 - INFO - ir register ir.model.field
+2026-03-12 00:46:47,211 - INFO - ir register ir.configuration
+2026-03-12 00:46:47,220 - INFO - ir register ir.translation
+2026-03-12 00:46:47,234 - INFO - ir register ir.translation.set.start
+2026-03-12 00:46:47,237 - INFO - ir register ir.translation.set.succeed
+2026-03-12 00:46:47,240 - INFO - ir register ir.translation.clean.start
+2026-03-12 00:46:47,242 - INFO - ir register ir.translation.clean.succeed
+2026-03-12 00:46:47,244 - INFO - ir register ir.translation.update.start
+2026-03-12 00:46:47,246 - INFO - ir register ir.translation.export.start
+2026-03-12 00:46:47,250 - INFO - ir register ir.translation.export.result
+2026-03-12 00:46:47,254 - INFO - ir register ir.sequence.type
+2026-03-12 00:46:47,262 - INFO - ir register ir.sequence.type-res.group
+2026-03-12 00:46:47,277 - INFO - ir register ir.sequence
+2026-03-12 00:46:47,291 - INFO - ir register ir.sequence.strict
+2026-03-12 00:46:47,306 - INFO - ir register ir.ui.menu
+2026-03-12 00:46:47,322 - INFO - ir register ir.ui.menu-res.group
+2026-03-12 00:46:47,336 - INFO - ir register ir.ui.menu.favorite
+2026-03-12 00:46:47,350 - INFO - ir register ir.ui.view
+2026-03-12 00:46:47,376 - INFO - ir register ir.ui.view.show.start
+2026-03-12 00:46:47,382 - INFO - ir register ir.ui.view_tree_width
+2026-03-12 00:46:47,404 - INFO - ir register ir.ui.view_tree_optional
+2026-03-12 00:46:47,426 - INFO - ir register ir.ui.view_tree_state
+2026-03-12 00:46:47,457 - INFO - ir register ir.ui.view_search
+2026-03-12 00:46:47,484 - INFO - ir register ir.ui.icon
+2026-03-12 00:46:47,498 - INFO - ir register ir.action
+2026-03-12 00:46:47,514 - INFO - ir register ir.action-res.group
+2026-03-12 00:46:47,530 - INFO - ir register ir.action.keyword
+2026-03-12 00:46:47,546 - INFO - ir register ir.action.report
+2026-03-12 00:46:47,564 - INFO - ir register ir.action.act_window
+2026-03-12 00:46:47,581 - INFO - ir register ir.action.act_window.view
+2026-03-12 00:46:47,597 - INFO - ir register ir.action.act_window.domain
+2026-03-12 00:46:47,611 - INFO - ir register ir.action.wizard
+2026-03-12 00:46:47,626 - INFO - ir register ir.action.url
+2026-03-12 00:46:47,643 - INFO - ir register ir.model
+2026-03-12 00:46:47,666 - INFO - ir register ir.model.access
+2026-03-12 00:46:47,686 - INFO - ir register ir.model.field.access
+2026-03-12 00:46:47,706 - INFO - ir register ir.model.button
+2026-03-12 00:46:47,747 - INFO - ir register ir.model.button-res.group
+2026-03-12 00:46:47,761 - INFO - ir register ir.model.button.rule
+2026-03-12 00:46:47,775 - INFO - ir register ir.model.button.click
+2026-03-12 00:46:47,790 - INFO - ir register ir.model.button-button.reset
+2026-03-12 00:46:47,806 - INFO - ir register ir.model.data
+2026-03-12 00:46:47,820 - INFO - ir register ir.model.log
+2026-03-12 00:46:47,833 - INFO - ir register ir.model.print_model_graph.start
+2026-03-12 00:46:47,836 - INFO - ir register ir.attachment
+2026-03-12 00:46:47,845 - INFO - ir register ir.note
+2026-03-12 00:46:47,854 - INFO - ir register ir.note.read
+2026-03-12 00:46:47,868 - INFO - ir register ir.avatar
+2026-03-12 00:46:47,878 - INFO - ir register ir.avatar.cache
+2026-03-12 00:46:47,891 - INFO - ir register ir.cron
+2026-03-12 00:46:47,907 - INFO - ir register ir.cron.log
+2026-03-12 00:46:47,929 - INFO - ir register ir.lang
+2026-03-12 00:46:47,944 - INFO - ir register ir.lang.config.start
+2026-03-12 00:46:47,948 - INFO - ir register ir.export
+2026-03-12 00:46:47,965 - INFO - ir register ir.export.line
+2026-03-12 00:46:47,980 - INFO - ir register ir.export-res.group
+2026-03-12 00:46:48,000 - INFO - ir register ir.export-write-res.group
+2026-03-12 00:46:48,038 - INFO - ir register ir.rule.group
+2026-03-12 00:46:48,062 - INFO - ir register ir.rule.group-res.group
+2026-03-12 00:46:48,081 - INFO - ir register ir.rule
+2026-03-12 00:46:48,119 - INFO - ir register ir.module
+2026-03-12 00:46:48,143 - INFO - ir register ir.module.dependency
+2026-03-12 00:46:48,164 - INFO - ir register ir.module.config_wizard.item
+2026-03-12 00:46:48,178 - INFO - ir register ir.module.config_wizard.first
+2026-03-12 00:46:48,180 - INFO - ir register ir.module.config_wizard.other
+2026-03-12 00:46:48,182 - INFO - ir register ir.module.config_wizard.done
+2026-03-12 00:46:48,185 - INFO - ir register ir.module.activate_upgrade.start
+2026-03-12 00:46:48,188 - INFO - ir register ir.module.activate_upgrade.done
+2026-03-12 00:46:48,190 - INFO - ir register ir.module.config.start
+2026-03-12 00:46:48,193 - INFO - ir register ir.cache
+2026-03-12 00:46:48,202 - INFO - ir register ir.date
+2026-03-12 00:46:48,204 - INFO - ir register ir.trigger
+2026-03-12 00:46:48,219 - INFO - ir register ir.trigger.log
+2026-03-12 00:46:48,235 - INFO - ir register ir.session
+2026-03-12 00:46:48,245 - INFO - ir register ir.session.wizard
+2026-03-12 00:46:48,254 - INFO - ir register ir.queue
+2026-03-12 00:46:48,263 - INFO - ir register ir.calendar.month
+2026-03-12 00:46:48,274 - INFO - ir register ir.calendar.day
+2026-03-12 00:46:48,286 - INFO - ir register ir.message
+2026-03-12 00:46:48,299 - INFO - ir register ir.email
+2026-03-12 00:46:48,315 - INFO - ir register ir.email.address
+2026-03-12 00:46:48,343 - INFO - ir register ir.email.template
+2026-03-12 00:46:48,375 - INFO - ir register ir.email.template-ir.action.report
+2026-03-12 00:46:48,396 - INFO - ir register ir.error
+2026-03-12 00:46:48,413 - INFO - ir register ir.chat.channel
+2026-03-12 00:46:48,428 - INFO - ir register ir.chat.follower
+2026-03-12 00:46:48,449 - INFO - ir register ir.chat.message
+2026-03-12 00:46:48,472 - INFO - ir register ir.translation.set
+2026-03-12 00:46:48,475 - INFO - ir register ir.translation.clean
+2026-03-12 00:46:48,477 - INFO - ir register ir.translation.update
+2026-03-12 00:46:48,478 - INFO - ir register ir.translation.export
+2026-03-12 00:46:48,480 - INFO - ir register ir.translation.report
+2026-03-12 00:46:48,481 - INFO - ir register ir.ui.view.show
+2026-03-12 00:46:48,482 - INFO - ir register ir.model.print_model_graph
+2026-03-12 00:46:48,484 - INFO - ir register ir.model.refresh_materialized
+2026-03-12 00:46:48,485 - INFO - ir register ir.module.config_wizard
+2026-03-12 00:46:48,488 - INFO - ir register ir.module.activate_upgrade
+2026-03-12 00:46:48,489 - INFO - ir register ir.module.config
+2026-03-12 00:46:48,491 - INFO - ir register ir.lang.config
+2026-03-12 00:46:48,492 - INFO - ir register ir.model.graph
+2026-03-12 00:46:48,492 - INFO - ir register ir.model.workflow_graph
+2026-03-12 00:46:48,492 - INFO - res register ir.rule
+2026-03-12 00:46:48,497 - INFO - res register res.group
+2026-03-12 00:46:48,513 - INFO - res register res.user
+2026-03-12 00:46:48,530 - INFO - res register res.user.login.attempt
+2026-03-12 00:46:48,540 - INFO - res register res.user.device
+2026-03-12 00:46:48,548 - INFO - res register res.user-ir.action
+2026-03-12 00:46:48,562 - INFO - res register res.user-res.group
+2026-03-12 00:46:48,582 - INFO - res register res.user.warning
+2026-03-12 00:46:48,605 - INFO - res register res.user.application
+2026-03-12 00:46:48,623 - INFO - res register res.user.config.start
+2026-03-12 00:46:48,626 - INFO - res register res.notification
+2026-03-12 00:46:48,643 - INFO - res register res.user.config
+2026-03-12 00:46:48,645 - INFO - res register res.user.email_reset_password
+2026-03-12 00:46:48,645 - INFO - ir load
+2026-03-12 00:46:48,689 - INFO - ir load ir.xml
+2026-03-12 00:46:48,724 - INFO - ir load ui/ui.xml
+2026-03-12 00:46:48,743 - INFO - ir load ui/icon.xml
+2026-03-12 00:46:48,771 - INFO - ir load ui/menu.xml
+2026-03-12 00:46:48,833 - INFO - ir load ui/view.xml
+2026-03-12 00:46:48,931 - INFO - ir load action.xml
+2026-03-12 00:46:49,064 - INFO - ir load model.xml
+2026-03-12 00:46:49,275 - INFO - ir load sequence.xml
+2026-03-12 00:46:49,342 - INFO - ir load attachment.xml
+2026-03-12 00:46:49,362 - INFO - ir load note.xml
+2026-03-12 00:46:49,389 - INFO - ir load cron.xml
+2026-03-12 00:46:49,427 - INFO - ir load lang.xml
+2026-03-12 00:46:49,493 - INFO - ir load translation.xml
+2026-03-12 00:46:49,604 - INFO - ir load export.xml
+2026-03-12 00:46:49,630 - INFO - ir load rule.xml
+2026-03-12 00:46:49,677 - INFO - ir load module.xml
+2026-03-12 00:46:49,793 - INFO - ir load trigger.xml
+2026-03-12 00:46:49,813 - INFO - ir load calendar_.xml
+2026-03-12 00:46:49,824 - INFO - ir load message.xml
+2026-03-12 00:46:49,858 - INFO - ir load queue.xml
+2026-03-12 00:46:49,858 - INFO - ir load email.xml
+2026-03-12 00:46:49,908 - INFO - ir load error.xml
+2026-03-12 00:46:49,958 - INFO - ir load locale/fr.po
+2026-03-12 00:46:50,486 - INFO - res load
+2026-03-12 00:46:50,489 - INFO - res load res.xml
+2026-03-12 00:46:50,517 - INFO - res load group.xml
+2026-03-12 00:46:50,543 - INFO - res load user.xml
+2026-03-12 00:46:50,610 - INFO - res load notification.xml
+2026-03-12 00:46:50,645 - INFO - res load message.xml
+2026-03-12 00:46:50,649 - INFO - res load locale/fr.po
+2026-03-12 00:46:50,704 - INFO - country load
+2026-03-12 00:46:50,705 - INFO - setup pool for "tryton"
+2026-03-12 00:46:50,713 - INFO - country register country.organization
+2026-03-12 00:46:50,723 - INFO - country register country.organization.member
+2026-03-12 00:46:50,743 - INFO - country register country.region
+2026-03-12 00:46:50,759 - INFO - country register country.country
+2026-03-12 00:46:50,775 - INFO - country register country.subdivision
+2026-03-12 00:46:50,791 - INFO - country register country.postal_code
+2026-03-12 00:46:50,822 - INFO - country load country.xml
+2026-03-12 00:46:51,020 - INFO - country load organization.xml
+2026-03-12 00:46:51,027 - INFO - country load region.xml
+2026-03-12 00:46:51,040 - INFO - country load locale/fr.po
+2026-03-12 00:46:51,124 - INFO - currency load
+2026-03-12 00:46:51,124 - INFO - setup pool for "tryton"
+2026-03-12 00:46:51,135 - INFO - currency register ir.cron
+2026-03-12 00:46:51,144 - INFO - currency register currency.currency
+2026-03-12 00:46:51,156 - INFO - currency register currency.currency.rate
+2026-03-12 00:46:51,174 - INFO - currency register currency.cron
+2026-03-12 00:46:51,212 - INFO - currency register currency.cron-currency.currency
+2026-03-12 00:46:51,229 - INFO - currency load currency.xml
+2026-03-12 00:46:51,283 - INFO - currency load message.xml
+2026-03-12 00:46:51,286 - INFO - currency load locale/fr.po
+2026-03-12 00:46:51,309 - INFO - dashboard load
+2026-03-12 00:46:51,309 - INFO - setup pool for "tryton"
+2026-03-12 00:46:51,317 - INFO - dashboard register ir.ui.view
+2026-03-12 00:46:51,331 - INFO - dashboard register res.user
+2026-03-12 00:46:51,341 - INFO - dashboard register dashboard.action
+2026-03-12 00:46:51,356 - INFO - dashboard load dashboard.xml
+2026-03-12 00:46:51,361 - INFO - dashboard load res.xml
+2026-03-12 00:46:51,366 - INFO - dashboard load ir.xml
+2026-03-12 00:46:51,394 - INFO - dashboard load locale/fr.po
+2026-03-12 00:46:51,411 - INFO - marketing load
+2026-03-12 00:46:51,411 - INFO - setup pool for "tryton"
+2026-03-12 00:46:51,413 - INFO - marketing load marketing.xml
+2026-03-12 00:46:51,429 - INFO - marketing load locale/fr.po
+2026-03-12 00:46:51,440 - INFO - party load
+2026-03-12 00:46:51,440 - INFO - setup pool for "tryton"
+2026-03-12 00:46:51,491 - INFO - party register country.postal_code
+2026-03-12 00:46:51,498 - INFO - party register party.category
+2026-03-12 00:46:51,512 - INFO - party register party.party
+2026-03-12 00:46:51,529 - INFO - party register party.party.lang
+2026-03-12 00:46:51,544 - INFO - party register party.party-party.category
+2026-03-12 00:46:51,561 - INFO - party register party.identifier
+2026-03-12 00:46:51,587 - INFO - party register party.check_vies.result
+2026-03-12 00:46:51,590 - INFO - party register party.replace.ask
+2026-03-12 00:46:51,593 - INFO - party register party.erase.ask
+2026-03-12 00:46:51,596 - INFO - party register party.address
+2026-03-12 00:46:51,614 - INFO - party register party.address.format
+2026-03-12 00:46:51,623 - INFO - party register party.address.subdivision_type
+2026-03-12 00:46:51,631 - INFO - party register party.contact_mechanism
+2026-03-12 00:46:51,656 - INFO - party register party.contact_mechanism.language
+2026-03-12 00:46:51,678 - INFO - party register party.configuration
+2026-03-12 00:46:51,693 - INFO - party register party.configuration.party_sequence
+2026-03-12 00:46:51,710 - INFO - party register party.configuration.party_lang
+2026-03-12 00:46:51,748 - INFO - party register ir.email
+2026-03-12 00:46:51,754 - INFO - party register ir.email.template
+2026-03-12 00:46:51,764 - INFO - party register party.check_vies
+2026-03-12 00:46:51,765 - INFO - party register party.replace
+2026-03-12 00:46:51,767 - INFO - party register party.erase
+2026-03-12 00:46:51,784 - INFO - party load party.xml
+2026-03-12 00:46:51,889 - INFO - party load category.xml
+2026-03-12 00:46:51,944 - INFO - party load address.xml
+2026-03-12 00:46:52,127 - INFO - party load contact_mechanism.xml
+2026-03-12 00:46:52,167 - INFO - party load configuration.xml
+2026-03-12 00:46:52,187 - INFO - party load ir.xml
+2026-03-12 00:46:52,219 - INFO - party load message.xml
+2026-03-12 00:46:52,224 - INFO - party load locale/fr.po
+2026-03-12 00:46:52,361 - INFO - bank load
+2026-03-12 00:46:52,361 - INFO - setup pool for "tryton"
+2026-03-12 00:46:52,369 - INFO - bank register bank
+2026-03-12 00:46:52,383 - INFO - bank register bank.account
+2026-03-12 00:46:52,399 - INFO - bank register bank.account.number
+2026-03-12 00:46:52,413 - INFO - bank register bank.account-party.party
+2026-03-12 00:46:52,428 - INFO - bank register party.party
+2026-03-12 00:46:52,438 - INFO - bank register party.replace
+2026-03-12 00:46:52,441 - INFO - bank load bank.xml
+2026-03-12 00:46:52,495 - INFO - bank load party.xml
+2026-03-12 00:46:52,514 - INFO - bank load message.xml
+2026-03-12 00:46:52,516 - INFO - bank load locale/fr.po
+2026-03-12 00:46:52,535 - INFO - company load
+2026-03-12 00:46:52,536 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:52,536 - INFO - setup pool for "tryton"
+2026-03-12 00:46:52,566 - INFO - company register ir.sequence
+2026-03-12 00:46:52,574 - INFO - company register ir.sequence.strict
+2026-03-12 00:46:52,588 - INFO - company register ir.date
+2026-03-12 00:46:52,592 - INFO - company register ir.rule
+2026-03-12 00:46:52,601 - INFO - company register ir.cron
+2026-03-12 00:46:52,610 - INFO - company register ir.cron-company.company
+2026-03-12 00:46:52,632 - INFO - company register ir.email.template
+2026-03-12 00:46:52,643 - INFO - company register party.configuration
+2026-03-12 00:46:52,653 - INFO - company register party.configuration.party_lang
+2026-03-12 00:46:52,661 - INFO - company register party.party
+2026-03-12 00:46:52,677 - INFO - company register party.party.lang
+2026-03-12 00:46:52,689 - INFO - company register party.contact_mechanism
+2026-03-12 00:46:52,701 - INFO - company register party.contact_mechanism.language
+2026-03-12 00:46:52,712 - INFO - company register company.company
+2026-03-12 00:46:52,731 - INFO - company register company.company.tax_identifier
+2026-03-12 00:46:52,751 - INFO - company register company.company.logo.cache
+2026-03-12 00:46:52,766 - INFO - company register company.employee
+2026-03-12 00:46:52,785 - INFO - company register company.company.config.start
+2026-03-12 00:46:52,788 - INFO - company register res.user
+2026-03-12 00:46:52,804 - INFO - company register res.user-company.company
+2026-03-12 00:46:52,834 - INFO - company register res.user-company.employee
+2026-03-12 00:46:52,864 - INFO - company register party.replace
+2026-03-12 00:46:52,867 - INFO - company register party.erase
+2026-03-12 00:46:52,870 - INFO - company register company.company.config
+2026-03-12 00:46:52,874 - INFO - company register party.letter
+2026-03-12 00:46:52,878 - INFO - company load company.xml
+2026-03-12 00:46:52,994 - INFO - company load ir.xml
+2026-03-12 00:46:53,036 - INFO - company load message.xml
+2026-03-12 00:46:53,041 - INFO - company load locale/fr.po
+2026-03-12 00:46:53,077 - INFO - party_relationship load
+2026-03-12 00:46:53,077 - INFO - setup pool for "tryton"
+2026-03-12 00:46:53,084 - INFO - party_relationship register party.relation.type
+2026-03-12 00:46:53,099 - INFO - party_relationship register party.relation
+2026-03-12 00:46:53,123 - INFO - party_relationship register party.relation.all
+2026-03-12 00:46:53,131 - INFO - party_relationship register party.party
+2026-03-12 00:46:53,148 - INFO - party_relationship load party.xml
+2026-03-12 00:46:53,239 - INFO - party_relationship load locale/fr.po
+2026-03-12 00:46:53,254 - INFO - account load
+2026-03-12 00:46:53,255 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:53,255 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:53,255 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:53,255 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:53,255 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:53,255 - INFO - setup pool for "tryton"
+2026-03-12 00:46:53,346 - INFO - account register account.fiscalyear
+2026-03-12 00:46:53,365 - INFO - account register account.fiscalyear.balance_non_deferral.start
+2026-03-12 00:46:53,371 - INFO - account register company.company
+2026-03-12 00:46:53,382 - INFO - account register account.account.type.template
+2026-03-12 00:46:53,404 - INFO - account register account.account.type
+2026-03-12 00:46:53,427 - INFO - account register account.account.template
+2026-03-12 00:46:53,460 - INFO - account register account.account.template-account.tax.template
+2026-03-12 00:46:53,496 - INFO - account register account.account
+2026-03-12 00:46:53,522 - INFO - account register account.account.party
+2026-03-12 00:46:53,530 - INFO - account register account.account.deferral
+2026-03-12 00:46:53,546 - INFO - account register account.account-account.tax
+2026-03-12 00:46:53,563 - INFO - account register account.account.context
+2026-03-12 00:46:53,567 - INFO - account register account.general_ledger.account
+2026-03-12 00:46:53,574 - INFO - account register account.general_ledger.account.context
+2026-03-12 00:46:53,578 - INFO - account register account.general_ledger.account.party
+2026-03-12 00:46:53,584 - INFO - account register account.general_ledger.line
+2026-03-12 00:46:53,593 - INFO - account register account.general_ledger.line.context
+2026-03-12 00:46:53,597 - INFO - account register account.balance_sheet.context
+2026-03-12 00:46:53,600 - INFO - account register account.balance_sheet.comparison.context
+2026-03-12 00:46:53,603 - INFO - account register account.income_statement.context
+2026-03-12 00:46:53,609 - INFO - account register account.create_chart.start
+2026-03-12 00:46:53,611 - INFO - account register account.create_chart.account
+2026-03-12 00:46:53,614 - INFO - account register account.create_chart.properties
+2026-03-12 00:46:53,618 - INFO - account register account.update_chart.start
+2026-03-12 00:46:53,621 - INFO - account register account.update_chart.succeed
+2026-03-12 00:46:53,623 - INFO - account register account.aged_balance.context
+2026-03-12 00:46:53,626 - INFO - account register account.aged_balance
+2026-03-12 00:46:53,631 - INFO - account register account.configuration
+2026-03-12 00:46:53,649 - INFO - account register account.configuration.default_account
+2026-03-12 00:46:53,678 - INFO - account register account.configuration.default_tax_rule
+2026-03-12 00:46:53,697 - INFO - account register account.configuration.sequence
+2026-03-12 00:46:53,717 - INFO - account register account.configuration.journal
+2026-03-12 00:46:53,756 - INFO - account register account.period
+2026-03-12 00:46:53,772 - INFO - account register account.journal
+2026-03-12 00:46:53,781 - INFO - account register account.journal.open_cash.context
+2026-03-12 00:46:53,784 - INFO - account register account.journal.period
+2026-03-12 00:46:53,800 - INFO - account register account.move
+2026-03-12 00:46:53,817 - INFO - account register account.move.context
+2026-03-12 00:46:53,821 - INFO - account register account.move.reconciliation
+2026-03-12 00:46:53,836 - INFO - account register account.configuration.tax_rounding
+2026-03-12 00:46:53,851 - INFO - account register account.move.line
+2026-03-12 00:46:53,876 - INFO - account register account.move.line.receivable_payable.context
+2026-03-12 00:46:53,879 - INFO - account register account.move.reconcile.write_off
+2026-03-12 00:46:53,897 - INFO - account register account.move.open_journal.ask
+2026-03-12 00:46:53,903 - INFO - account register account.move.reconcile_lines.writeoff
+2026-03-12 00:46:53,908 - INFO - account register account.reconcile.start
+2026-03-12 00:46:53,912 - INFO - account register account.reconcile.show
+2026-03-12 00:46:53,927 - INFO - account register account.move.cancel.default
+2026-03-12 00:46:53,932 - INFO - account register account.move.line.group.start
+2026-03-12 00:46:53,938 - INFO - account register account.move.line.reschedule.start
+2026-03-12 00:46:53,944 - INFO - account register account.move.line.reschedule.preview
+2026-03-12 00:46:53,950 - INFO - account register account.move.line.reschedule.term
+2026-03-12 00:46:53,956 - INFO - account register account.move.line.delegate.start
+2026-03-12 00:46:53,960 - INFO - account register account.tax.group
+2026-03-12 00:46:53,974 - INFO - account register account.tax.code.template
+2026-03-12 00:46:53,997 - INFO - account register account.tax.code
+2026-03-12 00:46:54,044 - INFO - account register account.tax.code.line.template
+2026-03-12 00:46:54,074 - INFO - account register account.tax.code.line
+2026-03-12 00:46:54,092 - INFO - account register account.tax.code.context
+2026-03-12 00:46:54,105 - INFO - account register account.tax.template
+2026-03-12 00:46:54,152 - INFO - account register account.tax
+2026-03-12 00:46:54,185 - INFO - account register account.tax.line
+2026-03-12 00:46:54,201 - INFO - account register account.tax.rule.template
+2026-03-12 00:46:54,215 - INFO - account register account.tax.rule
+2026-03-12 00:46:54,231 - INFO - account register account.tax.rule.line.template
+2026-03-12 00:46:54,249 - INFO - account register account.tax.rule.line
+2026-03-12 00:46:54,268 - INFO - account register account.tax.test
+2026-03-12 00:46:54,273 - INFO - account register account.tax.test.result
+2026-03-12 00:46:54,276 - INFO - account register account.move.template
+2026-03-12 00:46:54,291 - INFO - account register account.move.template.keyword
+2026-03-12 00:46:54,304 - INFO - account register account.move.line.template
+2026-03-12 00:46:54,331 - INFO - account register account.tax.line.template
+2026-03-12 00:46:54,353 - INFO - account register account.move.template.create.template
+2026-03-12 00:46:54,357 - INFO - account register account.move.template.create.keywords
+2026-03-12 00:46:54,359 - INFO - account register party.party
+2026-03-12 00:46:54,371 - INFO - account register party.party.account
+2026-03-12 00:46:54,391 - INFO - account register account.fiscalyear.create_periods.start
+2026-03-12 00:46:54,394 - INFO - account register account.fiscalyear.renew.start
+2026-03-12 00:46:54,397 - INFO - account register account.account.open_type
+2026-03-12 00:46:54,397 - INFO - account register account.fiscalyear.balance_non_deferral
+2026-03-12 00:46:54,399 - INFO - account register account.create_chart
+2026-03-12 00:46:54,401 - INFO - account register account.update_chart
+2026-03-12 00:46:54,402 - INFO - account register account.general_ledger.account.party.open
+2026-03-12 00:46:54,403 - INFO - account register account.move.open_journal
+2026-03-12 00:46:54,404 - INFO - account register account.move.open_account
+2026-03-12 00:46:54,405 - INFO - account register account.move.reconcile_lines
+2026-03-12 00:46:54,406 - INFO - account register account.move.unreconcile_lines
+2026-03-12 00:46:54,406 - INFO - account register account.reconcile
+2026-03-12 00:46:54,408 - INFO - account register account.move.cancel
+2026-03-12 00:46:54,409 - INFO - account register account.move.line.group
+2026-03-12 00:46:54,410 - INFO - account register account.move.line.reschedule
+2026-03-12 00:46:54,412 - INFO - account register account.move.line.delegate
+2026-03-12 00:46:54,413 - INFO - account register account.move.template.create
+2026-03-12 00:46:54,415 - INFO - account register account.tax.open_code
+2026-03-12 00:46:54,415 - INFO - account register account.tax.test
+2026-03-12 00:46:54,416 - INFO - account register party.replace
+2026-03-12 00:46:54,418 - INFO - account register party.erase
+2026-03-12 00:46:54,419 - INFO - account register account.fiscalyear.create_periods
+2026-03-12 00:46:54,420 - INFO - account register account.fiscalyear.renew
+2026-03-12 00:46:54,422 - INFO - account register account.account.type.statement
+2026-03-12 00:46:54,422 - INFO - account register account.general_ledger
+2026-03-12 00:46:54,422 - INFO - account register account.trial_balance
+2026-03-12 00:46:54,422 - INFO - account register account.aged_balance
+2026-03-12 00:46:54,422 - INFO - account register account.move.general_journal
+2026-03-12 00:46:54,466 - INFO - account load account.xml
+2026-03-12 00:46:55,132 - INFO - account load configuration.xml
+2026-03-12 00:46:55,158 - INFO - account load company.xml
+2026-03-12 00:46:55,170 - INFO - account load fiscalyear.xml
+2026-03-12 00:46:55,284 - INFO - account load period.xml
+2026-03-12 00:46:55,330 - INFO - account load journal.xml
+2026-03-12 00:46:55,470 - INFO - account load move.xml
+2026-03-12 00:46:55,694 - INFO - account load move_template.xml
+2026-03-12 00:46:55,771 - INFO - account load tax.xml
+2026-03-12 00:46:56,036 - INFO - account load party.xml
+2026-03-12 00:46:56,080 - INFO - account load account_chart_de.xml
+2026-03-12 00:46:56,084 - INFO - account load account_chart_en.xml
+2026-03-12 00:46:56,194 - INFO - account load account_chart_es.xml
+2026-03-12 00:46:56,197 - INFO - account load account_chart_fr.xml
+2026-03-12 00:46:56,777 - INFO - account load message.xml
+2026-03-12 00:46:56,788 - INFO - account load locale/fr.po
+2026-03-12 00:46:57,422 - INFO - company_work_time load
+2026-03-12 00:46:57,422 - INFO - setup pool for "tryton"
+2026-03-12 00:46:57,430 - INFO - company_work_time register res.user
+2026-03-12 00:46:57,461 - INFO - company_work_time register company.company
+2026-03-12 00:46:57,473 - INFO - company_work_time load company.xml
+2026-03-12 00:46:57,479 - INFO - company_work_time load locale/fr.po
+2026-03-12 00:46:57,489 - INFO - party_avatar load
+2026-03-12 00:46:57,489 - INFO - setup pool for "tryton"
+2026-03-12 00:46:57,502 - INFO - party_avatar register party.party
+2026-03-12 00:46:57,516 - INFO - party_avatar register company.company
+2026-03-12 00:46:57,524 - INFO - party_avatar register company.employee
+2026-03-12 00:46:57,531 - INFO - party_avatar register res.user
+2026-03-12 00:46:57,545 - INFO - party_avatar load party.xml
+2026-03-12 00:46:57,563 - INFO - party_avatar load company.xml
+2026-03-12 00:46:57,568 - INFO - party_avatar load locale/fr.po
+2026-03-12 00:46:57,573 - INFO - party_siret load
+2026-03-12 00:46:57,573 - INFO - setup pool for "tryton"
+2026-03-12 00:46:57,585 - INFO - party_siret register party.party
+2026-03-12 00:46:57,598 - INFO - party_siret register party.address
+2026-03-12 00:46:57,608 - INFO - party_siret register company.company
+2026-03-12 00:46:57,618 - INFO - party_siret load party.xml
+2026-03-12 00:46:57,636 - INFO - party_siret load address.xml
+2026-03-12 00:46:57,639 - INFO - party_siret load locale/fr.po
+2026-03-12 00:46:57,659 - INFO - product load
+2026-03-12 00:46:57,660 - INFO - setup pool for "tryton"
+2026-03-12 00:46:57,686 - INFO - product register ir.configuration
+2026-03-12 00:46:57,691 - INFO - product register ir.cron
+2026-03-12 00:46:57,703 - INFO - product register product.uom.category
+2026-03-12 00:46:57,725 - INFO - product register product.uom
+2026-03-12 00:46:57,743 - INFO - product register product.category
+2026-03-12 00:46:57,758 - INFO - product register product.template
+2026-03-12 00:46:57,776 - INFO - product register product.product
+2026-03-12 00:46:57,795 - INFO - product register product.identifier
+2026-03-12 00:46:57,809 - INFO - product register product.list_price
+2026-03-12 00:46:57,825 - INFO - product register product.cost_price_method
+2026-03-12 00:46:57,840 - INFO - product register product.cost_price
+2026-03-12 00:46:57,856 - INFO - product register product.template-product.category
+2026-03-12 00:46:57,871 - INFO - product register product.template-product.category.all
+2026-03-12 00:46:57,876 - INFO - product register product.product.replace.ask
+2026-03-12 00:46:57,879 - INFO - product register product.configuration
+2026-03-12 00:46:57,895 - INFO - product register product.configuration.default_cost_price_method
+2026-03-12 00:46:57,905 - INFO - product register product.product.replace
+2026-03-12 00:46:57,915 - INFO - product load product.xml
+2026-03-12 00:46:58,059 - INFO - product load category.xml
+2026-03-12 00:46:58,167 - INFO - product load uom.xml
+2026-03-12 00:46:58,210 - INFO - product load configuration.xml
+2026-03-12 00:46:58,237 - INFO - product load message.xml
+2026-03-12 00:46:58,241 - INFO - product load locale/fr.po
+2026-03-12 00:46:58,366 - INFO - account_product load
+2026-03-12 00:46:58,366 - INFO - setup pool for "tryton"
+2026-03-12 00:46:58,385 - INFO - account_product register product.category
+2026-03-12 00:46:58,398 - INFO - account_product register product.category.account
+2026-03-12 00:46:58,423 - INFO - account_product register product.category-customer-account.tax
+2026-03-12 00:46:58,446 - INFO - account_product register product.category-supplier-account.tax
+2026-03-12 00:46:58,473 - INFO - account_product register account.create_chart.properties
+2026-03-12 00:46:58,479 - INFO - account_product register product.template
+2026-03-12 00:46:58,491 - INFO - account_product register product.product
+2026-03-12 00:46:58,505 - INFO - account_product register product.template-product.category.account
+2026-03-12 00:46:58,510 - INFO - account_product register product.template-product.category.all
+2026-03-12 00:46:58,515 - INFO - account_product register account.configuration
+2026-03-12 00:46:58,525 - INFO - account_product register account.configuration.default_account
+2026-03-12 00:46:58,538 - INFO - account_product register account.create_chart
+2026-03-12 00:46:58,542 - INFO - account_product load account.xml
+2026-03-12 00:46:58,630 - INFO - account_product load product.xml
+2026-03-12 00:46:58,648 - INFO - account_product load configuration.xml
+2026-03-12 00:46:58,652 - INFO - account_product load message.xml
+2026-03-12 00:46:58,656 - INFO - account_product load analytic_account.xml
+2026-03-12 00:46:58,657 - INFO - account_product load locale/fr.po
+2026-03-12 00:46:58,690 - INFO - carrier load
+2026-03-12 00:46:58,690 - INFO - setup pool for "tryton"
+2026-03-12 00:46:58,694 - INFO - carrier register carrier
+2026-03-12 00:46:58,710 - INFO - carrier register carrier.selection
+2026-03-12 00:46:58,727 - INFO - carrier register party.replace
+2026-03-12 00:46:58,730 - INFO - carrier load carrier.xml
+2026-03-12 00:46:58,803 - INFO - carrier load locale/fr.po
+2026-03-12 00:46:58,825 - INFO - product_image load
+2026-03-12 00:46:58,826 - INFO - setup pool for "tryton"
+2026-03-12 00:46:58,850 - INFO - product_image register product.template
+2026-03-12 00:46:58,866 - INFO - product_image register product.product
+2026-03-12 00:46:58,882 - INFO - product_image register product.image
+2026-03-12 00:46:58,902 - INFO - product_image register product.image.cache
+2026-03-12 00:46:58,933 - INFO - product_image register product.category
+2026-03-12 00:46:58,952 - INFO - product_image register product.category.image
+2026-03-12 00:46:58,965 - INFO - product_image register product.category.image.cache
+2026-03-12 00:46:58,981 - INFO - product_image load product.xml
+2026-03-12 00:46:58,996 - INFO - product_image load message.xml
+2026-03-12 00:46:59,001 - INFO - product_image load locale/fr.po
+2026-03-12 00:46:59,019 - INFO - product_price_list load
+2026-03-12 00:46:59,019 - INFO - setup pool for "tryton"
+2026-03-12 00:46:59,022 - INFO - product_price_list register product.price_list
+2026-03-12 00:46:59,036 - INFO - product_price_list register product.price_list.line
+2026-03-12 00:46:59,053 - INFO - product_price_list register product.price_list.line.context
+2026-03-12 00:46:59,057 - INFO - product_price_list load price_list.xml
+2026-03-12 00:46:59,105 - INFO - product_price_list load message.xml
+2026-03-12 00:46:59,109 - INFO - product_price_list load locale/fr.po
+2026-03-12 00:46:59,138 - INFO - stock load
+2026-03-12 00:46:59,139 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:59,139 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:59,139 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:59,139 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:59,139 - INFO - setup mixin for "tryton"
+2026-03-12 00:46:59,139 - INFO - setup pool for "tryton"
+2026-03-12 00:46:59,254 - INFO - stock register ir.cron
+2026-03-12 00:46:59,261 - INFO - stock register res.user
+2026-03-12 00:46:59,275 - INFO - stock register party.party
+2026-03-12 00:46:59,290 - INFO - stock register party.party.location
+2026-03-12 00:46:59,306 - INFO - stock register party.party-delivered_to-stock.location
+2026-03-12 00:46:59,321 - INFO - stock register party.address
+2026-03-12 00:46:59,333 - INFO - stock register party.contact_mechanism
+2026-03-12 00:46:59,341 - INFO - stock register product.template
+2026-03-12 00:46:59,351 - INFO - stock register product.product
+2026-03-12 00:46:59,363 - INFO - stock register product.by_location.context
+2026-03-12 00:46:59,366 - INFO - stock register stock.product_quantities_warehouse
+2026-03-12 00:46:59,373 - INFO - stock register stock.product_quantities_warehouse.context
+2026-03-12 00:46:59,379 - INFO - stock register stock.product_quantities_warehouse.move
+2026-03-12 00:46:59,389 - INFO - stock register product.recompute_cost_price.start
+2026-03-12 00:46:59,393 - INFO - stock register product.cost_price.revision
+2026-03-12 00:46:59,415 - INFO - stock register product.modify_cost_price.start
+2026-03-12 00:46:59,419 - INFO - stock register stock.configuration
+2026-03-12 00:46:59,434 - INFO - stock register stock.configuration.sequence
+2026-03-12 00:46:59,471 - INFO - stock register stock.configuration.location
+2026-03-12 00:46:59,499 - INFO - stock register stock.location
+2026-03-12 00:46:59,526 - INFO - stock register stock.location.waste
+2026-03-12 00:46:59,541 - INFO - stock register stock.products_by_locations.context
+2026-03-12 00:46:59,544 - INFO - stock register stock.products_by_locations
+2026-03-12 00:46:59,548 - INFO - stock register stock.location.lead_time
+2026-03-12 00:46:59,564 - INFO - stock register stock.move
+2026-03-12 00:46:59,587 - INFO - stock register stock.shipment.in
+2026-03-12 00:46:59,615 - INFO - stock register stock.shipment.in.return
+2026-03-12 00:46:59,643 - INFO - stock register stock.shipment.out
+2026-03-12 00:46:59,685 - INFO - stock register stock.shipment.out.return
+2026-03-12 00:46:59,722 - INFO - stock register stock.shipment.internal
+2026-03-12 00:46:59,768 - INFO - stock register stock.shipment.assign.partial
+2026-03-12 00:46:59,771 - INFO - stock register stock.period
+2026-03-12 00:46:59,785 - INFO - stock register stock.period.cache
+2026-03-12 00:46:59,801 - INFO - stock register stock.inventory
+2026-03-12 00:46:59,817 - INFO - stock register stock.inventory.line
+2026-03-12 00:46:59,834 - INFO - stock register stock.inventory.count.search
+2026-03-12 00:46:59,836 - INFO - stock register stock.inventory.count.quantity
+2026-03-12 00:46:59,840 - INFO - stock register stock.reporting.inventory.context
+2026-03-12 00:46:59,843 - INFO - stock register stock.reporting.inventory
+2026-03-12 00:46:59,848 - INFO - stock register stock.reporting.inventory.range.context
+2026-03-12 00:46:59,852 - INFO - stock register stock.reporting.inventory.move
+2026-03-12 00:46:59,858 - INFO - stock register stock.reporting.inventory.daily
+2026-03-12 00:46:59,863 - INFO - stock register stock.reporting.inventory.turnover.context
+2026-03-12 00:46:59,867 - INFO - stock register stock.reporting.inventory.turnover
+2026-03-12 00:46:59,872 - INFO - stock register stock.reporting.margin.context
+2026-03-12 00:46:59,875 - INFO - stock register stock.reporting.margin.main
+2026-03-12 00:46:59,880 - INFO - stock register stock.reporting.margin.main.time_series
+2026-03-12 00:46:59,885 - INFO - stock register stock.reporting.margin.product
+2026-03-12 00:46:59,891 - INFO - stock register stock.reporting.margin.product.time_series
+2026-03-12 00:46:59,897 - INFO - stock register stock.reporting.margin.category
+2026-03-12 00:46:59,904 - INFO - stock register stock.reporting.margin.category.time_series
+2026-03-12 00:46:59,915 - INFO - stock register stock.reporting.margin.category.tree
+2026-03-12 00:46:59,925 - INFO - stock register party.replace
+2026-03-12 00:46:59,927 - INFO - stock register party.erase
+2026-03-12 00:46:59,929 - INFO - stock register stock.product_quantities_warehouse.open
+2026-03-12 00:46:59,930 - INFO - stock register stock.product_quantities_warehouse.move.open
+2026-03-12 00:46:59,932 - INFO - stock register product.recompute_cost_price
+2026-03-12 00:46:59,935 - INFO - stock register product.modify_cost_price
+2026-03-12 00:46:59,938 - INFO - stock register stock.shipment.assign
+2026-03-12 00:46:59,940 - INFO - stock register stock.inventory.count
+2026-03-12 00:46:59,942 - INFO - stock register stock.shipment.out.delivery_note
+2026-03-12 00:46:59,942 - INFO - stock register stock.shipment.out.picking_list
+2026-03-12 00:46:59,942 - INFO - stock register stock.shipment.in.restocking_list
+2026-03-12 00:46:59,942 - INFO - stock register stock.shipment.out.return.restocking_list
+2026-03-12 00:46:59,942 - INFO - stock register stock.shipment.internal.report
+2026-03-12 00:46:59,976 - INFO - stock load stock.xml
+2026-03-12 00:47:00,074 - INFO - stock load product.xml
+2026-03-12 00:47:00,226 - INFO - stock load location.xml
+2026-03-12 00:47:00,376 - INFO - stock load shipment.xml
+2026-03-12 00:47:00,748 - INFO - stock load move.xml
+2026-03-12 00:47:00,828 - INFO - stock load inventory.xml
+2026-03-12 00:47:00,939 - INFO - stock load party.xml
+2026-03-12 00:47:00,975 - INFO - stock load configuration.xml
+2026-03-12 00:47:00,994 - INFO - stock load period.xml
+2026-03-12 00:47:01,025 - INFO - stock load message.xml
+2026-03-12 00:47:01,031 - INFO - stock load res.xml
+2026-03-12 00:47:01,034 - INFO - stock load stock_reporting.xml
+2026-03-12 00:47:01,118 - INFO - stock load stock_reporting_margin.xml
+2026-03-12 00:47:01,273 - INFO - stock load locale/fr.po
+2026-03-12 00:47:01,815 - INFO - timesheet load
+2026-03-12 00:47:01,815 - INFO - setup pool for "tryton"
+2026-03-12 00:47:01,824 - INFO - timesheet register ir.rule
+2026-03-12 00:47:01,830 - INFO - timesheet register res.user.application
+2026-03-12 00:47:01,835 - INFO - timesheet register timesheet.work
+2026-03-12 00:47:01,850 - INFO - timesheet register timesheet.work.context
+2026-03-12 00:47:01,853 - INFO - timesheet register timesheet.line
+2026-03-12 00:47:01,870 - INFO - timesheet register timesheet.line.enter.start
+2026-03-12 00:47:01,873 - INFO - timesheet register timesheet.hours_employee
+2026-03-12 00:47:01,877 - INFO - timesheet register timesheet.hours_employee.context
+2026-03-12 00:47:01,880 - INFO - timesheet register timesheet.hours_employee_weekly
+2026-03-12 00:47:01,885 - INFO - timesheet register timesheet.hours_employee_monthly
+2026-03-12 00:47:01,889 - INFO - timesheet register timesheet.line.enter
+2026-03-12 00:47:01,893 - INFO - timesheet load timesheet.xml
+2026-03-12 00:47:01,918 - INFO - timesheet load work.xml
+2026-03-12 00:47:02,001 - INFO - timesheet load line.xml
+2026-03-12 00:47:02,179 - INFO - timesheet load message.xml
+2026-03-12 00:47:02,182 - INFO - timesheet load locale/fr.po
+2026-03-12 00:47:02,219 - INFO - account_invoice load
+2026-03-12 00:47:02,220 - INFO - setup mixin for "tryton"
+2026-03-12 00:47:02,220 - INFO - setup pool for "tryton"
+2026-03-12 00:47:02,275 - INFO - account_invoice register account.invoice.payment_term
+2026-03-12 00:47:02,286 - INFO - account_invoice register account.invoice.payment_term.line
+2026-03-12 00:47:02,301 - INFO - account_invoice register account.invoice.payment_term.line.delta
+2026-03-12 00:47:02,328 - INFO - account_invoice register account.invoice.payment_term.test
+2026-03-12 00:47:02,337 - INFO - account_invoice register account.invoice.payment_term.test.result
+2026-03-12 00:47:02,341 - INFO - account_invoice register account.invoice
+2026-03-12 00:47:02,378 - INFO - account_invoice register account.invoice-additional-account.move
+2026-03-12 00:47:02,393 - INFO - account_invoice register account.invoice.alternative_payee
+2026-03-12 00:47:02,408 - INFO - account_invoice register account.invoice-account.move.line
+2026-03-12 00:47:02,425 - INFO - account_invoice register account.invoice.line
+2026-03-12 00:47:02,452 - INFO - account_invoice register account.invoice.line-account.tax
+2026-03-12 00:47:02,472 - INFO - account_invoice register account.invoice.tax
+2026-03-12 00:47:02,491 - INFO - account_invoice register account.invoice.edocument.start
+2026-03-12 00:47:02,494 - INFO - account_invoice register account.invoice.edocument.result
+2026-03-12 00:47:02,497 - INFO - account_invoice register account.invoice.pay.start
+2026-03-12 00:47:02,503 - INFO - account_invoice register account.invoice.pay.ask
+2026-03-12 00:47:02,509 - INFO - account_invoice register account.invoice.credit.start
+2026-03-12 00:47:02,511 - INFO - account_invoice register account.invoice.report.revision
+2026-03-12 00:47:02,527 - INFO - account_invoice register party.address
+2026-03-12 00:47:02,538 - INFO - account_invoice register party.contact_mechanism
+2026-03-12 00:47:02,545 - INFO - account_invoice register party.party
+2026-03-12 00:47:02,562 - INFO - account_invoice register party.party.payment_term
+2026-03-12 00:47:02,587 - INFO - account_invoice register account.configuration
+2026-03-12 00:47:02,601 - INFO - account_invoice register account.configuration.default_payment_term
+2026-03-12 00:47:02,621 - INFO - account_invoice register account.configuration.payment_reference
+2026-03-12 00:47:02,637 - INFO - account_invoice register account.fiscalyear.invoice_sequence
+2026-03-12 00:47:02,665 - INFO - account_invoice register account.period
+2026-03-12 00:47:02,677 - INFO - account_invoice register account.fiscalyear
+2026-03-12 00:47:02,689 - INFO - account_invoice register account.move
+2026-03-12 00:47:02,700 - INFO - account_invoice register account.move.line
+2026-03-12 00:47:02,717 - INFO - account_invoice register account.move.reconciliation
+2026-03-12 00:47:02,724 - INFO - account_invoice register account.invoice.payment.method
+2026-03-12 00:47:02,741 - INFO - account_invoice register company.company
+2026-03-12 00:47:02,750 - INFO - account_invoice register account.invoice.payment_term.test
+2026-03-12 00:47:02,751 - INFO - account_invoice register account.invoice.edocument
+2026-03-12 00:47:02,753 - INFO - account_invoice register account.invoice.pay
+2026-03-12 00:47:02,755 - INFO - account_invoice register account.invoice.credit
+2026-03-12 00:47:02,756 - INFO - account_invoice register account.invoice.lines_to_pay.reschedule
+2026-03-12 00:47:02,757 - INFO - account_invoice register account.invoice.lines_to_pay.delegate
+2026-03-12 00:47:02,757 - INFO - account_invoice register account.invoice.refresh_invoice_report
+2026-03-12 00:47:02,758 - INFO - account_invoice register party.replace
+2026-03-12 00:47:02,759 - INFO - account_invoice register party.erase
+2026-03-12 00:47:02,760 - INFO - account_invoice register account.fiscalyear.renew
+2026-03-12 00:47:02,761 - INFO - account_invoice register account.move.line.reschedule
+2026-03-12 00:47:02,763 - INFO - account_invoice register account.move.line.delegate
+2026-03-12 00:47:02,765 - INFO - account_invoice register account.move.cancel
+2026-03-12 00:47:02,766 - INFO - account_invoice register account.invoice
+2026-03-12 00:47:02,773 - INFO - account_invoice load invoice.xml
+2026-03-12 00:47:03,103 - INFO - account_invoice load payment_term.xml
+2026-03-12 00:47:03,169 - INFO - account_invoice load party.xml
+2026-03-12 00:47:03,207 - INFO - account_invoice load account.xml
+2026-03-12 00:47:03,234 - INFO - account_invoice load company.xml
+2026-03-12 00:47:03,238 - INFO - account_invoice load message.xml
+2026-03-12 00:47:03,243 - INFO - account_invoice load locale/fr.po
+2026-03-12 00:47:03,374 - INFO - product_measurements load
+2026-03-12 00:47:03,374 - INFO - setup pool for "tryton"
+2026-03-12 00:47:03,395 - INFO - product_measurements register product.template
+2026-03-12 00:47:03,418 - INFO - product_measurements register product.product
+2026-03-12 00:47:03,437 - INFO - product_measurements register product.price_list
+2026-03-12 00:47:03,445 - INFO - product_measurements register product.price_list.line
+2026-03-12 00:47:03,476 - INFO - product_measurements load product.xml
+2026-03-12 00:47:03,504 - INFO - product_measurements load locale/fr.po
+2026-03-12 00:47:03,525 - INFO - project load
+2026-03-12 00:47:03,526 - INFO - setup pool for "tryton"
+2026-03-12 00:47:03,537 - INFO - project register project.work.status
+2026-03-12 00:47:03,546 - INFO - project register project.work
+2026-03-12 00:47:03,569 - INFO - project register timesheet.line
+2026-03-12 00:47:03,576 - INFO - project register timesheet.work
+2026-03-12 00:47:03,583 - INFO - project register ir.action.act_window
+2026-03-12 00:47:03,592 - INFO - project register party.replace
+2026-03-12 00:47:03,593 - INFO - project register party.erase
+2026-03-12 00:47:03,597 - INFO - project load project.xml
+2026-03-12 00:47:03,615 - INFO - project load work.xml
+2026-03-12 00:47:03,792 - INFO - project load timesheet.xml
+2026-03-12 00:47:03,801 - INFO - project load message.xml
+2026-03-12 00:47:03,804 - INFO - project load locale/fr.po
+2026-03-12 00:47:03,838 - INFO - stock_lot load
+2026-03-12 00:47:03,838 - INFO - setup pool for "tryton"
+2026-03-12 00:47:03,893 - INFO - stock_lot register product.configuration
+2026-03-12 00:47:03,902 - INFO - stock_lot register product.configuration.default_lot_sequence
+2026-03-12 00:47:03,926 - INFO - stock_lot register product.template
+2026-03-12 00:47:03,957 - INFO - stock_lot register product.product
+2026-03-12 00:47:03,976 - INFO - stock_lot register stock.lot
+2026-03-12 00:47:04,016 - INFO - stock_lot register stock.lot.trace
+2026-03-12 00:47:04,030 - INFO - stock_lot register stock.lots_by_location.context
+2026-03-12 00:47:04,032 - INFO - stock_lot register stock.lots_by_locations
+2026-03-12 00:47:04,040 - INFO - stock_lot register stock.location
+2026-03-12 00:47:04,072 - INFO - stock_lot register stock.move
+2026-03-12 00:47:04,095 - INFO - stock_lot register stock.move.add.lots.start
+2026-03-12 00:47:04,109 - INFO - stock_lot register stock.move.add.lots.start.lot
+2026-03-12 00:47:04,120 - INFO - stock_lot register stock.shipment.in
+2026-03-12 00:47:04,168 - INFO - stock_lot register stock.shipment.out
+2026-03-12 00:47:04,188 - INFO - stock_lot register stock.shipment.out.return
+2026-03-12 00:47:04,206 - INFO - stock_lot register stock.shipment.internal
+2026-03-12 00:47:04,225 - INFO - stock_lot register stock.period
+2026-03-12 00:47:04,232 - INFO - stock_lot register stock.period.cache.lot
+2026-03-12 00:47:04,252 - INFO - stock_lot register stock.inventory
+2026-03-12 00:47:04,260 - INFO - stock_lot register stock.inventory.line
+2026-03-12 00:47:04,270 - INFO - stock_lot register stock.inventory.count.search
+2026-03-12 00:47:04,273 - INFO - stock_lot register stock.inventory.count.quantity
+2026-03-12 00:47:04,277 - INFO - stock_lot register stock.move.add.lots
+2026-03-12 00:47:04,278 - INFO - stock_lot register stock.inventory.count
+2026-03-12 00:47:04,283 - INFO - stock_lot load ir.xml
+2026-03-12 00:47:04,302 - INFO - stock_lot load stock.xml
+2026-03-12 00:47:04,453 - INFO - stock_lot load product.xml
+2026-03-12 00:47:04,455 - INFO - stock_lot load message.xml
+2026-03-12 00:47:04,458 - INFO - stock_lot load locale/fr.po
+2026-03-12 00:47:04,497 - INFO - stock_shipment_cost load
+2026-03-12 00:47:04,497 - INFO - setup pool for "tryton"
+2026-03-12 00:47:04,511 - INFO - stock_shipment_cost register carrier
+2026-03-12 00:47:04,518 - INFO - stock_shipment_cost register stock.move
+2026-03-12 00:47:04,531 - INFO - stock_shipment_cost register stock.shipment.out
+2026-03-12 00:47:04,555 - INFO - stock_shipment_cost register stock.shipment.out.return
+2026-03-12 00:47:04,588 - INFO - stock_shipment_cost register stock.reporting.margin.context
+2026-03-12 00:47:04,597 - INFO - stock_shipment_cost load carrier.xml
+2026-03-12 00:47:04,608 - INFO - stock_shipment_cost load stock.xml
+2026-03-12 00:47:04,655 - INFO - stock_shipment_cost load stock_reporting_margin.xml
+2026-03-12 00:47:04,658 - INFO - stock_shipment_cost load locale/fr.po
+2026-03-12 00:47:04,689 - INFO - account_eu load
+2026-03-12 00:47:04,690 - INFO - setup pool for "tryton"
+2026-03-12 00:47:04,702 - INFO - account_eu register account.tax.template
+2026-03-12 00:47:04,715 - INFO - account_eu register account.tax
+2026-03-12 00:47:04,731 - INFO - account_eu register account.ec_sales_list
+2026-03-12 00:47:04,741 - INFO - account_eu register account.ec_sales_list.context
+2026-03-12 00:47:04,748 - INFO - account_eu load account.xml
+2026-03-12 00:47:04,875 - INFO - account_eu load locale/fr.po
+2026-03-12 00:47:04,897 - INFO - account_fr load
+2026-03-12 00:47:04,897 - INFO - setup pool for "tryton"
+2026-03-12 00:47:04,904 - INFO - account_fr register account.account.template
+2026-03-12 00:47:04,923 - INFO - account_fr register account.fr.fec.start
+2026-03-12 00:47:04,927 - INFO - account_fr register account.fr.fec.result
+2026-03-12 00:47:04,931 - INFO - account_fr register account.create_chart
+2026-03-12 00:47:04,934 - INFO - account_fr register account.fr.fec
+2026-03-12 00:47:05,179 - INFO - account_fr load account.xml
+2026-03-12 00:47:05,507 - INFO - account_fr load account_fr.xml
+2026-03-12 00:47:07,232 - INFO - account_fr load tax_fr.xml
+2026-03-12 00:47:07,744 - INFO - account_fr load locale/fr.po
+2026-03-12 00:47:07,980 - INFO - account_fr_chorus load
+2026-03-12 00:47:07,981 - INFO - setup pool for "tryton"
+2026-03-12 00:47:08,013 - INFO - account_fr_chorus register account.configuration
+2026-03-12 00:47:08,023 - INFO - account_fr_chorus register account.credential.chorus
+2026-03-12 00:47:08,039 - INFO - account_fr_chorus register account.invoice
+2026-03-12 00:47:08,096 - INFO - account_fr_chorus register account.invoice.chorus
+2026-03-12 00:47:08,137 - INFO - account_fr_chorus register party.party
+2026-03-12 00:47:08,155 - INFO - account_fr_chorus register ir.cron
+2026-03-12 00:47:08,163 - INFO - account_fr_chorus load account.xml
+2026-03-12 00:47:08,282 - INFO - account_fr_chorus load party.xml
+2026-03-12 00:47:08,304 - INFO - account_fr_chorus load message.xml
+2026-03-12 00:47:08,309 - INFO - account_fr_chorus load locale/fr.po
+2026-03-12 00:47:08,398 - INFO - account_invoice_stock load
+2026-03-12 00:47:08,398 - INFO - setup pool for "tryton"
+2026-03-12 00:47:08,426 - INFO - account_invoice_stock register account.invoice
+2026-03-12 00:47:08,476 - INFO - account_invoice_stock register account.invoice.line-stock.move
+2026-03-12 00:47:08,504 - INFO - account_invoice_stock register account.invoice.line
+2026-03-12 00:47:08,523 - INFO - account_invoice_stock register stock.move
+2026-03-12 00:47:08,538 - INFO - account_invoice_stock register stock.shipment.out
+2026-03-12 00:47:08,562 - INFO - account_invoice_stock load account.xml
+2026-03-12 00:47:08,658 - INFO - account_invoice_stock load stock.xml
+2026-03-12 00:47:08,715 - INFO - account_invoice_stock load locale/fr.po
+2026-03-12 00:47:08,735 - INFO - account_statement load
+2026-03-12 00:47:08,735 - INFO - setup mixin for "tryton"
+2026-03-12 00:47:08,735 - INFO - setup pool for "tryton"
+2026-03-12 00:47:09,009 - INFO - account_statement register bank.account
+2026-03-12 00:47:09,017 - INFO - account_statement register account.statement.journal
+2026-03-12 00:47:09,037 - INFO - account_statement register account.statement
+2026-03-12 00:47:09,055 - INFO - account_statement register account.statement.line
+2026-03-12 00:47:09,080 - INFO - account_statement register account.statement.line.group
+2026-03-12 00:47:09,089 - INFO - account_statement register account.journal
+2026-03-12 00:47:09,093 - INFO - account_statement register account.move
+2026-03-12 00:47:09,103 - INFO - account_statement register account.move.line
+2026-03-12 00:47:09,136 - INFO - account_statement register account.statement.origin
+2026-03-12 00:47:09,168 - INFO - account_statement register account.statement.origin.information
+2026-03-12 00:47:09,181 - INFO - account_statement register account.statement.import.start
+2026-03-12 00:47:09,189 - INFO - account_statement register party.replace
+2026-03-12 00:47:09,191 - INFO - account_statement register account.statement.import
+2026-03-12 00:47:09,195 - INFO - account_statement register account.statement.reconcile
+2026-03-12 00:47:09,196 - INFO - account_statement register account.statement
+2026-03-12 00:47:09,205 - INFO - account_statement load account.xml
+2026-03-12 00:47:09,214 - INFO - account_statement load statement.xml
+2026-03-12 00:47:09,528 - INFO - account_statement load journal.xml
+2026-03-12 00:47:09,571 - INFO - account_statement load message.xml
+2026-03-12 00:47:09,575 - INFO - account_statement load locale/fr.po
+2026-03-12 00:47:09,630 - INFO - production load
+2026-03-12 00:47:09,631 - INFO - setup pool for "tryton"
+2026-03-12 00:47:09,699 - INFO - production register ir.cron
+2026-03-12 00:47:09,710 - INFO - production register production.configuration
+2026-03-12 00:47:09,747 - INFO - production register production.configuration.production_sequence
+2026-03-12 00:47:09,771 - INFO - production register production.bom
+2026-03-12 00:47:09,788 - INFO - production register production.bom.input
+2026-03-12 00:47:09,807 - INFO - production register production.bom.output
+2026-03-12 00:47:09,826 - INFO - production register production.bom.tree
+2026-03-12 00:47:09,830 - INFO - production register production.bom.tree.open.start
+2026-03-12 00:47:09,835 - INFO - production register production.bom.tree.open.tree
+2026-03-12 00:47:09,838 - INFO - production register production
+2026-03-12 00:47:09,868 - INFO - production register product.template
+2026-03-12 00:47:09,886 - INFO - production register product.product
+2026-03-12 00:47:09,903 - INFO - production register product.product-production.bom
+2026-03-12 00:47:09,929 - INFO - production register production.lead_time
+2026-03-12 00:47:09,950 - INFO - production register stock.location
+2026-03-12 00:47:09,987 - INFO - production register stock.move
+2026-03-12 00:47:10,018 - INFO - production register stock.product_quantities_warehouse.move
+2026-03-12 00:47:10,023 - INFO - production register stock.lot.trace
+2026-03-12 00:47:10,032 - INFO - production register production
+2026-03-12 00:47:10,059 - INFO - production register production.bom.tree.open
+2026-03-12 00:47:10,067 - INFO - production load production.xml
+2026-03-12 00:47:10,246 - INFO - production load configuration.xml
+2026-03-12 00:47:10,267 - INFO - production load bom.xml
+2026-03-12 00:47:10,356 - INFO - production load product.xml
+2026-03-12 00:47:10,396 - INFO - production load stock.xml
+2026-03-12 00:47:10,404 - INFO - production load message.xml
+2026-03-12 00:47:10,410 - INFO - production load locale/fr.po
+2026-03-12 00:47:10,522 - INFO - account_payment load
+2026-03-12 00:47:10,523 - INFO - setup pool for "tryton"
+2026-03-12 00:47:10,609 - INFO - account_payment register account.payment.journal
+2026-03-12 00:47:10,639 - INFO - account_payment register account.payment.group
+2026-03-12 00:47:10,660 - INFO - account_payment register account.payment
+2026-03-12 00:47:10,700 - INFO - account_payment register account.move.line
+2026-03-12 00:47:10,721 - INFO - account_payment register account.move.line.create_direct_debit.start
+2026-03-12 00:47:10,724 - INFO - account_payment register account.move.line.pay.start
+2026-03-12 00:47:10,727 - INFO - account_payment register account.move.line.pay.ask_journal
+2026-03-12 00:47:10,732 - INFO - account_payment register account.configuration
+2026-03-12 00:47:10,745 - INFO - account_payment register account.configuration.payment_sequence
+2026-03-12 00:47:10,763 - INFO - account_payment register account.configuration.payment_group_sequence
+2026-03-12 00:47:10,782 - INFO - account_payment register party.party
+2026-03-12 00:47:10,809 - INFO - account_payment register party.party.payment_direct_debit
+2026-03-12 00:47:10,839 - INFO - account_payment register party.party.reception_direct_debit
+2026-03-12 00:47:10,893 - INFO - account_payment register account.invoice
+2026-03-12 00:47:10,941 - INFO - account_payment register account.payment
+2026-03-12 00:47:10,960 - INFO - account_payment register account.statement
+2026-03-12 00:47:10,984 - INFO - account_payment register account.statement.line
+2026-03-12 00:47:11,014 - INFO - account_payment register account.payment.process
+2026-03-12 00:47:11,015 - INFO - account_payment register account.move.line.create_direct_debit
+2026-03-12 00:47:11,016 - INFO - account_payment register account.move.line.pay
+2026-03-12 00:47:11,019 - INFO - account_payment register account.move.cancel
+2026-03-12 00:47:11,021 - INFO - account_payment register account.move.line.group
+2026-03-12 00:47:11,022 - INFO - account_payment register account.move.line.reschedule
+2026-03-12 00:47:11,024 - INFO - account_payment register account.move.line.delegate
+2026-03-12 00:47:11,026 - INFO - account_payment register party.replace
+2026-03-12 00:47:11,027 - INFO - account_payment register party.erase
+2026-03-12 00:47:11,033 - INFO - account_payment load payment.xml
+2026-03-12 00:47:11,371 - INFO - account_payment load account.xml
+2026-03-12 00:47:11,507 - INFO - account_payment load party.xml
+2026-03-12 00:47:11,530 - INFO - account_payment load message.xml
+2026-03-12 00:47:11,534 - INFO - account_payment load locale/fr.po
+2026-03-12 00:47:11,603 - INFO - purchase load
+2026-03-12 00:47:11,604 - INFO - setup mixin for "tryton"
+2026-03-12 00:47:11,604 - INFO - setup pool for "tryton"
+2026-03-12 00:47:11,695 - INFO - purchase register party.party
+2026-03-12 00:47:11,762 - INFO - purchase register party.party.customer_code
+2026-03-12 00:47:11,786 - INFO - purchase register party.party.supplier_lead_time
+2026-03-12 00:47:11,806 - INFO - purchase register party.party.supplier_currency
+2026-03-12 00:47:11,826 - INFO - purchase register product.template
+2026-03-12 00:47:11,856 - INFO - purchase register product.product
+2026-03-12 00:47:11,883 - INFO - purchase register purchase.product_supplier
+2026-03-12 00:47:11,925 - INFO - purchase register purchase.product_supplier.price
+2026-03-12 00:47:11,956 - INFO - purchase register stock.location
+2026-03-12 00:47:12,002 - INFO - purchase register stock.move
+2026-03-12 00:47:12,039 - INFO - purchase register stock.shipment.in
+2026-03-12 00:47:12,073 - INFO - purchase register stock.shipment.in.return
+2026-03-12 00:47:12,096 - INFO - purchase register account.invoice
+2026-03-12 00:47:12,167 - INFO - purchase register account.invoice.line
+2026-03-12 00:47:12,186 - INFO - purchase register purchase.configuration
+2026-03-12 00:47:12,196 - INFO - purchase register purchase.configuration.sequence
+2026-03-12 00:47:12,212 - INFO - purchase register purchase.configuration.purchase_method
+2026-03-12 00:47:12,222 - INFO - purchase register purchase.purchase
+2026-03-12 00:47:12,259 - INFO - purchase register purchase.purchase-ignored-account.invoice
+2026-03-12 00:47:12,280 - INFO - purchase register purchase.purchase-recreated-account.invoice
+2026-03-12 00:47:12,305 - INFO - purchase register purchase.line
+2026-03-12 00:47:12,361 - INFO - purchase register purchase.line-account.tax
+2026-03-12 00:47:12,382 - INFO - purchase register purchase.line-ignored-stock.move
+2026-03-12 00:47:12,400 - INFO - purchase register purchase.line-recreated-stock.move
+2026-03-12 00:47:12,419 - INFO - purchase register purchase.handle.shipment.exception.ask
+2026-03-12 00:47:12,423 - INFO - purchase register purchase.handle.invoice.exception.ask
+2026-03-12 00:47:12,427 - INFO - purchase register purchase.return_purchase.start
+2026-03-12 00:47:12,430 - INFO - purchase register purchase.reporting.context
+2026-03-12 00:47:12,433 - INFO - purchase register purchase.reporting.main
+2026-03-12 00:47:12,439 - INFO - purchase register purchase.reporting.main.time_series
+2026-03-12 00:47:12,445 - INFO - purchase register purchase.reporting.supplier
+2026-03-12 00:47:12,452 - INFO - purchase register purchase.reporting.supplier.time_series
+2026-03-12 00:47:12,457 - INFO - purchase register purchase.reporting.product
+2026-03-12 00:47:12,464 - INFO - purchase register purchase.reporting.product.time_series
+2026-03-12 00:47:12,471 - INFO - purchase register purchase.handle.shipment.exception
+2026-03-12 00:47:12,472 - INFO - purchase register purchase.handle.invoice.exception
+2026-03-12 00:47:12,473 - INFO - purchase register party.replace
+2026-03-12 00:47:12,475 - INFO - purchase register party.erase
+2026-03-12 00:47:12,476 - INFO - purchase register purchase.modify_header
+2026-03-12 00:47:12,477 - INFO - purchase register purchase.return_purchase
+2026-03-12 00:47:12,479 - INFO - purchase register purchase.purchase
+2026-03-12 00:47:12,489 - INFO - purchase load purchase.xml
+2026-03-12 00:47:12,884 - INFO - purchase load purchase_reporting.xml
+2026-03-12 00:47:13,013 - INFO - purchase load configuration.xml
+2026-03-12 00:47:13,036 - INFO - purchase load party.xml
+2026-03-12 00:47:13,058 - INFO - purchase load stock.xml
+2026-03-12 00:47:13,089 - INFO - purchase load product.xml
+2026-03-12 00:47:13,091 - INFO - purchase load invoice.xml
+2026-03-12 00:47:13,115 - INFO - purchase load message.xml
+2026-03-12 00:47:13,122 - INFO - purchase load locale/fr.po
+2026-03-12 00:47:13,281 - INFO - sale load
+2026-03-12 00:47:13,282 - INFO - setup mixin for "tryton"
+2026-03-12 00:47:13,283 - INFO - setup pool for "tryton"
+2026-03-12 00:47:13,388 - INFO - sale register ir.cron
+2026-03-12 00:47:13,405 - INFO - sale register party.party
+2026-03-12 00:47:13,440 - INFO - sale register party.party.customer_currency
+2026-03-12 00:47:13,474 - INFO - sale register party.party.sale_method
+2026-03-12 00:47:13,493 - INFO - sale register product.configuration
+2026-03-12 00:47:13,501 - INFO - sale register product.configuration.default_lead_time
+2026-03-12 00:47:13,510 - INFO - sale register product.template
+2026-03-12 00:47:13,531 - INFO - sale register product.lead_time
+2026-03-12 00:47:13,545 - INFO - sale register product.product
+2026-03-12 00:47:13,564 - INFO - sale register product.sale.context
+2026-03-12 00:47:13,569 - INFO - sale register stock.move
+2026-03-12 00:47:13,588 - INFO - sale register stock.shipment.out
+2026-03-12 00:47:13,610 - INFO - sale register stock.shipment.out.return
+2026-03-12 00:47:13,630 - INFO - sale register account.invoice
+2026-03-12 00:47:13,668 - INFO - sale register account.invoice.line
+2026-03-12 00:47:13,690 - INFO - sale register sale.configuration
+2026-03-12 00:47:13,700 - INFO - sale register sale.configuration.sequence
+2026-03-12 00:47:13,737 - INFO - sale register sale.configuration.sale_method
+2026-03-12 00:47:13,757 - INFO - sale register sale.configuration.quotation
+2026-03-12 00:47:13,771 - INFO - sale register sale.sale
+2026-03-12 00:47:13,820 - INFO - sale register sale.sale-ignored-account.invoice
+2026-03-12 00:47:13,842 - INFO - sale register sale.sale-recreated-account.invoice
+2026-03-12 00:47:13,866 - INFO - sale register sale.line
+2026-03-12 00:47:13,896 - INFO - sale register sale.line-account.tax
+2026-03-12 00:47:13,929 - INFO - sale register sale.line-ignored-stock.move
+2026-03-12 00:47:13,964 - INFO - sale register sale.line-recreated-stock.move
+2026-03-12 00:47:14,003 - INFO - sale register sale.handle.shipment.exception.ask
+2026-03-12 00:47:14,017 - INFO - sale register sale.handle.invoice.exception.ask
+2026-03-12 00:47:14,029 - INFO - sale register sale.return_sale.start
+2026-03-12 00:47:14,035 - INFO - sale register sale.reporting.context
+2026-03-12 00:47:14,042 - INFO - sale register sale.reporting.main
+2026-03-12 00:47:14,054 - INFO - sale register sale.reporting.main.time_series
+2026-03-12 00:47:14,069 - INFO - sale register sale.reporting.customer
+2026-03-12 00:47:14,079 - INFO - sale register sale.reporting.customer.time_series
+2026-03-12 00:47:14,089 - INFO - sale register sale.reporting.customer.category
+2026-03-12 00:47:14,105 - INFO - sale register sale.reporting.customer.category.time_series
+2026-03-12 00:47:14,133 - INFO - sale register sale.reporting.customer.category.tree
+2026-03-12 00:47:14,150 - INFO - sale register sale.reporting.product
+2026-03-12 00:47:14,170 - INFO - sale register sale.reporting.product.time_series
+2026-03-12 00:47:14,180 - INFO - sale register sale.reporting.product.category
+2026-03-12 00:47:14,188 - INFO - sale register sale.reporting.product.category.time_series
+2026-03-12 00:47:14,195 - INFO - sale register sale.reporting.product.category.tree
+2026-03-12 00:47:14,201 - INFO - sale register sale.reporting.region.tree
+2026-03-12 00:47:14,207 - INFO - sale register sale.reporting.country
+2026-03-12 00:47:14,214 - INFO - sale register sale.reporting.country.time_series
+2026-03-12 00:47:14,220 - INFO - sale register sale.reporting.country.subdivision
+2026-03-12 00:47:14,227 - INFO - sale register sale.reporting.country.subdivision.time_series
+2026-03-12 00:47:14,234 - INFO - sale register sale.reporting.country.tree
+2026-03-12 00:47:14,241 - INFO - sale register party.replace
+2026-03-12 00:47:14,242 - INFO - sale register party.erase
+2026-03-12 00:47:14,244 - INFO - sale register sale.handle.shipment.exception
+2026-03-12 00:47:14,245 - INFO - sale register sale.handle.invoice.exception
+2026-03-12 00:47:14,247 - INFO - sale register sale.return_sale
+2026-03-12 00:47:14,249 - INFO - sale register sale.modify_header
+2026-03-12 00:47:14,250 - INFO - sale register sale.open_product
+2026-03-12 00:47:14,251 - INFO - sale register sale.reporting.region.tree.open
+2026-03-12 00:47:14,252 - INFO - sale register sale.reporting.country.tree.open
+2026-03-12 00:47:14,253 - INFO - sale register sale.sale
+2026-03-12 00:47:14,267 - INFO - sale load sale.xml
+2026-03-12 00:47:14,614 - INFO - sale load configuration.xml
+2026-03-12 00:47:14,645 - INFO - sale load sale_reporting.xml
+2026-03-12 00:47:14,978 - INFO - sale load party.xml
+2026-03-12 00:47:15,003 - INFO - sale load stock.xml
+2026-03-12 00:47:15,016 - INFO - sale load product.xml
+2026-03-12 00:47:15,044 - INFO - sale load invoice.xml
+2026-03-12 00:47:15,063 - INFO - sale load message.xml
+2026-03-12 00:47:15,068 - INFO - sale load locale/fr.po
+2026-03-12 00:47:15,256 - INFO - account_payment_sepa load
+2026-03-12 00:47:15,257 - INFO - setup mixin for "tryton"
+2026-03-12 00:47:15,257 - INFO - setup mixin for "tryton"
+2026-03-12 00:47:15,257 - INFO - setup pool for "tryton"
+2026-03-12 00:47:15,289 - INFO - account_payment_sepa register account.payment.journal
+2026-03-12 00:47:15,306 - INFO - account_payment_sepa register account.payment.group
+2026-03-12 00:47:15,322 - INFO - account_payment_sepa register account.payment.sepa.mandate
+2026-03-12 00:47:15,350 - INFO - account_payment_sepa register account.payment
+2026-03-12 00:47:15,373 - INFO - account_payment_sepa register account.payment.sepa.message
+2026-03-12 00:47:15,398 - INFO - account_payment_sepa register party.party
+2026-03-12 00:47:15,432 - INFO - account_payment_sepa register party.party.reception_direct_debit
+2026-03-12 00:47:15,464 - INFO - account_payment_sepa register party.identifier
+2026-03-12 00:47:15,492 - INFO - account_payment_sepa register account.configuration
+2026-03-12 00:47:15,504 - INFO - account_payment_sepa register account.configuration.sepa_mandate_sequence
+2026-03-12 00:47:15,520 - INFO - account_payment_sepa register party.replace
+2026-03-12 00:47:15,521 - INFO - account_payment_sepa register account.payment.sepa.mandate
+2026-03-12 00:47:15,521 - INFO - account_payment_sepa register account.payment.sepa.message
+2026-03-12 00:47:15,524 - INFO - account_payment_sepa load payment.xml
+2026-03-12 00:47:15,932 - INFO - account_payment_sepa load party.xml
+2026-03-12 00:47:15,965 - INFO - account_payment_sepa load account.xml
+2026-03-12 00:47:15,970 - INFO - account_payment_sepa load message.xml
+2026-03-12 00:47:15,973 - INFO - account_payment_sepa load locale/fr.po
+2026-03-12 00:47:16,135 - INFO - product_attribute load
+2026-03-12 00:47:16,136 - INFO - setup pool for "tryton"
+2026-03-12 00:47:16,193 - INFO - product_attribute register product.attribute.set
+2026-03-12 00:47:16,223 - INFO - product_attribute register product.attribute
+2026-03-12 00:47:16,240 - INFO - product_attribute register product.attribute-product.attribute-set
+2026-03-12 00:47:16,262 - INFO - product_attribute register product.template
+2026-03-12 00:47:16,292 - INFO - product_attribute register product.product
+2026-03-12 00:47:16,326 - INFO - product_attribute load product.xml
+2026-03-12 00:47:16,427 - INFO - product_attribute load message.xml
+2026-03-12 00:47:16,434 - INFO - product_attribute load locale/fr.po
+2026-03-12 00:47:16,455 - INFO - purchase_request load
+2026-03-12 00:47:16,455 - INFO - setup pool for "tryton"
+2026-03-12 00:47:16,470 - INFO - purchase_request register purchase.purchase
+2026-03-12 00:47:16,504 - INFO - purchase_request register purchase.line
+2026-03-12 00:47:16,523 - INFO - purchase_request register purchase.request
+2026-03-12 00:47:16,554 - INFO - purchase_request register purchase.request.handle.purchase.cancellation.start
+2026-03-12 00:47:16,557 - INFO - purchase_request register purchase.request.create_purchase.ask_party
+2026-03-12 00:47:16,562 - INFO - purchase_request register party.replace
+2026-03-12 00:47:16,563 - INFO - purchase_request register purchase.request.create_purchase
+2026-03-12 00:47:16,565 - INFO - purchase_request register purchase.request.handle.purchase.cancellation
+2026-03-12 00:47:16,569 - INFO - purchase_request load purchase_request.xml
+2026-03-12 00:47:16,735 - INFO - purchase_request load purchase.xml
+2026-03-12 00:47:16,751 - INFO - purchase_request load message.xml
+2026-03-12 00:47:16,756 - INFO - purchase_request load locale/fr.po
+2026-03-12 00:47:16,787 - INFO - sale_shipment_cost load
+2026-03-12 00:47:16,788 - INFO - setup pool for "tryton"
+2026-03-12 00:47:16,821 - INFO - sale_shipment_cost register party.party
+2026-03-12 00:47:16,873 - INFO - sale_shipment_cost register party.party.sale_method
+2026-03-12 00:47:16,894 - INFO - sale_shipment_cost register account.invoice.line
+2026-03-12 00:47:16,931 - INFO - sale_shipment_cost register sale.configuration
+2026-03-12 00:47:16,940 - INFO - sale_shipment_cost register sale.configuration.sale_method
+2026-03-12 00:47:16,947 - INFO - sale_shipment_cost register sale.sale
+2026-03-12 00:47:16,987 - INFO - sale_shipment_cost register sale.line
+2026-03-12 00:47:17,005 - INFO - sale_shipment_cost register stock.shipment.cost_sale
+2026-03-12 00:47:17,024 - INFO - sale_shipment_cost register stock.shipment.out
+2026-03-12 00:47:17,073 - INFO - sale_shipment_cost register sale.handle.invoice.exception
+2026-03-12 00:47:17,080 - INFO - sale_shipment_cost register sale.return_sale
+2026-03-12 00:47:17,087 - INFO - sale_shipment_cost load party.xml
+2026-03-12 00:47:17,142 - INFO - sale_shipment_cost load sale.xml
+2026-03-12 00:47:17,147 - INFO - sale_shipment_cost load stock.xml
+2026-03-12 00:47:17,184 - INFO - sale_shipment_cost load message.xml
+2026-03-12 00:47:17,188 - INFO - sale_shipment_cost load locale/fr.po
+2026-03-12 00:47:17,238 - INFO - account_payment_sepa_cfonb load
+2026-03-12 00:47:17,238 - INFO - setup pool for "tryton"
+2026-03-12 00:47:17,242 - INFO - account_payment_sepa_cfonb register account.payment.journal
+2026-03-12 00:47:17,252 - INFO - account_payment_sepa_cfonb register account.payment.group
+2026-03-12 00:47:17,261 - INFO - incoterm load
+2026-03-12 00:47:17,262 - INFO - setup pool for "tryton"
+2026-03-12 00:47:17,336 - INFO - incoterm register incoterm.incoterm
+2026-03-12 00:47:17,347 - INFO - incoterm register incoterm.incoterm-company.company
+2026-03-12 00:47:17,362 - INFO - incoterm register party.party
+2026-03-12 00:47:17,407 - INFO - incoterm register party.address
+2026-03-12 00:47:17,423 - INFO - incoterm register party.incoterm
+2026-03-12 00:47:17,460 - INFO - incoterm register company.company
+2026-03-12 00:47:17,498 - INFO - incoterm register account.invoice
+2026-03-12 00:47:17,533 - INFO - incoterm register account.invoice.line
+2026-03-12 00:47:17,553 - INFO - incoterm register carrier
+2026-03-12 00:47:17,561 - INFO - incoterm register purchase.purchase
+2026-03-12 00:47:17,594 - INFO - incoterm register stock.shipment.in
+2026-03-12 00:47:17,615 - INFO - incoterm register sale.sale
+2026-03-12 00:47:17,669 - INFO - incoterm register stock.shipment.out
+2026-03-12 00:47:17,713 - INFO - incoterm register sale.sale
+2026-03-12 00:47:17,782 - INFO - incoterm register stock.shipment.in
+2026-03-12 00:47:17,805 - INFO - incoterm register stock.shipment.in.return
+2026-03-12 00:47:17,823 - INFO - incoterm register stock.shipment.out
+2026-03-12 00:47:17,855 - INFO - incoterm register stock.shipment.out.return
+2026-03-12 00:47:17,883 - INFO - incoterm load incoterm.xml
+2026-03-12 00:47:17,930 - INFO - incoterm load company.xml
+2026-03-12 00:47:17,933 - INFO - incoterm load party.xml
+2026-03-12 00:47:17,962 - INFO - incoterm load carrier.xml
+2026-03-12 00:47:17,967 - INFO - incoterm load purchase.xml
+2026-03-12 00:47:17,980 - INFO - incoterm load sale.xml
+2026-03-12 00:47:18,015 - INFO - incoterm load stock.xml
+2026-03-12 00:47:18,069 - INFO - incoterm load web.xml
+2026-03-12 00:47:18,070 - INFO - incoterm load message.xml
+2026-03-12 00:47:18,073 - INFO - incoterm load locale/fr.po
+2026-03-12 00:47:18,131 - INFO - stock_supply load
+2026-03-12 00:47:18,132 - INFO - setup pool for "tryton"
+2026-03-12 00:47:18,174 - INFO - stock_supply register ir.cron
+2026-03-12 00:47:18,183 - INFO - stock_supply register product.product
+2026-03-12 00:47:18,204 - INFO - stock_supply register purchase.product_supplier
+2026-03-12 00:47:18,216 - INFO - stock_supply register stock.order_point
+2026-03-12 00:47:18,239 - INFO - stock_supply register stock.location
+2026-03-12 00:47:18,269 - INFO - stock_supply register stock.location.lead_time
+2026-03-12 00:47:18,277 - INFO - stock_supply register stock.shipment.internal
+2026-03-12 00:47:18,297 - INFO - stock_supply register stock.supply.start
+2026-03-12 00:47:18,302 - INFO - stock_supply register purchase.configuration
+2026-03-12 00:47:18,311 - INFO - stock_supply register purchase.configuration.supply_period
+2026-03-12 00:47:18,338 - INFO - stock_supply register purchase.request
+2026-03-12 00:47:18,393 - INFO - stock_supply register stock.supply
+2026-03-12 00:47:18,397 - INFO - stock_supply load order_point.xml
+2026-03-12 00:47:18,493 - INFO - stock_supply load purchase_request.xml
+2026-03-12 00:47:18,508 - INFO - stock_supply load product.xml
+2026-03-12 00:47:18,527 - INFO - stock_supply load location.xml
+2026-03-12 00:47:18,529 - INFO - stock_supply load stock.xml
+2026-03-12 00:47:18,552 - INFO - stock_supply load message.xml
+2026-03-12 00:47:18,555 - INFO - stock_supply load locale/fr.po
+2026-03-12 00:47:18,589 - INFO - stock_supply_production load
+2026-03-12 00:47:18,590 - INFO - setup pool for "tryton"
+2026-03-12 00:47:18,623 - INFO - stock_supply_production register product.product
+2026-03-12 00:47:18,650 - INFO - stock_supply_production register stock.order_point
+2026-03-12 00:47:18,670 - INFO - stock_supply_production register stock.location.lead_time
+2026-03-12 00:47:18,680 - INFO - stock_supply_production register production.configuration
+2026-03-12 00:47:18,691 - INFO - stock_supply_production register production.configuration.supply_period
+2026-03-12 00:47:18,706 - INFO - stock_supply_production register production
+2026-03-12 00:47:18,730 - INFO - stock_supply_production register stock.supply
+2026-03-12 00:47:18,734 - INFO - stock_supply_production load production.xml
+2026-03-12 00:47:18,754 - INFO - stock_supply_production load stock.xml
+2026-03-12 00:47:18,759 - INFO - stock_supply_production load message.xml
+2026-03-12 00:47:18,762 - INFO - stock_supply_production load locale/fr.po
+2026-03-12 00:47:18,774 - INFO - production_routing load
+2026-03-12 00:47:18,775 - INFO - setup pool for "tryton"
+2026-03-12 00:47:18,789 - INFO - production_routing register production.routing
+2026-03-12 00:47:18,800 - INFO - production_routing register production.routing.operation
+2026-03-12 00:47:18,811 - INFO - production_routing register production.routing.step
+2026-03-12 00:47:18,829 - INFO - production_routing register production.routing-production.bom
+2026-03-12 00:47:18,862 - INFO - production_routing register production.bom
+2026-03-12 00:47:18,892 - INFO - production_routing register production
+2026-03-12 00:47:18,929 - INFO - production_routing register product.product-production.bom
+2026-03-12 00:47:18,941 - INFO - production_routing register production.lead_time
+2026-03-12 00:47:18,954 - INFO - production_routing load routing.xml
+2026-03-12 00:47:19,042 - INFO - production_routing load production.xml
+2026-03-12 00:47:19,045 - INFO - production_routing load product.xml
+2026-03-12 00:47:19,051 - INFO - production_routing load locale/fr.po
+2026-03-12 00:47:19,069 - INFO - production_work load
+2026-03-12 00:47:19,069 - INFO - setup pool for "tryton"
+2026-03-12 00:47:19,082 - INFO - production_work register production.work.center.category
+2026-03-12 00:47:19,092 - INFO - production_work register production.work.center
+2026-03-12 00:47:19,119 - INFO - production_work register production.work
+2026-03-12 00:47:19,154 - INFO - production_work register production.work.cycle
+2026-03-12 00:47:19,185 - INFO - production_work register production.routing.operation
+2026-03-12 00:47:19,207 - INFO - production_work register production.routing.step
+2026-03-12 00:47:19,229 - INFO - production_work register production
+2026-03-12 00:47:19,253 - INFO - production_work load work.xml
+2026-03-12 00:47:19,373 - INFO - production_work load routing.xml
+2026-03-12 00:47:19,382 - INFO - production_work load production.xml
+2026-03-12 00:47:19,387 - INFO - production_work load message.xml
+2026-03-12 00:47:19,391 - INFO - production_work load locale/fr.po
+2026-03-12 00:47:19,442 - INFO - setup mixin for "tryton"
+2026-03-12 00:47:19,549 - INFO - update index for ir.model.field
+2026-03-12 00:47:19,554 - INFO - update index for sale.reporting.customer.category.tree
+2026-03-12 00:47:19,554 - INFO - update index for party.party.account
+2026-03-12 00:47:19,556 - INFO - update index for product.category
+2026-03-12 00:47:19,558 - INFO - update index for product.cost_price
+2026-03-12 00:47:19,559 - INFO - update index for ir.module.config_wizard.item
+2026-03-12 00:47:19,560 - INFO - update index for account.invoice.payment_term.line
+2026-03-12 00:47:19,563 - INFO - update index for party.relation
+2026-03-12 00:47:19,566 - INFO - update index for account.statement.origin.information
+2026-03-12 00:47:19,568 - INFO - update index for stock.shipment.in
+2026-03-12 00:47:19,571 - INFO - update index for stock.period
+2026-03-12 00:47:19,573 - INFO - update index for product.attribute
+2026-03-12 00:47:19,574 - INFO - update index for stock.move
+2026-03-12 00:47:19,586 - INFO - update index for account.move.reconcile.write_off
+2026-03-12 00:47:19,588 - INFO - update index for ir.action.act_window.view
+2026-03-12 00:47:19,590 - INFO - update index for ir.action.keyword
+2026-03-12 00:47:19,593 - INFO - update index for account.tax.rule.line.template
+2026-03-12 00:47:19,595 - INFO - update index for product.identifier
+2026-03-12 00:47:19,599 - INFO - update index for account.account
+2026-03-12 00:47:19,605 - INFO - update index for bank.account
+2026-03-12 00:47:19,607 - INFO - update index for account.invoice.tax
+2026-03-12 00:47:19,609 - INFO - update index for company.employee
+2026-03-12 00:47:19,611 - INFO - update index for ir.module
+2026-03-12 00:47:19,613 - INFO - update index for account.account.type
+2026-03-12 00:47:19,617 - INFO - update index for stock.shipment.internal
+2026-03-12 00:47:19,621 - INFO - update index for sale.reporting.region.tree
+2026-03-12 00:47:19,621 - INFO - update index for party.incoterm
+2026-03-12 00:47:19,623 - INFO - update index for account.move.reconciliation
+2026-03-12 00:47:19,625 - INFO - update index for ir.model.access
+2026-03-12 00:47:19,627 - INFO - update index for product.cost_price.revision
+2026-03-12 00:47:19,628 - INFO - update index for account.move.line
+2026-03-12 00:47:19,635 - INFO - update index for account.invoice.payment_term.line.delta
+2026-03-12 00:47:19,638 - INFO - update index for party.party.supplier_lead_time
+2026-03-12 00:47:19,642 - INFO - update index for party.party.customer_currency
+2026-03-12 00:47:19,644 - INFO - update index for account.tax.code
+2026-03-12 00:47:19,649 - INFO - update index for ir.trigger
+2026-03-12 00:47:19,651 - INFO - update index for stock.reporting.margin.category.tree
+2026-03-12 00:47:19,652 - INFO - update index for ir.model.button
+2026-03-12 00:47:19,655 - INFO - update index for ir.model.data
+2026-03-12 00:47:19,659 - INFO - update index for sale.reporting.country.tree
+2026-03-12 00:47:19,659 - INFO - update index for ir.ui.menu
+2026-03-12 00:47:19,665 - INFO - update index for party.address
+2026-03-12 00:47:19,668 - INFO - update index for ir.ui.view_tree_optional
+2026-03-12 00:47:19,670 - INFO - update index for carrier.selection
+2026-03-12 00:47:19,673 - INFO - update index for party.contact_mechanism
+2026-03-12 00:47:19,677 - INFO - update index for ir.cron
+2026-03-12 00:47:19,679 - INFO - update index for production.bom.output
+2026-03-12 00:47:19,682 - INFO - update index for ir.ui.icon
+2026-03-12 00:47:19,685 - INFO - update index for account.payment
+2026-03-12 00:47:19,692 - INFO - update index for res.user.application
+2026-03-12 00:47:19,696 - INFO - update index for production.work
+2026-03-12 00:47:19,701 - INFO - update index for ir.ui.view_tree_state
+2026-03-12 00:47:19,704 - INFO - update index for account.tax.group
+2026-03-12 00:47:19,706 - INFO - update index for product.cost_price_method
+2026-03-12 00:47:19,707 - INFO - update index for country.country
+2026-03-12 00:47:19,709 - INFO - update index for res.user.warning
+2026-03-12 00:47:19,712 - INFO - update index for product.image
+2026-03-12 00:47:19,715 - INFO - update index for purchase.line
+2026-03-12 00:47:19,718 - INFO - update index for stock.inventory
+2026-03-12 00:47:19,720 - INFO - update index for account.account.template
+2026-03-12 00:47:19,724 - INFO - update index for account.payment.sepa.mandate
+2026-03-12 00:47:19,726 - INFO - update index for account.invoice.line
+2026-03-12 00:47:19,733 - INFO - update index for product.category.image
+2026-03-12 00:47:19,736 - INFO - update index for product.price_list
+2026-03-12 00:47:19,739 - INFO - update index for party.party
+2026-03-12 00:47:19,744 - INFO - update index for stock.shipment.out
+2026-03-12 00:47:19,752 - INFO - update index for ir.export.line
+2026-03-12 00:47:19,758 - INFO - update index for timesheet.work
+2026-03-12 00:47:19,764 - INFO - update index for company.company.logo.cache
+2026-03-12 00:47:19,767 - INFO - update index for ir.email
+2026-03-12 00:47:19,770 - INFO - update index for account.tax.code.line
+2026-03-12 00:47:19,773 - INFO - update index for project.work.status
+2026-03-12 00:47:19,776 - INFO - update index for ir.email.template
+2026-03-12 00:47:19,778 - INFO - update index for product.uom
+2026-03-12 00:47:19,780 - INFO - update index for production.routing.operation
+2026-03-12 00:47:19,781 - INFO - update index for ir.note
+2026-03-12 00:47:19,784 - INFO - update index for production.routing
+2026-03-12 00:47:19,786 - INFO - update index for ir.sequence.strict
+2026-03-12 00:47:19,787 - INFO - update index for stock.period.cache.lot
+2026-03-12 00:47:19,789 - INFO - update index for production.bom
+2026-03-12 00:47:19,790 - INFO - update index for account.tax.template
+2026-03-12 00:47:19,793 - INFO - update index for production.work.center.category
+2026-03-12 00:47:19,794 - INFO - update index for ir.error
+2026-03-12 00:47:19,795 - INFO - update index for account.tax.rule
+2026-03-12 00:47:19,796 - INFO - update index for currency.currency.rate
+2026-03-12 00:47:19,798 - INFO - update index for party.contact_mechanism.language
+2026-03-12 00:47:19,800 - INFO - update index for party.party.payment_direct_debit
+2026-03-12 00:47:19,801 - INFO - update index for party.party.customer_code
+2026-03-12 00:47:19,803 - INFO - update index for account.account.deferral
+2026-03-12 00:47:19,804 - INFO - update index for account.journal
+2026-03-12 00:47:19,806 - INFO - update index for sale.line
+2026-03-12 00:47:19,808 - INFO - update index for ir.rule.group
+2026-03-12 00:47:19,810 - INFO - update index for account.general_ledger.line
+2026-03-12 00:47:19,810 - INFO - update index for purchase.request
+2026-03-12 00:47:19,813 - INFO - update index for party.party.payment_term
+2026-03-12 00:47:19,814 - INFO - update index for account.statement.journal
+2026-03-12 00:47:19,815 - INFO - update index for stock.location
+2026-03-12 00:47:19,824 - INFO - update index for ir.queue
+2026-03-12 00:47:19,825 - INFO - update index for account.tax.line
+2026-03-12 00:47:19,827 - INFO - update index for sale.sale
+2026-03-12 00:47:19,830 - INFO - update index for ir.export
+2026-03-12 00:47:19,832 - INFO - update index for party.party.location
+2026-03-12 00:47:19,833 - INFO - update index for account.period
+2026-03-12 00:47:19,835 - INFO - update index for account.tax.line.template
+2026-03-12 00:47:19,836 - INFO - update index for ir.calendar.month
+2026-03-12 00:47:19,838 - INFO - update index for ir.action.act_window.domain
+2026-03-12 00:47:19,840 - INFO - update index for project.work
+2026-03-12 00:47:19,842 - INFO - update index for product.price_list.line
+2026-03-12 00:47:19,844 - INFO - update index for ir.model.log
+2026-03-12 00:47:19,845 - INFO - update index for account.tax.rule.line
+2026-03-12 00:47:19,847 - INFO - update index for country.subdivision
+2026-03-12 00:47:19,849 - INFO - update index for ir.cron.log
+2026-03-12 00:47:19,851 - INFO - update index for res.group
+2026-03-12 00:47:19,853 - INFO - update index for account.fiscalyear
+2026-03-12 00:47:19,855 - INFO - update index for ir.translation
+2026-03-12 00:47:19,860 - INFO - update index for country.region
+2026-03-12 00:47:19,862 - INFO - update index for production
+2026-03-12 00:47:19,864 - INFO - update index for account.account.type.template
+2026-03-12 00:47:19,867 - INFO - update index for party.category
+2026-03-12 00:47:19,869 - INFO - update index for product.category.account
+2026-03-12 00:47:19,871 - INFO - update index for ir.chat.follower
+2026-03-12 00:47:19,872 - INFO - update index for product.product
+2026-03-12 00:47:19,875 - INFO - update index for product.template
+2026-03-12 00:47:19,877 - INFO - update index for stock.shipment.cost_sale
+2026-03-12 00:47:19,879 - INFO - update index for account.move.template.keyword
+2026-03-12 00:47:19,882 - INFO - update index for timesheet.line
+2026-03-12 00:47:19,886 - INFO - update index for account.statement
+2026-03-12 00:47:19,888 - INFO - update index for account.move.template
+2026-03-12 00:47:19,890 - INFO - update index for product.uom.category
+2026-03-12 00:47:19,891 - INFO - update index for production.work.cycle
+2026-03-12 00:47:19,892 - INFO - update index for ir.model.field.access
+2026-03-12 00:47:19,894 - INFO - update index for stock.order_point
+2026-03-12 00:47:19,895 - INFO - update index for purchase.product_supplier.price
+2026-03-12 00:47:19,897 - INFO - update index for dashboard.action
+2026-03-12 00:47:19,900 - INFO - update index for party.relation.type
+2026-03-12 00:47:19,902 - INFO - update index for ir.rule
+2026-03-12 00:47:19,904 - INFO - update index for party.party.sale_method
+2026-03-12 00:47:19,905 - INFO - update index for res.user
+2026-03-12 00:47:19,907 - INFO - update index for purchase.product_supplier
+2026-03-12 00:47:19,913 - INFO - update index for account.payment.sepa.message
+2026-03-12 00:47:19,922 - INFO - update index for stock.inventory.line
+2026-03-12 00:47:19,925 - INFO - update index for party.party.reception_direct_debit
+2026-03-12 00:47:19,928 - INFO - update index for ir.avatar.cache
+2026-03-12 00:47:19,931 - INFO - update index for production.bom.input
+2026-03-12 00:47:19,936 - INFO - update index for product.list_price
+2026-03-12 00:47:19,940 - INFO - update index for account.tax.rule.template
+2026-03-12 00:47:19,942 - INFO - update index for ir.ui.view
+2026-03-12 00:47:19,951 - INFO - update index for ir.sequence
+2026-03-12 00:47:19,954 - INFO - update index for party.relation.all
+2026-03-12 00:47:19,954 - INFO - update index for ir.model.button.click
+2026-03-12 00:47:19,956 - INFO - update index for account.payment.group
+2026-03-12 00:47:19,958 - INFO - update index for party.identifier
+2026-03-12 00:47:19,963 - INFO - update index for country.postal_code
+2026-03-12 00:47:19,965 - INFO - update index for ir.lang
+2026-03-12 00:47:19,969 - INFO - update index for party.party.supplier_currency
+2026-03-12 00:47:19,972 - INFO - update index for purchase.purchase
+2026-03-12 00:47:19,978 - INFO - update index for account.invoice
+2026-03-12 00:47:19,990 - INFO - update index for stock.location.lead_time
+2026-03-12 00:47:19,992 - INFO - update index for res.notification
+2026-03-12 00:47:19,995 - INFO - update index for account.fiscalyear.invoice_sequence
+2026-03-12 00:47:19,997 - INFO - update index for stock.period.cache
+2026-03-12 00:47:20,001 - INFO - update index for ir.ui.view_tree_width
+2026-03-12 00:47:20,003 - INFO - update index for account.tax
+2026-03-12 00:47:20,006 - INFO - update index for production.lead_time
+2026-03-12 00:47:20,008 - INFO - update index for production.work.center
+2026-03-12 00:47:20,010 - INFO - update index for ir.trigger.log
+2026-03-12 00:47:20,011 - INFO - update index for company.company.tax_identifier
+2026-03-12 00:47:20,015 - INFO - update index for account.move.line.template
+2026-03-12 00:47:20,019 - INFO - update index for production.routing.step
+2026-03-12 00:47:20,022 - INFO - update index for account.move
+2026-03-12 00:47:20,029 - INFO - update index for bank.account.number
+2026-03-12 00:47:20,032 - INFO - update index for incoterm.incoterm
+2026-03-12 00:47:20,035 - INFO - update index for ir.avatar
+2026-03-12 00:47:20,050 - INFO - update index for currency.currency
+2026-03-12 00:47:20,054 - INFO - update index for account.tax.code.line.template
+2026-03-12 00:47:20,058 - INFO - update index for party.party.lang
+2026-03-12 00:47:20,069 - INFO - update index for stock.lot
+2026-03-12 00:47:20,072 - INFO - update index for ir.attachment
+2026-03-12 00:47:20,080 - INFO - update index for ir.action
+2026-03-12 00:47:20,083 - INFO - update index for sale.reporting.product.category.tree
+2026-03-12 00:47:20,083 - INFO - update index for ir.ui.view_search
+2026-03-12 00:47:20,091 - INFO - update index for ir.model.button.rule
+2026-03-12 00:47:20,095 - INFO - update index for country.organization
+2026-03-12 00:47:20,098 - INFO - update index for ir.calendar.day
+2026-03-12 00:47:20,100 - INFO - update index for ir.session
+2026-03-12 00:47:20,108 - INFO - update index for country.organization.member
+2026-03-12 00:47:20,111 - INFO - update index for stock.shipment.in.return
+2026-03-12 00:47:20,114 - INFO - update index for account.statement.origin
+2026-03-12 00:47:20,117 - INFO - update index for stock.shipment.out.return
+2026-03-12 00:47:20,122 - INFO - update index for ir.sequence.type
+2026-03-12 00:47:20,124 - INFO - update index for product.lead_time
+2026-03-12 00:47:20,125 - INFO - update index for account.payment.journal
+2026-03-12 00:47:20,127 - INFO - update index for product.product-production.bom
+2026-03-12 00:47:20,129 - INFO - update index for account.invoice.report.revision
+2026-03-12 00:47:20,131 - INFO - update index for account.statement.line
+2026-03-12 00:47:20,137 - INFO - update index for account.tax.code.template
+2026-03-12 00:47:20,139 - INFO - update index for ir.model
+2026-03-12 00:47:20,140 - INFO - update index for product.image.cache
+2026-03-12 00:47:20,142 - INFO - update index for product.category.image.cache
+2026-03-12 00:47:20,143 - INFO - update index for account.invoice.payment.method
+2026-03-12 00:47:20,145 - INFO - update index for product.attribute.set
+2026-03-12 00:47:20,147 - INFO - update index for ir.cache
+2026-03-12 00:47:20,149 - INFO - update index for account.invoice.payment_term
+2026-03-12 00:47:20,151 - INFO - update index for ir.module.dependency
+2026-03-12 00:47:20,153 - INFO - update index for ir.email.address
+2026-03-12 00:47:20,155 - INFO - update history for account.invoice.chorus
+2026-03-12 00:47:20,177 - INFO - all modules loaded
+2026-03-12 00:47:20,703 - INFO - === SETUP COMPLETADO EXITOSAMENTE ===
+2026-03-12 00:47:20,703 - INFO - --- FASE LANG FINALIZADA ---
+[12/03/2026] [ 1:48:15,07] [ACC]  
+2026-03-12 00:48:06,730 - INFO - using /tmp/trytond_setup.conf as configuration files
+2026-03-12 00:48:06,730 - INFO - using /tmp/trytond_setup.conf as configuration files
+2026-03-12 00:48:06,785 - INFO - ir register
+2026-03-12 00:48:06,786 - INFO - res register
+2026-03-12 00:48:07,355 - INFO - Resource 'XMLSchema.xsd' is already loaded
+2026-03-12 00:48:07,802 - INFO - authentication_saml register
+2026-03-12 00:48:07,802 - INFO - web_shortener register
+2026-03-12 00:48:07,803 - INFO - authentication_sms register
+2026-03-12 00:48:07,803 - INFO - country register
+2026-03-12 00:48:07,804 - INFO - currency register
+2026-03-12 00:48:07,804 - INFO - dashboard register
+2026-03-12 00:48:07,804 - INFO - inbound_email register
+2026-03-12 00:48:07,805 - INFO - ldap_authentication register
+2026-03-12 00:48:07,805 - INFO - marketing register
+2026-03-12 00:48:07,805 - INFO - user_role register
+2026-03-12 00:48:07,806 - INFO - currency_ro register
+2026-03-12 00:48:07,806 - INFO - currency_rs register
+2026-03-12 00:48:07,807 - INFO - party register
+2026-03-12 00:48:07,807 - INFO - bank register
+2026-03-12 00:48:07,807 - INFO - company register
+2026-03-12 00:48:07,808 - INFO - google_maps register
+2026-03-12 00:48:07,808 - INFO - party_relationship register
+2026-03-12 00:48:07,809 - INFO - web_user register
+2026-03-12 00:48:07,809 - INFO - account register
+2026-03-12 00:48:07,809 - INFO - company_work_time register
+2026-03-12 00:48:07,810 - INFO - document_incoming register
+2026-03-12 00:48:07,810 - INFO - marketing_email register
+2026-03-12 00:48:07,810 - INFO - party_avatar register
+2026-03-12 00:48:07,811 - INFO - party_siret register
+2026-03-12 00:48:07,811 - INFO - product register
+2026-03-12 00:48:07,812 - INFO - account_budget register
+2026-03-12 00:48:07,812 - INFO - account_de_skr03 register
+2026-03-12 00:48:07,813 - INFO - account_dunning register
+2026-03-12 00:48:07,813 - INFO - account_export register
+2026-03-12 00:48:07,813 - INFO - account_move_line_grouping register
+2026-03-12 00:48:07,814 - INFO - account_syscohada register
+2026-03-12 00:48:07,814 - INFO - analytic_account register
+2026-03-12 00:48:07,815 - INFO - carrier register
+2026-03-12 00:48:07,815 - INFO - customs register
+2026-03-12 00:48:07,816 - INFO - edocument_unece register
+2026-03-12 00:48:07,816 - INFO - product_classification register
+2026-03-12 00:48:07,816 - INFO - product_image register
+2026-03-12 00:48:07,817 - INFO - product_price_list register
+2026-03-12 00:48:07,817 - INFO - stock register
+2026-03-12 00:48:07,818 - INFO - timesheet register
+2026-03-12 00:48:07,818 - INFO - account_credit_limit register
+2026-03-12 00:48:07,819 - INFO - account_dunning_letter register
+2026-03-12 00:48:07,819 - INFO - account_product register
+2026-03-12 00:48:07,820 - INFO - analytic_budget register
+2026-03-12 00:48:07,820 - INFO - attendance register
+2026-03-12 00:48:07,820 - INFO - product_classification_taxonomic register
+2026-03-12 00:48:07,821 - INFO - product_cost_fifo register
+2026-03-12 00:48:07,821 - INFO - product_cost_history register
+2026-03-12 00:48:07,821 - INFO - product_measurements register
+2026-03-12 00:48:07,822 - INFO - product_price_list_cache register
+2026-03-12 00:48:07,822 - INFO - product_price_list_parent register
+2026-03-12 00:48:07,822 - INFO - project register
+2026-03-12 00:48:07,823 - INFO - stock_forecast register
+2026-03-12 00:48:07,823 - INFO - stock_inventory_location register
+2026-03-12 00:48:07,824 - INFO - stock_location_sequence register
+2026-03-12 00:48:07,824 - INFO - stock_product_location_place register
+2026-03-12 00:48:07,825 - INFO - stock_secondary_unit register
+2026-03-12 00:48:07,825 - INFO - stock_shipment_cost register
+2026-03-12 00:48:07,825 - INFO - stock_split register
+2026-03-12 00:48:07,826 - INFO - timesheet_cost register
+2026-03-12 00:48:07,826 - INFO - account_dunning_email register
+2026-03-12 00:48:07,826 - INFO - account_dunning_fee register
+2026-03-12 00:48:07,827 - INFO - account_invoice register
+2026-03-12 00:48:07,827 - INFO - account_stock_continental register
+2026-03-12 00:48:07,828 - INFO - project_plan register
+2026-03-12 00:48:07,828 - INFO - account_consolidation register
+2026-03-12 00:48:07,828 - INFO - account_eu register
+2026-03-12 00:48:07,829 - INFO - account_invoice_correction register
+2026-03-12 00:48:07,829 - INFO - account_invoice_defer register
+2026-03-12 00:48:07,830 - INFO - account_invoice_history register
+2026-03-12 00:48:07,830 - INFO - account_invoice_line_standalone register
+2026-03-12 00:48:07,830 - INFO - account_invoice_secondary_unit register
+2026-03-12 00:48:07,831 - INFO - account_invoice_stock register
+2026-03-12 00:48:07,831 - INFO - account_invoice_watermark register
+2026-03-12 00:48:07,831 - INFO - account_statement register
+2026-03-12 00:48:07,832 - INFO - account_stock_shipment_cost register
+2026-03-12 00:48:07,832 - INFO - account_tax_cash register
+2026-03-12 00:48:07,833 - INFO - account_tax_non_deductible register
+2026-03-12 00:48:07,833 - INFO - document_incoming_invoice register
+2026-03-12 00:48:07,834 - INFO - edocument_uncefact register
+2026-03-12 00:48:07,834 - INFO - account_fr_chorus register
+2026-03-12 00:48:07,834 - INFO - account_receivable_rule register
+2026-03-12 00:48:07,835 - INFO - account_statement_aeb43 register
+2026-03-12 00:48:07,835 - INFO - account_statement_coda register
+2026-03-12 00:48:07,836 - INFO - account_statement_mt940 register
+2026-03-12 00:48:07,836 - INFO - account_statement_ofx register
+2026-03-12 00:48:07,836 - INFO - account_statement_rule register
+2026-03-12 00:48:07,837 - INFO - account_statement_sepa register
+2026-03-12 00:48:07,837 - INFO - account_stock_anglo_saxon register
+2026-03-12 00:48:07,837 - INFO - product_cost_warehouse register
+2026-03-12 00:48:07,838 - INFO - purchase register
+2026-03-12 00:48:07,838 - INFO - sale register
+2026-03-12 00:48:07,839 - INFO - account_asset register
+2026-03-12 00:48:07,839 - INFO - account_cash_rounding register
+2026-03-12 00:48:07,839 - INFO - account_payment register
+2026-03-12 00:48:07,840 - INFO - commission register
+2026-03-12 00:48:07,840 - INFO - document_incoming_ocr register
+2026-03-12 00:48:07,841 - INFO - marketing_automation register
+2026-03-12 00:48:07,841 - INFO - product_attribute register
+2026-03-12 00:48:07,841 - INFO - project_revenue register
+2026-03-12 00:48:07,842 - INFO - purchase_blanket_agreement register
+2026-03-12 00:48:07,842 - INFO - purchase_history register
+2026-03-12 00:48:07,842 - INFO - purchase_invoice_line_standalone register
+2026-03-12 00:48:07,843 - INFO - purchase_price_list register
+2026-03-12 00:48:07,843 - INFO - purchase_request register
+2026-03-12 00:48:07,843 - INFO - sale_blanket_agreement register
+2026-03-12 00:48:07,844 - INFO - sale_credit_limit register
+2026-03-12 00:48:07,844 - INFO - sale_discount register
+2026-03-12 00:48:07,845 - INFO - sale_opportunity register
+2026-03-12 00:48:07,845 - INFO - sale_point register
+2026-03-12 00:48:07,845 - INFO - sale_price_list register
+2026-03-12 00:48:07,846 - INFO - sale_shipment_grouping register
+2026-03-12 00:48:07,846 - INFO - sale_shipment_tolerance register
+2026-03-12 00:48:07,847 - INFO - sale_subscription register
+2026-03-12 00:48:07,847 - INFO - stock_supply_day register
+2026-03-12 00:48:07,847 - INFO - account_payment_braintree register
+2026-03-12 00:48:07,848 - INFO - account_payment_clearing register
+2026-03-12 00:48:07,848 - INFO - account_payment_stripe register
+2026-03-12 00:48:07,848 - INFO - analytic_invoice register
+2026-03-12 00:48:07,849 - INFO - commission_waiting register
+2026-03-12 00:48:07,849 - INFO - document_incoming_ocr_typless register
+2026-03-12 00:48:07,849 - INFO - edocument_ubl register
+2026-03-12 00:48:07,850 - INFO - marketing_campaign register
+2026-03-12 00:48:07,850 - INFO - notification_email register
+2026-03-12 00:48:07,851 - INFO - product_image_attribute register
+2026-03-12 00:48:07,851 - INFO - product_price_list_dates register
+2026-03-12 00:48:07,851 - INFO - project_invoice register
+2026-03-12 00:48:07,852 - INFO - purchase_amendment register
+2026-03-12 00:48:07,852 - INFO - purchase_product_quantity register
+2026-03-12 00:48:07,853 - INFO - purchase_requisition register
+2026-03-12 00:48:07,853 - INFO - sale_extra register
+2026-03-12 00:48:07,853 - INFO - sale_gift_card register
+2026-03-12 00:48:07,854 - INFO - sale_history register
+2026-03-12 00:48:07,854 - INFO - sale_product_quantity register
+2026-03-12 00:48:07,855 - INFO - sale_product_recommendation register
+2026-03-12 00:48:07,855 - INFO - sale_promotion register
+2026-03-12 00:48:07,856 - INFO - sale_rental register
+2026-03-12 00:48:07,856 - INFO - stock_supply register
+2026-03-12 00:48:07,857 - INFO - account_deposit register
+2026-03-12 00:48:07,857 - INFO - account_payment_sepa register
+2026-03-12 00:48:07,858 - INFO - analytic_purchase register
+2026-03-12 00:48:07,858 - INFO - analytic_sale register
+2026-03-12 00:48:07,858 - INFO - edocument_peppol register
+2026-03-12 00:48:07,859 - INFO - purchase_request_quotation register
+2026-03-12 00:48:07,859 - INFO - purchase_secondary_unit register
+2026-03-12 00:48:07,860 - INFO - sale_amendment register
+2026-03-12 00:48:07,860 - INFO - sale_invoice_grouping register
+2026-03-12 00:48:07,860 - INFO - sale_payment register
+2026-03-12 00:48:07,861 - INFO - sale_product_recommendation_association_rule register
+2026-03-12 00:48:07,861 - INFO - sale_promotion_coupon register
+2026-03-12 00:48:07,862 - INFO - sale_rental_progress_invoice register
+2026-03-12 00:48:07,862 - INFO - sale_shipment_cost register
+2026-03-12 00:48:07,862 - INFO - sale_supply register
+2026-03-12 00:48:07,863 - INFO - stock_consignment register
+2026-03-12 00:48:07,863 - INFO - stock_location_move register
+2026-03-12 00:48:07,863 - INFO - stock_supply_forecast register
+2026-03-12 00:48:07,864 - INFO - account_payment_sepa_cfonb register
+2026-03-12 00:48:07,864 - INFO - account_tax_rule_country register
+2026-03-12 00:48:07,864 - INFO - edocument_peppol_peppyrus register
+2026-03-12 00:48:07,865 - INFO - product_kit register
+2026-03-12 00:48:07,865 - INFO - sale_advance_payment register
+2026-03-12 00:48:07,866 - INFO - sale_complaint register
+2026-03-12 00:48:07,866 - INFO - sale_invoice_date register
+2026-03-12 00:48:07,866 - INFO - sale_product_customer register
+2026-03-12 00:48:07,867 - INFO - sale_promotion_coupon_payment register
+2026-03-12 00:48:07,867 - INFO - sale_stock_quantity register
+2026-03-12 00:48:07,868 - INFO - sale_supply_drop_shipment register
+2026-03-12 00:48:07,868 - INFO - account_be register
+2026-03-12 00:48:07,869 - INFO - account_es register
+2026-03-12 00:48:07,869 - INFO - account_fr register
+2026-03-12 00:48:07,870 - INFO - account_stock_landed_cost register
+2026-03-12 00:48:07,870 - INFO - purchase_shipment_cost register
+2026-03-12 00:48:07,870 - INFO - sale_secondary_unit register
+2026-03-12 00:48:07,871 - INFO - stock_lot register
+2026-03-12 00:48:07,871 - INFO - web_shop register
+2026-03-12 00:48:07,871 - INFO - account_es_sii register
+2026-03-12 00:48:07,872 - INFO - account_export_winbooks register
+2026-03-12 00:48:07,872 - INFO - account_rule register
+2026-03-12 00:48:07,873 - INFO - carrier_percentage register
+2026-03-12 00:48:07,873 - INFO - carrier_weight register
+2026-03-12 00:48:07,873 - INFO - production register
+2026-03-12 00:48:07,874 - INFO - sale_subscription_asset register
+2026-03-12 00:48:07,875 - INFO - stock_lot_sled register
+2026-03-12 00:48:07,875 - INFO - web_shop_product_data_feed register
+2026-03-12 00:48:07,876 - INFO - web_shop_vue_storefront register
+2026-03-12 00:48:07,877 - INFO - production_split register
+2026-03-12 00:48:07,878 - INFO - quality register
+2026-03-12 00:48:07,878 - INFO - stock_assign_manual register
+2026-03-12 00:48:07,879 - INFO - stock_lot_unit register
+2026-03-12 00:48:07,880 - INFO - stock_package register
+2026-03-12 00:48:07,881 - INFO - stock_product_location register
+2026-03-12 00:48:07,881 - INFO - stock_quantity_early_planning register
+2026-03-12 00:48:07,882 - INFO - stock_quantity_issue register
+2026-03-12 00:48:07,882 - INFO - stock_supply_production register
+2026-03-12 00:48:07,883 - INFO - web_shop_vue_storefront_stripe register
+2026-03-12 00:48:07,883 - INFO - production_routing register
+2026-03-12 00:48:07,883 - INFO - stock_shipment_measurements register
+2026-03-12 00:48:07,884 - INFO - account_stock_landed_cost_weight register
+2026-03-12 00:48:07,884 - INFO - account_stock_shipment_cost_weight register
+2026-03-12 00:48:07,885 - INFO - production_outsourcing register
+2026-03-12 00:48:07,885 - INFO - production_work register
+2026-03-12 00:48:07,886 - INFO - sale_supply_production register
+2026-03-12 00:48:07,886 - INFO - stock_package_shipping register
+2026-03-12 00:48:07,887 - INFO - stock_shipment_cost_weight register
+2026-03-12 00:48:07,887 - INFO - stock_shipping_point register
+2026-03-12 00:48:07,887 - INFO - incoterm register
+2026-03-12 00:48:07,888 - INFO - production_work_timesheet register
+2026-03-12 00:48:07,888 - INFO - stock_package_shipping_mygls register
+2026-03-12 00:48:07,889 - INFO - web_shop_shopify register
+2026-03-12 00:48:07,889 - INFO - carrier_carriage register
+2026-03-12 00:48:07,890 - INFO - stock_shipment_customs register
+2026-03-12 00:48:07,890 - INFO - account_stock_eu register
+2026-03-12 00:48:07,890 - INFO - carrier_subdivision register
+2026-03-12 00:48:07,891 - INFO - stock_package_shipping_dpd register
+2026-03-12 00:48:07,891 - INFO - stock_package_shipping_sendcloud register
+2026-03-12 00:48:07,892 - INFO - stock_package_shipping_ups register
+2026-03-12 00:48:07,892 - INFO - init pool for "tryton"
+2026-03-12 00:48:07,903 - INFO - connection to "tryton" succeeded
+2026-03-12 00:48:08,049 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,050 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,067 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,068 - INFO - ir load
+2026-03-12 00:48:08,068 - INFO - res load
+2026-03-12 00:48:08,068 - INFO - country load
+2026-03-12 00:48:08,072 - INFO - currency load
+2026-03-12 00:48:08,074 - INFO - dashboard load
+2026-03-12 00:48:08,075 - INFO - marketing load
+2026-03-12 00:48:08,075 - INFO - party load
+2026-03-12 00:48:08,123 - INFO - bank load
+2026-03-12 00:48:08,298 - INFO - company load
+2026-03-12 00:48:08,327 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,327 - INFO - party_relationship load
+2026-03-12 00:48:08,329 - INFO - account load
+2026-03-12 00:48:08,423 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,423 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,423 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,423 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,423 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,423 - INFO - company_work_time load
+2026-03-12 00:48:08,424 - INFO - party_avatar load
+2026-03-12 00:48:08,426 - INFO - party_siret load
+2026-03-12 00:48:08,426 - INFO - product load
+2026-03-12 00:48:08,430 - INFO - account_product load
+2026-03-12 00:48:08,432 - INFO - carrier load
+2026-03-12 00:48:08,433 - INFO - product_image load
+2026-03-12 00:48:08,435 - INFO - product_price_list load
+2026-03-12 00:48:08,436 - INFO - stock load
+2026-03-12 00:48:08,451 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,451 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,451 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,451 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,451 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,452 - INFO - timesheet load
+2026-03-12 00:48:08,455 - INFO - account_invoice load
+2026-03-12 00:48:08,466 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,467 - INFO - product_measurements load
+2026-03-12 00:48:08,468 - INFO - project load
+2026-03-12 00:48:08,472 - INFO - stock_lot load
+2026-03-12 00:48:08,476 - INFO - stock_shipment_cost load
+2026-03-12 00:48:08,478 - INFO - account_eu load
+2026-03-12 00:48:08,479 - INFO - account_fr load
+2026-03-12 00:48:08,480 - INFO - account_fr_chorus load
+2026-03-12 00:48:08,505 - INFO - account_invoice_stock load
+2026-03-12 00:48:08,507 - INFO - account_statement load
+2026-03-12 00:48:08,513 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,513 - INFO - production load
+2026-03-12 00:48:08,517 - INFO - account_payment load
+2026-03-12 00:48:08,522 - INFO - purchase load
+2026-03-12 00:48:08,531 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,531 - INFO - sale load
+2026-03-12 00:48:08,542 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,542 - INFO - account_payment_sepa load
+2026-03-12 00:48:08,545 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,546 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:08,546 - INFO - product_attribute load
+2026-03-12 00:48:08,547 - INFO - purchase_request load
+2026-03-12 00:48:08,549 - INFO - sale_shipment_cost load
+2026-03-12 00:48:08,553 - INFO - account_payment_sepa_cfonb load
+2026-03-12 00:48:08,553 - INFO - incoterm load
+2026-03-12 00:48:08,558 - INFO - stock_supply load
+2026-03-12 00:48:08,561 - INFO - stock_supply_production load
+2026-03-12 00:48:08,562 - INFO - production_routing load
+2026-03-12 00:48:08,564 - INFO - production_work load
+2026-03-12 00:48:08,566 - INFO - setup pool for "tryton"
+2026-03-12 00:48:09,486 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,497 - INFO - all modules loaded
+2026-03-12 00:48:09,529 - INFO - init pool for "tryton"
+2026-03-12 00:48:09,531 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,531 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,532 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,532 - INFO - ir load
+2026-03-12 00:48:09,532 - INFO - res load
+2026-03-12 00:48:09,532 - INFO - country load
+2026-03-12 00:48:09,532 - INFO - currency load
+2026-03-12 00:48:09,532 - INFO - dashboard load
+2026-03-12 00:48:09,532 - INFO - marketing load
+2026-03-12 00:48:09,533 - INFO - party load
+2026-03-12 00:48:09,533 - INFO - bank load
+2026-03-12 00:48:09,533 - INFO - company load
+2026-03-12 00:48:09,534 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,534 - INFO - party_relationship load
+2026-03-12 00:48:09,534 - INFO - account load
+2026-03-12 00:48:09,535 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,535 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,535 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,536 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,536 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,536 - INFO - company_work_time load
+2026-03-12 00:48:09,536 - INFO - party_avatar load
+2026-03-12 00:48:09,536 - INFO - party_siret load
+2026-03-12 00:48:09,537 - INFO - product load
+2026-03-12 00:48:09,537 - INFO - account_product load
+2026-03-12 00:48:09,537 - INFO - carrier load
+2026-03-12 00:48:09,537 - INFO - product_image load
+2026-03-12 00:48:09,538 - INFO - product_price_list load
+2026-03-12 00:48:09,538 - INFO - stock load
+2026-03-12 00:48:09,538 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,539 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,539 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,539 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,539 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,539 - INFO - timesheet load
+2026-03-12 00:48:09,539 - INFO - account_invoice load
+2026-03-12 00:48:09,540 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,540 - INFO - product_measurements load
+2026-03-12 00:48:09,540 - INFO - project load
+2026-03-12 00:48:09,541 - INFO - stock_lot load
+2026-03-12 00:48:09,541 - INFO - stock_shipment_cost load
+2026-03-12 00:48:09,542 - INFO - account_eu load
+2026-03-12 00:48:09,542 - INFO - account_fr load
+2026-03-12 00:48:09,542 - INFO - account_fr_chorus load
+2026-03-12 00:48:09,543 - INFO - account_invoice_stock load
+2026-03-12 00:48:09,543 - INFO - account_statement load
+2026-03-12 00:48:09,543 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,543 - INFO - production load
+2026-03-12 00:48:09,544 - INFO - account_payment load
+2026-03-12 00:48:09,545 - INFO - purchase load
+2026-03-12 00:48:09,545 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,546 - INFO - sale load
+2026-03-12 00:48:09,547 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,547 - INFO - account_payment_sepa load
+2026-03-12 00:48:09,547 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,548 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:09,548 - INFO - product_attribute load
+2026-03-12 00:48:09,548 - INFO - purchase_request load
+2026-03-12 00:48:09,548 - INFO - sale_shipment_cost load
+2026-03-12 00:48:09,549 - INFO - account_payment_sepa_cfonb load
+2026-03-12 00:48:09,549 - INFO - incoterm load
+2026-03-12 00:48:09,550 - INFO - stock_supply load
+2026-03-12 00:48:09,550 - INFO - stock_supply_production load
+2026-03-12 00:48:09,551 - INFO - production_routing load
+2026-03-12 00:48:09,551 - INFO - production_work load
+2026-03-12 00:48:09,552 - INFO - setup pool for "tryton"
+2026-03-12 00:48:10,349 - INFO - setup mixin for "tryton"
+2026-03-12 00:48:10,351 - INFO - all modules loaded
+2026-03-12 00:48:10,353 - INFO - --- CONEXIÓN EXITOSA ---
+2026-03-12 00:48:10,354 - INFO - --- ESCANEANDO MÓDULOS Y ASISTENTES ---
+2026-03-12 00:48:10,554 - INFO - --- FASE DE CONFIGURACIÓN ---
+2026-03-12 00:48:10,554 - INFO - Datos obtenidos del archivo: /tmp/trytond_setup.conf
+2026-03-12 00:48:10,555 - INFO - CONFIGURACIÓN ACTIVA -> Empresa: Telepieza | Moneda: EUR
+2026-03-12 00:48:10,555 - INFO - --- ESCANEANDO MÓDULOS Y ASISTENTES ---
+2026-03-12 00:48:10,845 - INFO - Creando empresa: Telepieza
+2026-03-12 00:48:11,716 - INFO - Diario contable GEN creado.
+2026-03-12 00:48:12,398 - INFO - Ejercicio 2026 creado.
+2026-03-12 00:48:12,828 - INFO - Ejercicio 2027 creado.
+2026-03-12 00:48:13,503 - INFO - Ejercicio 2028 creado.
+2026-03-12 00:48:13,956 - INFO - Ejercicio 2029 creado.
+2026-03-12 00:48:14,442 - INFO - Ejercicio 2030 creado.
+2026-03-12 00:48:14,442 - INFO - === SETUP COMPLETADO EXITOSAMENTE ===
+2026-03-12 00:48:14,442 - INFO - --- FASE ACC FINALIZADA ---
+[12/03/2026] [ 1:49:20,20] [TAX]  
+2026-03-12 00:49:15,590 - INFO - using /tmp/trytond_setup.conf as configuration files
+2026-03-12 00:49:15,590 - INFO - using /tmp/trytond_setup.conf as configuration files
+2026-03-12 00:49:15,657 - INFO - ir register
+2026-03-12 00:49:15,658 - INFO - res register
+2026-03-12 00:49:16,033 - INFO - Resource 'XMLSchema.xsd' is already loaded
+2026-03-12 00:49:16,554 - INFO - authentication_saml register
+2026-03-12 00:49:16,555 - INFO - web_shortener register
+2026-03-12 00:49:16,556 - INFO - authentication_sms register
+2026-03-12 00:49:16,557 - INFO - country register
+2026-03-12 00:49:16,557 - INFO - currency register
+2026-03-12 00:49:16,559 - INFO - dashboard register
+2026-03-12 00:49:16,559 - INFO - inbound_email register
+2026-03-12 00:49:16,560 - INFO - ldap_authentication register
+2026-03-12 00:49:16,561 - INFO - marketing register
+2026-03-12 00:49:16,561 - INFO - user_role register
+2026-03-12 00:49:16,562 - INFO - currency_ro register
+2026-03-12 00:49:16,562 - INFO - currency_rs register
+2026-03-12 00:49:16,563 - INFO - party register
+2026-03-12 00:49:16,563 - INFO - bank register
+2026-03-12 00:49:16,564 - INFO - company register
+2026-03-12 00:49:16,564 - INFO - google_maps register
+2026-03-12 00:49:16,564 - INFO - party_relationship register
+2026-03-12 00:49:16,565 - INFO - web_user register
+2026-03-12 00:49:16,566 - INFO - account register
+2026-03-12 00:49:16,567 - INFO - company_work_time register
+2026-03-12 00:49:16,567 - INFO - document_incoming register
+2026-03-12 00:49:16,568 - INFO - marketing_email register
+2026-03-12 00:49:16,568 - INFO - party_avatar register
+2026-03-12 00:49:16,569 - INFO - party_siret register
+2026-03-12 00:49:16,569 - INFO - product register
+2026-03-12 00:49:16,570 - INFO - account_budget register
+2026-03-12 00:49:16,570 - INFO - account_de_skr03 register
+2026-03-12 00:49:16,571 - INFO - account_dunning register
+2026-03-12 00:49:16,571 - INFO - account_export register
+2026-03-12 00:49:16,572 - INFO - account_move_line_grouping register
+2026-03-12 00:49:16,573 - INFO - account_syscohada register
+2026-03-12 00:49:16,574 - INFO - analytic_account register
+2026-03-12 00:49:16,574 - INFO - carrier register
+2026-03-12 00:49:16,575 - INFO - customs register
+2026-03-12 00:49:16,576 - INFO - edocument_unece register
+2026-03-12 00:49:16,578 - INFO - product_classification register
+2026-03-12 00:49:16,581 - INFO - product_image register
+2026-03-12 00:49:16,583 - INFO - product_price_list register
+2026-03-12 00:49:16,583 - INFO - stock register
+2026-03-12 00:49:16,586 - INFO - timesheet register
+2026-03-12 00:49:16,587 - INFO - account_credit_limit register
+2026-03-12 00:49:16,588 - INFO - account_dunning_letter register
+2026-03-12 00:49:16,588 - INFO - account_product register
+2026-03-12 00:49:16,589 - INFO - analytic_budget register
+2026-03-12 00:49:16,590 - INFO - attendance register
+2026-03-12 00:49:16,591 - INFO - product_classification_taxonomic register
+2026-03-12 00:49:16,592 - INFO - product_cost_fifo register
+2026-03-12 00:49:16,593 - INFO - product_cost_history register
+2026-03-12 00:49:16,593 - INFO - product_measurements register
+2026-03-12 00:49:16,594 - INFO - product_price_list_cache register
+2026-03-12 00:49:16,595 - INFO - product_price_list_parent register
+2026-03-12 00:49:16,596 - INFO - project register
+2026-03-12 00:49:16,596 - INFO - stock_forecast register
+2026-03-12 00:49:16,598 - INFO - stock_inventory_location register
+2026-03-12 00:49:16,600 - INFO - stock_location_sequence register
+2026-03-12 00:49:16,600 - INFO - stock_product_location_place register
+2026-03-12 00:49:16,602 - INFO - stock_secondary_unit register
+2026-03-12 00:49:16,603 - INFO - stock_shipment_cost register
+2026-03-12 00:49:16,605 - INFO - stock_split register
+2026-03-12 00:49:16,607 - INFO - timesheet_cost register
+2026-03-12 00:49:16,608 - INFO - account_dunning_email register
+2026-03-12 00:49:16,608 - INFO - account_dunning_fee register
+2026-03-12 00:49:16,609 - INFO - account_invoice register
+2026-03-12 00:49:16,610 - INFO - account_stock_continental register
+2026-03-12 00:49:16,611 - INFO - project_plan register
+2026-03-12 00:49:16,612 - INFO - account_consolidation register
+2026-03-12 00:49:16,613 - INFO - account_eu register
+2026-03-12 00:49:16,613 - INFO - account_invoice_correction register
+2026-03-12 00:49:16,613 - INFO - account_invoice_defer register
+2026-03-12 00:49:16,614 - INFO - account_invoice_history register
+2026-03-12 00:49:16,614 - INFO - account_invoice_line_standalone register
+2026-03-12 00:49:16,615 - INFO - account_invoice_secondary_unit register
+2026-03-12 00:49:16,616 - INFO - account_invoice_stock register
+2026-03-12 00:49:16,616 - INFO - account_invoice_watermark register
+2026-03-12 00:49:16,617 - INFO - account_statement register
+2026-03-12 00:49:16,617 - INFO - account_stock_shipment_cost register
+2026-03-12 00:49:16,618 - INFO - account_tax_cash register
+2026-03-12 00:49:16,619 - INFO - account_tax_non_deductible register
+2026-03-12 00:49:16,620 - INFO - document_incoming_invoice register
+2026-03-12 00:49:16,621 - INFO - edocument_uncefact register
+2026-03-12 00:49:16,623 - INFO - account_fr_chorus register
+2026-03-12 00:49:16,623 - INFO - account_receivable_rule register
+2026-03-12 00:49:16,624 - INFO - account_statement_aeb43 register
+2026-03-12 00:49:16,624 - INFO - account_statement_coda register
+2026-03-12 00:49:16,625 - INFO - account_statement_mt940 register
+2026-03-12 00:49:16,626 - INFO - account_statement_ofx register
+2026-03-12 00:49:16,627 - INFO - account_statement_rule register
+2026-03-12 00:49:16,627 - INFO - account_statement_sepa register
+2026-03-12 00:49:16,628 - INFO - account_stock_anglo_saxon register
+2026-03-12 00:49:16,628 - INFO - product_cost_warehouse register
+2026-03-12 00:49:16,629 - INFO - purchase register
+2026-03-12 00:49:16,629 - INFO - sale register
+2026-03-12 00:49:16,630 - INFO - account_asset register
+2026-03-12 00:49:16,630 - INFO - account_cash_rounding register
+2026-03-12 00:49:16,631 - INFO - account_payment register
+2026-03-12 00:49:16,631 - INFO - commission register
+2026-03-12 00:49:16,632 - INFO - document_incoming_ocr register
+2026-03-12 00:49:16,632 - INFO - marketing_automation register
+2026-03-12 00:49:16,633 - INFO - product_attribute register
+2026-03-12 00:49:16,633 - INFO - project_revenue register
+2026-03-12 00:49:16,634 - INFO - purchase_blanket_agreement register
+2026-03-12 00:49:16,635 - INFO - purchase_history register
+2026-03-12 00:49:16,635 - INFO - purchase_invoice_line_standalone register
+2026-03-12 00:49:16,636 - INFO - purchase_price_list register
+2026-03-12 00:49:16,636 - INFO - purchase_request register
+2026-03-12 00:49:16,637 - INFO - sale_blanket_agreement register
+2026-03-12 00:49:16,639 - INFO - sale_credit_limit register
+2026-03-12 00:49:16,639 - INFO - sale_discount register
+2026-03-12 00:49:16,640 - INFO - sale_opportunity register
+2026-03-12 00:49:16,640 - INFO - sale_point register
+2026-03-12 00:49:16,641 - INFO - sale_price_list register
+2026-03-12 00:49:16,641 - INFO - sale_shipment_grouping register
+2026-03-12 00:49:16,642 - INFO - sale_shipment_tolerance register
+2026-03-12 00:49:16,642 - INFO - sale_subscription register
+2026-03-12 00:49:16,643 - INFO - stock_supply_day register
+2026-03-12 00:49:16,644 - INFO - account_payment_braintree register
+2026-03-12 00:49:16,644 - INFO - account_payment_clearing register
+2026-03-12 00:49:16,645 - INFO - account_payment_stripe register
+2026-03-12 00:49:16,646 - INFO - analytic_invoice register
+2026-03-12 00:49:16,646 - INFO - commission_waiting register
+2026-03-12 00:49:16,647 - INFO - document_incoming_ocr_typless register
+2026-03-12 00:49:16,648 - INFO - edocument_ubl register
+2026-03-12 00:49:16,648 - INFO - marketing_campaign register
+2026-03-12 00:49:16,649 - INFO - notification_email register
+2026-03-12 00:49:16,650 - INFO - product_image_attribute register
+2026-03-12 00:49:16,650 - INFO - product_price_list_dates register
+2026-03-12 00:49:16,651 - INFO - project_invoice register
+2026-03-12 00:49:16,651 - INFO - purchase_amendment register
+2026-03-12 00:49:16,652 - INFO - purchase_product_quantity register
+2026-03-12 00:49:16,652 - INFO - purchase_requisition register
+2026-03-12 00:49:16,653 - INFO - sale_extra register
+2026-03-12 00:49:16,654 - INFO - sale_gift_card register
+2026-03-12 00:49:16,654 - INFO - sale_history register
+2026-03-12 00:49:16,655 - INFO - sale_product_quantity register
+2026-03-12 00:49:16,656 - INFO - sale_product_recommendation register
+2026-03-12 00:49:16,656 - INFO - sale_promotion register
+2026-03-12 00:49:16,657 - INFO - sale_rental register
+2026-03-12 00:49:16,657 - INFO - stock_supply register
+2026-03-12 00:49:16,658 - INFO - account_deposit register
+2026-03-12 00:49:16,659 - INFO - account_payment_sepa register
+2026-03-12 00:49:16,659 - INFO - analytic_purchase register
+2026-03-12 00:49:16,660 - INFO - analytic_sale register
+2026-03-12 00:49:16,660 - INFO - edocument_peppol register
+2026-03-12 00:49:16,660 - INFO - purchase_request_quotation register
+2026-03-12 00:49:16,661 - INFO - purchase_secondary_unit register
+2026-03-12 00:49:16,661 - INFO - sale_amendment register
+2026-03-12 00:49:16,662 - INFO - sale_invoice_grouping register
+2026-03-12 00:49:16,662 - INFO - sale_payment register
+2026-03-12 00:49:16,663 - INFO - sale_product_recommendation_association_rule register
+2026-03-12 00:49:16,664 - INFO - sale_promotion_coupon register
+2026-03-12 00:49:16,664 - INFO - sale_rental_progress_invoice register
+2026-03-12 00:49:16,665 - INFO - sale_shipment_cost register
+2026-03-12 00:49:16,666 - INFO - sale_supply register
+2026-03-12 00:49:16,666 - INFO - stock_consignment register
+2026-03-12 00:49:16,667 - INFO - stock_location_move register
+2026-03-12 00:49:16,667 - INFO - stock_supply_forecast register
+2026-03-12 00:49:16,668 - INFO - account_payment_sepa_cfonb register
+2026-03-12 00:49:16,669 - INFO - account_tax_rule_country register
+2026-03-12 00:49:16,669 - INFO - edocument_peppol_peppyrus register
+2026-03-12 00:49:16,670 - INFO - product_kit register
+2026-03-12 00:49:16,671 - INFO - sale_advance_payment register
+2026-03-12 00:49:16,672 - INFO - sale_complaint register
+2026-03-12 00:49:16,672 - INFO - sale_invoice_date register
+2026-03-12 00:49:16,673 - INFO - sale_product_customer register
+2026-03-12 00:49:16,674 - INFO - sale_promotion_coupon_payment register
+2026-03-12 00:49:16,674 - INFO - sale_stock_quantity register
+2026-03-12 00:49:16,675 - INFO - sale_supply_drop_shipment register
+2026-03-12 00:49:16,676 - INFO - account_be register
+2026-03-12 00:49:16,676 - INFO - account_es register
+2026-03-12 00:49:16,677 - INFO - account_fr register
+2026-03-12 00:49:16,678 - INFO - account_stock_landed_cost register
+2026-03-12 00:49:16,679 - INFO - purchase_shipment_cost register
+2026-03-12 00:49:16,679 - INFO - sale_secondary_unit register
+2026-03-12 00:49:16,680 - INFO - stock_lot register
+2026-03-12 00:49:16,681 - INFO - web_shop register
+2026-03-12 00:49:16,681 - INFO - account_es_sii register
+2026-03-12 00:49:16,682 - INFO - account_export_winbooks register
+2026-03-12 00:49:16,682 - INFO - account_rule register
+2026-03-12 00:49:16,683 - INFO - carrier_percentage register
+2026-03-12 00:49:16,684 - INFO - carrier_weight register
+2026-03-12 00:49:16,685 - INFO - production register
+2026-03-12 00:49:16,686 - INFO - sale_subscription_asset register
+2026-03-12 00:49:16,687 - INFO - stock_lot_sled register
+2026-03-12 00:49:16,688 - INFO - web_shop_product_data_feed register
+2026-03-12 00:49:16,689 - INFO - web_shop_vue_storefront register
+2026-03-12 00:49:16,689 - INFO - production_split register
+2026-03-12 00:49:16,690 - INFO - quality register
+2026-03-12 00:49:16,691 - INFO - stock_assign_manual register
+2026-03-12 00:49:16,692 - INFO - stock_lot_unit register
+2026-03-12 00:49:16,693 - INFO - stock_package register
+2026-03-12 00:49:16,693 - INFO - stock_product_location register
+2026-03-12 00:49:16,694 - INFO - stock_quantity_early_planning register
+2026-03-12 00:49:16,695 - INFO - stock_quantity_issue register
+2026-03-12 00:49:16,696 - INFO - stock_supply_production register
+2026-03-12 00:49:16,696 - INFO - web_shop_vue_storefront_stripe register
+2026-03-12 00:49:16,697 - INFO - production_routing register
+2026-03-12 00:49:16,698 - INFO - stock_shipment_measurements register
+2026-03-12 00:49:16,698 - INFO - account_stock_landed_cost_weight register
+2026-03-12 00:49:16,699 - INFO - account_stock_shipment_cost_weight register
+2026-03-12 00:49:16,700 - INFO - production_outsourcing register
+2026-03-12 00:49:16,701 - INFO - production_work register
+2026-03-12 00:49:16,703 - INFO - sale_supply_production register
+2026-03-12 00:49:16,705 - INFO - stock_package_shipping register
+2026-03-12 00:49:16,706 - INFO - stock_shipment_cost_weight register
+2026-03-12 00:49:16,708 - INFO - stock_shipping_point register
+2026-03-12 00:49:16,710 - INFO - incoterm register
+2026-03-12 00:49:16,710 - INFO - production_work_timesheet register
+2026-03-12 00:49:16,711 - INFO - stock_package_shipping_mygls register
+2026-03-12 00:49:16,712 - INFO - web_shop_shopify register
+2026-03-12 00:49:16,713 - INFO - carrier_carriage register
+2026-03-12 00:49:16,713 - INFO - stock_shipment_customs register
+2026-03-12 00:49:16,714 - INFO - account_stock_eu register
+2026-03-12 00:49:16,715 - INFO - carrier_subdivision register
+2026-03-12 00:49:16,716 - INFO - stock_package_shipping_dpd register
+2026-03-12 00:49:16,716 - INFO - stock_package_shipping_sendcloud register
+2026-03-12 00:49:16,717 - INFO - stock_package_shipping_ups register
+2026-03-12 00:49:16,719 - INFO - init pool for "tryton"
+2026-03-12 00:49:16,734 - INFO - connection to "tryton" succeeded
+2026-03-12 00:49:16,845 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:16,845 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:16,856 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:16,856 - INFO - ir load
+2026-03-12 00:49:16,856 - INFO - res load
+2026-03-12 00:49:16,856 - INFO - country load
+2026-03-12 00:49:16,858 - INFO - currency load
+2026-03-12 00:49:16,863 - INFO - dashboard load
+2026-03-12 00:49:16,864 - INFO - marketing load
+2026-03-12 00:49:16,865 - INFO - party load
+2026-03-12 00:49:16,908 - INFO - bank load
+2026-03-12 00:49:17,111 - INFO - company load
+2026-03-12 00:49:17,132 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,132 - INFO - party_relationship load
+2026-03-12 00:49:17,133 - INFO - account load
+2026-03-12 00:49:17,208 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,208 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,208 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,208 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,208 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,208 - INFO - company_work_time load
+2026-03-12 00:49:17,209 - INFO - party_avatar load
+2026-03-12 00:49:17,210 - INFO - party_siret load
+2026-03-12 00:49:17,211 - INFO - product load
+2026-03-12 00:49:17,214 - INFO - account_product load
+2026-03-12 00:49:17,215 - INFO - carrier load
+2026-03-12 00:49:17,216 - INFO - product_image load
+2026-03-12 00:49:17,217 - INFO - product_price_list load
+2026-03-12 00:49:17,218 - INFO - stock load
+2026-03-12 00:49:17,242 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,242 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,242 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,242 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,243 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,243 - INFO - timesheet load
+2026-03-12 00:49:17,248 - INFO - account_invoice load
+2026-03-12 00:49:17,260 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,260 - INFO - product_measurements load
+2026-03-12 00:49:17,261 - INFO - project load
+2026-03-12 00:49:17,262 - INFO - stock_lot load
+2026-03-12 00:49:17,267 - INFO - stock_shipment_cost load
+2026-03-12 00:49:17,270 - INFO - account_eu load
+2026-03-12 00:49:17,272 - INFO - account_fr load
+2026-03-12 00:49:17,274 - INFO - account_fr_chorus load
+2026-03-12 00:49:17,297 - INFO - account_invoice_stock load
+2026-03-12 00:49:17,298 - INFO - account_statement load
+2026-03-12 00:49:17,301 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,301 - INFO - production load
+2026-03-12 00:49:17,306 - INFO - account_payment load
+2026-03-12 00:49:17,309 - INFO - purchase load
+2026-03-12 00:49:17,316 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,316 - INFO - sale load
+2026-03-12 00:49:17,323 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,323 - INFO - account_payment_sepa load
+2026-03-12 00:49:17,327 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,327 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:17,327 - INFO - product_attribute load
+2026-03-12 00:49:17,328 - INFO - purchase_request load
+2026-03-12 00:49:17,329 - INFO - sale_shipment_cost load
+2026-03-12 00:49:17,331 - INFO - account_payment_sepa_cfonb load
+2026-03-12 00:49:17,332 - INFO - incoterm load
+2026-03-12 00:49:17,335 - INFO - stock_supply load
+2026-03-12 00:49:17,337 - INFO - stock_supply_production load
+2026-03-12 00:49:17,338 - INFO - production_routing load
+2026-03-12 00:49:17,339 - INFO - production_work load
+2026-03-12 00:49:17,341 - INFO - setup pool for "tryton"
+2026-03-12 00:49:18,206 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,209 - INFO - all modules loaded
+2026-03-12 00:49:18,227 - INFO - init pool for "tryton"
+2026-03-12 00:49:18,229 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,230 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,230 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,230 - INFO - ir load
+2026-03-12 00:49:18,230 - INFO - res load
+2026-03-12 00:49:18,230 - INFO - country load
+2026-03-12 00:49:18,230 - INFO - currency load
+2026-03-12 00:49:18,230 - INFO - dashboard load
+2026-03-12 00:49:18,230 - INFO - marketing load
+2026-03-12 00:49:18,231 - INFO - party load
+2026-03-12 00:49:18,231 - INFO - bank load
+2026-03-12 00:49:18,231 - INFO - company load
+2026-03-12 00:49:18,232 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,232 - INFO - party_relationship load
+2026-03-12 00:49:18,232 - INFO - account load
+2026-03-12 00:49:18,233 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,233 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,233 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,233 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,233 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,233 - INFO - company_work_time load
+2026-03-12 00:49:18,233 - INFO - party_avatar load
+2026-03-12 00:49:18,234 - INFO - party_siret load
+2026-03-12 00:49:18,234 - INFO - product load
+2026-03-12 00:49:18,234 - INFO - account_product load
+2026-03-12 00:49:18,235 - INFO - carrier load
+2026-03-12 00:49:18,235 - INFO - product_image load
+2026-03-12 00:49:18,235 - INFO - product_price_list load
+2026-03-12 00:49:18,235 - INFO - stock load
+2026-03-12 00:49:18,236 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,236 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,237 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,237 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,237 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,237 - INFO - timesheet load
+2026-03-12 00:49:18,237 - INFO - account_invoice load
+2026-03-12 00:49:18,238 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,238 - INFO - product_measurements load
+2026-03-12 00:49:18,239 - INFO - project load
+2026-03-12 00:49:18,239 - INFO - stock_lot load
+2026-03-12 00:49:18,239 - INFO - stock_shipment_cost load
+2026-03-12 00:49:18,240 - INFO - account_eu load
+2026-03-12 00:49:18,240 - INFO - account_fr load
+2026-03-12 00:49:18,240 - INFO - account_fr_chorus load
+2026-03-12 00:49:18,240 - INFO - account_invoice_stock load
+2026-03-12 00:49:18,241 - INFO - account_statement load
+2026-03-12 00:49:18,241 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,241 - INFO - production load
+2026-03-12 00:49:18,242 - INFO - account_payment load
+2026-03-12 00:49:18,243 - INFO - purchase load
+2026-03-12 00:49:18,243 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,243 - INFO - sale load
+2026-03-12 00:49:18,245 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,245 - INFO - account_payment_sepa load
+2026-03-12 00:49:18,245 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,245 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:18,245 - INFO - product_attribute load
+2026-03-12 00:49:18,246 - INFO - purchase_request load
+2026-03-12 00:49:18,246 - INFO - sale_shipment_cost load
+2026-03-12 00:49:18,247 - INFO - account_payment_sepa_cfonb load
+2026-03-12 00:49:18,247 - INFO - incoterm load
+2026-03-12 00:49:18,247 - INFO - stock_supply load
+2026-03-12 00:49:18,248 - INFO - stock_supply_production load
+2026-03-12 00:49:18,248 - INFO - production_routing load
+2026-03-12 00:49:18,248 - INFO - production_work load
+2026-03-12 00:49:18,249 - INFO - setup pool for "tryton"
+2026-03-12 00:49:19,065 - INFO - setup mixin for "tryton"
+2026-03-12 00:49:19,068 - INFO - all modules loaded
+2026-03-12 00:49:19,071 - INFO - --- CONEXIÓN EXITOSA ---
+2026-03-12 00:49:19,071 - INFO - --- ESCANEANDO MÓDULOS Y ASISTENTES ---
+2026-03-12 00:49:19,286 - INFO - --- FASE DE CONFIGURACIÓN ---
+2026-03-12 00:49:19,287 - INFO - Datos obtenidos del archivo: /tmp/trytond_setup.conf
+2026-03-12 00:49:19,287 - INFO - CONFIGURACIÓN ACTIVA -> Empresa: Telepieza | Moneda: EUR
+2026-03-12 00:49:19,287 - INFO - --- ESCANEANDO MÓDULOS Y ASISTENTES ---
+2026-03-12 00:49:19,529 - INFO - Empresa Telepieza ya existe.
+2026-03-12 00:49:19,530 - INFO - IVA España omitido: módulo account_es no activo.
+2026-03-12 00:49:19,530 - INFO - === SETUP COMPLETADO EXITOSAMENTE ===
+2026-03-12 00:49:19,530 - INFO - --- FASE TAX FINALIZADA ---

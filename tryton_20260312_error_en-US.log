@@ -1,0 +1,6 @@
+postgres-1  | ..2026-03-12 00:29:20.431 UTC [73] FATAL:  the database system is shutting down
+postgres-1  | 2026-03-12 00:29:31.483 UTC [96] FATAL:  role "admin" does not exist
+postgres-1  | 2026-03-12 00:29:42.341 UTC [107] FATAL:  role "admin" does not exist
+server-1  | 37 137842880794688 [2026-03-12 00:29:28,486] INFO trytond.modules ir register ir.error
+server-1  | 37 137842880794688 [2026-03-12 00:29:33,400] INFO trytond.modules ir load error.xml
+server-1  | 37 137842880794688 [2026-03-12 00:29:34,366] INFO trytond.modules update index for ir.error
