@@ -32,13 +32,26 @@ if not exist "%DIR_LOG%" mkdir "%DIR_LOG%"
 if not exist "%DIR_TMP%" mkdir "%DIR_TMP%"
 
 if /i "!ins_lang_action!"=="%INS%" (
+  set "iso_lang="
   set "iso_code=!TRYTON_LANGUAGE!"
-  if /i "!iso_code!"=="es" set "iso_code=ES"
-  if /i "!iso_code!"=="fr" set "iso_code=FR"
-  if /i "!iso_code!"=="de" set "iso_code=DE"
   set "ACCION=GEO"
-  call :head_modules_lang
-  goto :language_modules_country
+  if /i "!iso_code!"=="es" (
+    set "iso_code=ES"  
+    set "iso_lang=1"
+  )
+  if /i "!iso_code!"=="fr" (
+    set "iso_code=FR" 
+    set "iso_lang=1"
+  )
+  if /i "!iso_code!"=="de" (
+    set "iso_code=DE" 
+    set "iso_lang=1"
+  )
+  if defined iso_lang (
+    call :head_modules_lang
+    call :language_modules_country
+  )
+  exit /b
 )
 
 :menu_trytond_lang

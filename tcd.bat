@@ -236,8 +236,6 @@ set "action_ins=%INS%"
   call :logger "%TXT%" "!START_MSG! !MENU_TRYDOCK! !MENU-OPTION_MAIN!"
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "timeout_start" "!wait_time!" "1" "N"
 
-  :: call "%DIR_SCRIPT%install_accounts.bat" "%proyecto%" "%INS%"
-
 :menu
   cls
   :: Banner
@@ -439,9 +437,10 @@ exit /b
 
 :check_configuration
   set "confirm="
-  set "language_name=!WORD_SPAIN!"
-  if /i "!TRYTON_LANGUAGE!"=="fr" set "language_name=!WORD_FRACE!" 
+  set "language_name=!TRYTON_LANGUAGE!"
+  if /i "!TRYTON_LANGUAGE!"=="fr" set "language_name=!WORD_FRANCE!" 
   if /i "!TRYTON_LANGUAGE!"=="de" set "language_name=!WORD_GERMANY!" 
+  if /i "!TRYTON_LANGUAGE!"=="es" set "language_name=!WORD_SPAIN!"
   set "db_uri_menu=postgresql://%POSTGRES%:%DB_PASSWORD%@%DB_HOSTNAME%:%DB_PORT%/"
   echo    ==============================================================
      call :logger "%MENU%" "!INSTALL_MODU_HEAD02! %DB_NAME%" "8"

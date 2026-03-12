@@ -117,8 +117,9 @@ docker exec -t ^
     echo [!DATE!] [!TIME!] [!ACCION!]  >> "%logger_tmp%"
     type "%temp_file%" >> "%logger_tmp%"
     docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_proteus.txt >nul
-    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1" "N"
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timepyt10%" "1" "N"
   )
+
 :: Recuperar datos reales de IVA (account_tax) por empresa
 set "COMPANY_NAME_SQL=!CURRENT_COMPANY_NAME:'=''!"
 set "COMPANY_ID="
