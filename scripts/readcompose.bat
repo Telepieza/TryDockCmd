@@ -19,10 +19,10 @@ set "LOAD_FILE=0"
 call "%DIR_SCRIPT%startcontrol.bat" "%~1"
 call :logger "%APP%" "readcompose"
 :: controla si existe read-compose.ps1
-call :logger "%CHECK%" "[1/4] !LOG_INFO_SEARCH! !%DIR_HOME%%READ_FILEPS1%!"
+call :logger "%CHECK%" "[1/4] !LOG_INFO_SEARCH! %DIR_HOME%%READ_FILEPS1%"
 if not exist "%DIR_HOME%%READ_FILEPS1%" set "LOAD_FILE=1"
 :: controla si existe compose.yml
-call :logger "%CHECK%" "[2/4] !LOG_INFO_SEARCH! !%DIR_HOME%%COMPOSE_FILE%!"
+call :logger "%CHECK%" "[2/4] !LOG_INFO_SEARCH! %DIR_HOME%%COMPOSE_FILE%"
 if not exist "%DIR_HOME%%COMPOSE_FILE%" if "%LOAD_FILE%"=="0" set "LOAD_FILE=2"
 :: Falta controlar pwsh es powerShell 7+ Intruccion : pwsh -NoProfile -ExecutionPolicy Bypass -File %DIR_HOME%%READ_FILEPS1%
 :: controla si existe el programa powershell.exe
@@ -34,7 +34,7 @@ if "%LOAD_FILE%"=="0" (
 :: existen errores no es posible realizar la lectura con poweshell
 if "%LOAD_FILE%" NEQ "0" goto :continue
 :: Primera lectura para ver si existen errores
-call :logger "%CHECK%" "[4/4] !LOG_INFO_DATA! powershell.exe !%DIR_HOME%%READ_FILEPS1%!"
+call :logger "%CHECK%" "[4/4] !LOG_INFO_DATA! powershell.exe %DIR_HOME%%READ_FILEPS1%"
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%DIR_HOME%%READ_FILEPS1%" >nul 2>&1
 if %errorlevel% NEQ 0 (
   set "LOAD_FILE=4"

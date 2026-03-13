@@ -276,7 +276,7 @@ set "action_ins=%INS%"
   if /i "%option%"=="q" goto :exit
   :: Si no es ninguna de las anteriores
   set "MESSAGE=%option% %LOG_ERR_OPT%"
-  call :logger "!LOG-WARK!" "!MESSAGE!"
+  call :logger "!LOG-WARN!" "!MESSAGE!"
   pause & goto :menu
 
 :install
@@ -298,7 +298,7 @@ set "action_ins=%INS%"
   call :check_configuration
   if "!LOAD_FILE!"=="1" goto :exit
   :: action_ins = APP o INS
-  call %DIR_SCRIPT%install.bat "%TRYTON%" "%action_ins%"
+  call "%DIR_SCRIPT%install.bat" "%TRYTON%" "%action_ins%"
   :: Error o cancel en install
   if %errorlevel% neq 0 goto :menu
   :: No ha localizado la version
@@ -418,7 +418,7 @@ exit /b
   set "LOAD_FILE=0"
   exit /b
 
-:check_file_ps1q
+:check_file_ps1
   call "%DIR_SCRIPT%banner.bat"  "%TRYTON%"
   set "msg_cont=!WORD_ROUTE! %DIR_HOME%%READ_FILEPS1%"
   set "msg_conc=!WORD_ROUTE! %DIR_HOME%%COMPOSE_FILE%"
@@ -475,7 +475,7 @@ exit /b
     set "MESSAGE=!EXIT_MSG!"
   ) else (
     set "MESSAGE=Finalizing session. Thank you for using Tryton Manager."
-    set "MESSEGE=%MESSEGE% Finalizando sesión. Gracias por utilizar Tryton Docker Manager."
+    set "MESSAGE=%MESSAGE% Finalizando sesión. Gracias por utilizar Tryton Docker Manager."
   )
   call "%DIR_SCRIPT%cycletime.bat" "%TIM%" "%time%"
   set "ftime_fmt=%fmt_hhmmss%"

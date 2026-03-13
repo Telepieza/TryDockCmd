@@ -95,7 +95,7 @@ Tareas implementadas:
 - Activación de idiomas y asignación de idioma a admin.
 - Vinculación contable por localización.
 - Ejercicios fiscales (2026 al 2030), periodos y secuencias.
-- Países, subdivisiones y códigos postal
+- Países, subdivisiones y códigos postales.
 
 ## Configuración
 

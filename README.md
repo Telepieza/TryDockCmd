@@ -2,12 +2,12 @@
 
 An intuitive, menu-driven automation framework to deploy, manage, and protect your **Tryton ERP** environment on Windows with Docker.
 This suite transforms complex Docker orchestration into a reliable, audited, and resilient infrastructure.
-This project simplifies ERP maintenance, making it easy, secure, and users, professional for administrators and developers.
+This project simplifies ERP maintenance, making it easy, secure, and professional for users, administrators and developers.
 
 The true "magic" lies in the integration of Proteus (Python API), which acts as the system's brain. Once the infrastructure is live, the TryDockCmd takes control to:
 
 - **Automated Post-Installation:** It completes all configuration Wizards (Company, Currency, Users) without human intervention.
-- **Instant Fiscal Engineering:** Automatically creates fiscal years (2026-2028), invoicing sequences, and monthly accounting periods.
+- **Instant Fiscal Engineering:** Automatically creates fiscal years (2026-2030), invoicing sequences, and monthly accounting periods.
 - **Dynamic Localization:** Activates and synchronizes languages ​​(es, fr, de), countries, subdivisions, postal codes, and links specific accounting charts according to the selected legislation.
 - **Dual-Environment Ready:** Delivers a clean production database tryton and a tryton_demo instance with real data in record time.
 

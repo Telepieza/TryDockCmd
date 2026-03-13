@@ -17,7 +17,7 @@ TryDockCmd es una capa de operaciones para Tryton ERP en Docker, en el sistema o
 The system includes a Python Proteus Brain (auto_full_setup.py) that bypasses hours of manual configuration:
 
 1. **Auto-Identity:** Hot-reads company info from trytond.conf.
-2. **Fiscal Engineering:** Automatically generates Fiscal Years (2026-28), Periods, and Sequences.
+2. **Fiscal Engineering:** Automatically generates Fiscal Years (2026-2030), Periods, and Sequences.
 3. **Smart Localization:** Auto-activates es, fr, or de and links accounting charts.
 4. **Wizard Mastery:** Completes all post-install assistants via API.
 5. **Install Tryton countries** Imported from /trytond/modules/country/scripts/import_countries.py. Extract information from the Python library pycountry standards 3166-1

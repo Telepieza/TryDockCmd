@@ -17,6 +17,7 @@ from decimal import Decimal
 import proteus
 # Añadimos p_config como alias para que coincida con la subrutina
 from proteus import config as p_config, Model, Wizard 
+import trytond.modules
 from trytond.config import config as trytond_config
 from trytond.pool import Pool
 
@@ -233,7 +234,7 @@ msg = MESSAGES.get(requested_lang, MESSAGES['en'])
 # -------------------------------------------------
 def run_geodata_import(database, config_file, iso_code):
     logging.info(msg['geo_start'].format(iso_code))
-    base_mod = os.environ.get('TRYTON_BASE_MODULE', '/usr/local/lib/python3.11/dist-packages/trytond/modules')
+    base_mod = os.environ.get('TRYTON_BASE_MODULE', os.path.dirname(trytond.modules.__file__))
     scripts_path = f"{base_mod}/country/scripts"
     iso_up = iso_code.upper()
     try:
@@ -378,7 +379,7 @@ def ensure_currency_available(currency_code, db_name=None, config_file=None):
     if currencies:
         return currencies[0]
     if db_name and config_file:
-        base_mod = os.environ.get('TRYTON_BASE_MODULE', '/usr/local/lib/python3.11/dist-packages/trytond/modules')
+        base_mod = os.environ.get('TRYTON_BASE_MODULE', os.path.dirname(trytond.modules.__file__))
         import_script = f"{base_mod}/currency/scripts/import_currencies.py"
         if os.path.exists(import_script):
             try:

@@ -157,7 +157,7 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
   set "MESSAGE=!BCK_RUN_DUMP:CONTENEDOR=%msg_cont%!"
   call :logger "!log_action!" "!MESSAGE!"
   :: Usamos el nombre del servicio definido en el YAML (tryton-postgres), utilizando el comando pg_dumpall
-  if exist %file_err% del %file_err% >nul
+  if exist "%file_err%" del "%file_err%" >nul
   set "file_sql=%destino%\tryton_%DB_HOSTNAME%_dumpall.sql"
   docker exec "%CURRENT_POSTGRES%" pg_dumpall -U "%DB_HOSTNAME%" >"%file_sql%" 2>"%file_err%"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
@@ -271,7 +271,7 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
 :check_database
   set "database=%~1"
   set "numer=%~2"
-  if exist %file_tmp% del %file_tmp% >nul
+  if exist "%file_tmp%" del "%file_tmp%" >nul
   set "DB_ERROR=0"
   set "DB_TRY=0"
   set "DB_TDE=0"

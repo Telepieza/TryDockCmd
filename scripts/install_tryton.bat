@@ -428,9 +428,9 @@ pause & goto :menu_trytond
       call :logger "%MENU%" "[+]  !znum!.-!LS!" "3"
     )
     set /a znum+=1
-    call :logger "%MENU%" "[+]  !%znum!.-!INSTALL_MODU_HEAD34!" "3"
+    call :logger "%MENU%" "[+]  !znum!.-!INSTALL_MODU_HEAD34!" "3"
     set /a znum+=1
-    call :logger "%MENU%" "[+] !%znum!.-!INSTALL_MODU_HEAD18!" "3"
+    call :logger "%MENU%" "[+] !znum!.-!INSTALL_MODU_HEAD18!" "3"
     set /a znum+=1
     call :logger "%MENU%" "[+] !znum!.-!INSTALL_MODU_HEAD19!" "3"
     set /a znum+=1
