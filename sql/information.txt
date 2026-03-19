@@ -1,0 +1,5 @@
+https://www.tryton.org/~demo/
+https://downloads.tryton.org/7.8/
+https://downloads.tryton.org/docker/
+https://downloads.tryton.org/signify/
+https://downloads.tryton.org/geonames/index.html%3FC=S%3BO=A.html
