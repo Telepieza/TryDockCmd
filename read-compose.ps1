@@ -1,3 +1,13 @@
+# ===============================================================================
+# PROGRAM:   read-compose.ps1
+# PROJECT:   Tryton Docker Manager
+# AUTHOR:    [https://www.telepieza.com - Gemini (Google AI)]
+# COLLABORATOR: Gemini (Google AI)
+# VERSION:   1.0.0
+# DATE:      23/03/2026
+# LICENSE:   MIT License
+# DESCRIPTION: Tryton Docker Manager (powershell)
+# ==============================================================================
 $ErrorActionPreference = "Stop"
 try {
   $cfg = docker compose config --format json | ConvertFrom-Json

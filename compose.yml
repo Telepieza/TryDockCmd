@@ -39,7 +39,6 @@ services:
       - POSTGRES_DB=${DB_NAME:-tryton}
     volumes:
       - "postgres-data:/var/lib/postgresql"
-
 volumes:
   postgres-data:
   tryton-data:

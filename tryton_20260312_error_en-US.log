@@ -1,3 +1,12 @@
+# ===============================================================================
+# PROJECT:   Tryton Docker Manager
+# AUTHOR:    [https://www.telepieza.com - Gemini (Google AI)]
+# COLLABORATOR: Gemini (Google AI)
+# VERSION:   1.0.0
+# DATE:      23/03/2026
+# LICENSE:   MIT License
+# DESCRIPTION: logger ERROR en-US 2026/03/12
+# ==============================================================================
 postgres-1  | ..2026-03-12 00:29:20.431 UTC [73] FATAL:  the database system is shutting down
 postgres-1  | 2026-03-12 00:29:31.483 UTC [96] FATAL:  role "admin" does not exist
 postgres-1  | 2026-03-12 00:29:42.341 UTC [107] FATAL:  role "admin" does not exist

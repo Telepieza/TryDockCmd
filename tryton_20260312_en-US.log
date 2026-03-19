@@ -1,3 +1,12 @@
+# ===============================================================================
+# PROJECT:   Tryton Docker Manager
+# AUTHOR:    [https://www.telepieza.com - Gemini (Google AI)]
+# COLLABORATOR: Gemini (Google AI)
+# VERSION:   1.0.0
+# DATE:      23/03/2026
+# LICENSE:   MIT License
+# DESCRIPTION: logger en-US 2026/03/12
+# ==============================================================================
 [12/03/2026  1:27:47,55] [APP] tcd
 [12/03/2026  1:27:47,91] [TXT] [+] 1.-Lenguaje APP : es-ES ROUTE: D:\ERP\tryton\TryDockCmd\lang\es-ES.txt
 [12/03/2026  1:27:48,44] [TXT] [+] 2.-Procesando fichero: .env. Ruta: D:\ERP\tryton\TryDockCmd\.env
