@@ -2,10 +2,10 @@
 :: ===============================================================================
 :: PROGRAM:   install.tryton.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR:    [https://www.telepieza.com
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install trytond tryton 
 :: ==============================================================================

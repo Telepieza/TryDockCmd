@@ -2,10 +2,10 @@
 :: =======================================================================================================================
 :: PROGRAM:   startcontrol.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Security verification (Prevent direct execution). -Verificación de seguridad (Evitar ejecución directa)
 :: =======================================================================================================================
@@ -32,7 +32,5 @@ if "%~1"=="" (
     endlocal
     exit
 )
-:: 2. Salida normal
-:: El exit /b 0 . La llamada es desde el tcd.bat
 endlocal
 exit /b 0

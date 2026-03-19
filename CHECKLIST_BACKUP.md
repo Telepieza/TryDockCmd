@@ -31,3 +31,17 @@ Purpose: Ensure the backup is complete, consistent, and safe to restore.
 - Full restore (options 1-2) expects `*_dumpall.sql` and `trytond/` inside the ZIP.
 - Schema/Data/Full DB restore expects the matching SQL files by name.
 - If demo DB is backed up, restore will attempt it when its file exists.
+  
+---
+
+- **Autor:** [https://www.telepieza.com]
+- **Colaborador:** Gemini (Google AI)
+- **Plataforma:** Windows (CMD/Batch)
+- **Motor:** Docker & Docker Compose
+- **Licencia:** MIT  
+- **Versión del proyecto** v1.0.0 estable
+  
+---
+
+##### Optimizado y documentado con la ayuda de Gemini (Google AI)
+

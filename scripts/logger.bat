@@ -2,10 +2,10 @@
 ::===============================================================================
 :: PROGRAM:   logger.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: View Service Activity - Visualizar la actividad (LOGS)
 :: ==============================================================================

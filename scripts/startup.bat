@@ -2,10 +2,10 @@
 :: ==============================================================================
 :: PROGRAM:   startup.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Power On containers - Arrancar los contenedores (START) 
 :: ==============================================================================
@@ -67,7 +67,6 @@ if /i not "!confirm!"=="YES" (
 )
 
 :continue
-  echo.
   call :up_services "%POSTGRES%"
   if /i "%LOAD_FILE%" GTR 0 set "exist_postgres=1"
   if /i "%up_action%" NEQ "%SQL%" (
@@ -164,22 +163,18 @@ if /i not "!confirm!"=="YES" (
   call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"
   exit /b
 
-:: Status stop
 :container_stop
   endlocal
   exit /b 4
 
-:: Status stop
 :status_stop
   endlocal
   exit /b 2
 
-:: DDBB admite conexiones y contenedores arrancados
 :error_connection
   endlocal
   exit /b 3
 
-:: Todo es OK
 :exit
   endlocal
   exit /b 0

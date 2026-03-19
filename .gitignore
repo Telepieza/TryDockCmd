@@ -1,7 +1,9 @@
 /backup
+/restore
 /log
 /tmp
 /test
 /doc
 /config/.passwd
 /python/__pycache__
+.vscode

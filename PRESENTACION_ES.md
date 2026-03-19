@@ -3,7 +3,7 @@
 ## 1. FILOSOFÍA Y VISIÓN DEL PROYECTO
 TryDockCmd no es solo un instalador; es una solución de ingeniería diseñada para democratizar el acceso a Tryton ERP, el sistema más sólido y ético del mercado.
 
-* **Legado Histórico:** Nacido en 2008 como un fork de TinyERP (Odoo), Tryton mantiene la integridad técnica frente al modelo comercial.
+* **Legado Histórico:** Nacido en 2008 como un fork de TinyERP (Odoo), Tryton mantiene la integridad técnica frente al modelo comercial. Software libre (LGPLv3).
 * **Soberanía del Software:** 100% Software Libre bajo licencia GPL. Sin versiones "Enterprise" ni funciones bloqueadas.
 * **Misión:** Reducir la barrera de entrada técnica de días a menos de 30 minutos mediante automatización atómica.
 
@@ -60,3 +60,17 @@ Hemos encapsulado la complejidad en una interfaz sencilla de comandos:
 
 ## 6. CONCLUSIÓN
 TryDockCmd convierte un "arte oscuro" en un proceso científico, repetible e impecable. Es la herramienta definitiva para consultores, desarrolladores y empresas que buscan la potencia de un ERP de clase mundial con la agilidad de la era Docker.
+
+---
+
+- **Autor:** [https://www.telepieza.com]
+- **Colaborador:** Gemini (Google AI)
+- **Plataforma:** Windows (CMD/Batch)
+- **Motor:** Docker & Docker Compose
+- **Licencia:** MIT  
+- **Versión del proyecto** v1.0.0 estable
+
+---
+
+##### Optimizado y documentado con la ayuda de Gemini (Google AI)
+

@@ -63,7 +63,7 @@ tcd.bat
 
 ---
 
-- **Autor:** [Telepieza - Mariano Vallespín]
+- **Autor:** [https://www.telepieza.com]
 - **Colaborador:** Gemini (Google AI)
 - **Plataforma:** Windows (CMD/Batch)
 - **Motor:** Docker & Docker Compose

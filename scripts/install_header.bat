@@ -2,10 +2,10 @@
 :: ===============================================================================
 :: PROGRAM:   install.header.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install header tryton
 :: ==============================================================================
@@ -96,7 +96,6 @@ exit /b 0
   if /i "!MESSAGE!" NEQ "" call :logger "!LOG-ERROR!" "!MESSAGE!"
   pause & exit /b 2
 
-:: 5.- Llamar al programa de mensajes si hay problemas 
 :logger
   call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"
   exit /b

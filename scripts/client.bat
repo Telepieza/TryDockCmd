@@ -2,10 +2,10 @@
 :: =====================================================================================
 :: PROGRAM:   client.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Check http://localhost:8000
 :: =====================================================================================
@@ -114,17 +114,14 @@ call :logger "!log_action!" "!MESSAGE!"
   goto :exit
 
 :error
- :: Devolvemos el control al tcd
   endlocal
   exit /b 2
 
 :logger
   call "%DIR_SCRIPT%message.bat" "%~1" "%~2"
   exit /b
-:: Status stop
 
 :exit
-  :: Devolvemos el control al tcd
   endlocal
   exit /b 0
 

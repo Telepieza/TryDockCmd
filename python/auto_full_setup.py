@@ -2,7 +2,7 @@
 # PROGRAM:   auto_full_setup.py
 # PROJECT:   Tryton Docker Manager
 # VERSION:   1.0.0
-# DATE:      01/03/2026
+# DATE:      23/03/2026
 # LICENSE:   MIT License
 # DESCRIPTION: Enlace TryDockCmd con proteus
 # ==============================================================================

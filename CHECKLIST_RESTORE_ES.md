@@ -32,3 +32,16 @@ Objetivo: Asegurar una restauración limpia, determinista y segura.
 - Nunca restaurar en el entorno equivocado.
 - Usar siempre un ZIP verificado.
 - Si falla un comando, detener y analizar antes de repetir.
+
+---
+
+- **Autor:** [https://www.telepieza.com]
+- **Colaborador:** Gemini (Google AI)
+- **Plataforma:** Windows (CMD/Batch)
+- **Motor:** Docker & Docker Compose
+- **Licencia:** MIT  
+- **Versión del proyecto** v1.0.0 estable
+  
+---
+
+##### Optimizado y documentado con la ayuda de Gemini (Google AI)

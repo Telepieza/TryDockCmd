@@ -44,7 +44,7 @@ graph TD
 ### 👨‍💻 Behind the Code
 
 ---
-- __Author:__ [Telepieza - Mariano Vallespín]
+- __Author:__ [https://www.telepieza.com]
 - __Collaborator:__ Gemini (Google AI)
 - __Platform:__ Windows (CMD/Batch)
 - __Engine:__ Docker & Docker Compose

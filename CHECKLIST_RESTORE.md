@@ -32,3 +32,16 @@ Purpose: Ensure the restore is clean, deterministic, and safe.
 - Never restore into the wrong environment.
 - Always use a known?good ZIP.
 - If any command fails, stop and investigate before retrying.
+
+---
+
+- **Autor:** [https://www.telepieza.com]
+- **Colaborador:** Gemini (Google AI)
+- **Plataforma:** Windows (CMD/Batch)
+- **Motor:** Docker & Docker Compose
+- **Licencia:** MIT  
+- **Versión del proyecto** v1.0.0 estable
+  
+---
+
+##### Optimizado y documentado con la ayuda de Gemini (Google AI)

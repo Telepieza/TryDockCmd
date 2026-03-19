@@ -2,10 +2,10 @@
 :: ===============================================================================
 :: PROGRAM:   readcompose.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: read compose.yml
 :: ==============================================================================
@@ -108,7 +108,6 @@ if %errorlevel% NEQ 0 (
     set "POSTGRES_IMAGE_VERSION=%POSTGRES_VERSION%"
     call :logger "%CHECK%" "%LOG_INFO_POSTGRES_VERSION% %TRYTON% %POSTGRES_IMAGE_VERSION%"
   )
-  :: el programa tcd.bat se encarga de controlar el LOAD_FILE neq 0, dando opción al usuario de continuar.
   call :logger "%CHECK%" "readcompose: !LOG_INFO_PROCES!"
   exit /b
 

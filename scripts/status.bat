@@ -2,10 +2,10 @@
 :: =====================================================================================
 :: PROGRAM:   status.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Check containers and images - Comprobar imágenes y contenedores (STATUS)
 :: =====================================================================================
@@ -54,7 +54,7 @@ if /i "%est_action%" EQU "%SQL%" (
 ) 
 :: Indicar que solo deseamos visualizar los Contenedores, servicios y state
 if /i "%est_action%" == "%SEE%" echo. & goto :exit
-::   Comprobar si la base de datos admite conexiones.
+:: Comprobar si la base de datos admite conexiones.
 if /i "%CURRENT_POSTGRES%"=="" set "CURRENT_POSTGRES=%TRYTON_POSTGRES%-1"
 if /i "%CURRENT_TRYTON%"=="" set "CURRENT_TRYTON=%TRYTON%-%SERVER%-1"
 if /i "%CURRENT_CRON%"=="" set "CURRENT_CRON=%TRYTON%-%CRON%-1"
@@ -81,7 +81,6 @@ goto :exit
   if /i "%service%" equ "%CRON%" set "msg_cont=%CURRENT_CRON% - !WORD_SERVICE!: %service%"
   if /i "%service%" equ "%SERVER%" set "msg_cont=%CURRENT_TRYTON% - !WORD_SERVICE!: %service%" 
   set "MESSAGE=!STAT_ACTIVE_2:PROYECTO=%msg_cont%!"
-    :: tiempo para recuperar el servicio
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps "%service%" | findstr /I "Up" >nul
   if %errorlevel% neq 0 (
     set "MESSAGE=!STAT_STOPPED_2:PROYECTO=%msg_cont%!"
@@ -92,7 +91,6 @@ goto :exit
 
 :connect_postgres
     set "service=%~1"
-  :: Comprobando si la DB postgres acepta conexiones
     set "msg_cont=%CURRENT_POSTGRES% - !WORD_SERVICE!: %service%" 
     set "MESSAGE=!UP_CONNECT_DB:PROYECTO=%msg_cont%!"
     docker exec "%CURRENT_POSTGRES%" pg_isready -U "%DB_USER%" >nul 2>&1
@@ -106,17 +104,15 @@ goto :exit
 :logger
   call "%DIR_SCRIPT%message.bat" "%~1" "%~2"
   exit /b
-:: Status stop
+
 :status_stop
   endlocal
   exit /b 2
 
-:: DDBB admite conexiones y contenedores arrancados
 :error_connection
   endlocal
   exit /b 3
 
 :exit
-  :: Devolvemos el control al tcd
   endlocal
   exit /b 0

@@ -2,10 +2,10 @@
 :: =====================================================================================
 :: PROGRAM:   checkversion.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Check version (STATUS)
 :: =====================================================================================
@@ -83,5 +83,4 @@ if /i "!CURRENT_VER_MENU!" NEQ "%LATEST%" (
   exit /b
 
 :exit
-  :: Devolvemos el control al tcd
   exit /b 0

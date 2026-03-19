@@ -2,10 +2,10 @@
 :: ===============================================================================
 :: PROGRAM:   backup.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Database Hot-Export - Exportar imágenes y Base de datos (BACKUP)
 :: ==============================================================================
@@ -33,8 +33,8 @@ if /i "%back_action%"=="%INS%"  (
   goto :continue
 )
 :: mensajes visualizados en consola
-set "MESSAGE=!BCK_PROCESS:PROYECTO=%MENU_TRYDOCK%!"
-call :logger "%MENU%" "[+] 1.- !MESSAGE! %TRYTON%:[%CURRENT_VER_MENU%] - [%CURRENT_PG_VERSION%]" "3"
+set "value_title=!BCK_PROCESS:PROYECTO=%MENU_TRYDOCK%! %TRYTON%:[%CURRENT_VER_MENU%] - [%CURRENT_PG_VERSION%]"
+call :logger "%MENU%" "[+] 1.- !value_title!" "3"
 set "MESSAGE=!BCK_DEST:PROYECTO=%destino%!"
 call :logger "%MENU%" "[+] 2.- !MESSAGE!" "3"
 set "MESSAGE=!BCK_CHECK:PROYECTO=%proyecto%!"
@@ -73,7 +73,6 @@ if /i "%CURRENT_POSTGRES%"=="" set "CURRENT_POSTGRES=%TRYTON_POSTGRES%-1"
 if /i "%CURRENT_TRYTON%"=="" set "CURRENT_TRYTON=%TRYTON%-%SERVER%-1"
 if /i "%CURRENT_VER_MENU%"=="" set "CURRENT_VER_MENU=%TRYTON-VERSION%"
 if /i "%CURRENT_PG_VERSION%"=="" set "CURRENT_PG_VERSION=%POSTGRES-VERSION%"
-
 if "!DB_NAME!"=="" set "DB_NAME=%TRYTON%"
 if /i "!TRYTON_DB_DEMO!"=="" set "TRYTON_DB_DEMO=%DB_NAME_DEMO%"
 if /i "%DB_NAME_DEMO%" NEQ "%TRYTON_DB_DEMO%" set "DB_NAME_DEMO=%TRYTON_DB_DEMO%"
@@ -211,7 +210,7 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
   if "%contdown%"=="1" (
     call :logger "!log_action!" "!BCK_RESTORE_STATE!"
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
-    call "%DIR_SCRIPT%startdown.bat" "%proyecto%" "%CHECK%"
+    call "%DIR_SCRIPT%startdown.bat" "%proyecto%" "%CHECK%" "STOP"
   )
   set "MESSAGE=!BCK_SUCCESS:DESTINO=%destino%!"
   call :logger "!LOG-SUCC!" "!MESSAGE!"
@@ -236,30 +235,36 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
     set "file_sql=!destino!\!DB_NAME!_!MODE!.sql"
     call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME% - !file_sql!"
     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -s -U "%DB_HOSTNAME%" !DB_NAME! > "!file_sql!" 2>"%file_err%"
+    call :compress_file "!file_sql!"
     if "!DB_ERRDE!"=="0" (
       set "file_sql=!destino!\!DB_NAME_DEMO!_!MODE!.sql"
       call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME_DEMO% - !file_sql!"
       docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -s -U "%DB_HOSTNAME%" -d !DB_NAME_DEMO! > "!file_sql!" 2>"%file_err%"
+      call :compress_file "!file_sql!"
     )
   )
   if /i "%MODE%"=="data"  (
     set "file_sql=!destino!\!DB_NAME!_!MODE!.sql"
     call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME% - !file_sql!"
     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -a -U "%DB_HOSTNAME%" --inserts --on-conflict-do-nothing -d !DB_NAME! > "!file_sql!" 2>"%file_err%"
+    call :compress_file "!file_sql!"
     if "!DB_ERRDE!"=="0" (
       set "file_sql=!destino!\!DB_NAME_DEMO!_!MODE!.sql"
       call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME_DEMO% - !file_sql!"
       docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -a -U "%DB_HOSTNAME%" --inserts --on-conflict-do-nothing -d !DB_NAME_DEMO! > "!file_sql!" 2>"%file_err%"
+      call :compress_file "!file_sql!"
     )
   )
   if /i "%MODE%"=="full_db" (
     set "file_sql=!destino!\!DB_NAME!_!MODE!.sql"
     call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME% - !file_sql!"
     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -Fc -U "%DB_HOSTNAME%" !DB_NAME!>"!file_sql!" 2>"!file_err!"
+    call :compress_file "!file_sql!"
     if "!DB_ERRDE!"=="0" (
       set "file_sql=!destino!\!DB_NAME_DEMO!_%MODE%.sql"
       call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME_DEMO% - !file_sql!"
       docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -Fc -U "%DB_HOSTNAME%" !DB_NAME_DEMO!>"!file_sql!" 2>"!file_err!"
+      call :compress_file "!file_sql!"
     )
   )
   echo.
@@ -267,6 +272,37 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
   cls
   call "%DIR_SCRIPT%banner.bat" "%TRYTON%"
   goto :menu_backup
+
+:compress_file
+  set "FILE_SQL=%~1"
+  if not exist "%FILE_SQL%" (TY! %FILE_SQL%"
+    set "MESSAGE=!BCK_FILE_NOT_SQL:DESTINO=%FILE_SQL%!"
+    call :logger "!LOG-ERROR!" "!MESSAGE!"
+    exit /b
+  )
+  set "FILE_ZIP=%~dpn1.zip"
+  set "MESSAGE=!BCK_FILE_ZIP_3:DESTINO=%destino%!"
+  call :logger "!log_action!" "!MESSAGE! \%FILE_ZIP%"
+  powershell -Command "$ProgressPreference = 'SilentlyContinue'; Compress-Archive -Path '%FILE_SQL%' -DestinationPath '%FILE_ZIP%' -Force"
+  if not exist "%FILE_ZIP%" (
+    set "MESSAGE=!BACK_FILE_EMPTY:FILE=%FILE_ZIP%!"
+    call :logger "!LOG-ERROR!" "!MESSAGE!"
+    exit /b
+  )
+  
+  for %%A in ("%FILE_ZIP%") do set "size=%%~zA"
+  :: Si el tamaño es menor a 1KB, probablemente es un error de Postgres
+  if !size! LSS 1024 (
+      set "db_err=Zip file empty %FILE_ZIP%"
+      set "size_work=!size!"
+      set "MESSAGE=!BCK_FILE_CORRUPT:SIZE=%size_work%!"
+      call :logger "!LOG-ERROR!" "!MESSAGE! !db_err!"
+      exit /b
+  )
+  del "%FILE_SQL%" >nul 2>&1
+  set "MESSAGE=!BCK_FILE_ZIP:DESTINO=%FILE_ZIP%!"
+  call :logger "!LOG-SUCC!" "!MESSAGE!"
+  exit /b
 
 :check_database
   set "database=%~1"
@@ -299,7 +335,6 @@ if "%DB_EXISTS%" NEQ "1" (
   set "MESSAGE=!BCK_NO_DDBB:PROYECTO=%database%!"
   call :logger "%MENU%" "!numer!.1.- !MESSAGE!" "8"
 )
-echo.
 exit /b
 
 :logger
@@ -312,6 +347,5 @@ exit /b
 
 :exit
   if /i "%back_action%" NEQ "%INS%" call :logger "!LOG-SUCC!" "!BCK_ENDING!"
-  :: Devolvemos el control al menu
   endlocal
   exit /b 0

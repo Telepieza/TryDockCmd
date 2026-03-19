@@ -54,3 +54,16 @@ The project core uses **Python + Proteus** to ensure error-free deployment:
 
 ## 7. FUTURE VISION: AI & CONNECTIVITY
 The project leaves the system **"AI-Ready."** Based on an open API architecture (JSON-RPC), it allows AI agents to connect for balance reading, automatic reconciliation, and document management without human intervention.
+
+---
+
+- **Autor:** [https://www.telepieza.com]
+- **Colaborador:** Gemini (Google AI)
+- **Plataforma:** Windows (CMD/Batch)
+- **Motor:** Docker & Docker Compose
+- **Licencia:** MIT  
+- **Versión del proyecto** v1.0.0 estable
+  
+---
+
+##### Optimizado y documentado con la ayuda de Gemini (Google AI)

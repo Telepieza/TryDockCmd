@@ -2,10 +2,10 @@
 :: ===============================================================================
 :: PROGRAM:   tcd.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín - Gemini (Google AI)]
+:: AUTHOR:    [https://www.telepieza.com - Gemini (Google AI)]
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Tryton Docker Manager (TCD)
 :: ==============================================================================
@@ -26,6 +26,7 @@ set "LOCALE=%es-ES%"
 :: Constantes 
 set "DIR_LOG=%DIR_HOME%log"
 set "DIR_BACKUP=%DIR_HOME%backup"
+set "DIR_RESTORE=%DIR_HOME%restore"
 set "DIR_LANG=%DIR_HOME%lang"
 set "DIR_TMP=%DIR_HOME%tmp"
 set "DIR_SQL=%DIR_HOME%sql"
@@ -117,6 +118,7 @@ set "ANSI_SUPPORTED=0"
 :: Crear directorios si no existen
 if not exist "%DIR_LOG%"    mkdir "%DIR_LOG%"
 if not exist "%DIR_BACKUP%" mkdir "%DIR_BACKUP%"
+if not exist "%DIR_RESTORE%" mkdir "%DIR_RESTORE%"
 if not exist "%DIR_LANG%"   mkdir "%DIR_LANG%"
 if not exist "%DIR_SCRIPT%" mkdir "%DIR_SCRIPT%"
 if not exist "%DIR_SQL%"    mkdir "%DIR_SQL%"
@@ -315,7 +317,7 @@ set "action_ins=%INS%"
   goto :menu
 :stop
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "fill_in_field" "%TXT%" "3.- %MENU-OPTION_3%" "3"
-  call "%DIR_SCRIPT%startdown.bat" "%TRYTON%" "%APP%"
+  call "%DIR_SCRIPT%startdown.bat" "%TRYTON%" "%APP%" "STOP"
   goto :menu
 :logs
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "fill_in_field" "%TXT%" "4.- %MENU-OPTION_4%" "3"
@@ -333,7 +335,7 @@ set "action_ins=%INS%"
 :restore
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "fill_in_field" "%TXT%" "7.- %MENU-OPTION_7%" "3"
   call "%DIR_SCRIPT%restore.bat" "%TRYTON%" "%DIR_BACKUP%"
-  pause & goto :menu
+  goto :menu
 :trytond_production
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "fill_in_field" "%TXT%" "8.- %MENU-OPTION_8%" "3"
   call "%DIR_SCRIPT%install_tryton.bat" "%TRYTON%" "%APP%"

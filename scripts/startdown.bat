@@ -2,10 +2,10 @@
 :: ==============================================================================
 :: PROGRAM:   startdown.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Shut Down Containers - Parar los contenedores (STOP)
 :: ==============================================================================
@@ -14,6 +14,7 @@ setlocal enabledelayedexpansion
 chcp 65001 >nul
 set "proyecto=%~1"
 set "down_action=%~2"
+set "type_stop=%~3"
 set "log_action=!LOG-INFO!"
 set /a "wait_service=2"
 :: Analiza si la llamada es del tcd.bat
@@ -28,6 +29,8 @@ if /i "%down_action%"=="%APP%" if /i "%CURRENT_TRYTON%"=="" if /i "%CURRENT_POST
     goto :exit
   )
 )
+
+if /i "%type_stop%"=="" set "type_stop=STOP"
 
 if /i "%down_action%"=="%INS%" (
    set "log_action=%INS%"
@@ -57,17 +60,21 @@ if %errorlevel% equ 0 (
     call :logger "!log_action!" "!MESSAGE!"
     :: Usamos 'stop' en lugar de 'down' para mantener los contenedores creados
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1"
-    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" stop
+    if /i "%type_stop%"=="DOWN" (
+      docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" down
+    ) else (
+      docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" stop
+    )
     if !errorlevel! equ 0 (
         set "MESSAGE=!DOWN_SUCCESS:PROYECTO=%proyecto%!"
-        call :logger "!LOG-SUCC!" "!MESSAGE!"
+        call :logger "!LOG-SUCC!" "!MESSAGE! %type_stop%"
     ) else (
         set "MESSAGE=!DOWN_WARN:PROYECTO=%proyecto%!"
-        call :logger "!LOG-WARN!" "!MESSAGE!"
+        call :logger "!LOG-WARN!" "!MESSAGE! %type_stop%"
     )
 ) else (
     set "MESSAGE=!DOWN_ALREADY:PROYECTO=%proyecto%!"
-    call :logger "!LOG-WARN!" "!MESSAGE!"
+    call :logger "!LOG-WARN!" "!MESSAGE! %type_stop%"
 )
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1"
 if /i "%down_action%"=="%APP%" (

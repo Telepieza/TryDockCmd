@@ -75,7 +75,7 @@ During testing, the **Smart Audit** (`errors.bat`) captured and categorized thes
 | **Postgres** | `Execution: 00:00:00,36` | Performance within limits. | **Success** |
 
 ---
-- __Author:__ [Telepieza - Mariano Vallespín]
+- __Author:__ [https://www.telepieza.com]
 - __Collaborator:__ Gemini (Google AI)
 - __Platform:__ Windows (CMD/Batch)
 - __Engine:__ Docker & Docker Compose

@@ -54,3 +54,16 @@ El núcleo del proyecto utiliza **Python + Proteus** para garantizar un desplieg
 
 ## 7. VISIÓN DE FUTURO: IA Y CONECTIVIDAD
 El proyecto deja el sistema **"IA-Ready"**. Al estar basado en una arquitectura de API abierta (JSON-RPC), permite la conexión de agentes de Inteligencia Artificial para la lectura de balances, conciliación automática y gestión documental sin intervención humana.
+
+---
+
+- **Autor:** [https://www.telepieza.com]
+- **Colaborador:** Gemini (Google AI)
+- **Plataforma:** Windows (CMD/Batch)
+- **Motor:** Docker & Docker Compose
+- **Licencia:** MIT  
+- **Versión del proyecto** v1.0.0 estable
+  
+---
+
+##### Optimizado y documentado con la ayuda de Gemini (Google AI)

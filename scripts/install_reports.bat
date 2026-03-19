@@ -2,10 +2,10 @@
 :: ===============================================================================
 :: PROGRAM:   install_report.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install reports 
 :: ==============================================================================
@@ -405,7 +405,6 @@ exit /b
    echo %cab1%
   ) >> "%file_foot%"
   echo.
-  :: type "%file_foot%"
   exit /b
 
 :logger

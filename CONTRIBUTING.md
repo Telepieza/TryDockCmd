@@ -60,7 +60,7 @@ By contributing, you agree your contributions are licensed under MIT.
 
 ---
 
-- **Author:** [Telepieza - Mariano Vallespín]
+- **Author:** [https://www.telepieza.com]
 - **Collaborator:** Gemini (Google AI)
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose

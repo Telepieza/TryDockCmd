@@ -31,3 +31,17 @@ Objetivo: Asegurar que el backup sea completo, consistente y restaurable.
 - Restore completo (opciones 1-2) requiere `*_dumpall.sql` y `trytond/` en el ZIP.
 - Restore estructura/datos/base completa requiere los SQL con el nombre correcto.
 - Si existe demo y su fichero, se restaurará también.
+
+---
+
+- **Autor:** [https://www.telepieza.com]
+- **Colaborador:** Gemini (Google AI)
+- **Plataforma:** Windows (CMD/Batch)
+- **Motor:** Docker & Docker Compose
+- **Licencia:** MIT  
+- **Versión del proyecto** v1.0.0 estable
+
+---
+
+##### Optimizado y documentado con la ayuda de Gemini (Google AI)
+

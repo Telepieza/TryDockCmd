@@ -43,7 +43,7 @@ TryDockCmd is an operations layer for Tryton ERP in Docker, on the Windows opera
 
 ---
 
-- **Autor:** [Telepieza - Mariano Vallespín]
+- **Autor:** [https://www.telepieza.com]
 - **Colaborador:** Gemini (Google AI)
 - **Plataforma:** Windows (CMD/Batch)
 - **Motor:** Docker & Docker Compose

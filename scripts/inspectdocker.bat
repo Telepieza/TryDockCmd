@@ -2,10 +2,10 @@
 :: =========================================================================================
 :: PROGRAM:   inspectdocker.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Check containers - Comprobar contenedores con docker inspect y docker ps -a
 :: =========================================================================================
@@ -148,10 +148,10 @@ goto :exit
   if /i "%idr_action%"=="%APP%" ( 
     if %errorlevel% neq 0 (
        set "exist_container=1"
-       set "MESSAGE=!INSP_NOT_CONTAINER:NAME=%cont_try%!"
+       set "MESSAGE=!INSP_NOT_CONTAINER! %cont_try%"
        call :logger "!LOG-ERROR!" "!MESSAGE!"  
     ) else (
-      set "MESSAGE=!INSP_CONTAINER:NAME=%cont_try%!"
+      set "MESSAGE=!INSP_CONTAINER! %cont_try%"
       call :logger "%log_action%" "!MESSAGE!"  
     )
   )
@@ -159,10 +159,10 @@ goto :exit
   if /i "%idr_action%"=="%INS%" (
     if %errorlevel% equ 0 (
         set "exist_container=1"
-        set "MESSAGE=!INSP_CONTAINER:NAME=%cont_try%!"
+        set "MESSAGE=!INSP_CONTAINER! %cont_try%"
         call :logger "!LOG-WARN!" "!MESSAGE!" 
     ) else (
-        set "MESSAGE=!INSP_NOT_CONTAINER:NAME=%cont_try%!"
+        set "MESSAGE=!INSP_NOT_CONTAINER! %cont_try%"
         call :logger "%log_action%" "!MESSAGE!"  
     )
   )
@@ -174,11 +174,9 @@ goto :exit
   exit /b
 
 :error
-  :: Devolvemos el control al menu
   endlocal
   exit /b 2
 
 :exit
-  :: Devolvemos el control al menu
   endlocal
   exit /b 0

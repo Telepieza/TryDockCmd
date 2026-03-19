@@ -2,10 +2,10 @@
 :: ==============================================================================
 :: PROGRAM:   message.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR:    [Telepieza - Mariano Vallespín]
+:: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
 :: VERSION:   1.0.0
-:: DATE:      01/03/2026
+:: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Message
 :: ==============================================================================
@@ -21,7 +21,6 @@ set "space="
 if /i not "%~1"=="" set "tipo=%~1"
 if /i not "%~2"=="" set "msg=%~2"
 if /i not "%~3"=="" set /a "numer=%~3"
-
 :: Leemos secuencia de colores
 for /F %%a in ('echo prompt $E ^| cmd') do set "ESC=%%a"
 :: Definir colores estándar (No brillantes)
