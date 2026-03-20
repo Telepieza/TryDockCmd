@@ -1,0 +1,1051 @@
+# ===============================================================================
+# PROJECT:   Tryton Docker Manager
+# AUTHOR:    [https://www.telepieza.com - Gemini (Google AI)]
+# COLLABORATOR: Gemini (Google AI)
+# VERSION:   1.0.0
+# DATE:      23/03/2026
+# LICENSE:   MIT License
+# DESCRIPTION: logger es-ES 2026/03/12
+# ==============================================================================
+[12/03/2026  0:31:25,13] [APP] tcd
+[12/03/2026  0:31:25,48] [TXT] [+] 1.-Lenguaje APP : es-ES ROUTE: D:\ERP\tryton\TryDockCmd\lang\es-ES.txt
+[12/03/2026  0:31:26,24] [TXT] [+] 2.-Procesando fichero: .env. Ruta: D:\ERP\tryton\TryDockCmd\.env
+[12/03/2026  0:31:26,35] [TXT] [+] 3.-Idioma Fichero .env: es-ES Ruta: D:\ERP\tryton\TryDockCmd\es-ES.txt
+[12/03/2026  0:31:26,48] [TXT] [+] 4.-Procesando fichero: compose.yml. Ruta: D:\ERP\tryton\TryDockCmd\compose.yml
+[12/03/2026  0:31:26,56] [TXT] [+] 5.-Procesando datos del fichero compose.yml. Ruta: D:\ERP\tryton\TryDockCmd\compose.yml
+[12/03/2026  0:31:26,67] [APP] readcompose
+[12/03/2026  0:31:26,77] [CHECK] [1/4] Buscando fichero: \ERP\tryton\TryDockCmd\read-compose.ps1
+[12/03/2026  0:31:26,85] [CHECK] [2/4] Buscando fichero: \ERP\tryton\TryDockCmd\compose.yml
+[12/03/2026  0:31:26,93] [CHECK] [3/4] Buscando programa: powershell.exe
+[12/03/2026  0:31:27,14] [CHECK] [4/4] Procesando datos del fichero powershell.exe \ERP\tryton\TryDockCmd\read-compose.ps1
+[12/03/2026  0:31:28,42] [CHECK] Información de los datos de compose.yml.
+[12/03/2026  0:31:28,51] [CHECK] Docker server imagen: tryton/tryton:latest
+[12/03/2026  0:31:28,58] [CHECK] Docker server nombre imagen: tryton/tryton
+[12/03/2026  0:31:28,67] [CHECK] Docker server versión imagen: latest
+[12/03/2026  0:31:28,76] [CHECK] Docker server puerto interno: 8000
+[12/03/2026  0:31:28,83] [CHECK] Docker server puerto público: 8000
+[12/03/2026  0:31:28,91] [CHECK] Docker postgres imagen: postgres:latest
+[12/03/2026  0:31:29,02] [CHECK] Docker postgres nombre imagen: postgres
+[12/03/2026  0:31:29,09] [CHECK] Docker postgres versión imagen: latest
+[12/03/2026  0:31:29,18] [CHECK] readcompose: Todos los procesos ejecutados de forma correcta.
+[12/03/2026  0:31:29,28] [TXT] [+] 6.-Procesando el menú GESTOR DE TRYTON (DOCKER) (TRYDOCKCMD MANAGER)
+[12/03/2026  0:31:29,36] [APP] header [APP]
+[12/03/2026  0:31:29,44] [CHECK] Buscando programa: docker
+[12/03/2026  0:31:30,09] [CHECK] Comprobar si el ordenador soporta ANSI, para gestionar colores en los textos.
+[12/03/2026  0:31:30,26] [CHECK] reader: Todos los procesos ejecutados de forma correcta.
+[12/03/2026  0:31:30,34] [TXT] [+] 7.-Procesando datos del fichero Ruta: D:\ERP\tryton\TryDockCmd\config\trytond.conf
+[12/03/2026  0:31:30,58] [APP] checkdocker [APP]
+[12/03/2026  0:31:30,67] [CHECK] Buscando imágenes y contenedores en Docker: tryton.
+[12/03/2026  0:31:30,76] [CHECK] Buscando imagen Docker: tryton/tryton:latest
+[12/03/2026  0:31:30,95] [CHECK] No existe la imagen tryton/tryton:latest en Docker.
+[12/03/2026  0:31:31,08] [APP] global_routines timeout_start 2 1
+[12/03/2026  0:31:33,28] [OK] tcd Todos los procesos ejecutados de forma correcta.
+[12/03/2026  0:31:33,38] [CHECK] [+] Se ha detectado que no existe Tryton, se activa la instalación de forma automática.
+[12/03/2026  0:31:33,51] [APP] global_routines timeout_start 8 1
+[12/03/2026  0:31:41,26] [APP] global_routines fill_in_field [TXT] 0.- (REAL y DEMO) Instalar Tryton
+[12/03/2026  0:31:41,40] [TXT] 0.- (REAL y DEMO) Instalar Tryton
+[12/03/2026  0:32:53,64] [APP] install [APP]
+[12/03/2026  0:32:53,75] [APP] inspectdocker [INS]
+[12/03/2026  0:32:53,85] [CHECK] Buscando imágenes y contenedores en Docker: tryton.
+[12/03/2026  0:32:54,04] [INS] No existe la imagen tryton/tryton:latest en Docker.
+[12/03/2026  0:32:54,17] [APP] global_routines timeout_start 2  1
+[12/03/2026  0:32:56,39] [INS] No existe la imagen postgres:latest en Docker.
+[12/03/2026  0:32:56,54] [APP] global_routines timeout_start 2  1
+[12/03/2026  0:32:58,45] [INS] No existe el contenedor tryton-server-1 en Docker.
+[12/03/2026  0:32:58,57] [APP] global_routines timeout_start 2  1
+[12/03/2026  0:33:00,33] [INS] No existe el contenedor tryton-postgres-1 en Docker.
+[12/03/2026  0:33:00,51] [APP] global_routines timeout_start 2  1
+[12/03/2026  0:33:02,43] [INS] No existe el contenedor tryton-cron-1 en Docker.
+[12/03/2026  0:33:02,56] [APP] global_routines timeout_start 2  1
+[12/03/2026  0:33:04,47] [OK] No existe en Docker ningún contenedor tryton.
+[12/03/2026  0:33:04,55] [INS] Este proceso verificará las imágenes de tryton y la Base de datos.
+[12/03/2026  0:33:04,65] [INS] Si no existe en Docker, las descargará y creará las imágenes con sus contenedores.
+[12/03/2026  0:33:04,76] [INS] Ejecutando Docker Compose.: D:\ERP\tryton\TryDockCmd\compose.yml -p tryton up -d
+[12/03/2026  0:33:54,12] [OK] Contenedores de tryton instalados y activos correctamente.
+[12/03/2026  0:33:54,28] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:34:04,28] [APP] status [INS]
+[12/03/2026  0:34:04,42] [INS] Los contenedores tryton están activos.
+[12/03/2026  0:34:04,55] [INS] Detalle de los contenedores, imágenes y servicios de tryton en docker.
+[12/03/2026  0:34:05,24] [INS] El contenedor tryton-postgres-1 - Servicio: postgres está activo.
+[12/03/2026  0:34:05,68] [INS] El contenedor tryton-postgres-1 - Servicio: postgres está listo para recibir conexiones.
+[12/03/2026  0:34:05,97] [INS] El contenedor tryton-server-1 - Servicio: server está activo.
+[12/03/2026  0:34:06,30] [INS] El contenedor tryton-cron-1 - Servicio: cron está activo.
+[12/03/2026  0:34:06,43] [INS] (REAL) Instalar módulos y datos oficiales en base de datos (tryton)
+[12/03/2026  0:34:06,63] [APP] install.header [INS] [install_tryton] [INS]
+[12/03/2026  0:34:06,79] [APP] checkversion [APP]
+[12/03/2026  0:34:06,93] [APP] startup [CHECK]
+[12/03/2026  0:34:07,38] [CHECK] El contenedor tryton-postgres-1 - Servicio: postgres está activo.
+[12/03/2026  0:34:07,52] [APP] global_routines timeout_start 3 1
+[12/03/2026  0:34:10,62] [CHECK] El contenedor tryton-server-1 - Servicio: server está activo.
+[12/03/2026  0:34:10,79] [APP] global_routines timeout_start 3 1
+[12/03/2026  0:34:13,63] [CHECK] El contenedor tryton-cron-1 - Servicio: cron está activo.
+[12/03/2026  0:34:13,78] [APP] global_routines timeout_start 3 1
+[12/03/2026  0:34:16,24] [CHECK] Se inspecciona en Docker: [tryton-server-1]
+[12/03/2026  0:34:16,51] [CHECK] Buscando en el server versión Tryton. - (trytond.__version__.split('.')[:3])
+[12/03/2026  0:34:17,01] [CHECK] Se ha localizado la versión Tryton en Docker: [7.8]
+[12/03/2026  0:34:17,09] [CHECK] Se ha localizado la versión Tryton en Docker: [7.8.5]
+[12/03/2026  0:34:17,17] [CHECK] Se inspecciona en Docker: [postgres] - [SELECT 1 FROM pg_catalog.pg_database WHERE datname='tryton]
+[12/03/2026  0:34:17,70] [CHECK] Buscando en el server versión PostgreSQL. - [SELECT version()]
+[12/03/2026  0:34:18,14] [CHECK] Se ha localizado la versión base de datos tryton en Docker: [PostgreSQL 18.3 (Debian 18.3-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit]
+[12/03/2026  0:34:18,25] [CHECK] Se ha localizado la versión base de datos tryton en Docker: [PostgreSQL 18.3]
+[12/03/2026  0:34:18,40] [CHECK] checkversion: Todos los procesos ejecutados de forma correcta.
+[12/03/2026  0:34:18,85] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:34:19,37] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:34:29,31] [APP] install_reports [1] - L - Comprobar las bases de datos instaladas de postgreSQL en Docker. - [D:\ERP\tryton\TryDockCmd\tmp\trytond_table.txt]
+[12/03/2026  0:34:29,43] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:34:29,77] [CHECK] postgres           | postgres        | UTF8     | en_US.utf8
+[12/03/2026  0:34:29,87] [CHECK] template0          | postgres        | UTF8     | en_US.utf8
+[12/03/2026  0:34:30,01] [CHECK] template1          | postgres        | UTF8     | en_US.utf8
+[12/03/2026  0:34:30,15] [CHECK] tryton             | postgres        | UTF8     | en_US.utf8
+[12/03/2026  0:34:30,82] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:34:40,29] [APP] install_reports [1] - U - Comprobar los usuarios de la base de datos postgreSQL. - [D:\ERP\tryton\TryDockCmd\tmp\trytond_table.txt]
+[12/03/2026  0:34:40,44] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:34:40,68] [CHECK] postgres           | Superuser, Create role, Create DB, Replication, Bypass RLS
+[12/03/2026  0:34:41,32] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:34:51,40] [APP] install_reports [1] - X - Comprobar las extensiones instaladas en la base de datos postgreSQL. - [D:\ERP\tryton\TryDockCmd\tmp\trytond_table.txt]
+[12/03/2026  0:34:51,54] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:34:51,80] [CHECK] plpgsql            | 1.0        | pg_catalog
+[12/03/2026  0:34:56,27] [APP] global_routines timeout_start 20 1
+[12/03/2026  0:35:16,28] [INS] [1.-] Parar el servicio de postgres, para desactivar posibles conexiones de usuarios. -stop postgres
+[12/03/2026  0:35:17,80] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:35:27,32] [INS] [2.-] Activar el servicio de postgres. - start postgres
+[12/03/2026  0:35:28,04] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:35:38,35] [INS] [3.-] Realizar copia de seguridad de los datos y base de datos. tryton
+[12/03/2026  0:35:38,54] [APP] backup [INS]
+[12/03/2026  0:35:39,18] [INS] [1/3] Ejecutando volcado de Base de Datos (Sql) tryton-postgres-1 - Ruta tryton:/var/lib/trytond/db a D:\ERP\tryton\TryDockCmd\backup\tryton_2026-03-12_00-35\tryton_db_data.sql.
+[12/03/2026  0:35:39,90] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:35:49,33] [INS] El fichero de base de datos D:\ERP\tryton\TryDockCmd\backup\tryton_2026-03-12_00-35\tryton_postgres_dumpall.sql tiene registros: (612036 bytes)
+[12/03/2026  0:35:49,42] [INS] [2/3] Copiando archivos persistentes de: tryton-server-1 Ruta tryton:/var/lib/trytond/ a D:\ERP\tryton\TryDockCmd\backup\tryton_2026-03-12_00-35
+[12/03/2026  0:35:56,29] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:36:06,23] [INS] Completado el backup, comprimirá la carpeta temporal D:\ERP\tryton\TryDockCmd\backup\tryton_2026-03-12_00-35 en un fichero zip. Fichero: tryton_2026-03-12_00-35.zip
+[12/03/2026  0:36:16,25] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:36:26,27] [OK] Backup completado en: D:\ERP\tryton\TryDockCmd\backup\tryton_2026-03-12_00-35
+[12/03/2026  0:36:26,36] [OK] Se ha creado el fichero: D:\ERP\tryton\TryDockCmd\backup\tryton_2026-03-12_00-35.zip
+[12/03/2026  0:36:26,60] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:36:37,35] [INS] La carpeta temporal D:\ERP\tryton\TryDockCmd\backup\tryton_2026-03-12_00-35 se ha eliminado.
+[12/03/2026  0:36:37,53] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:36:47,24] [INS] [4.-] Si existe, eliminar la base de datos tryton
+[12/03/2026  0:36:47,86] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:36:57,27] [INS] [5.-] Crear la base de datos tryton
+[12/03/2026  0:36:57,80] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:37:07,26] [INS] [6.-] Comprobar conexión a la base de datos tryton
+[12/03/2026  0:37:07,76] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:37:17,26] [INS] [7.-] Instalar los módulos base con el flags -u --email -vv
+[12/03/2026  0:37:17,34] [INS]  [1/8] ESTRUCTURA MINIMA: Núcleo Tryton (country, currency, company, party, bank)
+[12/03/2026  0:37:34,80] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:37:44,27] [INS]  [2/8] PRODUCTOS: Producto y Stock (product, stock)
+[12/03/2026  0:37:57,04] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:38:07,25] [INS]  [3/8] CONTABILIDAD BASE: Motor contable y facturación (account, account_eu, account_product, account_invoice, account_invoice_stock, account_payment, account_statement)
+[12/03/2026  0:38:33,29] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:38:43,30] [INS]  [4/8] COMPRA/VENTA: Ciclo comercial (sale, purchase)
+[12/03/2026  0:38:54,35] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:39:04,26] [INS]  [5/8] LOGISTICA AVANZADA: Lotes y Atributos (stock_supply, purchase_request)
+[12/03/2026  0:39:09,92] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:39:19,28] [INS]  [6/8] PLANIFICACION: Reposicion de stock (product_image, product_attribute, product_measurements, product_price_list, stock_lot)
+[12/03/2026  0:39:26,50] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:39:36,30] [INS]  [7/8] PRODUCCION (MRP): Fabricacion base (production, production_routing, production_work, stock_supply_production, project, timesheet, company_work_time, carrier, stock_shipment_cost, sale_shipment_cost, incoterm)
+[12/03/2026  0:39:49,97] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:40:00,23] [INS]  [8/8] CIERRE Y DASHBOARDS: Módulos finales y dashboards (dashboard, marketing, party_relationship, party_avatar)
+[12/03/2026  0:40:06,00] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:40:16,24] [INS] [7.1.-] Actualizar la lista de módulos en base de datos (--update-modules-list)
+[12/03/2026  0:40:19,94] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:40:29,31] [INS] [8.-]  [1/1] CONTABILIDAD: Módulos legislación Española (account_es, account_statement_sepa, account_statement_aeb43)
+[12/03/2026  0:40:29,46] [APP] install.header [INS] [install_language] [LANG]
+[12/03/2026  0:40:29,57] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:40:31,30] [INS] Módulos de lenguajes (es,fr,de) y países con sus códigos postales en tryton.  Idioma:es
+[12/03/2026  0:40:31,39] [INS] Actualizar la lista de módulos en base de datos (--update-modules-list)
+[12/03/2026  0:40:35,06] [APP] global_routines timeout_start 10 
+[12/03/2026  0:40:45,23] [INS] Lenguaje a instalar: -l CODE es
+[12/03/2026  0:40:49,21] [APP] global_routines timeout_start 10 
+[12/03/2026  0:40:59,33] [INS]  [1/1] CONTABILIDAD: Módulos legislación Española (account_es, account_statement_sepa, account_statement_aeb43)
+[12/03/2026  0:41:11,53] [APP] global_routines timeout_start 10 
+[12/03/2026  0:41:21,25] [INS] Motor Geodata: Importando Países y Códigos Postales para: es
+[12/03/2026  0:41:21,35] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:47:19,43] [INS] [GEO] Copiando fichero del servidor de Docker /tmp/trytond_proteus.txt al ordenador D:\ERP\tryton\TryDockCmd\log\tryton_logger_ES.log.
+[12/03/2026  0:47:19,80] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:47:29,35] [INS] Montando todas las traducciones en los módulos según idioma instalado: es
+[12/03/2026  0:48:10,34] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:48:20,30] [INS] [LANG] Copiando fichero del servidor de Docker /tmp/trytond_proteus.txt al ordenador D:\ERP\tryton\TryDockCmd\log\tryton_logger_ES.log.
+[12/03/2026  0:48:20,82] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:48:30,24] [INS] Idiomas configurados en la base de datos: tryton
+[12/03/2026  0:48:30,76] [APP] global_routines timeout_start 10 
+[12/03/2026  0:48:40,24] [INS] Lenguajes activos: 2 configurados
+[12/03/2026  0:48:40,32] [INS] [9.-] Actualizar la lista de módulos en base de datos (--update-modules-list)
+[12/03/2026  0:48:44,04] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:48:54,26] [INS] [10.-] (ACC) Ejecutando programa /phyton/auto_full_setup.py via proteus para contabilidad.
+[12/03/2026  0:48:54,40] [APP] install.header [INS] [install_accounts] [PYTHON]
+[12/03/2026  0:48:54,74] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:49:08,11] [INS] [ACC] Copiando fichero del servidor de Docker /tmp/trytond_proteus.txt al ordenador D:\ERP\tryton\TryDockCmd\log\tryton_logger_ES.log.
+[12/03/2026  0:49:08,67] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:49:18,68] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:49:28,27] [INS] Plan Contable: 776 Cuentas creadas
+[12/03/2026  0:49:28,78] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:49:38,24] [INS] Ejercicios Fiscales: 5 Registros
+[12/03/2026  0:49:38,71] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:49:48,25] [INS] Periodos contables: 60 Registros
+[12/03/2026  0:49:48,73] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:49:58,28] [INS] Verificación 2026-2030: 5 Ejercicios Fiscales
+[12/03/2026  0:49:58,78] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:50:08,30] [INS] Verificación 2026-2030: 5 Ejercicios Fiscales, 60 períodos
+[12/03/2026  0:50:13,65] [INS] [TAX] Copiando fichero del servidor de Docker /tmp/trytond_proteus.txt al ordenador D:\ERP\tryton\TryDockCmd\log\tryton_logger_ES.log.
+[12/03/2026  0:50:14,11] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:50:24,69] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:50:34,64] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:50:44,28] [INS] Impuestos (account_tax) Empresa [Telepieza]: 64 Registros
+[12/03/2026  0:50:44,84] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:50:54,27] [INS] IVA Total (account_tax): 53 Registros
+[12/03/2026  0:50:54,73] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:51:04,24] [INS] IVA 21/10/4 (account_tax): 3 Registros
+[12/03/2026  0:51:04,32] [OK] Proceso finalizado.
+[12/03/2026  0:51:04,46] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:51:14,26] [INS] [11.-] Verificar y comprobar que todos los módulos están activated
+[12/03/2026  0:51:14,72] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:51:24,34] [APP] install_reports [9] - [INS] - Verificar y comprobar que todos los módulos están activated - [D:\ERP\tryton\TryDockCmd\tmp\trytond_activ.txt]
+[12/03/2026  0:51:24,47] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:51:24,59] [INS] Verificar y comprobar que todos los módulos están activated
+[12/03/2026  0:51:24,75] [APP] global_routines fill_in_field [MENU] Comparando módulos: [1/8] ESTRUCTURA MINIMA: Núcleo Tryton (country, currency, company, party, bank)
+[12/03/2026  0:51:25,32] [INFO] Mensaje [OK] Módulo country
+[12/03/2026  0:51:25,44] [INFO] Mensaje [OK] Módulo currency
+[12/03/2026  0:51:25,52] [INFO] Mensaje [OK] Módulo company
+[12/03/2026  0:51:25,61] [INFO] Mensaje [OK] Módulo party
+[12/03/2026  0:51:25,69] [INFO] Mensaje [OK] Módulo bank
+[12/03/2026  0:51:25,81] [APP] global_routines fill_in_field [MENU] Comparando módulos: [2/8] PRODUCTOS: Producto y Stock (product, stock)
+[12/03/2026  0:51:26,27] [INFO] Mensaje [OK] Módulo product
+[12/03/2026  0:51:26,37] [INFO] Mensaje [OK] Módulo stock
+[12/03/2026  0:51:26,50] [APP] global_routines fill_in_field [MENU] Comparando módulos: [3/8] CONTABILIDAD BASE: Motor contable y facturación (account, account_eu, account_product, account_invoice, account_invoice_stock, account_payment, account_statement)
+[12/03/2026  0:51:27,15] [INFO] Mensaje [OK] Módulo account
+[12/03/2026  0:51:27,36] [INFO] Mensaje [OK] Módulo account_eu
+[12/03/2026  0:51:27,48] [INFO] Mensaje [OK] Módulo account_product
+[12/03/2026  0:51:27,59] [INFO] Mensaje [OK] Módulo account_invoice
+[12/03/2026  0:51:27,67] [INFO] Mensaje [OK] Módulo account_invoice_stock
+[12/03/2026  0:51:27,75] [INFO] Mensaje [OK] Módulo account_payment
+[12/03/2026  0:51:27,85] [INFO] Mensaje [OK] Módulo account_statement
+[12/03/2026  0:51:28,01] [APP] global_routines fill_in_field [MENU] Comparando módulos: [4/8] COMPRA/VENTA: Ciclo comercial (sale, purchase)
+[12/03/2026  0:51:28,57] [INFO] Mensaje [OK] Módulo sale
+[12/03/2026  0:51:28,68] [INFO] Mensaje [OK] Módulo purchase
+[12/03/2026  0:51:28,81] [APP] global_routines fill_in_field [MENU] Comparando módulos: [5/8] LOGISTICA AVANZADA: Lotes y Atributos (stock_supply, purchase_request)
+[12/03/2026  0:51:29,34] [INFO] Mensaje [OK] Módulo stock_supply
+[12/03/2026  0:51:29,44] [INFO] Mensaje [OK] Módulo purchase_request
+[12/03/2026  0:51:29,60] [APP] global_routines fill_in_field [MENU] Comparando módulos: [6/8] PLANIFICACION: Reposicion de stock (product_image, product_attribute, product_measurements, product_price_list, stock_lot)
+[12/03/2026  0:51:30,15] [INFO] Mensaje [OK] Módulo product_image
+[12/03/2026  0:51:30,27] [INFO] Mensaje [OK] Módulo product_attribute
+[12/03/2026  0:51:30,36] [INFO] Mensaje [OK] Módulo product_measurements
+[12/03/2026  0:51:30,48] [INFO] Mensaje [OK] Módulo product_price_list
+[12/03/2026  0:51:30,56] [INFO] Mensaje [OK] Módulo stock_lot
+[12/03/2026  0:51:30,71] [APP] global_routines fill_in_field [MENU] Comparando módulos: [7/8] PRODUCCION (MRP): Fabricacion base (production, production_routing, production_work, stock_supply_production, project, timesheet, company_work_time, carrier, stock_shipment_cost, sale_shipment_cost, incoterm)
+[12/03/2026  0:51:31,46] [INFO] Mensaje [OK] Módulo production
+[12/03/2026  0:51:31,54] [INFO] Mensaje [OK] Módulo production_routing
+[12/03/2026  0:51:31,63] [INFO] Mensaje [OK] Módulo production_work
+[12/03/2026  0:51:31,71] [INFO] Mensaje [OK] Módulo stock_supply_production
+[12/03/2026  0:51:31,81] [INFO] Mensaje [OK] Módulo project
+[12/03/2026  0:51:31,92] [INFO] Mensaje [OK] Módulo timesheet
+[12/03/2026  0:51:32,02] [INFO] Mensaje [OK] Módulo company_work_time
+[12/03/2026  0:51:32,13] [INFO] Mensaje [OK] Módulo carrier
+[12/03/2026  0:51:32,27] [INFO] Mensaje [OK] Módulo stock_shipment_cost
+[12/03/2026  0:51:32,37] [INFO] Mensaje [OK] Módulo sale_shipment_cost
+[12/03/2026  0:51:32,49] [INFO] Mensaje [OK] Módulo incoterm
+[12/03/2026  0:51:32,60] [APP] global_routines fill_in_field [MENU] Comparando módulos: [8/8] CIERRE Y DASHBOARDS: Módulos finales y dashboards (dashboard, marketing, party_relationship, party_avatar)
+[12/03/2026  0:51:33,16] [INFO] Mensaje [OK] Módulo dashboard
+[12/03/2026  0:51:33,27] [INFO] Mensaje [OK] Módulo marketing
+[12/03/2026  0:51:33,41] [INFO] Mensaje [OK] Módulo party_relationship
+[12/03/2026  0:51:33,49] [INFO] Mensaje [OK] Módulo party_avatar
+[12/03/2026  0:51:33,63] [APP] global_routines fill_in_field [MENU] Comparando módulos: [1/1] CONTABILIDAD: Módulos legislación Española (account_es, account_statement_sepa, account_statement_aeb43)
+[12/03/2026  0:51:34,25] [INFO] Mensaje [OK] Módulo account_es
+[12/03/2026  0:51:34,33] [INFO] Mensaje [OK] Módulo account_statement_sepa
+[12/03/2026  0:51:34,46] [INFO] Mensaje [OK] Módulo account_statement_aeb43
+[12/03/2026  0:51:34,77] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:51:44,27] [INS] [12.-] Listar los módulos instalados
+[12/03/2026  0:51:44,77] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:51:54,31] [APP] install_reports [8] - [INS] - Listar los módulos instalados - [D:\ERP\tryton\TryDockCmd\tmp\trytond_modules.txt]
+[12/03/2026  0:51:54,45] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:51:54,62] [INS] Listar los módulos instalados
+[12/03/2026  0:51:54,75] [CHECK] | account...................................... | activated       |
+[12/03/2026  0:51:54,83] [CHECK] |    +-- account_asset......................... | not activated   |
+[12/03/2026  0:51:54,93] [CHECK] |    +-- account_be............................ | not activated   |
+[12/03/2026  0:51:55,04] [CHECK] |    +-- account_budget........................ | not activated   |
+[12/03/2026  0:51:55,12] [CHECK] |    +-- account_cash_rounding................. | not activated   |
+[12/03/2026  0:51:55,21] [CHECK] |    +-- account_consolidation................. | not activated   |
+[12/03/2026  0:51:55,34] [CHECK] |    +-- account_credit_limit.................. | not activated   |
+[12/03/2026  0:51:55,46] [CHECK] |    +-- account_deposit....................... | not activated   |
+[12/03/2026  0:51:55,55] [CHECK] |    +-- account_de_skr03...................... | not activated   |
+[12/03/2026  0:51:55,63] [CHECK] |    +-- account_dunning....................... | not activated   |
+[12/03/2026  0:51:55,71] [CHECK] |    +-- account_dunning_email................. | not activated   |
+[12/03/2026  0:51:55,79] [CHECK] |    +-- account_dunning_fee................... | not activated   |
+[12/03/2026  0:51:55,90] [CHECK] |    +-- account_dunning_letter................ | not activated   |
+[12/03/2026  0:51:56,00] [CHECK] |    +-- account_es............................ | activated       |
+[12/03/2026  0:51:56,11] [CHECK] |    +-- account_es_sii........................ | not activated   |
+[12/03/2026  0:51:56,26] [CHECK] |    +-- account_eu............................ | activated       |
+[12/03/2026  0:51:56,34] [CHECK] |    +-- account_export........................ | not activated   |
+[12/03/2026  0:51:56,47] [CHECK] |    +-- account_export_winbooks............... | not activated   |
+[12/03/2026  0:51:56,55] [CHECK] |    +-- account_fr............................ | not activated   |
+[12/03/2026  0:51:56,65] [CHECK] |    +-- account_fr_chorus..................... | not activated   |
+[12/03/2026  0:51:56,77] [CHECK] |    +-- account_invoice....................... | activated       |
+[12/03/2026  0:51:56,89] [CHECK] |    +-- account_invoice_correction............ | not activated   |
+[12/03/2026  0:51:56,99] [CHECK] |    +-- account_invoice_defer................. | not activated   |
+[12/03/2026  0:51:57,12] [CHECK] |    +-- account_invoice_history............... | not activated   |
+[12/03/2026  0:51:57,27] [CHECK] |    +-- account_invoice_line_standalone....... | not activated   |
+[12/03/2026  0:51:57,52] [CHECK] |    +-- account_invoice_secondary_unit........ | not activated   |
+[12/03/2026  0:51:57,63] [CHECK] |    +-- account_invoice_stock................. | activated       |
+[12/03/2026  0:51:57,72] [CHECK] |    +-- account_invoice_watermark............. | not activated   |
+[12/03/2026  0:51:57,80] [CHECK] |    +-- account_move_line_grouping............ | not activated   |
+[12/03/2026  0:51:57,91] [CHECK] |    +-- account_payment....................... | activated       |
+[12/03/2026  0:51:58,01] [CHECK] |    +-- account_payment_braintree............. | not activated   |
+[12/03/2026  0:51:58,13] [CHECK] |    +-- account_payment_clearing.............. | not activated   |
+[12/03/2026  0:51:58,26] [CHECK] |    +-- account_payment_sepa.................. | not activated   |
+[12/03/2026  0:51:58,35] [CHECK] |    +-- account_payment_sepa_cfonb............ | not activated   |
+[12/03/2026  0:51:58,47] [CHECK] |    +-- account_payment_stripe................ | not activated   |
+[12/03/2026  0:51:58,56] [CHECK] |    +-- account_product....................... | activated       |
+[12/03/2026  0:51:58,66] [CHECK] |    +-- account_receivable_rule............... | not activated   |
+[12/03/2026  0:51:58,76] [CHECK] |    +-- account_rule.......................... | not activated   |
+[12/03/2026  0:51:58,85] [CHECK] |    +-- account_statement..................... | activated       |
+[12/03/2026  0:51:58,96] [CHECK] |    +-- account_statement_aeb43............... | activated       |
+[12/03/2026  0:51:59,06] [CHECK] |    +-- account_statement_coda................ | not activated   |
+[12/03/2026  0:51:59,15] [CHECK] |    +-- account_statement_mt940............... | not activated   |
+[12/03/2026  0:51:59,30] [CHECK] |    +-- account_statement_ofx................. | not activated   |
+[12/03/2026  0:51:59,46] [CHECK] |    +-- account_statement_rule................ | not activated   |
+[12/03/2026  0:51:59,55] [CHECK] |    +-- account_statement_sepa................ | activated       |
+[12/03/2026  0:51:59,64] [CHECK] |    +-- account_stock_anglo_saxon............. | not activated   |
+[12/03/2026  0:51:59,73] [CHECK] |    +-- account_stock_continental............. | not activated   |
+[12/03/2026  0:51:59,82] [CHECK] |    +-- account_stock_eu...................... | not activated   |
+[12/03/2026  0:51:59,92] [CHECK] |    +-- account_stock_landed_cost............. | not activated   |
+[12/03/2026  0:52:00,02] [CHECK] |    +-- account_stock_landed_cost_weight...... | not activated   |
+[12/03/2026  0:52:00,14] [CHECK] |    +-- account_stock_shipment_cost........... | not activated   |
+[12/03/2026  0:52:00,26] [CHECK] |    +-- account_stock_shipment_cost_weight.... | not activated   |
+[12/03/2026  0:52:00,35] [CHECK] |    +-- account_syscohada..................... | not activated   |
+[12/03/2026  0:52:00,47] [CHECK] |    +-- account_tax_cash...................... | not activated   |
+[12/03/2026  0:52:00,55] [CHECK] |    +-- account_tax_non_deductible............ | not activated   |
+[12/03/2026  0:52:00,64] [CHECK] |    +-- account_tax_rule_country.............. | not activated   |
+[12/03/2026  0:52:00,75] [CHECK] | analytic_account............................. | not activated   |
+[12/03/2026  0:52:00,83] [CHECK] |    +-- analytic_budget....................... | not activated   |
+[12/03/2026  0:52:00,92] [CHECK] |    +-- analytic_invoice...................... | not activated   |
+[12/03/2026  0:52:01,03] [CHECK] |    +-- analytic_purchase..................... | not activated   |
+[12/03/2026  0:52:01,11] [CHECK] |    +-- analytic_sale......................... | not activated   |
+[12/03/2026  0:52:01,20] [CHECK] | attendance................................... | not activated   |
+[12/03/2026  0:52:01,32] [CHECK] | authentication_saml.......................... | not activated   |
+[12/03/2026  0:52:01,45] [CHECK] |    +-- authentication_sms.................... | not activated   |
+[12/03/2026  0:52:01,52] [CHECK] | bank......................................... | activated       |
+[12/03/2026  0:52:01,63] [CHECK] | carrier...................................... | activated       |
+[12/03/2026  0:52:01,73] [CHECK] |    +-- carrier_carriage...................... | not activated   |
+[12/03/2026  0:52:01,82] [CHECK] |    +-- carrier_percentage.................... | not activated   |
+[12/03/2026  0:52:01,94] [CHECK] |    +-- carrier_subdivision................... | not activated   |
+[12/03/2026  0:52:02,03] [CHECK] |    +-- carrier_weight........................ | not activated   |
+[12/03/2026  0:52:02,16] [CHECK] | commission................................... | not activated   |
+[12/03/2026  0:52:02,27] [CHECK] |    +-- commission_waiting.................... | not activated   |
+[12/03/2026  0:52:02,36] [CHECK] | company...................................... | activated       |
+[12/03/2026  0:52:02,47] [CHECK] |    +-- company_work_time..................... | activated       |
+[12/03/2026  0:52:02,55] [CHECK] | country...................................... | activated       |
+[12/03/2026  0:52:02,65] [CHECK] | currency..................................... | activated       |
+[12/03/2026  0:52:02,76] [CHECK] |    +-- currency_ro........................... | not activated   |
+[12/03/2026  0:52:02,84] [CHECK] |    +-- currency_rs........................... | not activated   |
+[12/03/2026  0:52:02,93] [CHECK] | customs...................................... | not activated   |
+[12/03/2026  0:52:03,04] [CHECK] | dashboard.................................... | activated       |
+[12/03/2026  0:52:03,13] [CHECK] | document_incoming............................ | not activated   |
+[12/03/2026  0:52:03,24] [CHECK] |    +-- document_incoming_invoice............. | not activated   |
+[12/03/2026  0:52:03,37] [CHECK] |    +-- document_incoming_ocr................. | not activated   |
+[12/03/2026  0:52:03,46] [CHECK] |    +-- document_incoming_ocr_typless......... | not activated   |
+[12/03/2026  0:52:03,54] [CHECK] | edocument_peppol............................. | not activated   |
+[12/03/2026  0:52:03,63] [CHECK] |    +-- edocument_peppol_peppyrus............. | not activated   |
+[12/03/2026  0:52:03,71] [CHECK] |    +-- edocument_ubl......................... | not activated   |
+[12/03/2026  0:52:03,78] [CHECK] |    +-- edocument_uncefact.................... | not activated   |
+[12/03/2026  0:52:03,89] [CHECK] |    +-- edocument_unece....................... | not activated   |
+[12/03/2026  0:52:03,99] [CHECK] | google_maps.................................. | not activated   |
+[12/03/2026  0:52:04,12] [CHECK] | inbound_email................................ | not activated   |
+[12/03/2026  0:52:04,24] [CHECK] | incoterm..................................... | activated       |
+[12/03/2026  0:52:04,32] [CHECK] | ir........................................... | activated       |
+[12/03/2026  0:52:04,42] [CHECK] | ldap_authentication.......................... | not activated   |
+[12/03/2026  0:52:04,51] [CHECK] | marketing.................................... | activated       |
+[12/03/2026  0:52:04,60] [CHECK] |    +-- marketing_automation.................. | not activated   |
+[12/03/2026  0:52:04,72] [CHECK] |    +-- marketing_campaign.................... | not activated   |
+[12/03/2026  0:52:04,79] [CHECK] |    +-- marketing_email....................... | not activated   |
+[12/03/2026  0:52:04,88] [CHECK] | notification_email........................... | not activated   |
+[12/03/2026  0:52:04,99] [CHECK] | party........................................ | activated       |
+[12/03/2026  0:52:05,08] [CHECK] |    +-- party_avatar.......................... | activated       |
+[12/03/2026  0:52:05,17] [CHECK] |    +-- party_relationship.................... | activated       |
+[12/03/2026  0:52:05,28] [CHECK] |    +-- party_siret........................... | not activated   |
+[12/03/2026  0:52:05,41] [CHECK] | product...................................... | activated       |
+[12/03/2026  0:52:05,50] [CHECK] |    +-- product_attribute..................... | activated       |
+[12/03/2026  0:52:05,59] [CHECK] |    +-- product_classification................ | not activated   |
+[12/03/2026  0:52:05,67] [CHECK] |    +-- product_classification_taxonomic...... | not activated   |
+[12/03/2026  0:52:05,75] [CHECK] |    +-- product_cost_fifo..................... | not activated   |
+[12/03/2026  0:52:05,84] [CHECK] |    +-- product_cost_history.................. | not activated   |
+[12/03/2026  0:52:05,94] [CHECK] |    +-- product_cost_warehouse................ | not activated   |
+[12/03/2026  0:52:06,03] [CHECK] |    +-- product_image......................... | activated       |
+[12/03/2026  0:52:06,17] [CHECK] |    +-- product_image_attribute............... | not activated   |
+[12/03/2026  0:52:06,28] [CHECK] | production................................... | activated       |
+[12/03/2026  0:52:06,37] [CHECK] |    +-- production_outsourcing................ | not activated   |
+[12/03/2026  0:52:06,53] [CHECK] |    +-- production_routing.................... | activated       |
+[12/03/2026  0:52:06,62] [CHECK] |    +-- production_split...................... | not activated   |
+[12/03/2026  0:52:06,74] [CHECK] |    +-- production_work....................... | activated       |
+[12/03/2026  0:52:06,83] [CHECK] |    +-- production_work_timesheet............. | not activated   |
+[12/03/2026  0:52:06,91] [CHECK] | product_kit.................................. | not activated   |
+[12/03/2026  0:52:07,02] [CHECK] |    +-- product_measurements.................. | activated       |
+[12/03/2026  0:52:07,12] [CHECK] |    +-- product_price_list.................... | activated       |
+[12/03/2026  0:52:07,28] [CHECK] |    +-- product_price_list_cache.............. | not activated   |
+[12/03/2026  0:52:07,43] [CHECK] |    +-- product_price_list_dates.............. | not activated   |
+[12/03/2026  0:52:07,53] [CHECK] |    +-- product_price_list_parent............. | not activated   |
+[12/03/2026  0:52:07,62] [CHECK] | project...................................... | activated       |
+[12/03/2026  0:52:07,70] [CHECK] |    +-- project_invoice....................... | not activated   |
+[12/03/2026  0:52:07,78] [CHECK] |    +-- project_plan.......................... | not activated   |
+[12/03/2026  0:52:07,88] [CHECK] |    +-- project_revenue....................... | not activated   |
+[12/03/2026  0:52:07,99] [CHECK] | purchase..................................... | activated       |
+[12/03/2026  0:52:08,11] [CHECK] |    +-- purchase_amendment.................... | not activated   |
+[12/03/2026  0:52:08,24] [CHECK] |    +-- purchase_blanket_agreement............ | not activated   |
+[12/03/2026  0:52:08,33] [CHECK] |    +-- purchase_history...................... | not activated   |
+[12/03/2026  0:52:08,46] [CHECK] |    +-- purchase_invoice_line_standalone...... | not activated   |
+[12/03/2026  0:52:08,54] [CHECK] |    +-- purchase_price_list................... | not activated   |
+[12/03/2026  0:52:08,63] [CHECK] |    +-- purchase_product_quantity............. | not activated   |
+[12/03/2026  0:52:08,74] [CHECK] |    +-- purchase_request...................... | activated       |
+[12/03/2026  0:52:08,82] [CHECK] |    +-- purchase_request_quotation............ | not activated   |
+[12/03/2026  0:52:08,91] [CHECK] |    +-- purchase_requisition.................. | not activated   |
+[12/03/2026  0:52:09,02] [CHECK] |    +-- purchase_secondary_unit............... | not activated   |
+[12/03/2026  0:52:09,10] [CHECK] |    +-- purchase_shipment_cost................ | not activated   |
+[12/03/2026  0:52:09,20] [CHECK] | quality...................................... | not activated   |
+[12/03/2026  0:52:09,36] [CHECK] | res.......................................... | activated       |
+[12/03/2026  0:52:09,46] [CHECK] | sale......................................... | activated       |
+[12/03/2026  0:52:09,57] [CHECK] |    +-- sale_advance_payment.................. | not activated   |
+[12/03/2026  0:52:09,66] [CHECK] |    +-- sale_amendment........................ | not activated   |
+[12/03/2026  0:52:09,75] [CHECK] |    +-- sale_blanket_agreement................ | not activated   |
+[12/03/2026  0:52:09,84] [CHECK] |    +-- sale_complaint........................ | not activated   |
+[12/03/2026  0:52:09,95] [CHECK] |    +-- sale_credit_limit..................... | not activated   |
+[12/03/2026  0:52:10,03] [CHECK] |    +-- sale_discount......................... | not activated   |
+[12/03/2026  0:52:10,18] [CHECK] |    +-- sale_extra............................ | not activated   |
+[12/03/2026  0:52:10,28] [CHECK] |    +-- sale_gift_card........................ | not activated   |
+[12/03/2026  0:52:10,39] [CHECK] |    +-- sale_history.......................... | not activated   |
+[12/03/2026  0:52:10,51] [CHECK] |    +-- sale_invoice_date..................... | not activated   |
+[12/03/2026  0:52:10,60] [CHECK] |    +-- sale_invoice_grouping................. | not activated   |
+[12/03/2026  0:52:10,73] [CHECK] |    +-- sale_opportunity...................... | not activated   |
+[12/03/2026  0:52:10,81] [CHECK] |    +-- sale_payment.......................... | not activated   |
+[12/03/2026  0:52:10,91] [CHECK] |    +-- sale_point............................ | not activated   |
+[12/03/2026  0:52:11,04] [CHECK] |    +-- sale_price_list....................... | not activated   |
+[12/03/2026  0:52:11,18] [CHECK] |    +-- sale_product_customer................. | not activated   |
+[12/03/2026  0:52:11,31] [CHECK] |    +-- sale_product_quantity................. | not activated   |
+[12/03/2026  0:52:11,44] [CHECK] |    +-- sale_product_recommendation........... | not activated   |
+[12/03/2026  0:52:11,53] [CHECK] |    +-- sale_product_recommendation_associatio | not activated   |
+[12/03/2026  0:52:11,63] [CHECK] |    +-- sale_promotion........................ | not activated   |
+[12/03/2026  0:52:11,72] [CHECK] |    +-- sale_promotion_coupon................. | not activated   |
+[12/03/2026  0:52:11,80] [CHECK] |    +-- sale_promotion_coupon_payment......... | not activated   |
+[12/03/2026  0:52:11,90] [CHECK] |    +-- sale_rental........................... | not activated   |
+[12/03/2026  0:52:12,00] [CHECK] |    +-- sale_rental_progress_invoice.......... | not activated   |
+[12/03/2026  0:52:12,08] [CHECK] |    +-- sale_secondary_unit................... | not activated   |
+[12/03/2026  0:52:12,23] [CHECK] |    +-- sale_shipment_cost.................... | activated       |
+[12/03/2026  0:52:12,31] [CHECK] |    +-- sale_shipment_grouping................ | not activated   |
+[12/03/2026  0:52:12,41] [CHECK] |    +-- sale_shipment_tolerance............... | not activated   |
+[12/03/2026  0:52:12,52] [CHECK] |    +-- sale_stock_quantity................... | not activated   |
+[12/03/2026  0:52:12,60] [CHECK] |    +-- sale_subscription..................... | not activated   |
+[12/03/2026  0:52:12,75] [CHECK] |    +-- sale_subscription_asset............... | not activated   |
+[12/03/2026  0:52:12,89] [CHECK] |    +-- sale_supply........................... | not activated   |
+[12/03/2026  0:52:13,04] [CHECK] |    +-- sale_supply_drop_shipment............. | not activated   |
+[12/03/2026  0:52:13,13] [CHECK] |    +-- sale_supply_production................ | not activated   |
+[12/03/2026  0:52:13,26] [CHECK] | stock........................................ | activated       |
+[12/03/2026  0:52:13,38] [CHECK] |    +-- stock_assign_manual................... | not activated   |
+[12/03/2026  0:52:13,52] [CHECK] |    +-- stock_consignment..................... | not activated   |
+[12/03/2026  0:52:13,64] [CHECK] |    +-- stock_forecast........................ | not activated   |
+[12/03/2026  0:52:13,73] [CHECK] |    +-- stock_inventory_location.............. | not activated   |
+[12/03/2026  0:52:13,83] [CHECK] |    +-- stock_location_move................... | not activated   |
+[12/03/2026  0:52:13,95] [CHECK] |    +-- stock_location_sequence............... | not activated   |
+[12/03/2026  0:52:14,05] [CHECK] |    +-- stock_lot............................. | activated       |
+[12/03/2026  0:52:14,18] [CHECK] |    +-- stock_lot_sled........................ | not activated   |
+[12/03/2026  0:52:14,33] [CHECK] |    +-- stock_lot_unit........................ | not activated   |
+[12/03/2026  0:52:14,46] [CHECK] |    +-- stock_package......................... | not activated   |
+[12/03/2026  0:52:14,56] [CHECK] |    +-- stock_package_shipping................ | not activated   |
+[12/03/2026  0:52:14,66] [CHECK] |    +-- stock_package_shipping_dpd............ | not activated   |
+[12/03/2026  0:52:14,80] [CHECK] |    +-- stock_package_shipping_mygls.......... | not activated   |
+[12/03/2026  0:52:14,91] [CHECK] |    +-- stock_package_shipping_sendcloud...... | not activated   |
+[12/03/2026  0:52:15,03] [CHECK] |    +-- stock_package_shipping_ups............ | not activated   |
+[12/03/2026  0:52:15,12] [CHECK] |    +-- stock_product_location................ | not activated   |
+[12/03/2026  0:52:15,22] [CHECK] |    +-- stock_product_location_place.......... | not activated   |
+[12/03/2026  0:52:15,42] [CHECK] |    +-- stock_quantity_early_planning......... | not activated   |
+[12/03/2026  0:52:15,50] [CHECK] |    +-- stock_quantity_issue.................. | not activated   |
+[12/03/2026  0:52:15,60] [CHECK] |    +-- stock_secondary_unit.................. | not activated   |
+[12/03/2026  0:52:15,68] [CHECK] |    +-- stock_shipment_cost................... | activated       |
+[12/03/2026  0:52:15,77] [CHECK] |    +-- stock_shipment_cost_weight............ | not activated   |
+[12/03/2026  0:52:15,88] [CHECK] |    +-- stock_shipment_customs................ | not activated   |
+[12/03/2026  0:52:16,01] [CHECK] |    +-- stock_shipment_measurements........... | not activated   |
+[12/03/2026  0:52:16,13] [CHECK] |    +-- stock_shipping_point.................. | not activated   |
+[12/03/2026  0:52:16,27] [CHECK] |    +-- stock_split........................... | not activated   |
+[12/03/2026  0:52:16,37] [CHECK] |    +-- stock_supply.......................... | activated       |
+[12/03/2026  0:52:16,49] [CHECK] |    +-- stock_supply_day...................... | not activated   |
+[12/03/2026  0:52:16,62] [CHECK] |    +-- stock_supply_forecast................. | not activated   |
+[12/03/2026  0:52:16,76] [CHECK] |    +-- stock_supply_production............... | activated       |
+[12/03/2026  0:52:16,85] [CHECK] | timesheet.................................... | activated       |
+[12/03/2026  0:52:16,97] [CHECK] |    +-- timesheet_cost........................ | not activated   |
+[12/03/2026  0:52:17,09] [CHECK] | user_role.................................... | not activated   |
+[12/03/2026  0:52:17,23] [CHECK] | web_shop..................................... | not activated   |
+[12/03/2026  0:52:17,45] [CHECK] |    +-- web_shop_product_data_feed............ | not activated   |
+[12/03/2026  0:52:17,55] [CHECK] |    +-- web_shop_shopify...................... | not activated   |
+[12/03/2026  0:52:17,64] [CHECK] |    +-- web_shop_vue_storefront............... | not activated   |
+[12/03/2026  0:52:17,73] [CHECK] |    +-- web_shop_vue_storefront_stripe........ | not activated   |
+[12/03/2026  0:52:17,82] [CHECK] |    +-- web_shortener......................... | not activated   |
+[12/03/2026  0:52:17,93] [CHECK] |    +-- web_user.............................. | not activated   |
+[12/03/2026  0:52:18,32] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:52:28,26] [INS] [13.-] Comprobar la incorporación de todos los ficheros xml (Estructura y Datos) de cada uno de los módulos con
+[12/03/2026  0:52:28,50] [APP] install_reports [7] - [INS] - Listar los módulos instalados - [D:\ERP\tryton\TryDockCmd\tmp\trytond_xml.txt]
+[12/03/2026  0:52:28,62] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:52:29,40] [CHECK] ir.xml                              DATOS
+[12/03/2026  0:52:30,03] [CHECK] ui/ui.xml                           DATOS
+[12/03/2026  0:52:30,73] [CHECK] ui/icon.xml                         ESTRUCTURA
+[12/03/2026  0:52:31,42] [CHECK] ui/menu.xml                         ESTRUCTURA
+[12/03/2026  0:52:32,05] [CHECK] ui/view.xml                         ESTRUCTURA
+[12/03/2026  0:52:32,75] [CHECK] action.xml                          ESTRUCTURA
+[12/03/2026  0:52:33,44] [CHECK] model.xml                           ESTRUCTURA
+[12/03/2026  0:52:34,14] [CHECK] sequence.xml                        ESTRUCTURA
+[12/03/2026  0:52:34,80] [CHECK] attachment.xml                      ESTRUCTURA
+[12/03/2026  0:52:35,53] [CHECK] note.xml                            ESTRUCTURA
+[12/03/2026  0:52:36,25] [CHECK] cron.xml                            ESTRUCTURA
+[12/03/2026  0:52:36,90] [CHECK] lang.xml                            ESTRUCTURA
+[12/03/2026  0:52:37,65] [CHECK] translation.xml                     ESTRUCTURA
+[12/03/2026  0:52:38,31] [CHECK] export.xml                          ESTRUCTURA
+[12/03/2026  0:52:39,00] [CHECK] rule.xml                            ESTRUCTURA
+[12/03/2026  0:52:39,76] [CHECK] module.xml                          ESTRUCTURA
+[12/03/2026  0:52:40,49] [CHECK] trigger.xml                         ESTRUCTURA
+[12/03/2026  0:52:41,14] [CHECK] calendar_.xml                       DATOS
+[12/03/2026  0:52:41,78] [CHECK] message.xml                         ESTRUCTURA
+[12/03/2026  0:52:42,47] [CHECK] queue.xml                           DATOS
+[12/03/2026  0:52:43,08] [CHECK] email.xml                           ESTRUCTURA
+[12/03/2026  0:52:43,73] [CHECK] error.xml                           ESTRUCTURA
+[12/03/2026  0:52:44,45] [CHECK] res.xml                             DATOS
+[12/03/2026  0:52:45,15] [CHECK] group.xml                           ESTRUCTURA
+[12/03/2026  0:52:45,79] [CHECK] user.xml                            ESTRUCTURA
+[12/03/2026  0:52:46,47] [CHECK] notification.xml                    ESTRUCTURA
+[12/03/2026  0:52:47,10] [CHECK] message.xml                         DATOS
+[12/03/2026  0:52:47,85] [CHECK] country.xml                         ESTRUCTURA
+[12/03/2026  0:52:48,60] [CHECK] organization.xml                    DATOS
+[12/03/2026  0:52:49,32] [CHECK] region.xml                          DATOS
+[12/03/2026  0:52:49,95] [CHECK] currency.xml                        ESTRUCTURA
+[12/03/2026  0:52:50,73] [CHECK] message.xml                         DATOS
+[12/03/2026  0:52:51,42] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:52:52,05] [CHECK] category.xml                        ESTRUCTURA
+[12/03/2026  0:52:52,77] [CHECK] address.xml                         ESTRUCTURA
+[12/03/2026  0:52:53,48] [CHECK] contact_mechanism.xml               ESTRUCTURA
+[12/03/2026  0:52:54,12] [CHECK] configuration.xml                   ESTRUCTURA
+[12/03/2026  0:52:54,78] [CHECK] ir.xml                              ESTRUCTURA
+[12/03/2026  0:52:55,46] [CHECK] message.xml                         DATOS
+[12/03/2026  0:52:56,16] [CHECK] bank.xml                            ESTRUCTURA
+[12/03/2026  0:52:56,81] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:52:57,60] [CHECK] message.xml                         DATOS
+[12/03/2026  0:52:58,27] [CHECK] company.xml                         ESTRUCTURA
+[12/03/2026  0:52:58,92] [CHECK] ir.xml                              ESTRUCTURA
+[12/03/2026  0:52:59,61] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:00,28] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:53:00,92] [CHECK] category.xml                        ESTRUCTURA
+[12/03/2026  0:53:01,67] [CHECK] uom.xml                             ESTRUCTURA
+[12/03/2026  0:53:02,32] [CHECK] configuration.xml                   ESTRUCTURA
+[12/03/2026  0:53:03,01] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:03,64] [CHECK] stock.xml                           DATOS
+[12/03/2026  0:53:04,29] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:53:04,92] [CHECK] location.xml                        ESTRUCTURA
+[12/03/2026  0:53:05,61] [CHECK] shipment.xml                        ESTRUCTURA
+[12/03/2026  0:53:06,27] [CHECK] move.xml                            ESTRUCTURA
+[12/03/2026  0:53:06,99] [CHECK] inventory.xml                       ESTRUCTURA
+[12/03/2026  0:53:07,75] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:53:08,50] [CHECK] configuration.xml                   ESTRUCTURA
+[12/03/2026  0:53:09,13] [CHECK] period.xml                          ESTRUCTURA
+[12/03/2026  0:53:09,86] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:10,53] [CHECK] res.xml                             ESTRUCTURA
+[12/03/2026  0:53:11,16] [CHECK] stock_reporting.xml                 ESTRUCTURA
+[12/03/2026  0:53:11,81] [CHECK] stock_reporting_margin.xml          ESTRUCTURA
+[12/03/2026  0:53:12,55] [CHECK] account.xml                         ESTRUCTURA
+[12/03/2026  0:53:13,20] [CHECK] configuration.xml                   ESTRUCTURA
+[12/03/2026  0:53:13,84] [CHECK] company.xml                         ESTRUCTURA
+[12/03/2026  0:53:14,52] [CHECK] fiscalyear.xml                      ESTRUCTURA
+[12/03/2026  0:53:15,18] [CHECK] period.xml                          ESTRUCTURA
+[12/03/2026  0:53:15,82] [CHECK] journal.xml                         ESTRUCTURA
+[12/03/2026  0:53:16,51] [CHECK] move.xml                            ESTRUCTURA
+[12/03/2026  0:53:17,15] [CHECK] move_template.xml                   ESTRUCTURA
+[12/03/2026  0:53:18,01] [CHECK] tax.xml                             ESTRUCTURA
+[12/03/2026  0:53:18,74] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:53:19,46] [CHECK] account_chart_de.xml                DATOS
+[12/03/2026  0:53:20,06] [CHECK] account_chart_en.xml                DATOS
+[12/03/2026  0:53:20,76] [CHECK] account_chart_es.xml                DATOS
+[12/03/2026  0:53:21,44] [CHECK] account_chart_fr.xml                DATOS
+[12/03/2026  0:53:22,05] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:22,73] [CHECK] account.xml                         ESTRUCTURA
+[12/03/2026  0:53:23,49] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:53:24,13] [CHECK] configuration.xml                   ESTRUCTURA
+[12/03/2026  0:53:24,77] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:25,46] [CHECK] analytic_account.xml                ESTRUCTURA
+[12/03/2026  0:53:26,11] [CHECK] invoice.xml                         ESTRUCTURA
+[12/03/2026  0:53:26,79] [CHECK] payment_term.xml                    ESTRUCTURA
+[12/03/2026  0:53:27,57] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:53:28,24] [CHECK] account.xml                         ESTRUCTURA
+[12/03/2026  0:53:28,99] [CHECK] company.xml                         ESTRUCTURA
+[12/03/2026  0:53:29,67] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:30,40] [CHECK] account.xml                         ESTRUCTURA
+[12/03/2026  0:53:31,05] [CHECK] account.xml                         ESTRUCTURA
+[12/03/2026  0:53:31,73] [CHECK] stock.xml                           ESTRUCTURA
+[12/03/2026  0:53:32,45] [CHECK] account.xml                         DATOS
+[12/03/2026  0:53:33,07] [CHECK] statement.xml                       ESTRUCTURA
+[12/03/2026  0:53:33,72] [CHECK] journal.xml                         ESTRUCTURA
+[12/03/2026  0:53:34,54] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:35,21] [CHECK] payment.xml                         ESTRUCTURA
+[12/03/2026  0:53:35,83] [CHECK] account.xml                         ESTRUCTURA
+[12/03/2026  0:53:36,54] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:53:37,21] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:37,95] [CHECK] purchase.xml                        ESTRUCTURA
+[12/03/2026  0:53:38,65] [CHECK] purchase_reporting.xml              ESTRUCTURA
+[12/03/2026  0:53:39,39] [CHECK] configuration.xml                   ESTRUCTURA
+[12/03/2026  0:53:40,06] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:53:40,75] [CHECK] stock.xml                           ESTRUCTURA
+[12/03/2026  0:53:41,43] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:53:42,06] [CHECK] invoice.xml                         ESTRUCTURA
+[12/03/2026  0:53:42,74] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:43,45] [CHECK] sale.xml                            ESTRUCTURA
+[12/03/2026  0:53:44,04] [CHECK] configuration.xml                   ESTRUCTURA
+[12/03/2026  0:53:44,75] [CHECK] sale_reporting.xml                  ESTRUCTURA
+[12/03/2026  0:53:45,47] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:53:46,14] [CHECK] stock.xml                           ESTRUCTURA
+[12/03/2026  0:53:46,79] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:53:47,61] [CHECK] invoice.xml                         ESTRUCTURA
+[12/03/2026  0:53:48,28] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:48,98] [CHECK] purchase_request.xml                ESTRUCTURA
+[12/03/2026  0:53:49,67] [CHECK] purchase.xml                        ESTRUCTURA
+[12/03/2026  0:53:50,38] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:51,10] [CHECK] order_point.xml                     ESTRUCTURA
+[12/03/2026  0:53:51,76] [CHECK] purchase_request.xml                ESTRUCTURA
+[12/03/2026  0:53:52,48] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:53:53,10] [CHECK] location.xml                        ESTRUCTURA
+[12/03/2026  0:53:53,80] [CHECK] stock.xml                           ESTRUCTURA
+[12/03/2026  0:53:54,50] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:55,16] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:53:55,84] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:56,63] [CHECK] price_list.xml                      ESTRUCTURA
+[12/03/2026  0:53:57,42] [CHECK] message.xml                         DATOS
+[12/03/2026  0:53:58,04] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:53:58,75] [CHECK] ir.xml                              DATOS
+[12/03/2026  0:53:59,46] [CHECK] stock.xml                           ESTRUCTURA
+[12/03/2026  0:54:00,13] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:54:00,80] [CHECK] message.xml                         DATOS
+[12/03/2026  0:54:01,47] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:54:02,16] [CHECK] message.xml                         DATOS
+[12/03/2026  0:54:02,81] [CHECK] company.xml                         ESTRUCTURA
+[12/03/2026  0:54:03,53] [CHECK] carrier.xml                         ESTRUCTURA
+[12/03/2026  0:54:04,22] [CHECK] timesheet.xml                       DATOS
+[12/03/2026  0:54:04,84] [CHECK] work.xml                            ESTRUCTURA
+[12/03/2026  0:54:05,56] [CHECK] line.xml                            ESTRUCTURA
+[12/03/2026  0:54:06,26] [CHECK] message.xml                         DATOS
+[12/03/2026  0:54:06,93] [CHECK] project.xml                         DATOS
+[12/03/2026  0:54:07,75] [CHECK] work.xml                            ESTRUCTURA
+[12/03/2026  0:54:08,46] [CHECK] timesheet.xml                       ESTRUCTURA
+[12/03/2026  0:54:09,10] [CHECK] message.xml                         DATOS
+[12/03/2026  0:54:09,80] [CHECK] carrier.xml                         ESTRUCTURA
+[12/03/2026  0:54:10,52] [CHECK] stock.xml                           ESTRUCTURA
+[12/03/2026  0:54:11,20] [CHECK] stock_reporting_margin.xml          ESTRUCTURA
+[12/03/2026  0:54:11,86] [CHECK] production.xml                      ESTRUCTURA
+[12/03/2026  0:54:12,54] [CHECK] configuration.xml                   ESTRUCTURA
+[12/03/2026  0:54:13,31] [CHECK] bom.xml                             ESTRUCTURA
+[12/03/2026  0:54:13,93] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:54:14,62] [CHECK] stock.xml                           ESTRUCTURA
+[12/03/2026  0:54:15,28] [CHECK] message.xml                         DATOS
+[12/03/2026  0:54:15,94] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:54:16,64] [CHECK] sale.xml                            ESTRUCTURA
+[12/03/2026  0:54:17,41] [CHECK] stock.xml                           ESTRUCTURA
+[12/03/2026  0:54:18,03] [CHECK] message.xml                         DATOS
+[12/03/2026  0:54:18,79] [CHECK] incoterm.xml                        ESTRUCTURA
+[12/03/2026  0:54:19,48] [CHECK] company.xml                         ESTRUCTURA
+[12/03/2026  0:54:20,18] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:54:20,81] [CHECK] carrier.xml                         ESTRUCTURA
+[12/03/2026  0:54:21,48] [CHECK] purchase.xml                        ESTRUCTURA
+[12/03/2026  0:54:22,16] [CHECK] sale.xml                            ESTRUCTURA
+[12/03/2026  0:54:22,81] [CHECK] stock.xml                           ESTRUCTURA
+[12/03/2026  0:54:23,55] [CHECK] web.xml                             ESTRUCTURA
+[12/03/2026  0:54:24,27] [CHECK] message.xml                         DATOS
+[12/03/2026  0:54:24,96] [CHECK] production.xml                      ESTRUCTURA
+[12/03/2026  0:54:25,61] [CHECK] stock.xml                           ESTRUCTURA
+[12/03/2026  0:54:26,27] [CHECK] message.xml                         DATOS
+[12/03/2026  0:54:26,92] [CHECK] routing.xml                         ESTRUCTURA
+[12/03/2026  0:54:27,65] [CHECK] production.xml                      ESTRUCTURA
+[12/03/2026  0:54:28,44] [CHECK] product.xml                         ESTRUCTURA
+[12/03/2026  0:54:29,08] [CHECK] work.xml                            ESTRUCTURA
+[12/03/2026  0:54:29,83] [CHECK] routing.xml                         ESTRUCTURA
+[12/03/2026  0:54:30,53] [CHECK] production.xml                      ESTRUCTURA
+[12/03/2026  0:54:31,18] [CHECK] message.xml                         DATOS
+[12/03/2026  0:54:31,82] [CHECK] dashboard.xml                       ESTRUCTURA
+[12/03/2026  0:54:32,52] [CHECK] res.xml                             ESTRUCTURA
+[12/03/2026  0:54:33,18] [CHECK] ir.xml                              ESTRUCTURA
+[12/03/2026  0:54:33,84] [CHECK] marketing.xml                       DATOS
+[12/03/2026  0:54:34,55] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:54:35,34] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:54:36,00] [CHECK] company.xml                         ESTRUCTURA
+[12/03/2026  0:54:36,76] [CHECK] tax_groups.xml                      DATOS
+[12/03/2026  0:54:37,53] [CHECK] account_normal.xml                  DATOS
+[12/03/2026  0:54:38,21] [CHECK] tax_normal.xml                      DATOS
+[12/03/2026  0:54:38,87] [CHECK] account_pyme.xml                    DATOS
+[12/03/2026  0:54:39,63] [CHECK] tax_pyme.xml                        DATOS
+[12/03/2026  0:54:40,33] [CHECK] view.xml                            ESTRUCTURA
+[12/03/2026  0:54:41,18] [CHECK] reporting_tax.xml                   ESTRUCTURA
+[12/03/2026  0:54:41,94] [CHECK] message.xml                         DATOS
+[12/03/2026  0:54:42,62] [CHECK] party.xml                           ESTRUCTURA
+[12/03/2026  0:54:43,29] [CHECK] account_payment.xml                 ESTRUCTURA
+[12/03/2026  0:54:43,96] [CHECK] statement.xml                       DATOS
+[12/03/2026  0:54:44,67] [CHECK] account.xml                         DATOS
+[12/03/2026  0:54:45,07] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:54:55,39] [INS] REAL - Analizar los logs de tryton (LOGS) tryton
+[12/03/2026  0:54:55,50] [APP] logger [SQL]
+[12/03/2026  0:54:55,60] [SQL] Visualizando logs de tryton (líneas: 500).
+[12/03/2026  0:54:55,94] [SQL] Se visualizan los logs del contenedor postgres en Docker.
+[12/03/2026  0:54:56,51] [APP] global_routines timeout_start 20 1
+[12/03/2026  0:55:16,32] [INS] (DEMO) Instalar database-.dump en base de datos (tryton_demo)
+[12/03/2026  0:55:16,48] [APP] install.header [INS] [install_demo] [DEMO]
+[12/03/2026  0:55:16,58] [APP] checkversion [APP]
+[12/03/2026  0:55:16,75] [APP] startup [CHECK]
+[12/03/2026  0:55:17,09] [CHECK] El contenedor tryton-postgres-1 - Servicio: postgres está activo.
+[12/03/2026  0:55:17,23] [APP] global_routines timeout_start 3 1
+[12/03/2026  0:55:20,52] [CHECK] El contenedor tryton-server-1 - Servicio: server está activo.
+[12/03/2026  0:55:20,64] [APP] global_routines timeout_start 3 1
+[12/03/2026  0:55:23,57] [CHECK] El contenedor tryton-cron-1 - Servicio: cron está activo.
+[12/03/2026  0:55:23,69] [APP] global_routines timeout_start 3 1
+[12/03/2026  0:55:26,30] [CHECK] Se inspecciona en Docker: [tryton-server-1]
+[12/03/2026  0:55:26,50] [CHECK] Buscando en el server versión Tryton. - (trytond.__version__.split('.')[:3])
+[12/03/2026  0:55:26,99] [CHECK] Se ha localizado la versión Tryton en Docker: [7.8]
+[12/03/2026  0:55:27,06] [CHECK] Se ha localizado la versión Tryton en Docker: [7.8.5]
+[12/03/2026  0:55:27,16] [CHECK] Se inspecciona en Docker: [postgres] - [SELECT 1 FROM pg_catalog.pg_database WHERE datname='tryton]
+[12/03/2026  0:55:27,72] [CHECK] Buscando en el server versión PostgreSQL. - [SELECT version()]
+[12/03/2026  0:55:28,17] [CHECK] Se ha localizado la versión base de datos tryton en Docker: [PostgreSQL 18.3 (Debian 18.3-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit]
+[12/03/2026  0:55:28,30] [CHECK] Se ha localizado la versión base de datos tryton en Docker: [PostgreSQL 18.3]
+[12/03/2026  0:55:28,39] [CHECK] checkversion: Todos los procesos ejecutados de forma correcta.
+[12/03/2026  0:55:28,69] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:55:32,06] [APP] global_routines timeout_start 20 1
+[12/03/2026  0:55:52,25] [INS] [1.-] Parar el servicio de postgres, para desactivar posibles conexiones de usuarios. - stop postgres
+[12/03/2026  0:55:53,17] [APP] global_routines timeout_start 10 
+[12/03/2026  0:56:03,25] [INS] [2.-] Activar el servicio de postgres. - start postgres
+[12/03/2026  0:56:03,83] [APP] global_routines timeout_start 10 
+[12/03/2026  0:56:13,26] [INS] [4.-] Si existe, eliminar la base de datos tryton_demo
+[12/03/2026  0:56:13,74] [APP] global_routines timeout_start 10 
+[12/03/2026  0:56:23,25] [INS] [5.-] Crear la base de datos tryton_demo
+[12/03/2026  0:56:23,78] [APP] global_routines timeout_start 10 
+[12/03/2026  0:56:33,37] [INS] [6.-] Comprobar conexión a la base de datos tryton_demo
+[12/03/2026  0:56:33,77] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:56:43,26] [INS] [7.-] Importar con curl en https://www.tryton.org/~demo/database-VERSION.dump inyectando a https://www.tryton.org/~demo/database-7.8.dump
+[12/03/2026  0:56:43,41] [INS] Existe el fichero database-7.8.dump en la ruta D:\ERP\tryton\TryDockCmd\sql
+[12/03/2026  0:56:43,49] [INS] [+] Inyectando en la base de datos tryton_demo
+[12/03/2026  0:56:53,69] [APP] global_routines timeout_start 10 
+[12/03/2026  0:57:03,27] [INS] [8.-] Desactivar el módulo authentication_none, por no tener el modulo en la imagen de docker.
+[12/03/2026  0:57:03,74] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:57:13,28] [INS] [9.-] Actualizar la lista de módulos en base de datos (--update-modules-list)
+[12/03/2026  0:57:16,86] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:57:26,24] [INS] [10.-] Verificar y comprobar que todos los módulos están activated
+[12/03/2026  0:57:26,72] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:57:36,28] [APP] install_reports [6] - [MENU] - Verificar y comprobar que todos los módulos están activated - [D:\ERP\tryton\TryDockCmd\tmp\trytond_activ_demo.txt]
+[12/03/2026  0:57:36,39] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:57:36,67] [APP] global_routines fill_in_field [MENU] Comparando módulos: [1/6] ESTRUCTURA MINIMA: Núcleo Tryton (country, currency, company, party, bank)
+[12/03/2026  0:57:37,12] [INFO] Mensaje [OK] Módulo country
+[12/03/2026  0:57:37,25] [INFO] Mensaje [OK] Módulo currency
+[12/03/2026  0:57:37,38] [INFO] Mensaje [OK] Módulo company
+[12/03/2026  0:57:37,52] [INFO] Mensaje [OK] Módulo party
+[12/03/2026  0:57:37,63] [INFO] Mensaje [OK] Módulo bank
+[12/03/2026  0:57:37,74] [APP] global_routines fill_in_field [MENU] Comparando módulos: [2/6] PRODUCTOS: Producto y Stock (product, stock)
+[12/03/2026  0:57:38,21] [INFO] Mensaje [OK] Módulo product
+[12/03/2026  0:57:38,29] [INFO] Mensaje [OK] Módulo stock
+[12/03/2026  0:57:38,44] [APP] global_routines fill_in_field [MENU] Comparando módulos: [3/6] CONTABILIDAD BASE: Motor contable y facturación (account, account_payment, account_product, account_statement, account_invoice, account_invoice_stock)
+[12/03/2026  0:57:39,09] [INFO] Mensaje [OK] Módulo account
+[12/03/2026  0:57:39,19] [INFO] Mensaje [OK] Módulo account_payment
+[12/03/2026  0:57:39,31] [INFO] Mensaje [OK] Módulo account_product
+[12/03/2026  0:57:39,45] [INFO] Mensaje [OK] Módulo account_statement
+[12/03/2026  0:57:39,56] [INFO] Mensaje [OK] Módulo account_invoice
+[12/03/2026  0:57:39,65] [INFO] Mensaje [OK] Módulo account_invoice_stock
+[12/03/2026  0:57:39,77] [APP] global_routines fill_in_field [MENU] Comparando módulos: [4/6] COMPRA/VENTA: Ciclo comercial (sale, purchase)
+[12/03/2026  0:57:40,26] [INFO] Mensaje [OK] Módulo sale
+[12/03/2026  0:57:40,34] [INFO] Mensaje [OK] Módulo purchase
+[12/03/2026  0:57:40,49] [APP] global_routines fill_in_field [MENU] Comparando módulos: [5/6] LOGISTICA AVANZADA: Lotes y Atributos (production, production_work, party_avatar, company_work_time, timesheet)
+[12/03/2026  0:57:41,05] [INFO] Mensaje [OK] Módulo production
+[12/03/2026  0:57:41,14] [INFO] Mensaje [OK] Módulo production_work
+[12/03/2026  0:57:41,25] [INFO] Mensaje [OK] Módulo party_avatar
+[12/03/2026  0:57:41,40] [INFO] Mensaje [OK] Módulo company_work_time
+[12/03/2026  0:57:41,48] [INFO] Mensaje [OK] Módulo timesheet
+[12/03/2026  0:57:41,60] [APP] global_routines fill_in_field [MENU] Comparando módulos: [6/6] PLANIFICACION: Reposicion de stock (project)
+[12/03/2026  0:57:42,02] [INFO] Mensaje [OK] Módulo project
+[12/03/2026  0:57:42,32] [APP] global_routines timeout_start 10 
+[12/03/2026  0:57:52,24] [INS] [11.-] Listar los módulos instalados
+[12/03/2026  0:57:52,73] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:58:02,34] [APP] install_reports [8] - [MENU] - Listar los módulos instalados - [D:\ERP\tryton\TryDockCmd\tmp\trytond_modules_demo.txt]
+[12/03/2026  0:58:02,48] [CHECK] Se leen todos los módulos del fichero .env y se graban en memoria.
+[12/03/2026  0:58:02,78] [CHECK] | account...................................... | activated       |
+[12/03/2026  0:58:02,86] [CHECK] |    +-- account_asset......................... | not activated   |
+[12/03/2026  0:58:03,00] [CHECK] |    +-- account_be............................ | not activated   |
+[12/03/2026  0:58:03,08] [CHECK] |    +-- account_budget........................ | not activated   |
+[12/03/2026  0:58:03,18] [CHECK] |    +-- account_cash_rounding................. | not activated   |
+[12/03/2026  0:58:03,31] [CHECK] |    +-- account_consolidation................. | not activated   |
+[12/03/2026  0:58:03,45] [CHECK] |    +-- account_credit_limit.................. | not activated   |
+[12/03/2026  0:58:03,53] [CHECK] |    +-- account_deposit....................... | not activated   |
+[12/03/2026  0:58:03,63] [CHECK] |    +-- account_de_skr03...................... | not activated   |
+[12/03/2026  0:58:03,72] [CHECK] |    +-- account_dunning....................... | not activated   |
+[12/03/2026  0:58:03,80] [CHECK] |    +-- account_dunning_email................. | not activated   |
+[12/03/2026  0:58:03,90] [CHECK] |    +-- account_dunning_fee................... | not activated   |
+[12/03/2026  0:58:03,99] [CHECK] |    +-- account_dunning_letter................ | not activated   |
+[12/03/2026  0:58:04,09] [CHECK] |    +-- account_es............................ | not activated   |
+[12/03/2026  0:58:04,23] [CHECK] |    +-- account_es_sii........................ | not activated   |
+[12/03/2026  0:58:04,36] [CHECK] |    +-- account_eu............................ | not activated   |
+[12/03/2026  0:58:04,48] [CHECK] |    +-- account_export........................ | not activated   |
+[12/03/2026  0:58:04,56] [CHECK] |    +-- account_export_winbooks............... | not activated   |
+[12/03/2026  0:58:04,66] [CHECK] |    +-- account_fr............................ | not activated   |
+[12/03/2026  0:58:04,78] [CHECK] |    +-- account_fr_chorus..................... | not activated   |
+[12/03/2026  0:58:04,86] [CHECK] |    +-- account_invoice....................... | activated       |
+[12/03/2026  0:58:04,96] [CHECK] |    +-- account_invoice_correction............ | not activated   |
+[12/03/2026  0:58:05,06] [CHECK] |    +-- account_invoice_defer................. | not activated   |
+[12/03/2026  0:58:05,15] [CHECK] |    +-- account_invoice_history............... | not activated   |
+[12/03/2026  0:58:05,28] [CHECK] |    +-- account_invoice_line_standalone....... | not activated   |
+[12/03/2026  0:58:05,41] [CHECK] |    +-- account_invoice_secondary_unit........ | not activated   |
+[12/03/2026  0:58:05,50] [CHECK] |    +-- account_invoice_stock................. | activated       |
+[12/03/2026  0:58:05,59] [CHECK] |    +-- account_invoice_watermark............. | not activated   |
+[12/03/2026  0:58:05,67] [CHECK] |    +-- account_move_line_grouping............ | not activated   |
+[12/03/2026  0:58:05,75] [CHECK] |    +-- account_payment....................... | activated       |
+[12/03/2026  0:58:05,84] [CHECK] |    +-- account_payment_braintree............. | not activated   |
+[12/03/2026  0:58:05,93] [CHECK] |    +-- account_payment_clearing.............. | not activated   |
+[12/03/2026  0:58:06,03] [CHECK] |    +-- account_payment_sepa.................. | not activated   |
+[12/03/2026  0:58:06,18] [CHECK] |    +-- account_payment_sepa_cfonb............ | not activated   |
+[12/03/2026  0:58:06,29] [CHECK] |    +-- account_payment_stripe................ | not activated   |
+[12/03/2026  0:58:06,39] [CHECK] |    +-- account_product....................... | activated       |
+[12/03/2026  0:58:06,50] [CHECK] |    +-- account_receivable_rule............... | not activated   |
+[12/03/2026  0:58:06,58] [CHECK] |    +-- account_rule.......................... | not activated   |
+[12/03/2026  0:58:06,69] [CHECK] |    +-- account_statement..................... | activated       |
+[12/03/2026  0:58:06,79] [CHECK] |    +-- account_statement_aeb43............... | not activated   |
+[12/03/2026  0:58:06,87] [CHECK] |    +-- account_statement_coda................ | not activated   |
+[12/03/2026  0:58:07,00] [CHECK] |    +-- account_statement_mt940............... | not activated   |
+[12/03/2026  0:58:07,08] [CHECK] |    +-- account_statement_ofx................. | not activated   |
+[12/03/2026  0:58:07,19] [CHECK] |    +-- account_statement_rule................ | not activated   |
+[12/03/2026  0:58:07,37] [CHECK] |    +-- account_statement_sepa................ | not activated   |
+[12/03/2026  0:58:07,51] [CHECK] |    +-- account_stock_anglo_saxon............. | not activated   |
+[12/03/2026  0:58:07,63] [CHECK] |    +-- account_stock_continental............. | not activated   |
+[12/03/2026  0:58:07,71] [CHECK] |    +-- account_stock_eu...................... | not activated   |
+[12/03/2026  0:58:07,79] [CHECK] |    +-- account_stock_landed_cost............. | not activated   |
+[12/03/2026  0:58:07,89] [CHECK] |    +-- account_stock_landed_cost_weight...... | not activated   |
+[12/03/2026  0:58:07,99] [CHECK] |    +-- account_stock_shipment_cost........... | not activated   |
+[12/03/2026  0:58:08,13] [CHECK] |    +-- account_stock_shipment_cost_weight.... | not activated   |
+[12/03/2026  0:58:08,24] [CHECK] |    +-- account_syscohada..................... | not activated   |
+[12/03/2026  0:58:08,33] [CHECK] |    +-- account_tax_cash...................... | not activated   |
+[12/03/2026  0:58:08,46] [CHECK] |    +-- account_tax_non_deductible............ | not activated   |
+[12/03/2026  0:58:08,54] [CHECK] |    +-- account_tax_rule_country.............. | not activated   |
+[12/03/2026  0:58:08,64] [CHECK] | analytic_account............................. | not activated   |
+[12/03/2026  0:58:08,75] [CHECK] |    +-- analytic_budget....................... | not activated   |
+[12/03/2026  0:58:08,83] [CHECK] |    +-- analytic_invoice...................... | not activated   |
+[12/03/2026  0:58:08,92] [CHECK] |    +-- analytic_purchase..................... | not activated   |
+[12/03/2026  0:58:09,02] [CHECK] |    +-- analytic_sale......................... | not activated   |
+[12/03/2026  0:58:09,11] [CHECK] | attendance................................... | not activated   |
+[12/03/2026  0:58:09,21] [CHECK] | authentication_saml.......................... | not activated   |
+[12/03/2026  0:58:09,36] [CHECK] |    +-- authentication_sms.................... | not activated   |
+[12/03/2026  0:58:09,45] [CHECK] | bank......................................... | activated       |
+[12/03/2026  0:58:09,55] [CHECK] | carrier...................................... | not activated   |
+[12/03/2026  0:58:09,64] [CHECK] |    +-- carrier_carriage...................... | not activated   |
+[12/03/2026  0:58:09,73] [CHECK] |    +-- carrier_percentage.................... | not activated   |
+[12/03/2026  0:58:09,82] [CHECK] |    +-- carrier_subdivision................... | not activated   |
+[12/03/2026  0:58:09,92] [CHECK] |    +-- carrier_weight........................ | not activated   |
+[12/03/2026  0:58:10,01] [CHECK] | commission................................... | not activated   |
+[12/03/2026  0:58:10,14] [CHECK] |    +-- commission_waiting.................... | not activated   |
+[12/03/2026  0:58:10,25] [CHECK] | company...................................... | activated       |
+[12/03/2026  0:58:10,33] [CHECK] |    +-- company_work_time..................... | activated       |
+[12/03/2026  0:58:10,45] [CHECK] | country...................................... | activated       |
+[12/03/2026  0:58:10,53] [CHECK] | currency..................................... | activated       |
+[12/03/2026  0:58:10,62] [CHECK] |    +-- currency_ro........................... | not activated   |
+[12/03/2026  0:58:10,73] [CHECK] |    +-- currency_rs........................... | not activated   |
+[12/03/2026  0:58:10,81] [CHECK] | customs...................................... | not activated   |
+[12/03/2026  0:58:10,90] [CHECK] | dashboard.................................... | not activated   |
+[12/03/2026  0:58:11,01] [CHECK] | document_incoming............................ | not activated   |
+[12/03/2026  0:58:11,10] [CHECK] |    +-- document_incoming_invoice............. | not activated   |
+[12/03/2026  0:58:11,19] [CHECK] |    +-- document_incoming_ocr................. | not activated   |
+[12/03/2026  0:58:11,35] [CHECK] |    +-- document_incoming_ocr_typless......... | not activated   |
+[12/03/2026  0:58:11,50] [CHECK] | edocument_peppol............................. | not activated   |
+[12/03/2026  0:58:11,60] [CHECK] |    +-- edocument_peppol_peppyrus............. | not activated   |
+[12/03/2026  0:58:11,68] [CHECK] |    +-- edocument_ubl......................... | not activated   |
+[12/03/2026  0:58:11,76] [CHECK] |    +-- edocument_uncefact.................... | not activated   |
+[12/03/2026  0:58:11,86] [CHECK] |    +-- edocument_unece....................... | not activated   |
+[12/03/2026  0:58:11,96] [CHECK] | google_maps.................................. | not activated   |
+[12/03/2026  0:58:12,05] [CHECK] | inbound_email................................ | not activated   |
+[12/03/2026  0:58:12,19] [CHECK] | incoterm..................................... | not activated   |
+[12/03/2026  0:58:12,29] [CHECK] | ir........................................... | activated       |
+[12/03/2026  0:58:12,38] [CHECK] | ldap_authentication.......................... | not activated   |
+[12/03/2026  0:58:12,49] [CHECK] | marketing.................................... | not activated   |
+[12/03/2026  0:58:12,58] [CHECK] |    +-- marketing_automation.................. | not activated   |
+[12/03/2026  0:58:12,68] [CHECK] |    +-- marketing_campaign.................... | not activated   |
+[12/03/2026  0:58:12,78] [CHECK] |    +-- marketing_email....................... | not activated   |
+[12/03/2026  0:58:12,86] [CHECK] | notification_email........................... | not activated   |
+[12/03/2026  0:58:12,99] [CHECK] | party........................................ | activated       |
+[12/03/2026  0:58:13,11] [CHECK] |    +-- party_avatar.......................... | activated       |
+[12/03/2026  0:58:13,21] [CHECK] |    +-- party_relationship.................... | not activated   |
+[12/03/2026  0:58:13,38] [CHECK] |    +-- party_siret........................... | not activated   |
+[12/03/2026  0:58:13,46] [CHECK] | product...................................... | activated       |
+[12/03/2026  0:58:13,55] [CHECK] |    +-- product_attribute..................... | not activated   |
+[12/03/2026  0:58:13,64] [CHECK] |    +-- product_classification................ | not activated   |
+[12/03/2026  0:58:13,74] [CHECK] |    +-- product_classification_taxonomic...... | not activated   |
+[12/03/2026  0:58:13,83] [CHECK] |    +-- product_cost_fifo..................... | not activated   |
+[12/03/2026  0:58:13,93] [CHECK] |    +-- product_cost_history.................. | not activated   |
+[12/03/2026  0:58:14,03] [CHECK] |    +-- product_cost_warehouse................ | not activated   |
+[12/03/2026  0:58:14,15] [CHECK] |    +-- product_image......................... | not activated   |
+[12/03/2026  0:58:14,29] [CHECK] |    +-- product_image_attribute............... | not activated   |
+[12/03/2026  0:58:14,37] [CHECK] | production................................... | activated       |
+[12/03/2026  0:58:14,49] [CHECK] |    +-- production_outsourcing................ | not activated   |
+[12/03/2026  0:58:14,58] [CHECK] |    +-- production_routing.................... | activated       |
+[12/03/2026  0:58:14,67] [CHECK] |    +-- production_split...................... | not activated   |
+[12/03/2026  0:58:14,78] [CHECK] |    +-- production_work....................... | activated       |
+[12/03/2026  0:58:14,86] [CHECK] |    +-- production_work_timesheet............. | not activated   |
+[12/03/2026  0:58:14,99] [CHECK] | product_kit.................................. | not activated   |
+[12/03/2026  0:58:15,06] [CHECK] |    +-- product_measurements.................. | not activated   |
+[12/03/2026  0:58:15,15] [CHECK] |    +-- product_price_list.................... | not activated   |
+[12/03/2026  0:58:15,28] [CHECK] |    +-- product_price_list_cache.............. | not activated   |
+[12/03/2026  0:58:15,41] [CHECK] |    +-- product_price_list_dates.............. | not activated   |
+[12/03/2026  0:58:15,49] [CHECK] |    +-- product_price_list_parent............. | not activated   |
+[12/03/2026  0:58:15,58] [CHECK] | project...................................... | activated       |
+[12/03/2026  0:58:15,66] [CHECK] |    +-- project_invoice....................... | not activated   |
+[12/03/2026  0:58:15,74] [CHECK] |    +-- project_plan.......................... | not activated   |
+[12/03/2026  0:58:15,82] [CHECK] |    +-- project_revenue....................... | not activated   |
+[12/03/2026  0:58:15,92] [CHECK] | purchase..................................... | activated       |
+[12/03/2026  0:58:16,00] [CHECK] |    +-- purchase_amendment.................... | not activated   |
+[12/03/2026  0:58:16,12] [CHECK] |    +-- purchase_blanket_agreement............ | not activated   |
+[12/03/2026  0:58:16,25] [CHECK] |    +-- purchase_history...................... | not activated   |
+[12/03/2026  0:58:16,33] [CHECK] |    +-- purchase_invoice_line_standalone...... | not activated   |
+[12/03/2026  0:58:16,46] [CHECK] |    +-- purchase_price_list................... | not activated   |
+[12/03/2026  0:58:16,54] [CHECK] |    +-- purchase_product_quantity............. | not activated   |
+[12/03/2026  0:58:16,63] [CHECK] |    +-- purchase_request...................... | not activated   |
+[12/03/2026  0:58:16,74] [CHECK] |    +-- purchase_request_quotation............ | not activated   |
+[12/03/2026  0:58:16,82] [CHECK] |    +-- purchase_requisition.................. | not activated   |
+[12/03/2026  0:58:16,91] [CHECK] |    +-- purchase_secondary_unit............... | not activated   |
+[12/03/2026  0:58:17,01] [CHECK] |    +-- purchase_shipment_cost................ | not activated   |
+[12/03/2026  0:58:17,09] [CHECK] | quality...................................... | not activated   |
+[12/03/2026  0:58:17,19] [CHECK] | res.......................................... | activated       |
+[12/03/2026  0:58:17,33] [CHECK] | sale......................................... | activated       |
+[12/03/2026  0:58:17,53] [CHECK] |    +-- sale_advance_payment.................. | not activated   |
+[12/03/2026  0:58:17,65] [CHECK] |    +-- sale_amendment........................ | not activated   |
+[12/03/2026  0:58:17,73] [CHECK] |    +-- sale_blanket_agreement................ | not activated   |
+[12/03/2026  0:58:17,82] [CHECK] |    +-- sale_complaint........................ | not activated   |
+[12/03/2026  0:58:17,92] [CHECK] |    +-- sale_credit_limit..................... | not activated   |
+[12/03/2026  0:58:18,01] [CHECK] |    +-- sale_discount......................... | not activated   |
+[12/03/2026  0:58:18,13] [CHECK] |    +-- sale_extra............................ | not activated   |
+[12/03/2026  0:58:18,25] [CHECK] |    +-- sale_gift_card........................ | not activated   |
+[12/03/2026  0:58:18,33] [CHECK] |    +-- sale_history.......................... | not activated   |
+[12/03/2026  0:58:18,46] [CHECK] |    +-- sale_invoice_date..................... | not activated   |
+[12/03/2026  0:58:18,55] [CHECK] |    +-- sale_invoice_grouping................. | not activated   |
+[12/03/2026  0:58:18,64] [CHECK] |    +-- sale_opportunity...................... | not activated   |
+[12/03/2026  0:58:18,75] [CHECK] |    +-- sale_payment.......................... | not activated   |
+[12/03/2026  0:58:18,83] [CHECK] |    +-- sale_point............................ | not activated   |
+[12/03/2026  0:58:18,93] [CHECK] |    +-- sale_price_list....................... | not activated   |
+[12/03/2026  0:58:19,03] [CHECK] |    +-- sale_product_customer................. | not activated   |
+[12/03/2026  0:58:19,11] [CHECK] |    +-- sale_product_quantity................. | not activated   |
+[12/03/2026  0:58:19,21] [CHECK] |    +-- sale_product_recommendation........... | not activated   |
+[12/03/2026  0:58:19,36] [CHECK] |    +-- sale_product_recommendation_associatio | not activated   |
+[12/03/2026  0:58:19,45] [CHECK] |    +-- sale_promotion........................ | not activated   |
+[12/03/2026  0:58:19,54] [CHECK] |    +-- sale_promotion_coupon................. | not activated   |
+[12/03/2026  0:58:19,64] [CHECK] |    +-- sale_promotion_coupon_payment......... | not activated   |
+[12/03/2026  0:58:19,73] [CHECK] |    +-- sale_rental........................... | not activated   |
+[12/03/2026  0:58:19,81] [CHECK] |    +-- sale_rental_progress_invoice.......... | not activated   |
+[12/03/2026  0:58:19,91] [CHECK] |    +-- sale_secondary_unit................... | not activated   |
+[12/03/2026  0:58:20,01] [CHECK] |    +-- sale_shipment_cost.................... | not activated   |
+[12/03/2026  0:58:20,13] [CHECK] |    +-- sale_shipment_grouping................ | not activated   |
+[12/03/2026  0:58:20,25] [CHECK] |    +-- sale_shipment_tolerance............... | not activated   |
+[12/03/2026  0:58:20,33] [CHECK] |    +-- sale_stock_quantity................... | not activated   |
+[12/03/2026  0:58:20,45] [CHECK] |    +-- sale_subscription..................... | not activated   |
+[12/03/2026  0:58:20,54] [CHECK] |    +-- sale_subscription_asset............... | not activated   |
+[12/03/2026  0:58:20,64] [CHECK] |    +-- sale_supply........................... | not activated   |
+[12/03/2026  0:58:20,75] [CHECK] |    +-- sale_supply_drop_shipment............. | not activated   |
+[12/03/2026  0:58:20,83] [CHECK] |    +-- sale_supply_production................ | not activated   |
+[12/03/2026  0:58:20,93] [CHECK] | stock........................................ | activated       |
+[12/03/2026  0:58:21,03] [CHECK] |    +-- stock_assign_manual................... | not activated   |
+[12/03/2026  0:58:21,11] [CHECK] |    +-- stock_consignment..................... | not activated   |
+[12/03/2026  0:58:21,21] [CHECK] |    +-- stock_forecast........................ | not activated   |
+[12/03/2026  0:58:21,35] [CHECK] |    +-- stock_inventory_location.............. | not activated   |
+[12/03/2026  0:58:21,49] [CHECK] |    +-- stock_location_move................... | not activated   |
+[12/03/2026  0:58:21,57] [CHECK] |    +-- stock_location_sequence............... | not activated   |
+[12/03/2026  0:58:21,66] [CHECK] |    +-- stock_lot............................. | not activated   |
+[12/03/2026  0:58:21,74] [CHECK] |    +-- stock_lot_sled........................ | not activated   |
+[12/03/2026  0:58:21,83] [CHECK] |    +-- stock_lot_unit........................ | not activated   |
+[12/03/2026  0:58:21,93] [CHECK] |    +-- stock_package......................... | not activated   |
+[12/03/2026  0:58:22,02] [CHECK] |    +-- stock_package_shipping................ | not activated   |
+[12/03/2026  0:58:22,15] [CHECK] |    +-- stock_package_shipping_dpd............ | not activated   |
+[12/03/2026  0:58:22,26] [CHECK] |    +-- stock_package_shipping_mygls.......... | not activated   |
+[12/03/2026  0:58:22,36] [CHECK] |    +-- stock_package_shipping_sendcloud...... | not activated   |
+[12/03/2026  0:58:22,47] [CHECK] |    +-- stock_package_shipping_ups............ | not activated   |
+[12/03/2026  0:58:22,55] [CHECK] |    +-- stock_product_location................ | not activated   |
+[12/03/2026  0:58:22,65] [CHECK] |    +-- stock_product_location_place.......... | not activated   |
+[12/03/2026  0:58:22,76] [CHECK] |    +-- stock_quantity_early_planning......... | not activated   |
+[12/03/2026  0:58:22,84] [CHECK] |    +-- stock_quantity_issue.................. | not activated   |
+[12/03/2026  0:58:22,95] [CHECK] |    +-- stock_secondary_unit.................. | not activated   |
+[12/03/2026  0:58:23,05] [CHECK] |    +-- stock_shipment_cost................... | not activated   |
+[12/03/2026  0:58:23,13] [CHECK] |    +-- stock_shipment_cost_weight............ | not activated   |
+[12/03/2026  0:58:23,26] [CHECK] |    +-- stock_shipment_customs................ | not activated   |
+[12/03/2026  0:58:23,41] [CHECK] |    +-- stock_shipment_measurements........... | not activated   |
+[12/03/2026  0:58:23,49] [CHECK] |    +-- stock_shipping_point.................. | not activated   |
+[12/03/2026  0:58:23,60] [CHECK] |    +-- stock_split........................... | not activated   |
+[12/03/2026  0:58:23,68] [CHECK] |    +-- stock_supply.......................... | not activated   |
+[12/03/2026  0:58:23,77] [CHECK] |    +-- stock_supply_day...................... | not activated   |
+[12/03/2026  0:58:23,86] [CHECK] |    +-- stock_supply_forecast................. | not activated   |
+[12/03/2026  0:58:23,96] [CHECK] |    +-- stock_supply_production............... | not activated   |
+[12/03/2026  0:58:24,06] [CHECK] | timesheet.................................... | activated       |
+[12/03/2026  0:58:24,18] [CHECK] |    +-- timesheet_cost........................ | not activated   |
+[12/03/2026  0:58:24,27] [CHECK] | user_role.................................... | not activated   |
+[12/03/2026  0:58:24,35] [CHECK] | web_shop..................................... | not activated   |
+[12/03/2026  0:58:24,46] [CHECK] |    +-- web_shop_product_data_feed............ | not activated   |
+[12/03/2026  0:58:24,55] [CHECK] |    +-- web_shop_shopify...................... | not activated   |
+[12/03/2026  0:58:24,64] [CHECK] |    +-- web_shop_vue_storefront............... | not activated   |
+[12/03/2026  0:58:24,75] [CHECK] |    +-- web_shop_vue_storefront_stripe........ | not activated   |
+[12/03/2026  0:58:24,83] [CHECK] |    +-- web_shortener......................... | not activated   |
+[12/03/2026  0:58:24,96] [CHECK] |    +-- web_user.............................. | not activated   |
+[12/03/2026  0:58:25,23] [OK] Proceso finalizado.
+[12/03/2026  0:58:25,42] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:58:35,27] [INS] DEMO - Analizar los logs de la base de datos tryton_demo (LOGS) tryton
+[12/03/2026  0:58:35,43] [APP] logger [SQL]
+[12/03/2026  0:58:35,51] [SQL] Visualizando logs de tryton (líneas: 500).
+[12/03/2026  0:58:35,80] [SQL] Se visualizan los logs del contenedor postgres en Docker.
+[12/03/2026  0:58:36,31] [APP] global_routines timeout_start 20 1
+[12/03/2026  0:58:56,31] [INS] Se procede al arranque de la página web de tryton.
+[12/03/2026  0:58:56,46] [APP] client [INS]
+[12/03/2026  0:58:56,54] [INS] Comprobando si el puerto 8000 responde.
+[12/03/2026  0:58:56,72] [INS] Comprobando si el puerto 8000 está abierto y activado.
+[12/03/2026  0:58:57,40] [INS] El puerto está activado se conecta con url: http://localhost:8000
+[12/03/2026  0:58:57,58] [INFO] Checking service readiness (Attempt 1/10)...
+[12/03/2026  0:58:58,09] [OK] Service is fully responsive. Launching browser...
+[12/03/2026  0:58:58,25] [APP] global_routines timeout_start 5 1
+[12/03/2026  0:59:03,63] [APP] errors [INS]
+[12/03/2026  0:59:03,73] [INS] Buscando problemas en los contenedores desde las 24 últimas horas de tryton-postgres-1 - Servicio: postgres.
+[12/03/2026  0:59:05,07] [APP] global_routines timeout_start 5 1
+[12/03/2026  0:59:10,29] [INS] Buscando problemas en los contenedores desde las 24 últimas horas de tryton-server-1 - Servicio: server.
+[12/03/2026  0:59:10,73] [APP] global_routines timeout_start 5 1
+[12/03/2026  0:59:15,30] [INS] Buscando problemas en los contenedores desde las 24 últimas horas de tryton-cron-1 - Servicio: cron.
+[12/03/2026  0:59:15,78] [APP] global_routines timeout_start 5 1
+[12/03/2026  0:59:20,31] [ALERT] Se han detectado errores en las últimas 24 h.
+[12/03/2026  0:59:20,46] [ERROR] postgres-1  | 2026-03-11 23:34:05.467 UTC [89] FATAL:  role "admin" does not exist
+[12/03/2026  0:59:20,57] [ERROR] server-1  | 26 124391320334400 [2026-03-11 23:34:09,687] INFO trytond.modules ir register ir.error
+[12/03/2026  0:59:20,69] [ERROR] server-1  | 26 124391320334400 [2026-03-11 23:34:14,858] INFO trytond.modules ir load error.xml
+[12/03/2026  0:59:20,81] [ERROR] server-1  | 26 124391320334400 [2026-03-11 23:34:15,819] INFO trytond.modules update index for ir.error
+[12/03/2026  0:59:20,93] [INS] Guardando reporte en D:\ERP\tryton\TryDockCmd\log\tryton_20260312.log.
+[12/03/2026  0:59:21,04] [INS] Guardando reporte en D:\ERP\tryton\TryDockCmd\log\tryton_error.log.
+[12/03/2026  0:59:21,16] [OK] install Todos los procesos ejecutados de forma correcta.
+[12/03/2026  0:59:21,29] [APP] global_routines timeout_start 10 1
+[12/03/2026  0:59:31,42] [APP] checkdocker [APP]
+[12/03/2026  0:59:31,50] [CHECK] Buscando imágenes y contenedores en Docker: tryton.
+[12/03/2026  0:59:31,59] [CHECK] Buscando imagen Docker: tryton/tryton:latest
+[12/03/2026  0:59:31,77] [CHECK] Se ha localizado la imagen tryton/tryton:latest en Docker.
+[12/03/2026  0:59:31,92] [APP] global_routines timeout_start 2 1
+[12/03/2026  0:59:33,27] [CHECK] Buscando imagen Docker: postgres:latest
+[12/03/2026  0:59:33,53] [CHECK] Se ha localizado la imagen postgres:latest en Docker.
+[12/03/2026  0:59:33,66] [APP] global_routines timeout_start 2 1
+[12/03/2026  0:59:35,30] [CHECK] Buscando contenedor Docker: tryton-postgres-1
+[12/03/2026  0:59:35,63] [CHECK] Se ha localizado el contenedor tryton-postgres-1 en Docker.
+[12/03/2026  0:59:35,75] [APP] global_routines timeout_start 2 1
+[12/03/2026  0:59:37,31] [CHECK] Buscando contenedor Docker: tryton-server-1
+[12/03/2026  0:59:37,53] [CHECK] Se ha localizado el contenedor tryton-server-1 en Docker.
+[12/03/2026  0:59:37,69] [APP] global_routines timeout_start 2 1
+[12/03/2026  0:59:39,25] [CHECK] Buscando contenedor Docker: tryton-cron-1
+[12/03/2026  0:59:39,47] [CHECK] Se ha localizado el contenedor tryton-cron-1 en Docker.
+[12/03/2026  0:59:39,61] [APP] global_routines timeout_start 2 1
+[12/03/2026  0:59:41,29] [CHECK] checkdocker: Todos los procesos ejecutados de forma correcta.
+[12/03/2026  0:59:41,51] [APP] checkversion [APP]
+[12/03/2026  0:59:41,63] [APP] startup [CHECK]
+[12/03/2026  0:59:42,17] [CHECK] El contenedor tryton-postgres-1 - Servicio: postgres está activo.
+[12/03/2026  0:59:42,33] [APP] global_routines timeout_start 3 1
+[12/03/2026  0:59:45,52] [CHECK] El contenedor tryton-server-1 - Servicio: server está activo.
+[12/03/2026  0:59:45,63] [APP] global_routines timeout_start 3 1
+[12/03/2026  0:59:48,46] [CHECK] El contenedor tryton-cron-1 - Servicio: cron está activo.
+[12/03/2026  0:59:48,57] [APP] global_routines timeout_start 3 1
+[12/03/2026  0:59:51,36] [CHECK] Se inspecciona en Docker: [tryton-server-1]
+[12/03/2026  0:59:51,53] [CHECK] Buscando en el server versión Tryton. - (trytond.__version__.split('.')[:3])
+[12/03/2026  0:59:51,97] [CHECK] Se ha localizado la versión Tryton en Docker: [7.8]
+[12/03/2026  0:59:52,06] [CHECK] Se ha localizado la versión Tryton en Docker: [7.8.5]
+[12/03/2026  0:59:52,21] [CHECK] Se inspecciona en Docker: [postgres] - [SELECT 1 FROM pg_catalog.pg_database WHERE datname='tryton]
+[12/03/2026  0:59:52,64] [CHECK] Buscando en el server versión PostgreSQL. - [SELECT version()]
+[12/03/2026  0:59:53,07] [CHECK] Se ha localizado la versión base de datos tryton en Docker: [PostgreSQL 18.3 (Debian 18.3-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit]
+[12/03/2026  0:59:53,15] [CHECK] Se ha localizado la versión base de datos tryton en Docker: [PostgreSQL 18.3]
+[12/03/2026  0:59:53,26] [CHECK] checkversion: Todos los procesos ejecutados de forma correcta.
+[12/03/2026  0:59:53,58] [APP] global_routines timeout_start 8 1
+[12/03/2026  1:00:01,41] [OK] tcd Todos los procesos ejecutados de forma correcta.
+[12/03/2026  1:00:01,52] [TXT] Arrancando sesión. TRYDOCKCMD MANAGER Menú principal
+[12/03/2026  1:00:01,65] [APP] global_routines timeout_start 8 1
+[12/03/2026  1:00:39,10] [TXT] TRYDOCKCMD DOCKER MANAGER - 01:00:38 Duración de la sesión: 00:29:13
+[12/03/2026  1:00:39,46] [APP] global_routines timeout_start 8 1
