@@ -99,8 +99,8 @@ call :logger "%MENU%" "6.1.- !MESSAGE! \%FILE_BK%.zip" "8"
 :: Informa que la carpeta temporal sera eliminada
 set "MESSAGE=!BCK_TEMPORARY_2:DESTINO=%destino%!"
 call :logger "%MENU%" "6.2.- !MESSAGE!" "8"
-:: Informa del comando pg_dumpall, aplicado para copiar las bases de datos. 
-set "msg_cont=docker exec !CURRENT_POSTGRES! pg_dumpall -U !DB_HOSTNAME!"
+:: Informa del comando pg_dumpall, aplicado para copiar las bases de datos.
+set "msg_cont=docker exec !CURRENT_POSTGRES! pg_dumpall --clean -U !DB_HOSTNAME!"
 set "MESSAGE=!BCK_PG_DUMPALL:DESTINO=%msg_cont%!"
 call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
 
@@ -158,7 +158,7 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
   :: Usamos el nombre del servicio definido en el YAML (tryton-postgres), utilizando el comando pg_dumpall
   if exist "%file_err%" del "%file_err%" >nul
   set "file_sql=%destino%\tryton_%DB_HOSTNAME%_dumpall.sql"
-  docker exec "%CURRENT_POSTGRES%" pg_dumpall -U "%DB_HOSTNAME%" >"%file_sql%" 2>"%file_err%"
+  docker exec "%CURRENT_POSTGRES%" pg_dumpall --clean -U "%DB_HOSTNAME%" >"%file_sql%" 2>"%file_err%"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
   : Verificación de integridad avanzada
   if not exist "%file_sql%" (
@@ -188,9 +188,12 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
   :: Copiamos la carpeta de datos del servidor a la carpeta destino.
   :: La copia de la carpeta trytond/db es muy importante, son nuestros datos creados en la base de datos.
   docker cp "%CURRENT_TRYTON%:/var/lib/trytond/" "%destino%" >nul
+  if !errorlevel! NEQ 0 (
+    set "MESSAGE=!BCK_COPY_ERROR:DESTINO=%msg_cont%!"
+    call :logger "!LOG-ERROR!" "!MESSAGE!"
+  )
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
 :: Copia el fichero %COMPOSE_FILE%, por seguridad. N copia el fichero .env, por tener las claves del acceso a la base de datos.
- 
 if /i "%back_action%"=="%INS%"  goto :found_file_zip
 
 :found_compose
@@ -275,7 +278,7 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
 
 :compress_file
   set "FILE_SQL=%~1"
-  if not exist "%FILE_SQL%" (TY! %FILE_SQL%"
+  if not exist "%FILE_SQL%" (
     set "MESSAGE=!BCK_FILE_NOT_SQL:DESTINO=%FILE_SQL%!"
     call :logger "!LOG-ERROR!" "!MESSAGE!"
     exit /b

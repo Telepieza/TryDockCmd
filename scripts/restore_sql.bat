@@ -22,8 +22,6 @@ set /a "wait_timeres=10"
 set "file_err=%DIR_TMP%\trytond_restore_err.txt"
 set "file_tmp=%DIR_TMP%\trytond_restore_tmp.txt"
 
-set /a "num_error=0"
-set "ZIP_PATH="
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
 call :logger "%APP%" "restore_sql"
 

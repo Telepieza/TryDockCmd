@@ -19,8 +19,6 @@ set /a "attempts=0"
 set /a "max_attempts=10"
 set /a "wait_timeres=10"
 
-set /a "num_error=0"
-set "ZIP_PATH="
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
 call :logger "%APP%" "restore_docker"
 
@@ -65,19 +63,9 @@ if "%DO_IMAGES%"=="0" (
   )
 )
 
-docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" dropdb -U "%DB_HOSTNAME%" --if-exists "%DB_NAME%"
-if %errorlevel% NEQ 0 (
-  set "MESSAGE=!RES_DROP_DB! %DB_NAME%"
-  call :logger !LOG-INFO! "!MESSAGE!"
-)
-docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" dropdb -U "%DB_HOSTNAME%" --if-exists "%DB_NAME_DEMO%"
-if %errorlevel% NEQ 0 (
-  set "MESSAGE=!RES_DROP_DB! %DB_NAME_DEMO%"
-  call :logger !LOG-INFO! "!MESSAGE!"
-)
 set "MESSAGE=!RES_DB_RESTORE! %DUMPALL_FILE%!"
 call :logger !LOG-INFO! "!MESSAGE!"
-type "%DUMPALL_FILE%" | docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -v ON_ERROR_STOP=1 -U "%DB_HOSTNAME%" -d "%DB_HOSTNAME%"
+docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -v ON_ERROR_STOP=1 -U "%DB_HOSTNAME%" -d "%DB_HOSTNAME%" < "%DUMPALL_FILE%" >nul 2>&1
 if %errorlevel% NEQ 0 (
   set "MESSAGE=!RES_ERR_CMD! psql dumpall"
   goto :error

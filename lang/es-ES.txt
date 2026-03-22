@@ -331,6 +331,7 @@ BCK_STARTING=Levantando servicios de la base de datos PROYECTO.
 BCK_RUN_DUMP=[1/3] Ejecutando volcado de Base de Datos (Sql) CONTENEDOR.
 BCK_COPY_FILES=[2/3] Copiando archivos persistentes de: DESTINO
 BCK_SAVE_YAML=[3/3] Salvando configuración Compose.yml en DESTINO
+BCK_COPY_ERROR=No se ha copiado los archivos persistentes de: DESTINO
 BCK_DUMP_DB=Ejecutando backup de base de datos:
 BCK_ENDING=Proceso finalizado.
 BCK_INFOR=Información importante sobre el backup (opciones 1 y 2).

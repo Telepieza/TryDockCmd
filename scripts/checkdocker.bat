@@ -60,7 +60,7 @@ if /i "!CURRENT_TRYTON!"=="" (
   call :logger "%CHECK%" "!LOG_INFO_DOCKCO! !cont_server!"
   call :read_container "!cont_server!"
   if "%LOG_FILE%"=="0" set "CURRENT_TRYTON=!cont_server!"
-  if /i "%CURRENT_TRYTON%"=="" (
+  if /i "!CURRENT_TRYTON!"=="" (
     call :logger "%CHECK%" "!LOG_INFO_DOCKCO! %TRYTON%"
     call :read_container "%TRYTON%"
     if "%LOG_FILE%"=="0" set "CURRENT_TRYTON=%TRYTON%"
@@ -73,7 +73,7 @@ if /i "!CURRENT_CRON!"=="" (
   call :logger "%CHECK%" "!LOG_INFO_DOCKCO! !cont_cron!"
   call :read_container "!cont_cron!"
   if "%LOG_FILE%"=="0" set "CURRENT_CRON=!cont_cron!"
-  if /i "%CURRENT_CRON%"=="" (
+  if /i "!CURRENT_CRON!"=="" (
     call :logger "%CHECK%" "!LOG_INFO_DOCKCO! %TRYTON%-%CRON%"
     call :read_container "%TRYTON%-%CRON%"
     if "%LOG_FILE%"=="0" set "CURRENT_CRON=%TRYTON%-%CRON%"
@@ -99,12 +99,12 @@ if /i "!CURRENT_CRON!"=="" (
       call :logger "%CHECK%" "!INSP_CONTAINER! !CURRENT_CRON!"
   )
 
-  if /i "%CURRENT_POSTGRES%"=="" set "CURRENT_POSTGRES=!cont_db!"
-  if /i "%CURRENT_TRYTON%"=="" set "CURRENT_TRYTON=!cont_server!"  
-  if /i "%CURRENT_CRON%"=="" set "CURRENT_CRON=!cont_cron!"
-  if /i "%CURRENT_VERSION%"=="" set "CURRENT_VERSION=%TRYTON-VERSION%"
-  if /i "%CURRENT_VER_MENU%"=="" set "CURRENT_VER_MENU=%TRYTON-VERSION%"
-  if /i "%CURRENT_PG_VERSION%"=="" set "CURRENT_PG_VERSION=%POSTGRES_VERSION%"
+  if /i "!CURRENT_POSTGRES!"=="" set "CURRENT_POSTGRES=!cont_db!"
+  if /i "!CURRENT_TRYTON!"=="" set "CURRENT_TRYTON=!cont_server!"  
+  if /i "!CURRENT_CRON!"=="" set "CURRENT_CRON=!cont_cron!"
+  if /i "!CURRENT_VERSION!"=="" set "CURRENT_VERSION=%TRYTON-VERSION%"
+  if /i "!CURRENT_VER_MENU!"=="" set "CURRENT_VER_MENU=%TRYTON-VERSION%"
+  if /i "!CURRENT_PG_VERSION!"=="" set "CURRENT_PG_VERSION=%POSTGRES_VERSION%"
   set "LOG_FILE=0"
   if "%ERR_DOCKER%" NEQ "0" (
     exit /b 2

@@ -330,6 +330,7 @@ BCK_CONT_STOP=The PROYECTO database container is stopped.
 BCK_STARTING=Starting services up from the PROYECTO database.
 BCK_RUN_DUMP=[1/3] Running database dump (SQL) CONTENEDOR.
 BCK_COPY_FILES=[2/3] Copying persistent files from: DESTINO
+BCK_COPY_ERROR=The persistent files from: DESTINO have not been copied.
 BCK_SAVE_YAML=[3/3] Saving Compose.yml configuration to: DESTINO
 BCK_DUMP_DB=Executing database backup:
 BCK_ENDING=Process completed.
