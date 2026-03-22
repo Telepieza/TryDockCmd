@@ -13,10 +13,7 @@ setlocal enabledelayedexpansion
 chcp 65001 >nul
 set "proyecto=%~1"
 set "base_backup_dir=%~2"
-
-set "file_err=%DIR_TMP%\restore_err.txt"
-set "file_tmp=%DIR_TMP%\restore_tmp.txt"
-set "destino=%DIR_RESTORE%\restore"
+set /a "wait_timeres=10"
 set "contdown=0"
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
 call :logger "%APP%" "restore"
@@ -73,24 +70,26 @@ echo.
 :image_restore
   set "DO_IMAGES=1"
   call "%DIR_SCRIPT%restore_unzip.bat" "%proyecto%" "%base_backup_dir%" "%DO_IMAGES%" "%DO_MODE%"
-  echo errorlevel: %errorlevel%
   goto :menu_restore
 
 :no_image_restore
   set "DO_IMAGES=0"
   call "%DIR_SCRIPT%restore_unzip.bat" "%proyecto%" "%base_backup_dir%" "%DO_IMAGES%" "%DO_MODE%"
-  echo errorlevel: %errorlevel%
   goto :menu_restore
 
 :schema_data_restore
   set "DO_IMAGES=2"
   echo %DO_MODE%
   call "%DIR_SCRIPT%restore_unzip.bat" "%proyecto%" "%base_backup_dir%" "%DO_IMAGES%" "%DO_MODE%"
-  pause
   goto :menu_restore
 
 :end_restore
-  echo "end_restore"
+   if "%contdown%"=="1" (
+    call :logger "!log_action!" "!BCK_RESTORE_STATE!"
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "1"
+    call "%DIR_SCRIPT%startdown.bat" "%proyecto%" "%CHECK%" "STOP"
+  )
+
   goto :exit
 
 :logger

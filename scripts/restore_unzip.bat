@@ -149,7 +149,7 @@ if /i "%DO_IMAGES%" NEQ "2" (
 )
 
 if "%errorlevel%" NEQ 0 goto :exit
-
+echo.
 goto:exit
 
 :logger
