@@ -79,7 +79,6 @@ echo.
 
 :schema_data_restore
   set "DO_IMAGES=2"
-  echo %DO_MODE%
   call "%DIR_SCRIPT%restore_unzip.bat" "%proyecto%" "%base_backup_dir%" "%DO_IMAGES%" "%DO_MODE%"
   goto :menu_restore
 

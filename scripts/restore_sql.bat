@@ -29,7 +29,7 @@ call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SQL%"
 if %errorlevel% EQU 0 (
   call "%DIR_SCRIPT%startdown.bat" "%proyecto%" "%CHECK%" "STOP"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "1"
-  call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SQL%"
+  call "%DIR_SCRIPT%status.bat" "%proyecto%" "%CHECK%"
 ) 
 
 if %errorlevel% NEQ 0 (
@@ -37,7 +37,7 @@ if %errorlevel% NEQ 0 (
   if %errorlevel% NEQ 0 (
     call :logger "%INS%" "!STAT_START!"
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "1" "N"
-    call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SQL%"
+    call "%DIR_SCRIPT%status.bat" "%proyecto%" "%CHECK%"
   )
 )
 
@@ -51,15 +51,19 @@ if /i "%DO_MODE%"=="full_db" set "MESSAGE=!RES_FULLDB_RESTORE:DB=%DB_RESTORE%!"
 call :logger "%INS%" "!MESSAGE! %DUMPALL_FILE%"
 
 if /i "%DO_MODE%"=="data" (
-  docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -v ON_ERROR_STOP=1 -U "%DB_HOSTNAME%" -d "%DB_RESTORE%" < "%DUMPALL_FILE%" >nul 2>&1
+  docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -v ON_ERROR_STOP=1 -U "%DB_HOSTNAME%" -d "%DB_RESTORE%" < "%DUMPALL_FILE%" >nul 2>%file_err%
   if !errorlevel! NEQ 0 (
     call :logger !LOG-ERROR! "!RES_ERR_CMD! %DO_MODE%"
     goto :error
   )
+  call "%DIR_SCRIPT%startup.bat" "%proyecto%" "%CHECK%"
   set "MESSAGE=!RES_DATA_RESTORE_2:DB=%DB_RESTORE%!"
   call :logger "%INS%" "!MESSAGE! !DUMPALL_FILE!"
   set "cmd=SELECT count(*) FROM ir_module;"
   call :run_trytond_sql "%POSTGRES%" "!cmd!" "%file_tmp%" "%file_err%" "" "modules"
+  echo.
+  call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SEE%"
+  echo.
   pause & goto :exit
 )
 
@@ -70,25 +74,29 @@ if /i "%DO_MODE%"=="schema" (
   call :logger "%INS%" "!INSTALL_MODU_HEAD15! %DB_RESTORE%" "3"
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" createdb -U "%DB_HOSTNAME%" "%DB_RESTORE%"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "1"
-  docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -v ON_ERROR_STOP=1 -U "%DB_HOSTNAME%" -d "%DB_RESTORE%" < "%DUMPALL_FILE%" >nul 2>&1
+  docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -v ON_ERROR_STOP=1 -U "%DB_HOSTNAME%" -d "%DB_RESTORE%" < "%DUMPALL_FILE%" >nul 2>%file_err%
   if !errorlevel! NEQ 0 (
     call :logger !LOG-ERROR! "!RES_ERR_CMD! %DO_MODE%"
     goto :error
   )
+  call "%DIR_SCRIPT%startup.bat" "%proyecto%" "%CHECK%"
   set "MESSAGE=!RES_SCHEMA_RESTORE_2:DB=%DB_RESTORE%!"
   call :logger "%INS%" "!MESSAGE! !DUMPALL_FILE!"
   set "cmd=SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public';"
   call :run_trytond_sql "%POSTGRES%" "!cmd!" "%file_tmp%" "%file_err%" "" "tables"
   echo.
+  call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SEE%"
+  echo.
   pause & goto :exit
 )
 
 if /i "%DO_MODE%"=="full_db" (
-  docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_restore -e -U "%DB_HOSTNAME%" -d "%DB_RESTORE%" --clean --if-exists < "%DUMPALL_FILE%" >nul 2>&1
+  docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_restore -e -U "%DB_HOSTNAME%" -d "%DB_RESTORE%" --clean --if-exists < "%DUMPALL_FILE%" >nul 2>%file_err%
   if !errorlevel! NEQ 0 (
     call :logger !LOG-ERROR! "!RES_ERR_CMD! %DO_MODE%"
     goto :error
   )
+  call "%DIR_SCRIPT%startup.bat" "%proyecto%" "%CHECK%"
   set "MESSAGE=!RES_SCHEMA_RESTORE_2:DB=%DB_RESTORE%!"
   call :logger "%INS%" "!MESSAGE! !DUMPALL_FILE!"
   set "cmd=SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public';"
@@ -97,6 +105,8 @@ if /i "%DO_MODE%"=="full_db" (
   call :logger "%INS%" "!MESSAGE! !DUMPALL_FILE!"
   set "cmd=SELECT count(*) FROM ir_module;"
   call :run_trytond_sql "%POSTGRES%" "!cmd!" "%file_tmp%" "%file_err%" "" "modules"
+  echo.
+  call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SEE%"
   echo.
   pause & goto :exit
 )
