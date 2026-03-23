@@ -47,7 +47,7 @@ if /i "%down_action%"=="%APP%" (
 
 :: Solicita confirmación YES por parte del usuario para continuar. 
 set /p "confirm=%BS%        !C_M_GREEN!!DOWN_CONFIRM!!C_M_RESET!"
-if /i not "%confirm%"=="YES" (
+if /i "%confirm%" NEQ "YES" (
 ::  call :logger "!LOG-WARN!" "!DOWN_ERR_OPT!"
     goto :exit
 )

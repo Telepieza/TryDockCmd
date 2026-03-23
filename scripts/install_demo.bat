@@ -68,8 +68,8 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 :: 01
 :check_database_demo
   if "!exit_dbdemo!"=="0" (
-    set "command=\l"
-    call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
+    set "cmd=\l"
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_table%" "%file_err%" "" ""
     if %ERRORLEVEL%==0 (
       call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "L" "!INSTALL_MODU_01!" "0" "%file_table%" "%DEMO%"
     )
@@ -81,8 +81,8 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 :: 02
 :check_rules_demo
   if "!exit_dbdemo!"=="0" (
-    set "command=\du"
-    call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
+    set "cmd=\du"
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_table%" "%file_err%" "" ""
     if %ERRORLEVEL%==0 (
       call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "U" "!INSTALL_MODU_02!" "0" "%file_table%" "%DEMO%"
     )
@@ -94,8 +94,8 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 :: 03
 :check_extensions_demo
   if "!exit_dbdemo!"=="0" (
-    set "command=\dx"
-    call :run_trytond_demo "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
+    set "cmd=\dx"
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_table%" "%file_err%" "" ""
     if %ERRORLEVEL%==0 (
       call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "X" "!INSTALL_MODU_03!" "0" "%file_table%" "%DEMO%"
     )
@@ -119,9 +119,9 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 
 :: Visualizar datos cabecera
 :: 2. Construir el nombre del fichero y la URL
-if /i not "!TRYTON_FILE_DEMO!"=="" set "TRYFILENAME=!TRYTON_FILE_DEMO!"
+if /i "!TRYTON_FILE_DEMO!" NEQ "" set "TRYFILENAME=!TRYTON_FILE_DEMO!"
 if /i "!TRYTON_FILE_DEMO!"=="" set "TRYFILENAME=database-"
-if /i not "!TRYTON_DATA_DEMO!"=="" set "BASE_URL=!TRYTON_DATA_DEMO!"
+if /i "!TRYTON_DATA_DEMO!" NEQ "" set "BASE_URL=!TRYTON_DATA_DEMO!"
 if /i "!TRYTON_DATA_DEMO!"=="" set "BASE_URL=https://www.tryton.org/~demo/"
 set "FILENAME=!TRYFILENAME!!CURRENT_VERSION!.dump"
 set "FULL_URL=!BASE_URL!!FILENAME!"
@@ -134,7 +134,7 @@ if /i "%ins_demo_action%" NEQ "%INS%" (
   :: Solicita confirmación por parte del usuario
   set "MESSAGE=!INSTALL_MODU_EMPTY:PROYECTO=%DB_NAME_DEMO%!"
   set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
-  if /i not "%confirm%"=="YES" (
+  if /i "%confirm%" NEQ "YES" (
      echo.
      call :logger "!LOG-CANCEL!" "!LOG_INSTALL_CANCEL!"
      call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "5" "1" "N"
@@ -166,13 +166,13 @@ call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timed
 
 call :logger "!INS!" "[8.-] !INSTALL_MODU_HEAD25!" 
 set  "cmd=UPDATE ir_module SET state = 'not activated' WHERE name = 'authentication_none';"
-call :run_trytond_demo "%POSTGRES%" "!cmd!" "%file_base%"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_base%" "" "" ""
 
 call :logger "%INS%" "[9.-] !INSTALL_MODU_HEAD34!" "3"
 set "COM1=TRYTOND_DATABASE_URI=!DB_URI! trytond-admin -c /etc/trytond.conf -d %DB_NAME_DEMO%" 
 set "COM3= --email !EMAIL! -vv"
 set "cmd=TRYTONPASSFILE=/tmp/.passwd !COM1! --update-modules-list !COM3!"
-call :run_trytond_demo "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME_DEMO!" "" "%file_base%" "YES" ""
 
 call :logger "%INS%" "[10.-] !INSTALL_MODU_HEAD18!" "3" 
 : Reports Verificar y comprobar que todos los módulos están activated
@@ -204,7 +204,7 @@ exit /b
    set "confirm="
    set "MESSAGE=!INSTALL_MODU_DELCRE:PROYECTO=%DB_NAME_DEMO%!"
    set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
-   if /i not "%confirm%"=="YES" (
+   if /i "%confirm%" NEQ "YES" (
      call :logger "!LOG-CANCEL!" "!LOG_INSTALL_CANCEL!"
      call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "5" "1" "N"
      goto :menu_trytond_demo
@@ -252,7 +252,7 @@ exit /b
    :: 6.- Probando conexión a la base de datos
    call :logger "%INS%" "[6.-] !INSTALL_MODU_HEAD16! %DB_NAME_DEMO%" "3"
    set  "cmd=SELECT current_database();"
-   call :run_trytond_demo "%POSTGRES%" "!cmd!"
+   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "" "" "" ""
    exit /b
 
 :: 06
@@ -290,7 +290,7 @@ exit /b
   set "title=%~2"
   set "numer=%~3"
   set "cmd=SELECT name, state FROM ir_module ORDER BY name;"
-  call :run_trytond_demo "%POSTGRES%" "!cmd!" "%file_modules%" "%file_err%"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_err%" "" "" ""
   if %ERRORLEVEL% NEQ 0 exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "8" "%event%" "%title%" "%numer%" "%file_modules%" "%DEMO%"
   exit /b
@@ -301,70 +301,10 @@ exit /b
   set "title=%~2"
   set "numer=%~3"
   set  "cmd=SELECT name FROM ir_module WHERE state='activated' ORDER BY name;"
-  call :run_trytond_demo "%POSTGRES%" "!cmd!" "%file_activ%" "%file_err%"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_activ%" "%file_err%" "" ""
   if %ERRORLEVEL% NEQ 0  exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "6" "%event%" "%title%" "%numer%" "%file_activ%" "%DEMO%"
   exit /b
-
- :run_trytond_demo
-   REM %1 = Servicio server o postgres
-   REM %2 = comando completo a ejecutar (trytond-admin o psql SQL)
-   REM %3 = logfile stdout (opcional)
-   REM %4 = errfile stderr (opcional)
-   REM %5 = YES (añadir en vez de sobrescribir)
-   set "servicio=%~1"
-   set "cmd=%~2"
-   set "logfile=%~3"
-   set "errfile=%~4"
-   set "add=%~5"
-   REM --- Limpiar ficheros si no se añade
-   if not "%logfile%"=="" if /i not "%add%"=="YES" if exist "%logfile%" del "%logfile%" >nul
-   if not "%errfile%"=="" if /i not "%add%"=="YES" if exist "%errfile%" del "%errfile%" >nul
-
-   REM --- Construcción de redirecciones de Windows
-   set "redir_out="
-   set "redir_err="
-   if not "%logfile%"=="" ( 
-     if /i "%add%"=="YES" (
-      set "redir_out=>>"%logfile%""
-     ) else (
-      set "redir_out=>"%logfile%""
-     )
-  )
-  if not "%errfile%"=="" (
-      if /i "%add%"=="YES" (
-         set "redir_err=2>>"%errfile%""
-      ) else (
-         set "redir_err=2>"%errfile%""
-      )
-  )
-  if /i "%servicio%"=="%SERVER%" (
-    ::Para SERVER, ejecutamos bash -c "<cmd>" y luego ponemos la redirección de Windows
-    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%SERVER%" bash -c "%cmd%" %redir_out% %redir_err%
-  )
-  if /i "%servicio%"=="%POSTGRES%" (
-    REM Para POSTGRES, usamos psql directamente
-    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d "!DB_NAME_DEMO!" -At -c "%cmd%" %redir_out% %redir_err%
-  )
-  set "status=%ERRORLEVEL%"
-  :: --- Esperar si OK ---
-  if %status% EQU 0 (
-    if /i "%ins_demo_action%" EQU "%INS%" (
-        call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timedem!" "1"
-    )
-    exit /b 0
-  )
-  if %status% NEQ 0 (
-     if exist "%errfile%" if not "%errfile%"=="" (
-       call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "display_file_event_all" "!LOG-ERROR!" "%errfile%"
-       exit /b %status%
-     )
-     if exist "%logfile%" if not "%logfile%"=="" (
-      call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "display_file_event_all" "!LOG-INFO!" "%logfile%"
-      exit /b %status%
-     )
-  )
-  exit /b 0
 
 :head_modules_demo
   echo.

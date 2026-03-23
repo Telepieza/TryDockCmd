@@ -230,7 +230,14 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
     set "MESSAGE=!BCK_NOT_TEMPORARY:DESTINO=%destino%!"
   )
   call :logger "!fuction!" "!MESSAGE!"
-  goto :exit
+  if /i "%back_action%"=="%INS%"  goto :exit
+  echo.
+  call :logger "!LOG-SUCC!" "!BCK_ENDING!"
+  echo.
+  pause
+  cls
+  call "%DIR_SCRIPT%banner.bat" "%TRYTON%"
+  goto :menu_backup
 
 :schema_data
   if not exist "!destino!" mkdir "!destino!" 
@@ -239,42 +246,78 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
     call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME% - !file_sql!"
     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -s -U "%DB_HOSTNAME%" !DB_NAME! > "!file_sql!" 2>"%file_err%"
     call :compress_file "!file_sql!"
+    set "label=tables"
+    set "cmd=SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public';"
+    call :verify_database "!label!" "!cmd!" "!DB_NAME!" "!file_sql!" "!BACK_SCHEMA_RESULT!"
     if "!DB_ERRDE!"=="0" (
       set "file_sql=!destino!\!DB_NAME_DEMO!_!MODE!.sql"
       call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME_DEMO% - !file_sql!"
       docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -s -U "%DB_HOSTNAME%" -d !DB_NAME_DEMO! > "!file_sql!" 2>"%file_err%"
       call :compress_file "!file_sql!"
+      call :verify_database "!label!" "!cmd!" "!DB_NAME_DEMO!" "!file_sql!" "!BACK_SCHEMA_RESULT!"
     )
   )
   if /i "%MODE%"=="data"  (
-    set "file_sql=!destino!\!DB_NAME!_!MODE!.sql"
-    call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME% - !file_sql!"
-    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -a -U "%DB_HOSTNAME%" --inserts --on-conflict-do-nothing -d !DB_NAME! > "!file_sql!" 2>"%file_err%"
-    call :compress_file "!file_sql!"
-    if "!DB_ERRDE!"=="0" (
-      set "file_sql=!destino!\!DB_NAME_DEMO!_!MODE!.sql"
-      call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME_DEMO% - !file_sql!"
+     set "file_sql=!destino!\!DB_NAME!_!MODE!.sql"
+     call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME% - !file_sql!"
+     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -a -U "%DB_HOSTNAME%" --inserts --on-conflict-do-nothing -d !DB_NAME! > "!file_sql!" 2>"%file_err%"
+     call :compress_file "!file_sql!"
+     set "label=modules"
+     set "cmd=SELECT count(*) FROM ir_module;"
+     call :verify_database "!label!" "!cmd!" "!DB_NAME!" "!file_sql!" "!BACK_DATA_RESULT!"
+     if "!DB_ERRDE!"=="0" (
+       set "file_sql=!destino!\!DB_NAME_DEMO!_!MODE!.sql"
+       call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME_DEMO% - !file_sql!"
       docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -a -U "%DB_HOSTNAME%" --inserts --on-conflict-do-nothing -d !DB_NAME_DEMO! > "!file_sql!" 2>"%file_err%"
-      call :compress_file "!file_sql!"
-    )
+       call :compress_file "!file_sql!"
+       call :verify_database "!label!" "!cmd!" "!DB_NAME_DEMO!" "!file_sql!" "!BACK_DATA_RESULT!"
+     )
   )
   if /i "%MODE%"=="full_db" (
     set "file_sql=!destino!\!DB_NAME!_!MODE!.sql"
     call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME% - !file_sql!"
     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -Fc -U "%DB_HOSTNAME%" !DB_NAME!>"!file_sql!" 2>"!file_err!"
     call :compress_file "!file_sql!"
+    set "label=tables"
+    set "cmd=SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public';"
+    call :verify_database "!label!" "!cmd!" "!DB_NAME!" "!file_sql!" "!BACK_SCHEMA_RESULT!"
+    set "label2=modules"
+    set "cmd2=SELECT count(*) FROM ir_module;"
+    call :verify_database "!label2!" "!cmd2!" "!DB_NAME!" "!file_sql!" "!BACK_DATA_RESULT!"
     if "!DB_ERRDE!"=="0" (
       set "file_sql=!destino!\!DB_NAME_DEMO!_%MODE%.sql"
       call :logger "!log_action!" "!BCK_DUMP_DB! %DB_NAME_DEMO% - !file_sql!"
       docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" pg_dump -Fc -U "%DB_HOSTNAME%" !DB_NAME_DEMO!>"!file_sql!" 2>"!file_err!"
       call :compress_file "!file_sql!"
+      call :verify_database "!label!" "!cmd!" "!DB_NAME_DEMO!" "!file_sql!" "!BACK_SCHEMA_RESULT!"
+      call :verify_database "!label2!" "!cmd2!" "!DB_NAME_DEMO!" "!file_sql!" "!BACK_DATA_RESULT!"
     )
   )
+  echo.
+  call :logger "!LOG-SUCC!" "!BCK_ENDING!"
   echo.
   pause
   cls
   call "%DIR_SCRIPT%banner.bat" "%TRYTON%"
   goto :menu_backup
+
+:verify_database
+  set "ve_label=%~1"
+  set "ve_cmd=%~2"
+  set "ve_database=%~3"
+  set "ve_file_sql=%~4"
+  set "ve_message=%~5"
+  set "MESSAGE=!ve_message:DB=%ve_database%!"
+  call :logger "!log_action!" "!MESSAGE! !ve_file_sql!"
+  if exist "!file_tmp!" del "!file_tmp!" >nul
+  if exist "!file_err!" del "!file_err!" >nul
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!ve_cmd!" "!ve_database!" "!file_tmp!" "!file_err!" "" "!ve_label!"
+  if exist "!logfile!" (
+      set /p count=<"!logfile!"
+      set "MESSAGE=!BCK_SUCCESS:DESTINO=%ve_file_sql%!"
+      call :logger "!LOG-SUCC!" "!MESSAGE! (!count! %label%)"
+  )
+  exit /b
 
 :compress_file
   set "FILE_SQL=%~1"
@@ -349,6 +392,5 @@ exit /b
   exit /b 2
 
 :exit
-  if /i "%back_action%" NEQ "%INS%" call :logger "!LOG-SUCC!" "!BCK_ENDING!"
   endlocal
   exit /b 0

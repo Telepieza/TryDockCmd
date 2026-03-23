@@ -434,7 +434,7 @@ exit /b
   set "MESSAGE=!LOG_INFO_CONFIRM:PROYECTO=%TRYTON%!"
   :: Solicita confirmación YES por parte del usuario para continuar. 
   set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
-  if /i not "%confirm%"=="YES" set "LOAD_FILE=1"
+  if /i "%confirm%" NEQ "YES" set "LOAD_FILE=1"
   exit /b
 
 :check_configuration

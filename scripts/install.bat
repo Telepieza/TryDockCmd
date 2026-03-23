@@ -29,7 +29,7 @@ if %errorlevel% EQU 2 (
   set "confirm="
   :: Solicita confirmación por parte del usuario para cancelar instalacion
   set /p "confirm=%BS%        !C_M_GREEN!!INSTALL_EXITS!!C_M_RESET!"
-  if /i not "!confirm!"=="YES" goto :cancel
+  if /i "!confirm!" NEQ "YES" goto :cancel
   goto :continue
 )
 set "MESSAGE=!INSTALL_DESC_1:PROYECTO=%proyecto%!"

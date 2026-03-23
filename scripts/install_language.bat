@@ -131,7 +131,7 @@ if /i "!ins_lang_action!"=="%INS%" (
   :: 3.- Probando conexión a la base de datos
   call :logger "%log_action%" "[3.-] !INSTALL_MODU_HEAD16! %DB_NAME%" "3"
   set  "cmd=SELECT current_database();"
-  call :run_trytond_lang "%POSTGRES%" "!cmd!"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "" "" "" ""
 
 :language_modules_country
   set "noclear_file="
@@ -144,17 +144,17 @@ if /i "!ins_lang_action!"=="%INS%" (
   :: 1. Actualizar lista de módulos
   call :logger "%log_action%" "!INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
-  call :run_trytond_lang "%SERVER%" "!cmd!" "" "%file_base%" "%noclear_file%"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "%noclear_file%" ""
 
   :: 2. Activar el idioma seleccionado
   call :logger "%log_action%" "!INSTALL_MODU_HEADCO! -l CODE !TRYTON_LANGUAGE!" "3"
   set "cmd=!COM2! !COM1! -l CODE !TRYTON_LANGUAGE! !COM3!"
-  call :run_trytond_lang "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
 
   :: 3. Instalar módulos del país (!LL! contiene el nombre del módulo: account_es, etc.)
   call :logger "%log_action%" "%LX%" "3"
   set "cmd=!COM2! !COM1! -u !LL! --activate-dependencies !COM3!"
-  call :run_trytond_lang "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
  :: 4. Importar Paises , subdivisiones y códigos postales 
   call :logger "%log_action%" "!INSTALL_MODU_HEAD54! !TRYTON_LANGUAGE!" "3"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1"
@@ -215,7 +215,7 @@ if /i "!ins_lang_action!"=="%INS%" (
   call :logger "%log_action%" "!INSTALL_MODU_HEAD67! !DB_NAME!" "3"
   set "temp_file=%file_lang_tmp%_count.txt"
   set "cmd=SELECT count(*) FROM ir_lang WHERE translatable=true;"
-  call :run_trytond_lang "%POSTGRES%" "!cmd!" "%temp_file%"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" ""
   set "LANGUAGES=0"
   for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "LANGUAGES=%%i"
   call :logger "%log_action%" "!WORD_ACT_LANGUAGES!: !LANGUAGES! !WORD_CONFIGURED!" "3"
@@ -224,7 +224,7 @@ if /i "!ins_lang_action!"=="%INS%" (
 
   call :logger "%log_action%" "!INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
-  call :run_trytond_lang "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
 
   :: Reports Verificar y comprobar que todos los módulos están activated
   call :logger "%log_action%" "!INSTALL_MODU_HEAD18!" "3"
@@ -246,7 +246,7 @@ if /i "!ins_lang_action!"=="%INS%" (
   set "title=%~2"
   set "numer=%~3"
   set "cmd=SELECT name, state FROM ir_module ORDER BY name;"
-  call :run_trytond_lang "%POSTGRES%" "!cmd!" "%file_modules%" "%file_err%"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_modules%" "%file_err%" "" ""
   if %ERRORLEVEL% NEQ 0  exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "8" "%event%" "%title%" "%numer%" "%file_modules%" "%LANG%"
   exit /b
@@ -257,62 +257,10 @@ if /i "!ins_lang_action!"=="%INS%" (
   set "title=%~2"
   set "numer=%~3"
   set  "cmd=SELECT name FROM ir_module WHERE state='activated' ORDER BY name;"
-  call :run_trytond_lang "%POSTGRES%" "!cmd!" "%file_activ%"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_activ%" "" "" ""
   if %ERRORLEVEL% NEQ 0  exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "5" "%event%" "%title%" "%numer%" "%file_activ%" "%LANG%"
   exit /b
-
- :run_trytond_lang
-   REM %1 = Servicio server o postgres
-   REM %2 = comando completo a ejecutar (trytond-admin o psql SQL)
-   REM %3 = logfile stdout (opcional)
-   REM %4 = errfile stderr (opcional)
-   REM %5 = YES (añadir en vez de sobrescribir)
-   set "servicio=%~1"
-   set "cmd=%~2"
-   set "logfile=%~3"
-   set "errfile=%~4"
-   set "add=%~5"
-   REM --- Limpiar ficheros si no se añade
-   if not "%logfile%"=="" if /i not "%add%"=="YES" if exist "%logfile%" del "%logfile%" >nul
-   if not "%errfile%"=="" if /i not "%add%"=="YES" if exist "%errfile%" del "%errfile%" >nul
-
-   REM --- Construcción de redirecciones de Windows
-   set "redir_out="
-   set "redir_err="
-   if not "%logfile%"=="" ( 
-     if /i "%add%"=="YES" (
-      set "redir_out=>>"%logfile%""
-     ) else (
-      set "redir_out=>"%logfile%""
-     )
-  )
-  if not "%errfile%"=="" (
-      if /i "%add%"=="YES" (
-         set "redir_err=2>>"%errfile%""
-      ) else (
-         set "redir_err=2>"%errfile%""
-      )
-  )
-  if /i "%servicio%"=="%SERVER%" (
-    ::Para SERVER, ejecutamos bash -c "<cmd>" y luego ponemos la redirección de Windows
-    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%SERVER%" bash -c "%cmd%" %redir_out% %redir_err%
-  )
-  if /i "%servicio%"=="%POSTGRES%" (
-    REM Para POSTGRES, usamos psql directamente
-    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d "!DB_NAME!" -At -c "%cmd%" %redir_out% %redir_err%
-  )
-  set "status=%ERRORLEVEL%"
-  :: --- Esperar si OK ---
-  if %status% EQU 0 (
-    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timelan!"
-    goto :exit
-  )
-  if %status% NEQ 0 (
-    if not "%errfile%"=="" if exist "%errfile%" call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "display_file_event_all" "!LOG-ERROR!" "%errfile%"
-    if not "%logfile%"=="" if exist "%logfile%" call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "display_file_event_all" "!LOG-INFO!" "%logfile%"
-  )
-  exit /b %status%
 
 :head_modules_lang
   echo.

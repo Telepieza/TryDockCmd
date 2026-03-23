@@ -73,8 +73,8 @@ if /i "%ins_tryton_action%"=="%INS%" (
 
 :: 01
 :check_database
-  set "command=\l"
-  call :run_trytond "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
+  set "cmd=\l"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_table%" "%file_err%" "" ""
   if %ERRORLEVEL%==0 (
     call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "L" "!INSTALL_MODU_01!" "0" "%file_table%" 
   )
@@ -82,8 +82,8 @@ if /i "%ins_tryton_action%"=="%INS%" (
   pause & goto :menu_trytond
 :: 02
 :check_rules
-  set "command=\du"
-  call :run_trytond "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
+  set "cmd=\du"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_table%" "%file_err%" "" ""
   if %ERRORLEVEL%==0 (
     call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "U" "!INSTALL_MODU_02!" "0" "%file_table%" 
   )
@@ -91,8 +91,8 @@ if /i "%ins_tryton_action%"=="%INS%" (
   pause & goto :menu_trytond
 :: 03
 :check_extensions
-  set "command=\dx"
-  call :run_trytond "%POSTGRES%" "!command!" "%file_table%" "%file_err%"
+  set "cmd=\dx"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_table%" "%file_err%" "" ""
   if %ERRORLEVEL%==0 (
    call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "X" "!INSTALL_MODU_03!" "0" "%file_table%" 
   )
@@ -106,9 +106,10 @@ call :head_modules
 if /i "%ins_tryton_action%" EQU "%INS%" call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timetry20%" "1" 
 :: Solicita confirmación por parte del usuario
 if /i "%ins_tryton_action%" NEQ "%INS%" (
+  set "confirm="
   set "MESSAGE=!INSTALL_MODU_EMPTY:PROYECTO=%DB_NAME%!"
   set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
-  if /i not "%confirm%"=="YES" (
+  if /i "!confirm!" NEQ "YES" (
      echo.
      call :logger "!LOG-CANCEL!" "!LOG_INSTALL_CANCEL!"
      call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timetry5%" "1" "N"
@@ -128,40 +129,40 @@ set "COM3= --email !EMAIL! -vv"
 :: 1. BASE TOTAL
 call :logger "%INS%" "%F1%" "4"
 set "cmd=!COM2! !COM1! -u !C1! --activate-dependencies !COM3!"
-call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "" ""
 :: 2. PRODUCTO Y STOCK BASE 
 call :logger "%INS%" "%F2%" "4"
 set "cmd=!COM2! !COM1! -u !C2! --activate-dependencies !COM3!"
-call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
 :: 3. CONTABILIDAD BASE Y FACTURACION 
 call :logger "%INS%" "%F3%" "4"
 set "cmd=!COM2! !COM1! -u !C3! --activate-dependencies !COM3!" 
-call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
 :: 4. MOTORES COMERCIALES
 call :logger "%INS%" "%F4%" "4"
 set "cmd=!COM2! !COM1! -u !C4! --activate-dependencies !COM3!"
-call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
 :: 5. ABASTECIMIENTO
 call :logger "%INS%" "%F5%" "4"
 set "cmd=!COM2! !COM1! -u !C5! --activate-dependencies !COM3!"
-call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
 :: 6. EXTENSIONES DE PRODUCTO
 call :logger "%INS%" "%F6%" "4"
 set "cmd=!COM2! !COM1! -u !C6! --activate-dependencies !COM3!"
-call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
 :: 7. OPERACIONES AVANZADAS
 call :logger "%INS%" "%F7%" "4"
 set "cmd=!COM2! !COM1! -u !C7! --activate-dependencies !COM3!"
-call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
 :: 8. VISUAL
 call :logger "%INS%" "%F8%" "4"
 set "cmd=!COM2! !COM1! -u !C8! --activate-dependencies !COM3!"
-call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
 :: 7.1. UPDATE modules-list install language
 if /i "!TRYTON_LANGUAGE!" NEQ "" (
   call :logger "%INS%" "[7.1.-] !INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
-  call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
   call :logger "%INS%" "[8.-] !LS!" "4"
   call "%DIR_SCRIPT%install_language.bat" "%proyecto%" "%INS%"
 )
@@ -169,7 +170,7 @@ if /i "!TRYTON_LANGUAGE!" NEQ "" (
 :: actualizar la lista de modulos
 call :logger "%INS%" "[9.-] !INSTALL_MODU_HEAD34!" "3"
 set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
-call :run_trytond "%SERVER%" "!cmd!" "" "%file_base%" "YES"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
 
 :: Crear Emprea, Ejercicio fiscal. secuencias y periodos contables
 call :logger "%INS%" "[10.-] !INSTALL_MODU_HEAD44!" "3"
@@ -209,7 +210,7 @@ pause & goto :menu_trytond
    set "confirm="
    set "MESSAGE=!INSTALL_MODU_DELCRE:PROYECTO=%DB_NAME%!"
    set /p "confirm=%BS%        !C_M_GREEN!!MESSAGE!!C_M_RESET! "
-   if /i not "%confirm%"=="YES" (
+   if /i "%confirm%" NEQ "YES" (
      echo.
      call :logger "!LOG-CANCEL!" "!LOG_INSTALL_CANCEL!"
      call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timetry5%" "1" "N"
@@ -258,7 +259,7 @@ pause & goto :menu_trytond
    :: 6.- Probando conexión a la base de datos
    call :logger "%INS%" "[6.-] !INSTALL_MODU_HEAD16! %DB_NAME%" "3"
    set  "cmd=SELECT current_database();"
-   call :run_trytond "%POSTGRES%" "!cmd!"
+   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "" "" "" ""
    exit /b
 
 :: 07
@@ -290,7 +291,7 @@ pause & goto :menu_trytond
   set "title=%~2"
   set "numer=%~3"
   set "cmd=SELECT name, state FROM ir_module ORDER BY name;"
-  call :run_trytond "%POSTGRES%" "!cmd!" "%file_modules%" "%file_err%"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_modules%" "%file_err%" "" ""
   if %ERRORLEVEL% NEQ 0  exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "8" "%event%" "%title%" "%numer%" "%file_modules%"
   exit /b
@@ -301,7 +302,7 @@ pause & goto :menu_trytond
   set "title=%~2"
   set "numer=%~3"
   set  "cmd=SELECT name FROM ir_module WHERE state='activated' ORDER BY name;"
-  call :run_trytond "%POSTGRES%" "!cmd!" "%file_activ%"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_activ%" "" "" ""
   if %ERRORLEVEL% NEQ 0  exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "9" "%event%" "%title%" "%numer%" "%file_activ%"
   exit /b
@@ -322,66 +323,6 @@ pause & goto :menu_trytond
   findstr /I "\.xml" "%basefile%" > "%outxml%"
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "7" "%event%" "%title%" "%numer%" "%outxml%"
   exit /b
-
- :run_trytond
-   REM %1 = Servicio server o postgres
-   REM %2 = comando completo a ejecutar (trytond-admin o psql SQL)
-   REM %3 = logfile stdout (opcional)
-   REM %4 = errfile stderr (opcional)
-   REM %5 = YES (añadir en vez de sobrescribir)
-   set "servicio=%~1"
-   set "cmd=%~2"
-   set "logfile=%~3"
-   set "errfile=%~4"
-   set "add=%~5"
-   REM --- Limpiar ficheros si no se añade
-   if not "%logfile%"=="" if /i not "%add%"=="YES" if exist "%logfile%" del "%logfile%" >nul
-   if not "%errfile%"=="" if /i not "%add%"=="YES" if exist "%errfile%" del "%errfile%" >nul
-
-   REM --- Construcción de redirecciones de Windows
-   set "redir_out="
-   set "redir_err="
-   if not "%logfile%"=="" ( 
-     if /i "%add%"=="YES" (
-      set "redir_out=>>"%logfile%""
-     ) else (
-      set "redir_out=>"%logfile%""
-     )
-  )
-  if not "%errfile%"=="" (
-      if /i "%add%"=="YES" (
-         set "redir_err=2>>"%errfile%""
-      ) else (
-         set "redir_err=2>"%errfile%""
-      )
-  )
-  if /i "%servicio%"=="%SERVER%" (
-    ::Para SERVER, ejecutamos bash -c "<cmd>" y luego ponemos la redirección de Windows
-    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%SERVER%" bash -c "%cmd%" %redir_out% %redir_err%
-  )
-  if /i "%servicio%"=="%POSTGRES%" (
-    REM Para POSTGRES, usamos psql directamente
-    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d "!DB_NAME!" -At -c "%cmd%" %redir_out% %redir_err%
-  )
-  set "status=%ERRORLEVEL%"
-  :: --- Esperar si OK ---
-  if %status% EQU 0 (
-    if /i "%ins_tryton_action%" EQU "%INS%" (
-        call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1"
-    )
-    exit /b 0
-  )
-  if %status% NEQ 0 (
-     if exist "%errfile%" if not "%errfile%"=="" (
-       call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "display_file_event_all" "!LOG-ERROR!" "%errfile%"
-       exit /b %status%
-     )
-     if exist "%logfile%" if not "%logfile%"=="" (
-      call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "display_file_event_all" "!LOG-INFO!" "%logfile%"
-      exit /b %status%
-     )
-  )
-  exit /b 0
 
 :head_modules
   echo.

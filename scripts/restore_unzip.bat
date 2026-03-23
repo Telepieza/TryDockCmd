@@ -15,7 +15,7 @@ set "proyecto=%~1"
 set "BASE_BACKUP_DIR=%~2"
 set "DO_IMAGES=%~3"
 set "DO_MODE=%~4"
-set /a "wait_timeres=10"
+set /a "wait_timeres=20"
 
 set /a "num_error=0"
 set "ZIP_PATH="
@@ -24,7 +24,7 @@ call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
 call :logger "%APP%" "restore_unzip"
 
 if not exist "%BASE_BACKUP_DIR%\*.zip" (
-  set "MESSAGE=!RES_ERR_ZIP! %BASE_BACKUP_DIR%"
+  set "MESSAGE=1.- !RES_ERR_ZIP! %BASE_BACKUP_DIR%"
   call :logger "%LOG-ERROR%" "!MESSAGE!" "5"
   goto :error
 )
@@ -47,7 +47,7 @@ echo.
   set "zip_name="
   set "confirm="
   set "MESSAGE="
-  set /p "zip_name=%BS%        !C_M_GREEN!!RES_ZIP_PROMPT!!C_M_RESET!"
+  set /p "zip_name=%BS%        !C_M_GREEN!!RES_ZIP_PROMPT!!C_M_RESET! "
   if /i "!zip_name!"=="" (
     set "MESSAGE=!RES_REQUIRED_FIELD!"
     set "LOAD_FILE=1"
@@ -75,7 +75,7 @@ echo.
  if exist "%RESTORE_PATH%" rd /s /q "%RESTORE_PATH%" >nul 2>&1
  mkdir "%RESTORE_PATH%" >nul 2>&1
  set "MESSAGE=!RES_EXTRACT! !ZIP_PATH! to !RESTORE_PATH!"
- call :logger "!LOG-INFO!" "!MESSAGE!"
+ call :logger "%LOG-INFO%" "!MESSAGE!"
  if exist "%RESTORE_PATH%\%ZIP_BASE%" (
     set "BACKUP_PATH=%RESTORE_PATH%\%ZIP_BASE%"
  ) else (
@@ -84,7 +84,7 @@ echo.
 
 powershell -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path '%ZIP_PATH%' -DestinationPath '%RESTORE_PATH%' -Force"
 if %errorlevel% NEQ 0 (
-   set "MESSAGE=!RES_ERR_CMD! Expand-Archive"
+   set "MESSAGE=2.- !RES_ERR_CMD! Expand-Archive"
    goto :error
 )
  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "1"
@@ -95,7 +95,7 @@ if exist "%RESTORE_PATH%\%ZIP_BASE%" (
 )
 
 if not exist "%BACKUP_PATH%" (
-    set "MESSAGE=!RES_ERR_DIR! %BACKUP_PATH%"
+    set "MESSAGE=3.- !RES_ERR_DIR! %BACKUP_PATH%"
     goto :error
 )
 
@@ -103,18 +103,18 @@ set "work_mode=%BACKUP_PATH%\%TRYTON%_*%DO_MODE%.sql"
 call :logger !LOG-INFO! "!RES_VALIDATE_ZIP! !work_mode!"
 for %%F in ("%work_mode%") do set "DUMPALL_FILE=%%F"
 if not defined DUMPALL_FILE (
-   set "MESSAGE=!RES_REQUIRED_MISSING! %work_mode%" 
+   set "MESSAGE=4.- !RES_REQUIRED_MISSING! %work_mode%" 
    goto :error
 )
 
 if not exist "%DUMPALL_FILE%" (
-   set "MESSAGE=!RES_SRC_NOT_FOUND! %DUMPALL_FILE%"
+   set "MESSAGE=5.- !RES_SRC_NOT_FOUND! %DUMPALL_FILE%"
    goto :error
 )
 
 for %%A in ("%DUMPALL_FILE%") do set "size=%%~zA"
 if %size% LSS 1024 (
-  set "MESSAGE=!RES_FILE_EMPTY! !DUMPALL_FILE!"
+  set "MESSAGE=6.- !RES_FILE_EMPTY! !DUMPALL_FILE!"
   goto :error
 )
 
@@ -122,7 +122,7 @@ if /i "%DO_IMAGES%" NEQ "2" (
   set "work_dir=!BACKUP_PATH!\trytond"
   call :logger !LOG-INFO! "!RES_VALIDATE_ZIP! !work_dir!"
   if not exist "!work_dir!" (
-    set "MESSAGE=!RES_REQUIRED_MISSING! !work_dir!"
+    set "MESSAGE=7.- !RES_REQUIRED_MISSING! !work_dir!"
     goto :error 
   )
 )
@@ -131,13 +131,13 @@ if "%DO_IMAGES%"=="1" (
    set "work_tar=!BACKUP_PATH!\img_postgres.tar"
    call :logger !LOG-INFO! "!RES_VALIDATE_ZIP! !work_tar!"
    if not exist "!work_tar!" (
-      set "MESSAGE=!RES_REQUIRED_MISSING! !work_tar!"
+      set "MESSAGE=8.- !RES_REQUIRED_MISSING! !work_tar!"
       goto :error
    )
    set "work_tar=!BACKUP_PATH!\img_tryton.tar"
    call :logger !LOG-INFO! "!RES_VALIDATE_ZIP! !work_tar!"
    if not exist "!work_tar!" (
-    set "MESSAGE=!RES_REQUIRED_MISSING! !work_tar!"
+    set "MESSAGE=9.- !RES_REQUIRED_MISSING! !work_tar!"
     goto :error
   )
 )

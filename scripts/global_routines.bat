@@ -19,6 +19,9 @@ set "param1=%~3"
 set "param2=%~4"
 set "param3=%~5"
 set "param4=%~6"
+set "param5=%~7"
+set "param6=%~8"
+set "param7=%~9"
 
 :: Analiza si la llamada es del tcd.bat
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
@@ -37,6 +40,12 @@ if /i "%glo_action%" == "display_file_event_all" (
     call :%glo_action% "!param1!" "!param2!"
     goto :exit
 )
+
+if /i "%glo_action%" == "trytond_services" (
+    call :%glo_action% "!param1!" "!param2!" "!param3!" "!param4!" "!param5!" "!param6!" "!param7!"
+    goto :exit
+)
+
 goto :exit
 
 :: Temporizador. recibe segundos y procede a realizar un timeout
@@ -47,7 +56,7 @@ goto :exit
   set /a "r_second=0"
   set "point="
   set "bar="
-  if /i not "%~3"=="" set "bar=%~3"
+  if /i "%~3" NEQ "" set "bar=%~3"
   :: Menor de 5 segundos no visualiza la barra de puntos.
   if !i_second! LSS 5 (
      timeout /t !i_second! >nul
@@ -59,7 +68,7 @@ goto :exit
      exit /b
   )
 
-  if /i not "%~2"=="" (
+  if /i "%~2" NEQ "" (
    set /a "c_second=%~2"
    if "%c_second%" EQU 0 set /a "c_second=1"
   )
@@ -86,7 +95,7 @@ goto :exit
   set "fil_action=%~1"
   set "text=%~2"
   set /a "numer=0"
-  if /i not "%~3"=="" set /a "numer=%~3"
+  if /i "%~3" NEQ "" set /a "numer=%~3"
   set "file_cab=%~4"
   set "MESSAGE="
   :: longitud hasta 500 o longitud del texto
@@ -100,9 +109,9 @@ goto :exit
   for /L %%I in (1,1,!len!) do set "MESSAGE=!MESSAGE!-"
   echo.
   call :logger "%fil_action%" "%text%" "%numer%"
-  if /i not "%file_cab%"=="" echo # %text% >> "%file_cab%"
+  if /i "%file_cab%" NEQ "" echo # %text% >> "%file_cab%"
   call :logger "%MENU%" "%MESSAGE%" "%numer%"
-  if /i not "%file_cab%"=="" echo # %MESSAGE% >> "%file_cab%"
+  if /i "%file_cab%" NEQ "" echo # %MESSAGE% >> "%file_cab%"
   echo.
   exit /b
 
@@ -120,6 +129,56 @@ goto :exit
     )
   )
   exit /b
+
+:trytond_services
+   REM %1 = Servicio server o postgres
+   REM %2 = comando completo a ejecutar (trytond-admin o psql SQL)
+   REM %3 = Base de datos tryton - tryton-demo
+   REM %4 = logfile stdout (opcional)
+   REM %5 = errfile stderr (opcional)
+   REM %6 = YES (añadir en vez de sobrescribir)
+   REM %7 = label (Añadir info al mensaje del log)
+   set "servicio=%~1"
+   set "cmd=%~2"
+   set "db_postgres=%~3"
+   set "logfile=%~4"
+   set "errfile=%~5"
+   set "add=%~6"
+   set "label=%~7"
+
+   if not "%logfile%"=="" if /i "%add%" NEQ "YES" if exist "%logfile%" del "%logfile%" >nul
+   if not "%errfile%"=="" if /i "%add%" NEQ "YES" if exist "%errfile%" del "%errfile%" >nul
+   set "redir_out="
+   set "redir_err="
+   if not "%logfile%"=="" ( 
+     if /i "%add%"=="YES" (
+      set "redir_out=>>"%logfile%""
+     ) else (
+      set "redir_out=>"%logfile%""
+     )
+  )
+  if not "%errfile%"=="" (
+      if /i "%add%"=="YES" (
+         set "redir_err=2>>"%errfile%""
+      ) else (
+         set "redir_err=2>"%errfile%""
+      )
+  )
+  if /i "%servicio%"=="%SERVER%" (
+    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%SERVER%" bash -c "%cmd%" %redir_out% %redir_err%
+  )
+  if /i "%servicio%"=="%POSTGRES%" (
+    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d "%db_postgres%" -At -c "%cmd%" %redir_out% %redir_err%
+  )
+  set "status=%ERRORLEVEL%"
+  if "%label%" NEQ "" call :logger "%CHECK%" "!WORD_MESSAGE! !glo_action! %label%"
+  if %status% EQU 0 if /i "%ins_tryton_action%" EQU "%INS%" call :timeout_start "10" "1"
+  if %status% NEQ 0 (
+     if exist "%errfile%" if not "%errfile%"=="" call :display_file_event_all "!LOG-ERROR!" "%errfile%"
+     if exist "%logfile%" if not "%logfile%"=="" call :display_file_event_all "!LOG-INFO!" "%logfile%"
+     exit /b %status%
+  )
+  exit /b 0
 
 :logger
   call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"

@@ -18,9 +18,9 @@ set "msg="
 set /a "numer=0"
 set "space="
 :: %~1=Nivel de error (INFO,ERROR,DEBUG,TXT,WORK,APP,SUCC), %~2=El mensaje traducido
-if /i not "%~1"=="" set "tipo=%~1"
-if /i not "%~2"=="" set "msg=%~2"
-if /i not "%~3"=="" set /a "numer=%~3"
+if /i "%~1" NEQ "" set "tipo=%~1"
+if /i "%~2" NEQ "" set "msg=%~2"
+if /i "%~3" NEQ "" set /a "numer=%~3"
 :: Leemos secuencia de colores
 for /F %%a in ('echo prompt $E ^| cmd') do set "ESC=%%a"
 :: Definir colores estándar (No brillantes)

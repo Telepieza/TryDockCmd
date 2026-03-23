@@ -16,8 +16,8 @@ set "proyecto=%~1"
 set "up_action=%~2"
 set /a "attempts=0"
 set /a "max_attempts=10"
-set /a "wait_timeup=5"
-set /a "wait_service=3"
+set /a "wait_timeup=8"
+set /a "wait_service=5"
 set /a "LOAD_FILE=0"
 set "db_error=0"
 set "exist_postgres=0"
@@ -61,7 +61,7 @@ if /i "%up_action%"=="%APP%" (
 
 :: Solicita confirmación YES por parte del usuario para continuar. 
 set /p "confirm=%BS%        !C_M_GREEN!!UP_CONFIRM!!C_M_RESET! "
-if /i not "!confirm!"=="YES" (
+if /i "!confirm!" NEQ "YES" (
 ::  call :logger "!LOG-WARN!" "!UP_ERR_OPT!"
     goto :exit
 )
@@ -74,13 +74,13 @@ if /i not "!confirm!"=="YES" (
     call :up_services "%CRON%"
   )
   :: Comprobando si la DB postgres acepta conexiones
-  if /i "%exist_postgres%"=="0" if /i not "%CURRENT_POSTGRES%"=="" if /i not "%up_action%"=="%CHECK%" call :connect_postgres "%POSTGRES%"
+  if /i "%exist_postgres%"=="0" if /i "%CURRENT_POSTGRES%" NEQ "" if /i "%up_action%" NEQ "%CHECK%" call :connect_postgres "%POSTGRES%"
   :: Problemas al activar los contenedores
   if "%LOAD_FILE%" GTR 0 (
     set "msg_cont=%proyecto% - !WORD_NUMBER! : %LOAD_FILE% !WORD_SERVICE!" 
     set "MESSAGE=!UP_WARN_FAIL:PROYECTO=%msg_cont%!"
     if /i "%up_action%"=="%INS%" call :logger "%log_action%" "!LOG-WARN! !MESSAGE!"
-    if /i not "%up_action%"=="%INS%" call :logger "!LOG-WARN!" "!MESSAGE!"
+    if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-WARN!" "!MESSAGE!"
     goto :status_stop
   )
 
@@ -106,13 +106,13 @@ if /i not "!confirm!"=="YES" (
     call :logger "%log_action%" "!MESSAGE!"
     goto :exit_services
   )
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1" "N"
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%TRYTON%" start "%service%" >nul 2>&1
   if !errorlevel! neq 0 (
      if "%up_action%" NEQ "%INS%" (
        set "MESSAGE=!UP_WARN_FAIL:PROYECTO=%msg_cont%!"
        if /i "%up_action%"=="%INS%" call :logger "%log_action%" "!LOG-WARN! !MESSAGE!"
-       if /i not "%up_action%"=="%INS%" call :logger "!LOG-WARN!" "!MESSAGE!"
+       if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-WARN!" "!MESSAGE!"
      )
      set /a LOAD_FILE+=1
     goto :exit_services
@@ -120,7 +120,7 @@ if /i not "!confirm!"=="YES" (
 
   set "MESSAGE=!UP_SUCCESS:PROYECTO=%msg_cont%!"
   if /i "%up_action%"=="%INS%" call :logger "%log_action%" "!LOG-SUCC! !MESSAGE!"
-  if /i not "%up_action%"=="%INS%" call :logger "!LOG-SUCC!" "!MESSAGE!"
+  if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-SUCC!" "!MESSAGE!"
 
 :exit_services
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1"
@@ -132,19 +132,19 @@ if /i not "!confirm!"=="YES" (
   set "MESSAGE=!UP_TESTING_DB:PROYECTO=%msg_cont%!"
   call :logger "%log_action%" "!MESSAGE!"
 :loop_postgres
-  :: Empezamos el bucle de espera para recibir datos
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1" "N"
   docker exec "%CURRENT_POSTGRES%" pg_isready -U "%DB_USER%" >nul 2>&1
   if %errorlevel% equ 0 (
     if "%up_action%" NEQ "%INS%" (
       set "MESSAGE=!UP_CONNECT_DB:PROYECTO=%msg_cont%!"
       if /i "%up_action%"=="%INS%" call :logger "%log_action%" "!LOG-SUCC! !MESSAGE!"
-      if /i not "%up_action%"=="%INS%" call :logger "!LOG-SUCC!" "!MESSAGE!"
+      if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-SUCC!" "!MESSAGE!"
     )
     goto :end_postgres
   )
   if %attempts% GEQ %max_attempts% (
     if /i "%up_action%"=="%INS%" call :logger "%log_action%" "!LOG-ERROR! !UP_WAIT_DB2!"
-    if /i not "%up_action%"=="%INS%" call :logger "!LOG-ERROR!" "!UP_WAIT_DB2!"
+    if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-ERROR!" "!UP_WAIT_DB2!"
     set "db_error=1"
     goto :end_postgres
   )
@@ -152,7 +152,7 @@ if /i not "!confirm!"=="YES" (
   set /a attempts+=1
   set "MESSAGE=!UP_WAIT_DB1:COUNT=%attempts%!"
   if /i "%up_action%"=="%INS%" call :logger %log_action% "!LOG-WARN! !MESSAGE!"
-  if /i not "%up_action%"=="%INS%" call :logger "!LOG-WARN!" "!MESSAGE!"
+  if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-WARN!" "!MESSAGE!"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeup!" "1"
   goto :loop_postgres
 

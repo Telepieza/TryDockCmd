@@ -18,13 +18,17 @@ set "DUMPALL_FILE=%~4"
 set "DO_MODE=%~5"
 set /a "attempts=0"
 set /a "max_attempts=10"
-set /a "wait_timeres=10"
+set /a "wait_timeres=20"
+set "log_action=!LOG-INFO!"
 set "file_err=%DIR_TMP%\trytond_restore_err.txt"
 set "file_tmp=%DIR_TMP%\trytond_restore_tmp.txt"
 
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
 call :logger "%APP%" "restore_sql"
 
+if /i "%back_action%"=="%INS%"  set "log_action=%INS%"
+
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "2"
 call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SQL%"
 if %errorlevel% EQU 0 (
   call "%DIR_SCRIPT%startdown.bat" "%proyecto%" "%CHECK%" "STOP"
@@ -50,23 +54,6 @@ if /i "%DO_MODE%"=="data" set "MESSAGE=!RES_DATA_RESTORE:DB=%DB_RESTORE%!"
 if /i "%DO_MODE%"=="full_db" set "MESSAGE=!RES_FULLDB_RESTORE:DB=%DB_RESTORE%!"
 call :logger "%INS%" "!MESSAGE! %DUMPALL_FILE%"
 
-if /i "%DO_MODE%"=="data" (
-  docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -v ON_ERROR_STOP=1 -U "%DB_HOSTNAME%" -d "%DB_RESTORE%" < "%DUMPALL_FILE%" >nul 2>%file_err%
-  if !errorlevel! NEQ 0 (
-    call :logger !LOG-ERROR! "!RES_ERR_CMD! %DO_MODE%"
-    goto :error
-  )
-  call "%DIR_SCRIPT%startup.bat" "%proyecto%" "%CHECK%"
-  set "MESSAGE=!RES_DATA_RESTORE_2:DB=%DB_RESTORE%!"
-  call :logger "%INS%" "!MESSAGE! !DUMPALL_FILE!"
-  set "cmd=SELECT count(*) FROM ir_module;"
-  call :run_trytond_sql "%POSTGRES%" "!cmd!" "%file_tmp%" "%file_err%" "" "modules"
-  echo.
-  call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SEE%"
-  echo.
-  pause & goto :exit
-)
-
 if /i "%DO_MODE%"=="schema" (
   call :logger "%INS%" "!INSTALL_MODU_HEAD14! %DB_RESTORE%" "3"
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" dropdb -U "%DB_HOSTNAME%" --if-exists "%DB_RESTORE%"
@@ -80,11 +67,23 @@ if /i "%DO_MODE%"=="schema" (
     goto :error
   )
   call "%DIR_SCRIPT%startup.bat" "%proyecto%" "%CHECK%"
-  set "MESSAGE=!RES_SCHEMA_RESTORE_2:DB=%DB_RESTORE%!"
-  call :logger "%INS%" "!MESSAGE! !DUMPALL_FILE!"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "2"
   set "cmd=SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public';"
-  call :run_trytond_sql "%POSTGRES%" "!cmd!" "%file_tmp%" "%file_err%" "" "tables"
-  echo.
+  call :verify_database "tables" "!cmd!" "!DB_RESTORE!" "!DUMPALL_FILE!" "!RES_SCHEMA_RESTORE_2!" "YES"
+  pause & goto :exit
+)
+
+if /i "%DO_MODE%"=="data" (
+  docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -v ON_ERROR_STOP=1 -U "%DB_HOSTNAME%" -d "%DB_RESTORE%" < "%DUMPALL_FILE%" >nul 2>%file_err%
+  if !errorlevel! NEQ 0 (
+    call :logger !LOG-ERROR! "!RES_ERR_CMD! %DO_MODE%"
+    goto :error
+  )
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "1"
+  call "%DIR_SCRIPT%startup.bat" "%proyecto%" "%CHECK%"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "2"
+  set "cmd=SELECT count(*) FROM ir_module;"
+  call :verify_database "modules" "!cmd!" "!DB_RESTORE!" "!DUMPALL_FILE!" "!RES_DATA_RESTORE_2!"
   call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SEE%"
   echo.
   pause & goto :exit
@@ -97,15 +96,11 @@ if /i "%DO_MODE%"=="full_db" (
     goto :error
   )
   call "%DIR_SCRIPT%startup.bat" "%proyecto%" "%CHECK%"
-  set "MESSAGE=!RES_SCHEMA_RESTORE_2:DB=%DB_RESTORE%!"
-  call :logger "%INS%" "!MESSAGE! !DUMPALL_FILE!"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "2"
   set "cmd=SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public';"
-  call :run_trytond_sql "%POSTGRES%" "!cmd!" "%file_tmp%" "%file_err%" "" "tables"
-   set "MESSAGE=!RES_DATA_RESTORE_2:DB=%DB_RESTORE%!"
-  call :logger "%INS%" "!MESSAGE! !DUMPALL_FILE!"
+  call :verify_database "tables" "!cmd!" "!DB_RESTORE!" "!DUMPALL_FILE!" "!RES_SCHEMA_RESTORE_2!"
   set "cmd=SELECT count(*) FROM ir_module;"
-  call :run_trytond_sql "%POSTGRES%" "!cmd!" "%file_tmp%" "%file_err%" "" "modules"
-  echo.
+  call :verify_database "modules" "!cmd!" "!DB_RESTORE!" "!DUMPALL_FILE!" "!RES_DATA_RESTORE_2!" "YES"
   call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SEE%"
   echo.
   pause & goto :exit
@@ -113,50 +108,30 @@ if /i "%DO_MODE%"=="full_db" (
 
 goto :exit
 
-:run_trytond_sql
-   set "servicio=%~1"
-   set "cmd=%~2"
-   set "logfile=%~3"
-   set "errfile=%~4"
-   set "add=%~5"
-   set "label=%~6"
-   if not "%logfile%"=="" if /i not "%add%"=="YES" if exist "%logfile%" del "%logfile%" >nul
-   if not "%errfile%"=="" if /i not "%add%"=="YES" if exist "%errfile%" del "%errfile%" >nul
-   set "redir_out="
-   set "redir_err="
-   if not "%logfile%"=="" ( 
-     if /i "%add%"=="YES" (
-      set "redir_out=>>"%logfile%""
-     ) else (
-      set "redir_out=>"%logfile%""
-     )
+:verify_database
+  set "ve_label=%~1"
+  set "ve_cmd=%~2"
+  set "ve_database=%~3"
+  set "ve_file_sql=%~4"
+  set "ve_message=%~5"
+  set "ve_status=%~6"
+  set "MESSAGE=!ve_message:DB=%ve_database%!"
+  call :logger "!log_action!" "!MESSAGE! !ve_file_sql!"
+  if exist "!file_tmp!" del "!file_tmp!" >nul
+  if exist "!file_err!" del "!file_err!" >nul
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!ve_cmd!" "!ve_database!" "!file_tmp!" "!file_err!" "" "!ve_label!"
+  if exist "!logfile!" (
+      set /p count=<"!logfile!"
+      set "MESSAGE=!BCK_SUCCESS:DESTINO=%ve_file_sql%!"
+      call :logger "!LOG-SUCC!" "!MESSAGE! (!count! %label%)"
   )
-  if not "%errfile%"=="" (
-      if /i "%add%"=="YES" (
-         set "redir_err=2>>"%errfile%""
-      ) else (
-         set "redir_err=2>"%errfile%""
-      )
-  )
-  docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d "!DB_RESTORE!" -At -c "%cmd%" %redir_out% %redir_err%
-  set "status=%ERRORLEVEL%"
-  if %status% EQU 0 (
-     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "1"
-     if exist "%logfile%" set /p count=<"%logfile%"
-     call :logger "!LOG-SUCC!" "!RES_SUCCESS! !DB_RESTORE! (!count! !label!)"
-    exit /b 0
-  )
-  if %status% NEQ 0 (
-     if exist "%errfile%" if not "%errfile%"=="" (
-       call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "display_file_event_all %label%"!LOG-ERROR!" "%errfile%"
-       exit /b %status%
-     )
-     if exist "%logfile%" if not "%logfile%"=="" (
-      call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "display_file_event_all %label%" "!LOG-INFO!" "%logfile%"
-      exit /b %status%
-     )
-  )
-  exit /b 0
+
+if /i "%ve_status%"=="YES" (
+  echo.
+  call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SEE%"
+  echo.
+)
+  exit /b
 
 :logger
   call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"

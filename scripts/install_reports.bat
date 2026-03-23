@@ -225,7 +225,7 @@ exit /b
   set "action=%~1"
   set "text=%~2"
   set /a "numer=0"
-  if /i not "%~3"=="" set /a "numer=%~3"
+  if /i "%~3" NEQ "" set /a "numer=%~3"
   set "file_activ=%~4"
   
   call :logger "%action%" "%text%" "%numer%"
@@ -247,7 +247,7 @@ exit /b
   :: C8=dashboard marketing party_relationship
   call :compare_phase "C8" "%F8%" "%file_activ%"
   :: Modulo del lenguaje seleccionado
-  if /i not "!LL!"=="" (
+  if /i "!LL!" NEQ "" (
     call :compare_phase "LL" "%LX%" "%file_activ%"
   )
 exit /b
@@ -256,7 +256,7 @@ exit /b
   set "action=%~1"
   set "text=%~2"
   set /a "numer=0"
-  if /i not "%~3"=="" set /a "numer=%~3"
+  if /i "%~3" NEQ "" set /a "numer=%~3"
   set "file_activ=%~4"
   call :logger "%action%" "%text%" "%numer%"
   :: D1=country currency company party bank
@@ -277,7 +277,7 @@ exit /b
   set "action=%~1"
   set "text=%~2"
   set /a "numer=0"
-  if /i not "%~3"=="" set /a "numer=%~3"
+  if /i "%~3" NEQ "" set /a "numer=%~3"
   set "file_activ=%~4"
   call :logger "%action%" "%text%" "%numer%"
   :: LL=Modulo del lenguaje seleccionado (es,fr,de)
