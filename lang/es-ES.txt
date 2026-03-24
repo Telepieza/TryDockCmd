@@ -137,6 +137,7 @@ WORD_IVA=IVA
 WORD_TOTAL=Total
 WORD_GEN_DIARY=Diario general
 WORD_VAT_RATES=21,10,4
+WORD_TRUNCATE=TRUNCAR
 
 # --- install.bat ---
 # --- PROYECTO, CONEXION, COUNT, FILE son variables que se sustituye en el programa install.bat ---
@@ -344,7 +345,7 @@ BACK_DATA_RESULT=Verificando datos en DB desde:
 BACK_SCHEMA_RESULT=Verificando esquema en DB desde:
 BCK_FILE_CORRUPT=Backup corrupto (SIZE bytes). Error:
 BCK_RESTORE_STATE=Devolviendo contenedores a su estado original.
-BCK_SUCCESS=Backup completado en: DESTINO
+BCK_SUCCESS=Backup completado en:
 BCK_PG_DUMPALL=Para garantizar la copia de los datos de postgreSQL, el mandato es: DESTINO
 BCK_TEMPORARY=La carpeta temporal DESTINO se ha eliminado.
 BCK_TEMPORARY_2=La carpeta temporal DESTINO se borrará una vez completado el proceso del backup.
@@ -431,6 +432,8 @@ RES_SRC_NOT_FOUND=No se encontró el fichero:
 RES_WAIT_DB1=Esperando que la base de datos esté lista. Número de veces:
 RES_WAIT_DB2=Tiempo de espera excedido en la base de datos.
 RES_WAIT_DB3=Base de datos PROYECTO no acepta conexiones.
+RES_WAIT_DATA=Inyectando datos masivos. Este proceso es lento y no mostrará actividad. Por favor, paciencia...
+RES_TABLE_TRUNCATE=Truncado de datos en las tablas en: 
 RES_ENDING=Finalizando proceso.
 
 # --- startdocker.bat ---

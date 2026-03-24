@@ -138,6 +138,7 @@ goto :exit
    REM %5 = errfile stderr (opcional)
    REM %6 = YES (añadir en vez de sobrescribir)
    REM %7 = label (Añadir info al mensaje del log)
+   REM %8 = Mensaje (Añadir info al mensaje del log)
    set "servicio=%~1"
    set "cmd=%~2"
    set "db_postgres=%~3"
@@ -145,6 +146,7 @@ goto :exit
    set "errfile=%~5"
    set "add=%~6"
    set "label=%~7"
+   set "ser_msg=%~8"
 
    if not "%logfile%"=="" if /i "%add%" NEQ "YES" if exist "%logfile%" del "%logfile%" >nul
    if not "%errfile%"=="" if /i "%add%" NEQ "YES" if exist "%errfile%" del "%errfile%" >nul
@@ -171,8 +173,16 @@ goto :exit
     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -U postgres -d "%db_postgres%" -At -c "%cmd%" %redir_out% %redir_err%
   )
   set "status=%ERRORLEVEL%"
-  if "%label%" NEQ "" call :logger "%CHECK%" "!WORD_MESSAGE! !glo_action! %label%"
-  if %status% EQU 0 if /i "%ins_tryton_action%" EQU "%INS%" call :timeout_start "10" "1"
+  if %status% EQU 0 (
+    if /i "%ins_tryton_action%" EQU "%INS%" call :timeout_start "10" "1"
+    if "%label%" NEQ "" (
+      call :logger "%CHECK%" "!WORD_MESSAGE! !glo_action! %label%"
+      if exist "%logfile%" (
+        set /p count=<"%logfile%"
+        call :logger "!LOG-SUCC!" "%ser_msg% (!count! %label%)"
+      )
+    )
+  )
   if %status% NEQ 0 (
      if exist "%errfile%" if not "%errfile%"=="" call :display_file_event_all "!LOG-ERROR!" "%errfile%"
      if exist "%logfile%" if not "%logfile%"=="" call :display_file_event_all "!LOG-INFO!" "%logfile%"

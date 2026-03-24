@@ -69,7 +69,7 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 :check_database_demo
   if "!exit_dbdemo!"=="0" (
     set "cmd=\l"
-    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_table%" "%file_err%" "" ""
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_table%" "%file_err%" "" "" ""
     if %ERRORLEVEL%==0 (
       call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "L" "!INSTALL_MODU_01!" "0" "%file_table%" "%DEMO%"
     )
@@ -82,7 +82,7 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 :check_rules_demo
   if "!exit_dbdemo!"=="0" (
     set "cmd=\du"
-    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_table%" "%file_err%" "" ""
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_table%" "%file_err%" "" "" ""
     if %ERRORLEVEL%==0 (
       call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "U" "!INSTALL_MODU_02!" "0" "%file_table%" "%DEMO%"
     )
@@ -95,7 +95,7 @@ if /i "%ins_demo_action%"=="%INS%" goto :run_install_modules_demo
 :check_extensions_demo
   if "!exit_dbdemo!"=="0" (
     set "cmd=\dx"
-    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_table%" "%file_err%" "" ""
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_table%" "%file_err%" "" "" ""
     if %ERRORLEVEL%==0 (
       call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "X" "!INSTALL_MODU_03!" "0" "%file_table%" "%DEMO%"
     )
@@ -166,13 +166,13 @@ call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timed
 
 call :logger "!INS!" "[8.-] !INSTALL_MODU_HEAD25!" 
 set  "cmd=UPDATE ir_module SET state = 'not activated' WHERE name = 'authentication_none';"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_base%" "" "" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_base%" "" "" "" ""
 
 call :logger "%INS%" "[9.-] !INSTALL_MODU_HEAD34!" "3"
 set "COM1=TRYTOND_DATABASE_URI=!DB_URI! trytond-admin -c /etc/trytond.conf -d %DB_NAME_DEMO%" 
 set "COM3= --email !EMAIL! -vv"
 set "cmd=TRYTONPASSFILE=/tmp/.passwd !COM1! --update-modules-list !COM3!"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME_DEMO!" "" "%file_base%" "YES" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME_DEMO!" "" "%file_base%" "YES" "" "" ""
 
 call :logger "%INS%" "[10.-] !INSTALL_MODU_HEAD18!" "3" 
 : Reports Verificar y comprobar que todos los módulos están activated
@@ -301,7 +301,7 @@ exit /b
   set "title=%~2"
   set "numer=%~3"
   set  "cmd=SELECT name FROM ir_module WHERE state='activated' ORDER BY name;"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_activ%" "%file_err%" "" ""
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME_DEMO!" "%file_activ%" "%file_err%" "" "" ""
   if %ERRORLEVEL% NEQ 0  exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "6" "%event%" "%title%" "%numer%" "%file_activ%" "%DEMO%"
   exit /b

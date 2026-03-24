@@ -144,17 +144,17 @@ if /i "!ins_lang_action!"=="%INS%" (
   :: 1. Actualizar lista de módulos
   call :logger "%log_action%" "!INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "%noclear_file%" ""
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "%noclear_file%" "" ""
 
   :: 2. Activar el idioma seleccionado
   call :logger "%log_action%" "!INSTALL_MODU_HEADCO! -l CODE !TRYTON_LANGUAGE!" "3"
   set "cmd=!COM2! !COM1! -l CODE !TRYTON_LANGUAGE! !COM3!"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 
   :: 3. Instalar módulos del país (!LL! contiene el nombre del módulo: account_es, etc.)
   call :logger "%log_action%" "%LX%" "3"
   set "cmd=!COM2! !COM1! -u !LL! --activate-dependencies !COM3!"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
  :: 4. Importar Paises , subdivisiones y códigos postales 
   call :logger "%log_action%" "!INSTALL_MODU_HEAD54! !TRYTON_LANGUAGE!" "3"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1"
@@ -224,7 +224,7 @@ if /i "!ins_lang_action!"=="%INS%" (
 
   call :logger "%log_action%" "!INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 
   :: Reports Verificar y comprobar que todos los módulos están activated
   call :logger "%log_action%" "!INSTALL_MODU_HEAD18!" "3"
@@ -246,7 +246,7 @@ if /i "!ins_lang_action!"=="%INS%" (
   set "title=%~2"
   set "numer=%~3"
   set "cmd=SELECT name, state FROM ir_module ORDER BY name;"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_modules%" "%file_err%" "" ""
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_modules%" "%file_err%" "" "" ""
   if %ERRORLEVEL% NEQ 0  exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "8" "%event%" "%title%" "%numer%" "%file_modules%" "%LANG%"
   exit /b
@@ -257,7 +257,7 @@ if /i "!ins_lang_action!"=="%INS%" (
   set "title=%~2"
   set "numer=%~3"
   set  "cmd=SELECT name FROM ir_module WHERE state='activated' ORDER BY name;"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_activ%" "" "" ""
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_activ%" "" "" "" ""
   if %ERRORLEVEL% NEQ 0  exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "5" "%event%" "%title%" "%numer%" "%file_activ%" "%LANG%"
   exit /b

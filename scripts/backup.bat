@@ -215,7 +215,7 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
     call "%DIR_SCRIPT%startdown.bat" "%proyecto%" "%CHECK%" "STOP"
   )
-  set "MESSAGE=!BCK_SUCCESS:DESTINO=%destino%!"
+  set "MESSAGE=!BCK_SUCCESS! %destino%"
   call :logger "!LOG-SUCC!" "!MESSAGE!"
   if not exist "%file_zip%" goto :exit
   if not exist "%destino%" goto :exit
@@ -311,12 +311,7 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
   call :logger "!log_action!" "!MESSAGE! !ve_file_sql!"
   if exist "!file_tmp!" del "!file_tmp!" >nul
   if exist "!file_err!" del "!file_err!" >nul
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!ve_cmd!" "!ve_database!" "!file_tmp!" "!file_err!" "" "!ve_label!"
-  if exist "!logfile!" (
-      set /p count=<"!logfile!"
-      set "MESSAGE=!BCK_SUCCESS:DESTINO=%ve_file_sql%!"
-      call :logger "!LOG-SUCC!" "!MESSAGE! (!count! %label%)"
-  )
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!ve_cmd!" "!ve_database!" "!file_tmp!" "!file_err!" "" "!ve_label!" "!BCK_SUCCESS!"
   exit /b
 
 :compress_file

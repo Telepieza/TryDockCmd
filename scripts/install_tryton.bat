@@ -74,7 +74,7 @@ if /i "%ins_tryton_action%"=="%INS%" (
 :: 01
 :check_database
   set "cmd=\l"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_table%" "%file_err%" "" ""
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_table%" "%file_err%" "" "" ""
   if %ERRORLEVEL%==0 (
     call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "L" "!INSTALL_MODU_01!" "0" "%file_table%" 
   )
@@ -83,7 +83,7 @@ if /i "%ins_tryton_action%"=="%INS%" (
 :: 02
 :check_rules
   set "cmd=\du"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_table%" "%file_err%" "" ""
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_table%" "%file_err%" "" "" ""
   if %ERRORLEVEL%==0 (
     call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "U" "!INSTALL_MODU_02!" "0" "%file_table%" 
   )
@@ -92,7 +92,7 @@ if /i "%ins_tryton_action%"=="%INS%" (
 :: 03
 :check_extensions
   set "cmd=\dx"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_table%" "%file_err%" "" ""
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_table%" "%file_err%" "" "" ""
   if %ERRORLEVEL%==0 (
    call "%DIR_SCRIPT%install_reports.bat" "%TRYTON%" "1" "X" "!INSTALL_MODU_03!" "0" "%file_table%" 
   )
@@ -129,40 +129,40 @@ set "COM3= --email !EMAIL! -vv"
 :: 1. BASE TOTAL
 call :logger "%INS%" "%F1%" "4"
 set "cmd=!COM2! !COM1! -u !C1! --activate-dependencies !COM3!"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "" "" ""
 :: 2. PRODUCTO Y STOCK BASE 
 call :logger "%INS%" "%F2%" "4"
 set "cmd=!COM2! !COM1! -u !C2! --activate-dependencies !COM3!"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 :: 3. CONTABILIDAD BASE Y FACTURACION 
 call :logger "%INS%" "%F3%" "4"
 set "cmd=!COM2! !COM1! -u !C3! --activate-dependencies !COM3!" 
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 :: 4. MOTORES COMERCIALES
 call :logger "%INS%" "%F4%" "4"
 set "cmd=!COM2! !COM1! -u !C4! --activate-dependencies !COM3!"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 :: 5. ABASTECIMIENTO
 call :logger "%INS%" "%F5%" "4"
 set "cmd=!COM2! !COM1! -u !C5! --activate-dependencies !COM3!"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 :: 6. EXTENSIONES DE PRODUCTO
 call :logger "%INS%" "%F6%" "4"
 set "cmd=!COM2! !COM1! -u !C6! --activate-dependencies !COM3!"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 :: 7. OPERACIONES AVANZADAS
 call :logger "%INS%" "%F7%" "4"
 set "cmd=!COM2! !COM1! -u !C7! --activate-dependencies !COM3!"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 :: 8. VISUAL
 call :logger "%INS%" "%F8%" "4"
 set "cmd=!COM2! !COM1! -u !C8! --activate-dependencies !COM3!"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 :: 7.1. UPDATE modules-list install language
 if /i "!TRYTON_LANGUAGE!" NEQ "" (
   call :logger "%INS%" "[7.1.-] !INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
   call :logger "%INS%" "[8.-] !LS!" "4"
   call "%DIR_SCRIPT%install_language.bat" "%proyecto%" "%INS%"
 )
@@ -170,7 +170,7 @@ if /i "!TRYTON_LANGUAGE!" NEQ "" (
 :: actualizar la lista de modulos
 call :logger "%INS%" "[9.-] !INSTALL_MODU_HEAD34!" "3"
 set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 
 :: Crear Emprea, Ejercicio fiscal. secuencias y periodos contables
 call :logger "%INS%" "[10.-] !INSTALL_MODU_HEAD44!" "3"

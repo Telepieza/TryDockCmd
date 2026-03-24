@@ -68,30 +68,30 @@ if %ERRORLEVEL% EQU 0 (
 )  
 set "ACCOUNTS="
 set "cmd=SELECT count(*) FROM account_account;"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
 for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "ACCOUNTS=%%i"
 if defined ACCOUNTS call :logger "%log_action%" "!WORD_ACCOUNT_PLAN!: !ACCOUNTS! !WORD_ACCOUNT_CREATE!" "4"
 
 set "FISCALYEARS="
 set "cmd=SELECT count(*) FROM account_fiscalyear;"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
 for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "FISCALYEARS=%%i"
 if defined FISCALYEARS call :logger "%log_action%" "!WORD_FISCAL_YEARS!: !FISCALYEARS! !WORD_RECORDS!" "4"
 
 set "PERIODS="
 set "cmd=SELECT count(*) FROM account_period;"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
 for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "PERIODS=%%i"
 if defined PERIODS call :logger "%log_action%" "!WORD_ACCOUNT_PER!: !PERIODS! !WORD_RECORDS!" "4"
  
 set "FY_5Y="
 set "PERIODS_5Y="
 set "cmd=SELECT count(*) FROM account_fiscalyear WHERE name >= '2026';"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
 for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "FY_5Y=%%i"
 if defined FY_5Y call :logger "%log_action%" "!WORD_VERIFICATION! 2026-2030: !FY_5Y! !WORD_FISCAL_YEARS!" "4"
 set "cmd=SELECT count(*) FROM account_period p JOIN account_fiscalyear f ON f.id = p.fiscalyear WHERE f.name >= '2026';"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
 for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "PERIODS_5Y=%%i"
 if defined FY_5Y if defined PERIODS_5Y call :logger "%log_action%" "!WORD_VERIFICATION! 2026-2030: !FY_5Y! !WORD_FISCAL_YEARS!, !PERIODS_5Y! !WORD_PERIODS!" "4"
 echo.
@@ -124,7 +124,7 @@ docker exec -t ^
 set "COMPANY_NAME_SQL=!CURRENT_COMPANY_NAME:'=''!"
 set "COMPANY_ID="
 set "cmd=SELECT c.id FROM company_company c JOIN party_party p ON p.id = c.party WHERE p.name = '!COMPANY_NAME_SQL!' LIMIT 1;"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
 for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "COMPANY_ID=%%i"
 
 if not defined COMPANY_ID (
@@ -134,19 +134,19 @@ if not defined COMPANY_ID (
 
 set "TAX_TOTAL="
 set "cmd=SELECT count(*) FROM account_tax WHERE company = !COMPANY_ID!;"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
 for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "TAX_TOTAL=%%i"
 if defined TAX_TOTAL call :logger "%log_action%" "!WORD_TAXES! (account_tax) !WORD_COMPANY! [!CURRENT_COMPANY_NAME!]: !TAX_TOTAL! !WORD_RECORDS!" "4"
 
 set "TAX_IVA_TOTAL="
 set "cmd=SELECT count(*) FROM account_tax WHERE company = !COMPANY_ID! AND name ILIKE ('IVA ' || chr(37));"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
 for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "TAX_IVA_TOTAL=%%i"
 if defined TAX_IVA_TOTAL call :logger "%log_action%" "!WORD_IVA! !WORD_TOTAL! (account_tax): !TAX_IVA_TOTAL! !WORD_RECORDS!" "4"
 
 set "TAX_IVA_STD="
 set "cmd=SELECT count(*) FROM account_tax WHERE company = !COMPANY_ID! AND name IN (('IVA 21' || chr(37)), ('IVA 10' || chr(37)), ('IVA 4' || chr(37)));"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" ""
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
 for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "TAX_IVA_STD=%%i"
 if defined TAX_IVA_STD call :logger "%log_action%" "!WORD_IVA! 21/10/4 (account_tax): !TAX_IVA_STD! !WORD_RECORDS!" "4"
 

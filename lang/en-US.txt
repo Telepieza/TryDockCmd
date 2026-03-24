@@ -138,6 +138,7 @@ WORD_IVA=IVA
 WORD_TOTAL=Total
 WORD_GEN_DIARY=General diary
 WORD_VAT_RATES=21,10,4
+WORD_TRUNCATE=TRUNCATE
 # --- install.bat ---
 # --- PROYECTO, FILE, CONEXION It is a variable that is replaced in the program install.bat
 INSTALL_TITLE=It has been detected that Tryton does not exist, the installation is activated automatically.
@@ -344,7 +345,7 @@ BCK_FILE_CORRUPT=Backup corrupt (SIZE bytes). Error:
 BCK_FILE_SQL=The DESTINO database file contains records:
 BACK_DATA_RESULT=Checking data in DB from:
 BACK_SCHEMA_RESULT=Checking schema in DB from:
-BCK_SUCCESS=Backup completed at: DESTINO
+BCK_SUCCESS=Backup completed at:
 BCK_PG_DUMPALL=To ensure the data copy from the database (PostgreSQL), the command is: DESTINO
 BCK_TEMPORARY=The working folder DESTINO was successfully deleted.
 BCK_TEMPORARY_2=The DESTINO working folder will be deleted once the backup process is complete.
@@ -428,6 +429,8 @@ RES_SRC_NOT_FOUND=File not found:
 RES_WAIT_DB1=Waiting for database to be ready. Number of times:
 RES_WAIT_DB2=Database timeout exceeded.
 RES_WAIT_DB3=The PROYECTO database does not accept connections.
+RES_WAIT_DATA=Injecting massive data. This process is slow and will not show activity. Please be patient...
+RES_TABLE_TRUNCATE=Truncation of data in tables in:
 RES_ENDING=Finishing process.
 
 # --- startdocker.bat ---
