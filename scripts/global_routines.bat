@@ -22,27 +22,32 @@ set "param4=%~6"
 set "param5=%~7"
 set "param6=%~8"
 set "param7=%~9"
+shift
+set "param8=%~9"
 
 :: Analiza si la llamada es del tcd.bat
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
-call :logger "%APP%" "global_routines !glo_action! !param1! !param2!"
 :: Se puede simplificar mucho la llamada a las diferentes subrutinas, pero me gusta más como lo he dejado.
 :: el ejemplo de simplificacion es quitar todos los if y dejar call :%glo_action% "!param1!" "!param2!" "!param3!" "!param4!"
 if /i "%glo_action%" == "timeout_start" (
+    call :logger "%APP%" "global_routines !glo_action! [!param1!] [!param2!] [!param3!]"
     call :%glo_action% "!param1!" "!param2!" "!param3!"
     goto :exit
 )
 if /i "%glo_action%" == "fill_in_field" (
+    call :logger "%APP%" "global_routines !glo_action! [!param1!] [!param2!] [!param3!] [!param4!]"
     call :%glo_action% "!param1!" "!param2!" "!param3!" "!param4!"
     goto :exit
 )
 if /i "%glo_action%" == "display_file_event_all" (
+    call :logger "%APP%" "global_routines !glo_action! [!param1!] [!param2!]"
     call :%glo_action% "!param1!" "!param2!"
     goto :exit
 )
 
 if /i "%glo_action%" == "trytond_services" (
-    call :%glo_action% "!param1!" "!param2!" "!param3!" "!param4!" "!param5!" "!param6!" "!param7!"
+    call :logger "%APP%" "global_routines !glo_action! [!param1!] [!param2!] [!param3!] [!param4!] [!param5!] [!param6!] [!param7!] [!param8!]"
+    call :%glo_action% "!param1!" "!param2!" "!param3!" "!param4!" "!param5!" "!param6!" "!param7!" "!param8!"
     goto :exit
 )
 
@@ -62,7 +67,7 @@ goto :exit
      timeout /t !i_second! >nul
      exit /b
   )
-  :: Se indica expresemente no sacar la barra de puntos.
+  :: Se indica expresamente no sacar la barra de puntos.
   if /i "%bar%" EQU "N" (
      timeout /t !i_second! >nul
      exit /b

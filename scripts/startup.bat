@@ -17,11 +17,12 @@ set "up_action=%~2"
 set /a "attempts=0"
 set /a "max_attempts=10"
 set /a "wait_timeup=8"
-set /a "wait_service=5"
+set /a "wait_service=3"
 set /a "LOAD_FILE=0"
 set "db_error=0"
 set "exist_postgres=0"
 set "log_action=!LOG-INFO!"
+set "see_msg="
 
 :: Analiza si la llamada es del tcd.bat
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
@@ -40,6 +41,7 @@ if /i "%up_action%"=="%APP%" if /i "%CURRENT_TRYTON%"=="" if /i "%CURRENT_POSTGR
 ::Proceso de instalacion 
 if /i "%up_action%"=="%INS%" (
   set "log_action=%INS%"
+  set "see_msg=N"
   goto :continue
 )
 
@@ -123,7 +125,7 @@ if /i "!confirm!" NEQ "YES" (
   if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-SUCC!" "!MESSAGE!"
 
 :exit_services
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1" "!see_msg!"
   exit /b
 
 :connect_postgres

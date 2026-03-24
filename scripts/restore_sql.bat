@@ -99,7 +99,9 @@ if /i "%DO_MODE%"=="data" (
     echo BEGIN;
     echo SET session_replication_role = replica;
   ) > "!header_sql!"
-  call :logger "%INS%" "!RES_WAIT_DATA!"
+
+  call "%DIR_SCRIPT%message.bat" "%INS%" "!RES_WAIT_DATA!"
+
   cmd /c "type "!header_sql!" & type "%DUMPALL_FILE%" & echo. & echo COMMIT;" | docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -v ON_ERROR_STOP=1 -q -U "%DB_HOSTNAME%" -d "%DB_RESTORE%" >nul 2>%file_err%
   if !errorlevel! NEQ 0 (
     if exist "!header_sql!" del "!header_sql!" >nul
@@ -110,9 +112,7 @@ if /i "%DO_MODE%"=="data" (
   call "%DIR_SCRIPT%startup.bat" "%proyecto%" "%CHECK%"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "2"
   set "cmd=SELECT count(*) FROM ir_module;"
-  call :verify_database "modules" "!cmd!" "!DB_RESTORE!" "!DUMPALL_FILE!" "!RES_DATA_RESTORE_2!"
-  call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SEE%"
-  echo.
+  call :verify_database "modules" "!cmd!" "!DB_RESTORE!" "!DUMPALL_FILE!" "!RES_DATA_RESTORE_2!" "YES"
   pause & goto :exit
 )
 
@@ -128,8 +128,6 @@ if /i "%DO_MODE%"=="full_db" (
   call :verify_database "tables" "!cmd!" "!DB_RESTORE!" "!DUMPALL_FILE!" "!RES_SCHEMA_RESTORE_2!"
   set "cmd=SELECT count(*) FROM ir_module;"
   call :verify_database "modules" "!cmd!" "!DB_RESTORE!" "!DUMPALL_FILE!" "!RES_DATA_RESTORE_2!" "YES"
-  call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SEE%"
-  echo.
   pause & goto :exit
 )
 

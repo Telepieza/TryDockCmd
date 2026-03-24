@@ -222,7 +222,7 @@ set "action_ins=%INS%"
     if /i "!CURRENT_PGALL_VERSION!"=="%LATEST%" set "CURRENT_PGALL_VERSION=PostgreSQL %LATEST%"
     call :logger "%MENU%" "9.1.- %TRYTON%:[!CURRENT_VER_MENU!] " "7"
     call :logger "%MENU%" "9.2.- %POSTGRES%:[!CURRENT_PGALL_VERSION!]" "7"
-    call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "timeout_start" "!wait_time!" "1"
+    call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "timeout_start" "!wait_time!" "1" "N"
   ) 
   if "!CURRENT_VER_MENU!" EQU "" set "CURRENT_VER_MENU=%LATEST%"
   echo.
