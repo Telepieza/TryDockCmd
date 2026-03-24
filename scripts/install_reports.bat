@@ -33,11 +33,11 @@ set "cab2=======================================================================
 set "cab4=-+-----------------------------------------------+-----------------+"
 
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
-call :logger "%APP%" "install_reports [!option!] - !cmd! - !title! - [!file!]"
+call "%DIR_SCRIPT%message.bat" "%APP%" "install_reports [!option!] - !cmd! - !title! - [!file!] - [!pdemo!]"
 set "idate_rts=%date%" & call "%DIR_SCRIPT%cycletime.bat" "%DAT%" "%idate_rts%" & set "idate_rts_fmt=!fmt_ddmmyyyy!"
 set "itime_rts=%time%" & call "%DIR_SCRIPT%cycletime.bat" "%TIM%" "%itime_rts%" & set "itime_rts_fmt=!fmt_hhmmss!"
 
-call :logger "%CHECK%" "!INSTALL_MODU_35!"
+call "%DIR_SCRIPT%message.bat" "%CHECK%" "!INSTALL_MODU_35!"
 call "%DIR_SCRIPT%base_modules.bat" "%proyecto%"
 
 set "sufijo="
@@ -110,7 +110,7 @@ if /i "%option%"== "9" (
   set "w_stat=15"
   set "w_statc=6"
   echo.
-  call :logger "!event!" "!title!" "!numer!"
+  call "%DIR_SCRIPT%message.bat" "!event!" "!title!" "!numer!"
  :: Dibujo de cabecera (Ajustado a 35 + 15 caracteres + márgenes)
   echo !cab4! & echo !cab4! >> "%file_modules_list%"
   set "h1=!WORD_NAME!!spaces!"
@@ -149,7 +149,7 @@ if /i "%option%"== "9" (
       set "lin1=^| !mod_fmt! ^| !staf_fmt! ^|"
       echo  ^| !mod_fmt! ^| !stat_fmt! ^|
       echo !lin1! >> "%file_modules_list%"
-      call :logger "%CHECK%" "!lin1!"
+      call "%DIR_SCRIPT%message.bat" "%CHECK%" "!lin1!"
   )
   :: Cierre de la tabla
   echo !cab4! & echo !cab4! >> "%file_modules_list%"
@@ -173,20 +173,20 @@ exit /b
     set "h1=!WORD_DATABASE!!spaces!"
     set "h2=!WORD_OWNER!!spaces!"
     set "h3=!WORD_ENCODING!!spaces!"
-    call :logger "!MENU!" "!text!" "5"
+    call "%DIR_SCRIPT%message.bat" "!MENU!" "!text!" "5"
     set "cab3=!h1:~0,%w_name%! ^| !h2:~0,%w_owner%! ^| !h3:~0,%w_code%! ^| !WORD_COLLATION!"
     echo %cab1% & echo !cab3! & echo %cab1%
   ) else if /i "%event%"=="X" (
     :: Nueva sección para Extensiones
     set "h1=!WORD_EXTENSION!!spaces!"
     set "h2=!WORD_VERSION!!spaces!"
-    call :logger "!MENU!" "!text!" "5"
+    call "%DIR_SCRIPT%message.bat" "!MENU!" "!text!" "5"
     set "cab3=!h1:~0,%w_name%! ^| !h2:~0,%w_ver%! ^| !WORD_DESCRIPTION!"
     echo %cab1% & echo !cab3! & echo %cab1%
   ) else (
     :: Por defecto para Usuarios (U)
     set "h1=!WORD_USER!!spaces!"
-    call :logger "!MENU!" "!text!" "5"
+    call "%DIR_SCRIPT%message.bat" "!MENU!" "!text!" "5"
     set "cab3=!h1:~0,%w_name%! ^| !WORD_ATTRIBUTES!"
     echo %cab1% & echo !cab3! & echo %cab1%
   )
@@ -205,17 +205,17 @@ exit /b
         echo %%a | findstr /v "=" >nul
         if !errorlevel! equ 0 (
           set "lin1=!name_fmt! ^| !owner_fmt! ^| !code_fmt! ^| %%e"
-          echo !lin1! & echo !lin1! >> "%file_table_list%" & call :logger "%CHECK%" "!lin1!"
+          echo !lin1! & echo !lin1! >> "%file_table_list%" & call "%DIR_SCRIPT%message.bat" "%CHECK%" "!lin1!"
         )
     ) else if /i "%event%"=="X" (
         :: Procesar Extensiones: %%a=Name, %%b=Version, %%c=Schema, %%d=Description
         set "v_ver=%%b!spaces!"
         set "ver_fmt=!v_ver:~0,%w_ver%!"
         set "lin1=!name_fmt! ^| !ver_fmt! ^| %%d"
-        echo !lin1! & echo !lin1! >> "%file_table_list%" & call :logger "%CHECK%" "!lin1!"
+        echo !lin1! & echo !lin1! >> "%file_table_list%" & call "%DIR_SCRIPT%message.bat" "%CHECK%" "!lin1!"
     ) else (
         set "lin1=!name_fmt! ^| %%b"
-        echo !lin1! & echo !lin1! >> "%file_table_list%" & call :logger "%CHECK%" "!lin1!"
+        echo !lin1! & echo !lin1! >> "%file_table_list%" & call "%DIR_SCRIPT%message.bat" "%CHECK%" "!lin1!"
     )
   )
   echo %cab1%
@@ -228,7 +228,7 @@ exit /b
   if /i "%~3" NEQ "" set /a "numer=%~3"
   set "file_activ=%~4"
   
-  call :logger "%action%" "%text%" "%numer%"
+  call "%DIR_SCRIPT%message.bat" "%action%" "%text%" "%numer%"
 
   :: C1=country currency company party bank
   call :compare_phase "C1" "%F1%" "%file_activ%"
@@ -258,7 +258,7 @@ exit /b
   set /a "numer=0"
   if /i "%~3" NEQ "" set /a "numer=%~3"
   set "file_activ=%~4"
-  call :logger "%action%" "%text%" "%numer%"
+  call "%DIR_SCRIPT%message.bat" "%action%" "%text%" "%numer%"
   :: D1=country currency company party bank
   call :compare_phase "D1" "%G1%" "%file_activ%"
   :: D2=product stock
@@ -279,7 +279,7 @@ exit /b
   set /a "numer=0"
   if /i "%~3" NEQ "" set /a "numer=%~3"
   set "file_activ=%~4"
-  call :logger "%action%" "%text%" "%numer%"
+  call "%DIR_SCRIPT%message.bat" "%action%" "%text%" "%numer%"
   :: LL=Modulo del lenguaje seleccionado (es,fr,de)
   call :compare_phase "LL" "%LX%" "%file_activ%"
 exit /b
@@ -292,7 +292,7 @@ exit /b
   set "phase_modules=!%phase_name%!"
   if not exist "%file_activ%" (
     set "MESSAGE=!INSTALL_MODU_FILE:FILE=%file_activ%!"
-    call :logger "!LOG-ERROR!" "!MESSAGE!"
+    call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!MESSAGE!"
     echo !LOG-ERROR! !MESSAGE! >> "%file_activ_list%"
     exit /b
   )
@@ -305,11 +305,11 @@ exit /b
     )
     if "!found!"=="1" (
       set "lin1=!WORD_MESSAGE! !LOG-SUCC! !WORD_MODULE! %%M"
-      echo !LOG-INFO! !lin1! >> "%file_activ_list%" & call :logger "!LOG-INFO!" "!lin1!"  "2"
+      echo !LOG-INFO! !lin1! >> "%file_activ_list%" & call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!lin1!"  "2"
     )
     if "!found!"=="0" (
       set "lin1=!WORD_MESSAGE! !LOG-PENDING! !WORD_MODULE! %%M"
-      echo !LOG-ALERT! !lin1! >> "%file_activ_list%" & call :logger "!LOG-ALERT!" "!lin1!"
+      echo !LOG-ALERT! !lin1! >> "%file_activ_list%" & call "%DIR_SCRIPT%message.bat" "!LOG-ALERT!" "!lin1!"
     )
   )
   exit /b
@@ -362,7 +362,7 @@ exit /b
     set "file_fmt=!v_file!!spaces!"
     set "file_fmt=!file_fmt:~0,35!"
     echo   !file_fmt! !xml_type! >> "%file_audit_list%"
-    call :logger "%CHECK%" "!file_fmt! !xml_type!"
+    call "%DIR_SCRIPT%message.bat" "%CHECK%" "!file_fmt! !xml_type!"
     echo [+] !WORD_PROCESSED!: !v_mod! / !v_file!
   )
   exit /b
@@ -405,10 +405,6 @@ exit /b
    echo %cab1%
   ) >> "%file_foot%"
   echo.
-  exit /b
-
-:logger
-  call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"
   exit /b
 
 :exit

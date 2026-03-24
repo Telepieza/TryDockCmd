@@ -26,14 +26,14 @@ set "see_msg="
 
 :: Analiza si la llamada es del tcd.bat
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
-call :logger "%APP%" "startup %up_action%"
+call "%DIR_SCRIPT%message.bat" "%APP%" "startup %up_action%"
 
 :: 1. Verificar existencia mediante el script de inspección de instalación de trypton en Docker
 if /i "%up_action%"=="%APP%" if /i "%CURRENT_TRYTON%"=="" if /i "%CURRENT_POSTGRES%"=="" (
   call "%DIR_SCRIPT%inspectdocker.bat" "%proyecto%" "%APP%"
   if %errorlevel% equ 2 (
     set "MESSAGE=!UP_NOT_FOUND:PROYECTO=%proyecto%!"
-    call :logger "!LOG-ERROR!" "!MESSAGE!"
+    call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!MESSAGE!"
     goto :exit
   )
 )
@@ -64,7 +64,7 @@ if /i "%up_action%"=="%APP%" (
 :: Solicita confirmación YES por parte del usuario para continuar. 
 set /p "confirm=%BS%        !C_M_GREEN!!UP_CONFIRM!!C_M_RESET! "
 if /i "!confirm!" NEQ "YES" (
-::  call :logger "!LOG-WARN!" "!UP_ERR_OPT!"
+::  call "%DIR_SCRIPT%message.bat" "!LOG-WARN!" "!UP_ERR_OPT!"
     goto :exit
 )
 
@@ -81,8 +81,8 @@ if /i "!confirm!" NEQ "YES" (
   if "%LOAD_FILE%" GTR 0 (
     set "msg_cont=%proyecto% - !WORD_NUMBER! : %LOAD_FILE% !WORD_SERVICE!" 
     set "MESSAGE=!UP_WARN_FAIL:PROYECTO=%msg_cont%!"
-    if /i "%up_action%"=="%INS%" call :logger "%log_action%" "!LOG-WARN! !MESSAGE!"
-    if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-WARN!" "!MESSAGE!"
+    if /i "%up_action%"=="%INS%" call "%DIR_SCRIPT%message.bat" "%log_action%" "!LOG-WARN! !MESSAGE!"
+    if /i "%up_action%" NEQ "%INS%" call "%DIR_SCRIPT%message.bat" "!LOG-WARN!" "!MESSAGE!"
     goto :status_stop
   )
 
@@ -105,7 +105,7 @@ if /i "!confirm!" NEQ "YES" (
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps "%service%" --status running -q | findstr "^" >nul 2>&1
   if %errorlevel% equ 0 (
     set "MESSAGE=!UP_ACTIVE:PROYECTO=%msg_cont%!"
-    call :logger "%log_action%" "!MESSAGE!"
+    call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
     goto :exit_services
   )
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1" "N"
@@ -113,16 +113,16 @@ if /i "!confirm!" NEQ "YES" (
   if !errorlevel! neq 0 (
      if "%up_action%" NEQ "%INS%" (
        set "MESSAGE=!UP_WARN_FAIL:PROYECTO=%msg_cont%!"
-       if /i "%up_action%"=="%INS%" call :logger "%log_action%" "!LOG-WARN! !MESSAGE!"
-       if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-WARN!" "!MESSAGE!"
+       if /i "%up_action%"=="%INS%" call "%DIR_SCRIPT%message.bat" "%log_action%" "!LOG-WARN! !MESSAGE!"
+       if /i "%up_action%" NEQ "%INS%" call "%DIR_SCRIPT%message.bat" "!LOG-WARN!" "!MESSAGE!"
      )
      set /a LOAD_FILE+=1
     goto :exit_services
   )  
 
   set "MESSAGE=!UP_SUCCESS:PROYECTO=%msg_cont%!"
-  if /i "%up_action%"=="%INS%" call :logger "%log_action%" "!LOG-SUCC! !MESSAGE!"
-  if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-SUCC!" "!MESSAGE!"
+  if /i "%up_action%"=="%INS%" call "%DIR_SCRIPT%message.bat" "%log_action%" "!LOG-SUCC! !MESSAGE!"
+  if /i "%up_action%" NEQ "%INS%" call "%DIR_SCRIPT%message.bat" "!LOG-SUCC!" "!MESSAGE!"
 
 :exit_services
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1" "!see_msg!"
@@ -132,39 +132,35 @@ if /i "!confirm!" NEQ "YES" (
   set "service=%~1"
   set "msg_cont=%CURRENT_POSTGRES% - !WORD_SERVICE!: %service%" 
   set "MESSAGE=!UP_TESTING_DB:PROYECTO=%msg_cont%!"
-  call :logger "%log_action%" "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
 :loop_postgres
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1" "N"
   docker exec "%CURRENT_POSTGRES%" pg_isready -U "%DB_USER%" >nul 2>&1
   if %errorlevel% equ 0 (
     if "%up_action%" NEQ "%INS%" (
       set "MESSAGE=!UP_CONNECT_DB:PROYECTO=%msg_cont%!"
-      if /i "%up_action%"=="%INS%" call :logger "%log_action%" "!LOG-SUCC! !MESSAGE!"
-      if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-SUCC!" "!MESSAGE!"
+      if /i "%up_action%"=="%INS%" call "%DIR_SCRIPT%message.bat" "%log_action%" "!LOG-SUCC! !MESSAGE!"
+      if /i "%up_action%" NEQ "%INS%" call "%DIR_SCRIPT%message.bat" "!LOG-SUCC!" "!MESSAGE!"
     )
     goto :end_postgres
   )
   if %attempts% GEQ %max_attempts% (
-    if /i "%up_action%"=="%INS%" call :logger "%log_action%" "!LOG-ERROR! !UP_WAIT_DB2!"
-    if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-ERROR!" "!UP_WAIT_DB2!"
+    if /i "%up_action%"=="%INS%" call "%DIR_SCRIPT%message.bat" "%log_action%" "!LOG-ERROR! !UP_WAIT_DB2!"
+    if /i "%up_action%" NEQ "%INS%" call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!UP_WAIT_DB2!"
     set "db_error=1"
     goto :end_postgres
   )
   <nul set /p=.
   set /a attempts+=1
   set "MESSAGE=!UP_WAIT_DB1:COUNT=%attempts%!"
-  if /i "%up_action%"=="%INS%" call :logger %log_action% "!LOG-WARN! !MESSAGE!"
-  if /i "%up_action%" NEQ "%INS%" call :logger "!LOG-WARN!" "!MESSAGE!"
+  if /i "%up_action%"=="%INS%" call "%DIR_SCRIPT%message.bat" %log_action% "!LOG-WARN! !MESSAGE!"
+  if /i "%up_action%" NEQ "%INS%" call "%DIR_SCRIPT%message.bat" "!LOG-WARN!" "!MESSAGE!"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeup!" "1"
   goto :loop_postgres
 
 :end_postgres
   exit /b
   
-:logger
-  call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"
-  exit /b
-
 :container_stop
   endlocal
   exit /b 4

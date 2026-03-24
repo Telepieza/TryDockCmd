@@ -29,7 +29,7 @@ set "wfile_csv_modultable=%DIR_TMP%\trytond_modules_table"
 set "wfile_sql_exportable=%DIR_TMP%\trytond_modules_table"
 
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
-call :logger "%APP%" "install.header %ins_head_action% [%pgm%] %type%"
+call "%DIR_SCRIPT%message.bat" "%APP%" "install.header %ins_head_action% [%pgm%] %type%"
 if /i "%ins_head_action%"=="%INS%" set "log_action=%INS%"
 
 set "sufijo="
@@ -82,7 +82,7 @@ if "%ACTIVE_COPY%" EQU "0" (
 )
 
 :: 5.- Localizar los modulos de tryton (Base y lenguajes)
-call :logger "%CHECK%" "!INSTALL_MODU_35!"
+call "%DIR_SCRIPT%message.bat" "%CHECK%" "!INSTALL_MODU_35!"
 call "%DIR_SCRIPT%base_modules.bat" "%proyecto%"
 exit /b 0
 
@@ -93,9 +93,5 @@ exit /b 0
   if "%log_error%" EQU "4" set "MESSAGE=!BCK_CONT_STOP:PROYECTO=%proyecto%!"
   if "%log_error%" EQU "5" set "MESSAGE=!LOG_ERR_FILE:ARCHIVO=%DIR_PYTHON%auto_full_setup.py!"
   if "%log_error%" EQU "6" set "MESSAGE=!LOG_ERR_FILE:ARCHIVO=%DIR_CONFIG%trytond.conf!"
-  if /i "!MESSAGE!" NEQ "" call :logger "!LOG-ERROR!" "!MESSAGE!"
+  if /i "!MESSAGE!" NEQ "" call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!MESSAGE!"
   pause & exit /b 2
-
-:logger
-  call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"
-  exit /b

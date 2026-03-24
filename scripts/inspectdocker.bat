@@ -18,7 +18,7 @@ set "idr_action=%~2"
 set /a "wait_service=2"
 call "%DIR_SCRIPT%startcontrol" "%proyecto%"
 set "PROGRAM=inspectdocker"
-call :logger "%APP%" "%PROGRAM% %idr_action%"
+call "%DIR_SCRIPT%message.bat" "%APP%" "%PROGRAM% %idr_action%"
 
 :: 2. Definición de variables locales con sus nombres de contenedor, %~1 suele ser "tryton"
 set "conw_server=%TRYTON%-%SERVER%-1"
@@ -54,7 +54,7 @@ if /i "%POSTGRES_IMAGE%" NEQ "" set "img_postgres=%POSTGRES_IMAGE%"
 if /i "%idr_action%"=="%INS%" set "log_action=%INS%"
  
 set "MESSAGE=!INSP_SEARCHING:PROYECTO=%proyecto%!" 
-call :logger "%CHECK%" "!MESSAGE!" "3"
+call "%DIR_SCRIPT%message.bat" "%CHECK%" "!MESSAGE!" "3"
 echo.
 
 :: Chequea el controlador postgres en función de la varaible idr_action siendo APP o INS (INSTALL)
@@ -94,13 +94,13 @@ docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps -a -q | findstr 
 
 if %errorlevel% equ 0  if /i "%idr_action%"=="%APP%" (
   set "MESSAGE=!INSP_FOUND:PROYECTO=%proyecto%!"
-  call :logger "!LOG-SUCC!" "!MESSAGE!" 
+  call "%DIR_SCRIPT%message.bat" "!LOG-SUCC!" "!MESSAGE!" 
   goto :exit
 )
 
 if %errorlevel% neq 0  if /i "%idr_action%"=="%INS%" (
   set "MESSAGE=!INSP_NOT_FOUND:PROYECTO=%proyecto%!"
-  call :logger "!LOG-SUCC!" "!MESSAGE!"  
+  call "%DIR_SCRIPT%message.bat" "!LOG-SUCC!" "!MESSAGE!"  
 )
 goto :exit
 
@@ -113,10 +113,10 @@ goto :exit
     if %errorlevel% neq 0 (
        set "exist_image=1"
        set "MESSAGE=!INSP_NOT_IMAGE:NAME=%img_check%!"
-       call :logger "!LOG-ERROR!" "!MESSAGE!"  
+       call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!MESSAGE!"  
     ) else (
       set "MESSAGE=!INSP_IMAGE:NAME=%img_check%!"
-      call :logger "%log_action%" "!MESSAGE!"  
+      call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"  
     )
   )
 
@@ -124,10 +124,10 @@ goto :exit
     if %errorlevel% equ 0 (
         set "exist_image=1"
         set "MESSAGE=!INSP_IMAGE:NAME=%img_check%!"
-        call :logger "!LOG-WARN!" "!MESSAGE!"  
+        call "%DIR_SCRIPT%message.bat" "!LOG-WARN!" "!MESSAGE!"  
     ) else (
         set "MESSAGE=!INSP_NOT_IMAGE:NAME=%img_check%!"
-        call :logger "%log_action%" "!MESSAGE!"  
+        call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"  
     )
   )
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service! " "1"
@@ -149,10 +149,10 @@ goto :exit
     if %errorlevel% neq 0 (
        set "exist_container=1"
        set "MESSAGE=!INSP_NOT_CONTAINER! %cont_try%"
-       call :logger "!LOG-ERROR!" "!MESSAGE!"  
+       call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!MESSAGE!"  
     ) else (
       set "MESSAGE=!INSP_CONTAINER! %cont_try%"
-      call :logger "%log_action%" "!MESSAGE!"  
+      call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"  
     )
   )
   
@@ -160,17 +160,13 @@ goto :exit
     if %errorlevel% equ 0 (
         set "exist_container=1"
         set "MESSAGE=!INSP_CONTAINER! %cont_try%"
-        call :logger "!LOG-WARN!" "!MESSAGE!" 
+        call "%DIR_SCRIPT%message.bat" "!LOG-WARN!" "!MESSAGE!" 
     ) else (
         set "MESSAGE=!INSP_NOT_CONTAINER! %cont_try%"
-        call :logger "%log_action%" "!MESSAGE!"  
+        call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"  
     )
   )
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service! " "1"
-  exit /b
-
-:logger
-  call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"
   exit /b
 
 :error

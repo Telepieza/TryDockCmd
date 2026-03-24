@@ -58,8 +58,8 @@ echo.
   echo.
   set /p "type=%BS%        !C_M_YELLOW!!RES_PROMPT!!C_M_RESET! "
   echo.
-  if "%type%"=="1" set DO_MODE=dumpall&& goto :image_restore
-  if "%type%"=="2" set DO_MODE=dumpall&& goto :no_image_restore
+  if "%type%"=="1" set DO_MODE=1&& goto :image_restore
+  if "%type%"=="2" set DO_MODE=2&& goto :no_image_restore
   if "%type%"=="3" set DO_MODE=schema&& goto :schema_data_restore
   if "%type%"=="4" set DO_MODE=data&& goto :schema_data_restore
   if "%type%"=="5" set DO_MODE=full_db&& goto :schema_data_restore

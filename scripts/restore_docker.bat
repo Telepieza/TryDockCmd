@@ -7,7 +7,7 @@ REM COLLABORATOR: Gemini (Google AI)
 REM VERSION:   1.0.0
 REM DATE:      23/03/2026
 REM LICENSE:   MIT License
-REM DESCRIPTION: Database Hot-Import (Importr imágenes y Base de datos (RESTORE)
+REM DESCRIPTION: Database Hot-Import (Importar imágenes y Base de datos (RESTORE)
 REM ==============================================================================
 setlocal enabledelayedexpansion
 chcp 65001 >nul
@@ -20,16 +20,16 @@ set /a "max_attempts=10"
 set /a "wait_timeres=10"
 
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
-call :logger "%APP%" "restore_docker"
+call "%DIR_SCRIPT%message.bat" "%APP%" "restore_docker"
 
-call :logger !LOG-INFO! "!RES_STEP1!"
+call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!RES_STEP1!"
 if "%DO_IMAGES%"=="1" (
   call "%DIR_SCRIPT%startdown.bat" "%proyecto%" "%CHECK%" "DOWN"
   if "!errorlevel!" NEQ 0 (
     set "MESSAGE=!RES_ERR_CMD! docker compose down"
     goto :error
   )
-  call :logger !LOG-INFO! "!RES_STEP2!"
+  call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!RES_STEP2!"
   docker load < "%BACKUP_PATH%\img_postgres.tar"
   if "!errorlevel!" NEQ 0 (
     set "MESSAGE=!RES_ERR_CMD! docker load img_postgres.tar"
@@ -40,7 +40,7 @@ if "%DO_IMAGES%"=="1" (
     set "MESSAGE=!RES_ERR_CMD! docker load img_tryton.tar"
     goto :error
   )
-  call :logger !LOG-INFO! "!RES_STEP3!"
+  call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!RES_STEP3!"
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" up -d
   if "!errorlevel!" NEQ 0 (
     set "MESSAGE=!RES_ERR_CMD! docker compose up -d"
@@ -64,7 +64,7 @@ if "%DO_IMAGES%"=="0" (
 )
 
 set "MESSAGE=!RES_DB_RESTORE! %DUMPALL_FILE%!"
-call :logger !LOG-INFO! "!MESSAGE!"
+call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!MESSAGE!"
 docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -v ON_ERROR_STOP=1 -U "%DB_HOSTNAME%" -d "%DB_HOSTNAME%" < "%DUMPALL_FILE%" >nul 2>&1
 if %errorlevel% NEQ 0 (
   set "MESSAGE=!RES_ERR_CMD! psql dumpall"
@@ -74,17 +74,17 @@ if %errorlevel% NEQ 0 (
 if exist "%BACKUP_PATH%\trytond" (
   for /f "tokens=*" %%i in ('docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps "%SERVER%" --format "{{.Names}}"') do set "CONT_APP=%%i"
   set "MESSAGE=!RES_STOP_APP!"
-  call :logger !LOG-INFO! "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!MESSAGE!"
   call "%DIR_SCRIPT%startdown.bat" "%proyecto%" "%INS%" "STOP"
   set "MESSAGE=!RES_FILES_COPY! %BACKUP_PATH%\trytond"
-  call :logger !LOG-INFO! "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!MESSAGE!"
   docker cp "%BACKUP_PATH%\trytond\." "!CONT_APP!:/var/lib/trytond/"
   if !errorlevel! NEQ 0 (
     set "MESSAGE=!RES_ERR_CMD! docker cp trytond"
     goto :error
   )
   set "MESSAGE=!RES_START_APP!"
-  call :logger !LOG-INFO! "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!MESSAGE!"
   call "%DIR_SCRIPT%startup.bat" "%proyecto%" "%INS%"
 )
 
@@ -103,17 +103,13 @@ goto :exit
   )
   set /a attempts+=1
   set "MESSAGE=!RES_WAIT_DB1! %attempts%"
-  call :logger !LOG-INFO! "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!MESSAGE!"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "1"
   goto :wait_pg_loop
 
-:logger
-  call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"
-  exit /b
-
 :error
   echo.
-  call :logger !LOG-ERROR! "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!MESSAGE!"
   echo.
   pause 
   endlocal

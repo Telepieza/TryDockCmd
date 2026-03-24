@@ -18,13 +18,13 @@ set "log_action=!LOG-INFO!"
 set /a "wait_timerr=5"
 :: Analiza si la llamada es del tcd.bat
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
-call :logger "%APP%" "errors %err_action%"
+call "%DIR_SCRIPT%message.bat" "%APP%" "errors %err_action%"
 :: Verifica si el contenedor existe
 if /i "%err_action%"=="%APP%" if /i "%CURRENT_TRYTON%"=="" if /i "%CURRENT_POSTGRES%"=="" (
   call "%DIR_SCRIPT%inspectdocker.bat" "%proyecto%" "%APP%"
   if %errorlevel% equ 2 (
     set "MESSAGE=!LOG_ERR_NOTFOUND:PROYECTO=%proyecto%!"
-    call :logger "!LOG-ERROR!" "!MESSAGE!"
+    call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!MESSAGE!"
     goto :exit
   )
 )
@@ -45,7 +45,7 @@ call :logs_service "%CRON%"
 echo.
 :: Comprobamos que exista. En teoria siempre tiene que existir
 if not exist "%LOGGER_TEMP%" (
-    call :logger "%log_action%" "!ERR_TEMPORY!"
+    call "%DIR_SCRIPT%message.bat" "%log_action%" "!ERR_TEMPORY!"
     goto :exit
 )
 echo.
@@ -53,20 +53,20 @@ echo.
 set size=0
 for /f "tokens=*" %%i in ("%LOGGER_TEMP%") do set size=%%~zi
 if %size% GTR 0 (
-    call :logger "!LOG-ALERT!" "!ERR_DETECTED!"
+    call "%DIR_SCRIPT%message.bat" "!LOG-ALERT!" "!ERR_DETECTED!"
     :: Volcar errores al log principal y mostrar en pantalla
     for /f "usebackq delims=" %%L in ("%LOGGER_TEMP%") do (
       set "LINE=%%L"
-      call :logger "!LOG-ERROR!" "!LINE!"
+      call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!LINE!"
     )
     echo.
     set "MESSAGE=!ERR_REPORT:LOGGERFILE=%LOGGER%!"
-    call :logger "%log_action%" "!MESSAGE!"
+    call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
     set "MESSAGE=!ERR_REPORT:LOGGERFILE=%LOGGER_TEMP%!"
-    call :logger "%log_action%" "!MESSAGE!"
+    call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
     echo.
 ) else (
-    call :logger "%log_action%" "!ERR_CLEAN!"
+    call "%DIR_SCRIPT%message.bat" "%log_action%" "!ERR_CLEAN!"
 )
 goto :exit
 
@@ -77,13 +77,9 @@ goto :exit
   if /i "%service%" equ "%CRON%" set "msg_cont=%CURRENT_CRON% - !WORD_SERVICE!: %service%"
   if /i "%service%" equ "%SERVER%" set "msg_cont=%CURRENT_TRYTON% - !WORD_SERVICE!: %service%" 
   set "MESSAGE=!ERR_SEARCHING:PROYECTO=%msg_cont%!"
-  call :logger "%log_action%" "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" logs --since=24h "%service%" 2>nul | findstr /I "%ERROR_PATTERNS%" >> "%LOGGER_TEMP%"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timerr!" "1"
-  exit /b
-
-:logger
-  call "%DIR_SCRIPT%message.bat" "%~1" "%~2"
   exit /b
 
 :exit

@@ -21,7 +21,7 @@ set "logger_tmp=%DIR_LOG%\%TRYTON%_logger.log"
 
 :: Analiza si la llamada es del tcd.bat
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%" "%APP%"
-call :logger "%APP%" "logger %logger_action%"
+call "%DIR_SCRIPT%message.bat" "%APP%" "logger %logger_action%"
 :: Verifica si el contenedor existe
 
 if /i "%logger_action%"=="%INS%" (
@@ -40,12 +40,12 @@ if /i "%logger_action%"=="%APP%" if /i "%CURRENT_TRYTON%"=="" if /i "%CURRENT_PO
   call "%DIR_SCRIPT%inspectdocker.bat" "%proyecto%" "%APP%"
   if %errorlevel% equ 2 (
     set "MESSAGE=!LOG_ERR_NOTFOUND:PROYECTO=%proyecto%!"
-    call :logger "!LOG-ERROR!" "!MESSAGE!"
+    call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!MESSAGE!"
     goto :exit
   )
 )
 :: Lógica principal del Logger
-call :logger "!log_action!" "!LOG_LINES_INFO!"
+call "%DIR_SCRIPT%message.bat" "!log_action!" "!LOG_LINES_INFO!"
 
 :other_logger
   echo.
@@ -55,7 +55,7 @@ call :logger "!log_action!" "!LOG_LINES_INFO!"
   if "%lines%"=="" set "lines=50"
   echo.
   set "MESSAGE=!LOG_VIEWING:LINES=%lines%!"
-  call :logger "%log_action%" "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
   call :extract_logs
   echo.
   set /p "confirm=%BS%        !C_M_GREEN!!LOG_CONFIRM!!C_M_RESET! "
@@ -66,7 +66,7 @@ call :logger "!log_action!" "!LOG_LINES_INFO!"
   :: Ejecución de docker-compose para el servicio específico
   set "MESSAGE=!LOG_VIEWING:PROYECTO=%proyecto%!"
   set "MESSAGE=!MESSAGE:LINES=%lines%!"
-  call :logger "%log_action%" "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
   :: Servicio postgres BBDD
   call :extract_errors "%POSTGRES%"
   if /i "%logger_action%" NEQ "%SQL%" ( 
@@ -82,14 +82,14 @@ call :logger "!log_action!" "!LOG_LINES_INFO!"
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps "%service%" --status running -q | findstr "^" >nul 2>&1
   if %errorlevel% equ 0 (
     set "MESSAGE=!LOG_CONTAINER:NAME=%service%!"
-    call :logger "%log_action%" "!MESSAGE!"
+    call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
     docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" logs --tail="%lines%" "%service%"
   )
   exit /b
 
 :extract_logs
   set "MESSAGE=!LOG_PROYECT:PROYECTO=%proyecto%!"
-  call :logger "%log_action%" "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" logs --tail="%lines%" > "%logger_tmp%"
   :: type "%logger_tmp%"
   for /F "usebackq tokens=* delims=" %%L in ("%logger_tmp%") do (
@@ -103,13 +103,9 @@ call :logger "!log_action!" "!LOG_LINES_INFO!"
     & set "line=!line:"= !"
     if defined line (
         echo !line!
-        call :logger "%CHECK%" "!WORD_MESSAGE! !line!"
+        call "%DIR_SCRIPT%message.bat" "%CHECK%" "!WORD_MESSAGE! !line!"
     )
   )
-  exit /b
-
-:logger
-  call "%DIR_SCRIPT%message.bat" "%~1" "%~2"
   exit /b
 
 :exit

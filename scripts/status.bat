@@ -20,13 +20,13 @@ set "db_error=0"
 set "LOAD_FILE=0"
 :: Analiza si la llamada es del tcd.bat
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
-call :logger "%APP%" "status %est_action%"
+call "%DIR_SCRIPT%message.bat" "%APP%" "status %est_action%"
 :: 1. Verificar existencia del proyecto tryton en docker
 if /i "%est_action%"=="%APP%" if /i "%CURRENT_TRYTON%"=="" if /i "%CURRENT_POSTGRES%"=="" (
   call "%DIR_SCRIPT%inspectdocker.bat" "%proyecto%" "%APP%"
   if %errorlevel% equ 2 (
      set "MESSAGE=!STAT_ERR_NOT_INSTALLED:PROYECTO=%proyecto%!"
-     call :logger "!LOG-ERROR!" "!MESSAGE!"
+     call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!MESSAGE!"
      goto :exit
   )
 )
@@ -39,8 +39,8 @@ if /i "%est_action%"=="%SQL%" set "log_action=%CHECK%"
 :: Visualizar los contenedores
 if /i "%est_action%" NEQ "%SEE%" (
   set "MESSAGE=!STAT_ACTIVE:PROYECTO=%proyecto%!"
-  call :logger "%log_action%" "!MESSAGE!"
-  call :logger "%log_action%" "!STAT_DETAILS_ACT!"
+  call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "%log_action%" "!STAT_DETAILS_ACT!"
 )
 :: 2. Comprobar contenedores activos, se utiliza el nombre del proyecto tryton
 :: Formateamos la tabla con columnas claras: Nombre, Imagen, Servico, Estado y Puertos
@@ -86,7 +86,7 @@ goto :exit
     set "MESSAGE=!STAT_STOPPED_2:PROYECTO=%msg_cont%!"
     set "LOAD_FILE=1"
   )
-  call :logger "%log_action%" "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
   exit /b
 
 :connect_postgres
@@ -98,12 +98,8 @@ goto :exit
       set "db_error=1"
       set "MESSAGE=!UP_WAIT_DB3:PROYECTO=%msg_cont%!"
     )
-    call :logger "%log_action%" "!MESSAGE!"
+    call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
     exit /b
-
-:logger
-  call "%DIR_SCRIPT%message.bat" "%~1" "%~2"
-  exit /b
 
 :status_stop
   endlocal

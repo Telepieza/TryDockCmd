@@ -12,13 +12,13 @@
 :: 1. Verificación de seguridad (Acceso desde tcd.bat)
 call "%DIR_SCRIPT%startcontrol.bat" "%~1"
 :: Analiza si la llamada es del tcd.bat
-call :logger "%APP%" "header %APP%"
+call "%DIR_SCRIPT%message.bat" "%APP%" "header %APP%"
 :: 2. Verificación de Docker. Intentamos un comando ligero para ver si el motor de docker responde
 :: 1. Comprobamos si existe docker en el ordenador
-call :logger "%CHECK%" "!LOG_INFO_SEARCP! docker"
+call "%DIR_SCRIPT%message.bat" "%CHECK%" "!LOG_INFO_SEARCP! docker"
 where docker >nul 2>&1
 if %errorlevel% neq 0 (
-   call :logger "!LOG-ERROR!" "!DKR_NOT_SERVER!"
+   call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!DKR_NOT_SERVER!"
    exit /b 1
 )
 docker info >nul 2>&1
@@ -37,7 +37,7 @@ if %errorlevel% neq 0 (
         exit /b 2
     )
 )
-call :logger "%CHECK%" "!LOG_INFO_ANSI!"
+call "%DIR_SCRIPT%message.bat" "%CHECK%" "!LOG_INFO_ANSI!"
 :: Analiza si el ordenador soporta colores, para colorear los textos de los input.
 REM Genera secuencia ANSI temporal
 for /F %%A in ('echo prompt $E ^| cmd') do set "ESC=%%A"
@@ -57,12 +57,8 @@ if %errorlevel% EQU 1 (
     set "C_M_RESET=%ESC%[0m"
 )
 
-call :logger "%CHECK%" "reader: !LOG_INFO_PROCES!"
+call "%DIR_SCRIPT%message.bat" "%CHECK%" "reader: !LOG_INFO_PROCES!"
 goto :exit
-
-:logger
-  call "%DIR_SCRIPT%message.bat" "%~1" "%~2"
-  exit /b
 
 :exit
 exit /b 0

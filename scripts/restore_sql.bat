@@ -25,7 +25,7 @@ set "file_err=%DIR_TMP%\trytond_restore_err.txt"
 set "file_tmp=%DIR_TMP%\trytond_restore_tmp.txt"
 
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
-call :logger "%APP%" "restore_sql"
+call "%DIR_SCRIPT%message.bat" "%APP%" "restore_sql"
 
 if /i "%back_action%"=="%INS%"  set "log_action=%INS%"
 
@@ -40,7 +40,7 @@ if %errorlevel% EQU 0 (
 if %errorlevel% NEQ 0 (
   call "%DIR_SCRIPT%startup.bat" "%proyecto%" "%SQL%"
   if %errorlevel% NEQ 0 (
-    call :logger "%INS%" "!STAT_START!"
+    call "%DIR_SCRIPT%message.bat" "%INS%" "!STAT_START!"
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "1"
     call "%DIR_SCRIPT%status.bat" "%proyecto%" "%CHECK%"
   )
@@ -53,14 +53,14 @@ if %errorlevel% equ 0 set "DB_RESTORE=%DB_NAME_DEMO%"
 if /i "%DO_MODE%"=="schema" set "MESSAGE=!RES_SCHEMA_RESTORE:DB=%DB_RESTORE%!"
 if /i "%DO_MODE%"=="data" set "MESSAGE=!RES_DATA_RESTORE:DB=%DB_RESTORE%!"
 if /i "%DO_MODE%"=="full_db" set "MESSAGE=!RES_FULLDB_RESTORE:DB=%DB_RESTORE%!"
-call :logger "%INS%" "!MESSAGE! !DUMPALL_FILE!"
+call "%DIR_SCRIPT%message.bat" "%INS%" "!MESSAGE! !DUMPALL_FILE!"
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres2!" "1"
 
 if /i "%DO_MODE%"=="schema" (
-  call :logger "%INS%" "!INSTALL_MODU_HEAD14! %DB_RESTORE%" "3"
+  call "%DIR_SCRIPT%message.bat" "%INS%" "!INSTALL_MODU_HEAD14! %DB_RESTORE%" "3"
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" dropdb -U "%DB_HOSTNAME%" --if-exists "%DB_RESTORE%"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "1"
-  call :logger "%INS%" "!INSTALL_MODU_HEAD15! %DB_RESTORE%" "3"
+  call "%DIR_SCRIPT%message.bat" "%INS%" "!INSTALL_MODU_HEAD15! %DB_RESTORE%" "3"
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" createdb -U "%DB_HOSTNAME%" "%DB_RESTORE%"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeres!" "1"
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" psql -v ON_ERROR_STOP=1 -U "%DB_HOSTNAME%" -d "%DB_RESTORE%" < "%DUMPALL_FILE%" >nul 2>%file_err%
@@ -76,7 +76,7 @@ if /i "%DO_MODE%"=="schema" (
 )
 
 if /i "%DO_MODE%"=="data" (
-  call :logger "%INS%" "!RES_TABLE_TRUNCATE! %DB_RESTORE%" "3"
+  call "%DIR_SCRIPT%message.bat" "%INS%" "!RES_TABLE_TRUNCATE! %DB_RESTORE%" "3"
   set "clean_sql=%DIR_TMP%\tryton_clean_data.sql"
   (
     echo SET session_replication_role = replica;
@@ -141,7 +141,7 @@ goto :exit
   set "ve_message=%~5"
   set "ve_status=%~6"
   set "MESSAGE=!ve_message:DB=%ve_database%!"
-  call :logger "!log_action!" "!MESSAGE! !ve_file_sql!"
+  call "%DIR_SCRIPT%message.bat" "!log_action!" "!MESSAGE! !ve_file_sql!"
   if exist "!file_tmp!" del "!file_tmp!" >nul
   if exist "!file_err!" del "!file_err!" >nul
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!ve_cmd!" "!ve_database!" "!file_tmp!" "!file_err!" "" "!ve_label!" "!RES_SUCCESS!"
@@ -152,13 +152,9 @@ goto :exit
   )
   exit /b
 
-:logger
-  call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"
-  exit /b
-
 :error
   echo.
-  call :logger !LOG-ERROR! "!MESSAGE!"
+  call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!MESSAGE!"
   echo.
   pause 
   endlocal

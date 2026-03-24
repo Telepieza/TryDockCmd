@@ -30,23 +30,23 @@ call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
 :: Se puede simplificar mucho la llamada a las diferentes subrutinas, pero me gusta más como lo he dejado.
 :: el ejemplo de simplificacion es quitar todos los if y dejar call :%glo_action% "!param1!" "!param2!" "!param3!" "!param4!"
 if /i "%glo_action%" == "timeout_start" (
-    call :logger "%APP%" "global_routines !glo_action! [!param1!] [!param2!] [!param3!]"
+    call "%DIR_SCRIPT%message.bat" "%APP%" "global_routines !glo_action! [!param1!] [!param2!] [!param3!]"
     call :%glo_action% "!param1!" "!param2!" "!param3!"
     goto :exit
 )
 if /i "%glo_action%" == "fill_in_field" (
-    call :logger "%APP%" "global_routines !glo_action! [!param1!] [!param2!] [!param3!] [!param4!]"
+    call "%DIR_SCRIPT%message.bat" "%APP%" "global_routines !glo_action! [!param1!] [!param2!] [!param3!] [!param4!]"
     call :%glo_action% "!param1!" "!param2!" "!param3!" "!param4!"
     goto :exit
 )
 if /i "%glo_action%" == "display_file_event_all" (
-    call :logger "%APP%" "global_routines !glo_action! [!param1!] [!param2!]"
+    call "%DIR_SCRIPT%message.bat" "%APP%" "global_routines !glo_action! [!param1!] [!param2!]"
     call :%glo_action% "!param1!" "!param2!"
     goto :exit
 )
 
 if /i "%glo_action%" == "trytond_services" (
-    call :logger "%APP%" "global_routines !glo_action! [!param1!] [!param2!] [!param3!] [!param4!] [!param5!] [!param6!] [!param7!] [!param8!]"
+    call "%DIR_SCRIPT%message.bat" "%APP%" "global_routines !glo_action! [!param1!] [!param2!] [!param3!] [!param4!] [!param5!] [!param6!] [!param7!] [!param8!]"
     call :%glo_action% "!param1!" "!param2!" "!param3!" "!param4!" "!param5!" "!param6!" "!param7!" "!param8!"
     goto :exit
 )
@@ -113,9 +113,9 @@ goto :exit
   :: bucle simple para generar guiones
   for /L %%I in (1,1,!len!) do set "MESSAGE=!MESSAGE!-"
   echo.
-  call :logger "%fil_action%" "%text%" "%numer%"
+  call "%DIR_SCRIPT%message.bat" "%fil_action%" "%text%" "%numer%"
   if /i "%file_cab%" NEQ "" echo # %text% >> "%file_cab%"
-  call :logger "%MENU%" "%MESSAGE%" "%numer%"
+  call "%DIR_SCRIPT%message.bat" "%MENU%" "%MESSAGE%" "%numer%"
   if /i "%file_cab%" NEQ "" echo # %MESSAGE% >> "%file_cab%"
   echo.
   exit /b
@@ -130,7 +130,7 @@ goto :exit
   for /F "usebackq delims=" %%L in ("%file_temp%") do (
     if "%%L" NEQ "" (
       echo [%event%] %%L >nul
-      call :logger "%event%" "!WORD_MESSAGE! %%L"
+      call "%DIR_SCRIPT%message.bat" "%event%" "!WORD_MESSAGE! %%L"
     )
   )
   exit /b
@@ -181,10 +181,10 @@ goto :exit
   if %status% EQU 0 (
     if /i "%ins_tryton_action%" EQU "%INS%" call :timeout_start "10" "1"
     if "%label%" NEQ "" (
-      call :logger "%CHECK%" "!WORD_MESSAGE! !glo_action! %label%"
+      call "%DIR_SCRIPT%message.bat" "%CHECK%" "!WORD_MESSAGE! !glo_action! %label%"
       if exist "%logfile%" (
         set /p count=<"%logfile%"
-        call :logger "!LOG-SUCC!" "%ser_msg% (!count! %label%)"
+        call "%DIR_SCRIPT%message.bat" "!LOG-SUCC!" "%ser_msg% (!count! %label%)"
       )
     )
   )
@@ -194,10 +194,6 @@ goto :exit
      exit /b %status%
   )
   exit /b 0
-
-:logger
-  call "%DIR_SCRIPT%message.bat" "%~1" "%~2" "%~3"
-  exit /b
 
 :exit
   endlocal

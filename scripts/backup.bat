@@ -18,6 +18,7 @@ set "back_action=%~2"
 set "contdown=0"
 set /a "wait_timeback=10"
 set "TIME_BK=%date:~-4%-%date:~3,2%-%date:~0,2%_%time:~0,2%-%time:~3,2%"
+set "DATE_BK=%date:~3,2%-%date:~0,2%_%time:~0,2%-%time:~3,2%"
 set "FILE_BK=%TRYTON%_%TIME_BK: =0%"
 set "destino=%DIR_BACKUP%\%FILE_BK%"
 set "file_err=%DIR_TMP%\trytond_backup_err.txt"
@@ -26,7 +27,6 @@ set "DB_ERRDE=0"
 set "log_action=!LOG-INFO!"
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
 call :logger "%APP%" "backup %back_action%"
-set "file_zip=%DIR_BACKUP%\%FILE_BK%.zip"
  
 if /i "%back_action%"=="%INS%"  (
   set "log_action=%INS%"
@@ -81,7 +81,10 @@ if /i "%DB_NAME_DEMO%" NEQ "%TRYTON_DB_DEMO%" set "DB_NAME_DEMO=%TRYTON_DB_DEMO%
 call :check_database "!DB_NAME!" "4"
 if "%DB_ERROR%"=="2" goto :exit
 
-if /i "%back_action%"=="%INS%"  goto :data_backup
+if /i "%back_action%"=="%INS%" (
+  set "MODE=2"
+  goto :data_backup
+)
 
 :: Busca DDBB tryton_demo
 call :check_database "!DB_NAME_DEMO!" "5"
@@ -126,8 +129,8 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
   echo.
   set /p "type=%BS%        !C_M_YELLOW!!BCK_PROMPT!!C_M_RESET! "
   echo.
-  if "%type%"=="1" goto :full_backup   
-  if "%type%"=="2" goto :data_backup  
+  if "%type%"=="1" set MODE=1&& goto :full_backup
+  if "%type%"=="2" set MODE=2&& goto :data_backup
   if "%type%"=="3" set MODE=schema&& goto schema_data
   if "%type%"=="4" set MODE=data&& goto schema_data
   if "%type%"=="5" set MODE=full_db&& goto schema_data
@@ -135,29 +138,30 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
   call :logger "!LOG-WARN!" "!BCK_ERR_OPT!"
   goto :menu_backup
   
-:full_backup 
-
+:full_backup
   set "MESSAGE=!BCK_EXP_IMG_DB:DBIMAGEN=%POSTGRES_IMAGE_NAME%!"
   call :logger "!LOG-INFO!" "!MESSAGE!"
-  if not exist "%destino%" mkdir "%destino%" 
+  set "destino_mode=%destino%_%MODE%"
+  if not exist "%destino_mode%" mkdir "%destino_mode%" 
   :: Docker save copiamos la imagen de Base de Datos a un fichero img_postgres.tar
-  docker save "%POSTGRES_IMAGE%" > "%destino%\img_postgres.tar"
+  docker save "%POSTGRES_IMAGE%" > "%destino_mode%\img_postgres.tar"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
   set "MESSAGE=!BCK_EXP_IMG_TRY:TRYIMAGEN=%SERVER_IMAGE_NAME%!"
   call :logger "!LOG-INFO!" "!MESSAGE!"
   :: Docker save copiamos la imagen de tryton a un fichero img_tryton.tar
-  docker save "%SERVER_IMAGE%" > "%destino%\img_tryton.tar"
+  docker save "%SERVER_IMAGE%" > "%destino_mode%\img_tryton.tar"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
 :: Opcion 2 Para poder realizar los backup de los contenedores tienen que estar activos.
 
 :data_backup
-  if not exist "%destino%" mkdir "%destino%" 
-  set "msg_cont=%CURRENT_POSTGRES% - !WORD_ROUTE! %proyecto%:/var/lib/trytond/db !WORD_TO! %destino%\tryton_db_data.sql" 
+  if /i "%MODE%"=="2" set "destino_mode=%destino%_%MODE%"
+  if not exist "%destino_mode%" mkdir "%destino_mode%"
+  set "msg_cont=%CURRENT_POSTGRES% - !WORD_ROUTE! %proyecto%:/var/lib/trytond/db !WORD_TO! %destino_mode%\tryton_db_data.sql" 
   set "MESSAGE=!BCK_RUN_DUMP:CONTENEDOR=%msg_cont%!"
   call :logger "!log_action!" "!MESSAGE!"
   :: Usamos el nombre del servicio definido en el YAML (tryton-postgres), utilizando el comando pg_dumpall
   if exist "%file_err%" del "%file_err%" >nul
-  set "file_sql=%destino%\tryton_%DB_HOSTNAME%_dumpall.sql"
+  set "file_sql=%destino_mode%\tryton_%DB_HOSTNAME%_dumpall.sql"
   docker exec "%CURRENT_POSTGRES%" pg_dumpall --clean -U "%DB_HOSTNAME%" >"%file_sql%" 2>"%file_err%"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
   : Verificación de integridad avanzada
@@ -179,55 +183,49 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
   )
 
   call :logger "!log_action!" "!BCK_FILE_SQL:DESTINO=%file_sql%! (!size! bytes)"
-
-:found_data
-  if not exist "%destino%" mkdir "%destino%" 
-  set "msg_cont=%CURRENT_TRYTON% !WORD_ROUTE! %proyecto%:/var/lib/trytond/ !WORD_TO! %destino%"
+  set "msg_cont=%CURRENT_TRYTON% !WORD_ROUTE! %proyecto%:/var/lib/trytond/ !WORD_TO! %destino_mode%"
   set "MESSAGE=!BCK_COPY_FILES:DESTINO=%msg_cont%!"
   call :logger "!log_action!" "!MESSAGE!"
   :: Copiamos la carpeta de datos del servidor a la carpeta destino.
   :: La copia de la carpeta trytond/db es muy importante, son nuestros datos creados en la base de datos.
-  docker cp "%CURRENT_TRYTON%:/var/lib/trytond/" "%destino%" >nul
+  docker cp "%CURRENT_TRYTON%:/var/lib/trytond/" "%destino_mode%" >nul
   if !errorlevel! NEQ 0 (
     set "MESSAGE=!BCK_COPY_ERROR:DESTINO=%msg_cont%!"
     call :logger "!LOG-ERROR!" "!MESSAGE!"
   )
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
 :: Copia el fichero %COMPOSE_FILE%, por seguridad. N copia el fichero .env, por tener las claves del acceso a la base de datos.
-if /i "%back_action%"=="%INS%"  goto :found_file_zip
-
-:found_compose
-  set "msg_cont=!WORD_FILE!: %destino%\%COMPOSE_FILE%"
-  set "MESSAGE=!BCK_SAVE_YAML:DESTINO=%msg_cont%!"
-  call :logger "!log_action!" "!MESSAGE!"
-  :: Realiza un copy del %COMPOSE_FILE% del proyecto donde se ejecuta el tcd.bat
-  copy "%DIR_HOME%%COMPOSE_FILE%" "%destino%\%COMPOSE_FILE%" >nul
-  
-:found_file_zip
-  set "MESSAGE=!BCK_FILE_ZIP_2:DESTINO=%destino%!"
-  call :logger "!log_action!" "!MESSAGE! %FILE_BK%.zip" 
-  powershell -Command "$ProgressPreference = 'SilentlyContinue'; Compress-Archive -Path '%destino%' -DestinationPath '%file_zip%' -Force"
+  if /i "%back_action%" NEQ "%INS%" (
+    set "msg_cont=!WORD_FILE!: %destino_mode%\%COMPOSE_FILE%"
+    set "MESSAGE=!BCK_SAVE_YAML:DESTINO=%msg_cont%!"
+    call :logger "!log_action!" "!MESSAGE!"
+    copy "%DIR_HOME%%COMPOSE_FILE%" "%destino_mode%\%COMPOSE_FILE%" >nul
+  )
+  set "MESSAGE=!BCK_FILE_ZIP_2:DESTINO=%destino_mode%!"
+  set "file_zip=%destino_mode%.zip"
+  call :logger "!log_action!" "!MESSAGE! %file_zip%" 
+  powershell -Command "$ProgressPreference = 'SilentlyContinue'; Compress-Archive -Path '%destino_mode%' -DestinationPath '%file_zip%' -Force"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
-  if not exist "%file_zip%"  tar -a -c -f "%file_zip%" -C "%destino%" . 
+  if not exist "%file_zip%"  tar -a -c -f "%file_zip%" -C "%destino_mode%" . 
   :: Si el valor de la variable contdown_ es 1, parara los contenedores por ser arrancados al inicio del proceso de backup
   if "%contdown%"=="1" (
     call :logger "!log_action!" "!BCK_RESTORE_STATE!"
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
     call "%DIR_SCRIPT%startdown.bat" "%proyecto%" "%CHECK%" "STOP"
   )
-  set "MESSAGE=!BCK_SUCCESS! %destino%"
+  set "MESSAGE=!BCK_SUCCESS! %destino_mode%"
   call :logger "!LOG-SUCC!" "!MESSAGE!"
   if not exist "%file_zip%" goto :exit
-  if not exist "%destino%" goto :exit
+  if not exist "%destino_mode%" goto :exit
   set "MESSAGE=!BCK_FILE_ZIP:DESTINO=%file_zip%!"
   call :logger "!LOG-SUCC!" "!MESSAGE!"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
-  rd /s /q "%destino%" >nul 2>&1
-  set "MESSAGE=!BCK_TEMPORARY:DESTINO=%destino%!"
+  if exist "%destino_mode%" rd /s /q "%destino_mode%" >nul 2>&1
+  set "MESSAGE=!BCK_TEMPORARY:DESTINO=%destino_mode%!"
   set "fuction=!log_action!"
-  if exist "%destino%" (
+  if exist "%destino_mode%" (
     set "fuction=!LOG-WARN!"
-    set "MESSAGE=!BCK_NOT_TEMPORARY:DESTINO=%destino%!"
+    set "MESSAGE=!BCK_NOT_TEMPORARY:DESTINO=%destino_mode%!"
   )
   call :logger "!fuction!" "!MESSAGE!"
   if /i "%back_action%"=="%INS%"  goto :exit
@@ -297,6 +295,7 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
   call :logger "!LOG-SUCC!" "!BCK_ENDING!"
   echo.
   pause
+  if exist "!destino!" rd /s /q "!destino!" >nul 2>&1
   cls
   call "%DIR_SCRIPT%banner.bat" "%TRYTON%"
   goto :menu_backup
@@ -321,7 +320,8 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
     call :logger "!LOG-ERROR!" "!MESSAGE!"
     exit /b
   )
-  set "FILE_ZIP=%~dpn1.zip"
+  set "wfile=%~n1_%DATE_BK: =0%"
+  set "FILE_ZIP=%DIR_BACKUP%\%wfile%.zip"
   set "MESSAGE=!BCK_FILE_ZIP_3:DESTINO=%destino%!"
   call :logger "!log_action!" "!MESSAGE! \%FILE_ZIP%"
   powershell -Command "$ProgressPreference = 'SilentlyContinue'; Compress-Archive -Path '%FILE_SQL%' -DestinationPath '%FILE_ZIP%' -Force"
@@ -340,7 +340,6 @@ if /i "%back_action%"=="%INS%"  goto :found_file_zip
       call :logger "!LOG-ERROR!" "!MESSAGE! !db_err!"
       exit /b
   )
-  del "%FILE_SQL%" >nul 2>&1
   set "MESSAGE=!BCK_FILE_ZIP:DESTINO=%FILE_ZIP%!"
   call :logger "!LOG-SUCC!" "!MESSAGE!"
   exit /b
