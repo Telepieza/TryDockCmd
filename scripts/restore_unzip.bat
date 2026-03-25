@@ -19,6 +19,7 @@ set /a "wait_timeres=20"
 set /a "num_error=0"
 set "ZIP_PATH="
 set "DUMPALL_FILE="
+set "DUMPALL=dumpall"
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
 call "%DIR_SCRIPT%message.bat" "%APP%" "restore_unzip"
 
@@ -85,7 +86,9 @@ if not exist "%BACKUP_PATH%" (
     goto :error
 )
 
-set "work_mode=%BACKUP_PATH%\%TRYTON%_*%DO_MODE%.sql"
+set "work_mode=%BACKUP_PATH%\%TRYTON%_*"
+if /i "%DO_IMAGES%" EQU "2" set "work_mode=%work_mode%%DO_MODE%.sql"
+if /i "%DO_IMAGES%" NEQ "2" set "work_mode=%work_mode%%DUMPALL%.sql"
 call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!RES_VALIDATE_ZIP! !work_mode!"
 for %%F in ("%work_mode%") do set "DUMPALL_FILE=%%F"
 if not defined DUMPALL_FILE (
@@ -129,12 +132,12 @@ if "%DO_IMAGES%"=="1" (
 )
 
 if /i "%DO_IMAGES%" NEQ "2" (
-  call "%DIR_SCRIPT%restore_docker.bat" "%proyecto%" "%BACKUP_PATH%" "%DO_IMAGES%" "%DUMPALL_FILE%"
+  call "%DIR_SCRIPT%restore_docker.bat" "%proyecto%" "!BACKUP_PATH!" "!DO_IMAGES!" "!DUMPALL_FILE!" "!DO_MODE!"
 ) else (
-  call "%DIR_SCRIPT%restore_sql.bat" "%proyecto%" "%BACKUP_PATH%" "%DO_IMAGES%" "%DUMPALL_FILE%" "%DO_MODE%"
+  call "%DIR_SCRIPT%restore_sql.bat" "%proyecto%" "!BACKUP_PATH!" "!DO_IMAGES!" "!DUMPALL_FILE!" "!DO_MODE!"
 )
 
-if "%errorlevel%" NEQ 0 goto :exit
+if %errorlevel% NEQ 0 goto :exit
 echo.
 goto:exit
 

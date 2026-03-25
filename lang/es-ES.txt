@@ -138,6 +138,9 @@ WORD_TOTAL=Total
 WORD_GEN_DIARY=Diario general
 WORD_VAT_RATES=21,10,4
 WORD_TRUNCATE=TRUNCAR
+WORD_DOCKER=Docker
+WORD_COMPOSE=Compose
+WORD_LOAD=Load
 
 # --- install.bat ---
 # --- PROYECTO, CONEXION, COUNT, FILE son variables que se sustituye en el programa install.bat ---
@@ -453,6 +456,7 @@ DOWN_CONFIRM=Indique YES para confirmar la parada de los contenedores:
 DOWN_NOT_FOUND=El proyecto PROYECTO no existe. No hay nada que parar.
 DOWN_STOPPING=Parando contenedores de PROYECTO.
 DOWN_SUCCESS=Todos los contenedores de PROYECTO se han detenido correctamente.
+DOWN_SUCCESS_2=Todos los contenedores de PROYECTO se han borrado correctamente.
 DOWN_WARN=Hubo un problema al intentar detener algunos contenedores.
 DOWN_ALREADY=Los contenedores de PROYECTO ya están parados.
 DOWN_CANCEL=Parada no confirmada por el usuario.

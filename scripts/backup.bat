@@ -162,7 +162,8 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
   :: Usamos el nombre del servicio definido en el YAML (tryton-postgres), utilizando el comando pg_dumpall
   if exist "%file_err%" del "%file_err%" >nul
   set "file_sql=%destino_mode%\tryton_%DB_HOSTNAME%_dumpall.sql"
-  docker exec "%CURRENT_POSTGRES%" pg_dumpall --clean -U "%DB_HOSTNAME%" >"%file_sql%" 2>"%file_err%"
+  set "bk_cmd=pg_dumpall --clean -U '%DB_HOSTNAME%' | sed -E 's/^(DROP|CREATE|ALTER) ROLE .?postgres.?([ ;]|$)/-- &/'"
+  docker exec "%CURRENT_POSTGRES%" /bin/bash -c "!bk_cmd!" >"%file_sql%" 2>"%file_err%"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
   : Verificación de integridad avanzada
   if not exist "%file_sql%" (

@@ -61,12 +61,13 @@ if %errorlevel% equ 0 (
     :: Usamos 'stop' en lugar de 'down' para mantener los contenedores creados
     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1"
     if /i "%type_stop%"=="DOWN" (
+      set "MESSAGE=!DOWN_SUCCESS_2:PROYECTO=%proyecto%!"
       docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" down
     ) else (
+      set "MESSAGE=!DOWN_SUCCESS:PROYECTO=%proyecto%!"
       docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" stop
     )
     if !errorlevel! equ 0 (
-        set "MESSAGE=!DOWN_SUCCESS:PROYECTO=%proyecto%!"
         call "%DIR_SCRIPT%message.bat" "!LOG-SUCC!" "!MESSAGE! %type_stop%"
     ) else (
         set "MESSAGE=!DOWN_WARN:PROYECTO=%proyecto%!"
@@ -77,13 +78,12 @@ if %errorlevel% equ 0 (
     call "%DIR_SCRIPT%message.bat" "!LOG-WARN!" "!MESSAGE! %type_stop%"
 )
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_service!" "1"
+if /i "%type_stop%"=="DOWN" goto :exit
 if /i "%down_action%"=="%APP%" (
   echo.
   call "%DIR_SCRIPT%status.bat" "%proyecto%" "%SEE%"
   pause
 )
-
-goto :exit
 
 :exit
   endlocal

@@ -139,6 +139,9 @@ WORD_TOTAL=Total
 WORD_GEN_DIARY=General diary
 WORD_VAT_RATES=21,10,4
 WORD_TRUNCATE=TRUNCATE
+WORD_DOCKER=Docker
+WORD_COMPOSE=Compose
+WORD_LOAD=Load
 # --- install.bat ---
 # --- PROYECTO, FILE, CONEXION It is a variable that is replaced in the program install.bat
 INSTALL_TITLE=It has been detected that Tryton does not exist, the installation is activated automatically.
@@ -450,6 +453,7 @@ DOWN_CONFIRM=Enter YES to confirm the shutdown containers:
 DOWN_NOT_FOUND=Project PROYECTO does not exist. Nothing to stop.
 DOWN_STOPPING=Shutting down project containers PROYECTO.
 DOWN_SUCCESS=All containers of PROYECTO have been successfully stopped.
+DOWN_SUCCESS_2=All containers of PROYECTO have been successfully removed.
 DOWN_WARN=There was a problem trying to stop some containers.
 DOWN_ALREADY=The PROYECTO containers were already stopped.
 DOWN_CANCEL=Stop not confirmed by the user.
