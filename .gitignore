@@ -1,5 +1,8 @@
+/backup
+/restore
+/log
+/tmp
 /test
 /config/.passwd
 /python/__pycache__
 .vscode
-.gitignore
