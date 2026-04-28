@@ -7,7 +7,8 @@ This document outlines the validation scenarios performed to ensure the resilien
 * **Test Date:** 2026-03-12
 * **Manager Version:** v1.0.0 (Stable)
 * **Engine:** Docker Desktop (WSL 2 Backend)
-* **Infrastructure:** PostgreSQL 18.2 | Tryton 7.8.x
+* **Infrastructure:** PostgreSQL 18.2 | Tryton 7.X.X
+* **Infrastructure:** PostgreSQL 18.3 | Tryton 8.X.X
 * **Language:** Bilingual (en-US / es-ES)
 
 ### 📂 Evidence & Audit Logs

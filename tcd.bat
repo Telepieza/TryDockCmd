@@ -115,6 +115,7 @@ set "C_M_YELLOW="
 set "C_M_GREEN="
 set "C_M_RESET="
 set "ANSI_SUPPORTED=0"
+set "BASE_MODULES_FILTERED=0"
 :: Crear directorios si no existen
 if not exist "%DIR_LOG%"    mkdir "%DIR_LOG%"
 if not exist "%DIR_BACKUP%" mkdir "%DIR_BACKUP%"
@@ -126,6 +127,7 @@ if not exist "%DIR_CONFIG%" mkdir "%DIR_CONFIG%"
 if not exist "%DIR_TMP%"    mkdir "%DIR_TMP%"
 if not exist "%DIR_PYTHON%" mkdir "%DIR_PYTHON%"
 :: graba en el log fecha hora y nombre del script de arranque
+
 set "PROGRAM=tcd"
 call :logger "%APP%" "%PROGRAM%"
 call "%DIR_SCRIPT%banner.bat" "%TRYTON%"
@@ -137,6 +139,7 @@ set "trydockcmd=%trydockcmd% - %fmt_hhmmss%"
 echo.
 echo   ================================================================================
 call :logger "%MENU%" "%trydockcmd%" "15"
+if defined ADMIN_WARNING call :logger "%LOG-WARN%" "!ADMIN_WARNING!" "15"
 echo   ================================================================================
 echo.
 call :logger "%MENU%" "%APPLICATION% - Starting ..........................................." "4"
@@ -187,11 +190,9 @@ if exist "%DIR_CONFIG%%CONF_FILE_TRY%" (
   for /f "usebackq tokens=1,* delims==" %%A in ("%DIR_CONFIG%%CONF_FILE_TRY%") do (
     set "K=%%A"
     set "V=%%B"
-    rem limpia espacios y tabulaciones en clave
-    set "K=!K: =!"
-    set "K=!K:	=!"
-    rem limpia espacios iniciales en valor
-    for /f "tokens=* delims= " %%Z in ("!V!") do set "V=%%Z"
+    :: Limpieza eficiente de espacios
+    for /f "tokens=* delims= " %%i in ("!K!") do set "K=%%i"
+    for /f "tokens=* delims= " %%i in ("!V!") do set "V=%%i"
       if /i "!K!"=="name" set "CURRENT_COMPANY_NAME=!V!"
       if /i "!K!"=="currency" set "CURRENT_COMPANY_CURRENCY=!V!"
       if /i "!K!"=="journal_code" set "CURRENT_JOURNAL_CODE=!V!"
@@ -478,6 +479,10 @@ exit /b
   ) else (
     set "MESSAGE=Finalizing session. Thank you for using Tryton Manager."
     set "MESSAGE=%MESSAGE% Finalizando sesión. Gracias por utilizar Tryton Docker Manager."
+  )
+  if "%ACTIVE_COPY%" NEQ "0" (
+    docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/auto_full_setup.py
+    docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_setup.conf
   )
   call "%DIR_SCRIPT%cycletime.bat" "%TIM%" "%time%"
   set "ftime_fmt=%fmt_hhmmss%"

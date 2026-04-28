@@ -4,10 +4,10 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
-:: DATE:      23/03/2026
+:: VERSION:   1.1.0
+:: DATE:      28/04/2026
 :: LICENSE:   MIT License
-:: DESCRIPTION: Install reports 
+:: DESCRIPTION: Install reports version 7 y 8
 :: ==============================================================================
 setlocal enabledelayedexpansion
 :: Cambia la consola a UTF-8
@@ -38,7 +38,7 @@ set "idate_rts=%date%" & call "%DIR_SCRIPT%cycletime.bat" "%DAT%" "%idate_rts%" 
 set "itime_rts=%time%" & call "%DIR_SCRIPT%cycletime.bat" "%TIM%" "%itime_rts%" & set "itime_rts_fmt=!fmt_hhmmss!"
 
 call "%DIR_SCRIPT%message.bat" "%CHECK%" "!INSTALL_MODU_35!"
-call "%DIR_SCRIPT%base_modules.bat" "%proyecto%"
+call "%DIR_SCRIPT%base_modules.bat" "%proyecto%" "%pdemo%"
 
 set "sufijo="
 if /i "%pdemo%"=="!DEMO!" set "sufijo=_demo"

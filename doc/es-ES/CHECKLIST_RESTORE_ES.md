@@ -5,7 +5,7 @@ Objetivo: Asegurar una restauración limpia, determinista y segura.
 ## Antes del Restore
 - Confirmar que el ZIP corresponde al proyecto correcto.
 - Validar integridad del ZIP y ficheros requeridos:
-  - `*_dumpall.sql` y `trytond/` para opciones 1-2
+  - `*_dumpall.sql`, `trytond/` o `trytond_persist.tar` para opciones 1-2
   - `DB_NAME_schema.sql`, `DB_NAME_data.sql` o `DB_NAME_full_db.sql` para opciones 3-5
 - Verificar `DB_NAME` y opcional `DB_NAME_DEMO`.
 - Confirmar que `DIR_TMP` es escribible (extracción temporal).
@@ -20,6 +20,7 @@ Objetivo: Asegurar una restauración limpia, determinista y segura.
 - Opción 3/4/5: Estructura/Datos/Base completa
   - BD creada o validada según el modo.
   - `psql` o `pg_restore` sin errores.
+  - Si existe `trytond_persist.tar`, asegurar descompresión interna con `tar -xf`.
 
 ## Después del Restore
 - Reiniciar servicios y confirmar estado saludable.

@@ -4,10 +4,10 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
-:: DATE:      23/03/2026
+:: VERSION:   1.1.0
+:: DATE:      28/04/2026
 :: LICENSE:   MIT License
-:: DESCRIPTION: Install trytond tryton 
+:: DESCRIPTION: Install trytond tryton version 7 y 8
 :: ==============================================================================
 setlocal enabledelayedexpansion
 :: Cambia la consola a UTF-8
@@ -24,6 +24,10 @@ set "exit_dbdemo="
 call "%DIR_SCRIPT%install_header.bat" "%proyecto%" "%ins_demo_action%" "%DEMO%" "install_demo"
 if %ERRORLEVEL% NEQ 0 goto :exit
 
+call "%DIR_SCRIPT%install_copyfile.bat" "%proyecto%" "%DEMO%"
+if %ERRORLEVEL% NEQ 0 goto :exit
+
+set "BASE_MODULES_FILTERED=0"
 call :database_exist_demo
 
 :: Si es de install.bat seguimos en el proceso de instalacion
@@ -176,12 +180,16 @@ set "COM3= --email !EMAIL! -vv"
 set "cmd=TRYTONPASSFILE=/tmp/.passwd !COM1! --update-modules-list !COM3!"
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME_DEMO!" "" "%file_base%" "YES" "" "" ""
 
-call :logger "%INS%" "[10.-] !INSTALL_MODU_HEAD18!" "3" 
+call :logger "%INS%" "[10.-] !INSTALL_MODU_HEAD34_ALL!" "3"
+set "cmd=TRYTONPASSFILE=/tmp/.passwd !COM1! --all !COM3!"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME_DEMO!" "" "%file_base%" "YES" "" "" ""
+
+call :logger "%INS%" "[11.-] !INSTALL_MODU_HEAD18!" "3" 
 : Reports Verificar y comprobar que todos los módulos están activated
 call :compare_modules_install_demo "%MENU%" "!INSTALL_MODU_HEAD18!" "3"
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timedem!"  
 :: Reports Listar todos los modulos 
-call :logger "%INS%" "[11.-] !INSTALL_MODU_HEAD19!" "3"
+call :logger "%INS%" "[12.-] !INSTALL_MODU_HEAD19!" "3"
 call :listing_modules_demo "%MENU%" "!INSTALL_MODU_HEAD19!" "3"
 call :logger "!LOG-SUCC!" "!INSTALL_MODU_END!" "3"
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timedem!" "1" 

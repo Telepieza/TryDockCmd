@@ -8,7 +8,7 @@ TryDockCmd es una capa de operaciones para Tryton ERP en Docker, en el sistema o
 2. **Config Proteus:** Edit `config/trytond.conf` Company name & Currency
 3. **Launch:** Run `tcd.bat` (automatic installation).
 
-* *The manager will auto-pull images, create DBs (Real & Demo), inject dynamic data for v7.8.x+, and activate 41 core modules.*
+* *The manager will auto-pull images, create DBs (Real & Demo), inject dynamic data for v7.8.x+ and V8.0.x+, and activate 41 core modules.*
 
 ---
 
@@ -68,6 +68,18 @@ The system performs a **3-Layer Audit** in < 4 seconds:
 - **Permissions:** Write access for `/log` `/tmp` `/sql` and `/backup`.
 - **Configuration:** Valid [company] section in conf/trytond.conf and file .env
 ---
+
+# Compatibility Summary - Tryton 8.0
+
+TryDockCmd has been updated to support the structural changes in **Tryton version 8**:
+
+1. **Module Integration:** The removal of individual localization modules (Spain/Germany) has been documented and managed so they can be included in the base `account` module.
+
+2. **Dynamic Detection:** The configuration engine (`auto_full_setup.py`) now uses "anchor module" logic to identify the country of operation without relying on packages that are now part of the core.
+
+3. **Backup Security:** Implementation of `.tar` dumps to prevent privilege errors with symbolic links on Windows.
+
+4. **Integrity:** Validation using MD5 signatures in the restore process.
 
 ## 📄 License
 

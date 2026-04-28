@@ -4,11 +4,12 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
-:: DATE:      23/03/2026
+:: VERSION:   1.1.0
+:: DATE:      28/04/2026
 :: LICENSE:   MIT License
-:: DESCRIPTION: Install header tryton
+:: DESCRIPTION: Install header tryton version 7 y 8
 :: ==============================================================================
+setlocal enabledelayedexpansion
 :: Cambia la consola a UTF-8
 chcp 65001 >nul
 :: Analiza si la llamada es del tcd.bat
@@ -66,32 +67,13 @@ if /i "%ins_head_action%" NEQ "%INS%" (
 :: 3.- Localizar la version de tryton y postgreSQL
 if "!CURRENT_VERSION!"=="" call "%DIR_SCRIPT%checkversion.bat" "%proyecto%"
 if %ERRORLEVEL% EQU 4 set "log_error=4" & goto :error
-:: 4.- Copiar archivos al temporal del servidor Docker
-:: En fase PYTH forzamos recopia para evitar ejecutar una versión obsoleta de /tmp/auto_full_setup.py.
-if "%ACTIVE_COPY%" EQU "0" (
-  docker cp "%DIR_PYTHON%auto_full_setup.py" !CURRENT_TRYTON!:/tmp/auto_full_setup.py >nul
-  if %ERRORLEVEL% NEQ 0 set "log_error=5" & goto :error
-  docker cp "%DIR_CONFIG%trytond.conf" !CURRENT_TRYTON!:/tmp/trytond_setup.conf  >nul
-  if %ERRORLEVEL% NEQ 0 set "log_error=6" & goto :error
-  set "ACTIVE_COPY=1"
-) else if /i "%type%"=="%PYTH%" (
-  docker cp "%DIR_PYTHON%auto_full_setup.py" !CURRENT_TRYTON!:/tmp/auto_full_setup.py >nul
-  if %ERRORLEVEL% NEQ 0 set "log_error=5" & goto :error
-  docker cp "%DIR_CONFIG%trytond.conf" !CURRENT_TRYTON!:/tmp/trytond_setup.conf  >nul
-  if %ERRORLEVEL% NEQ 0 set "log_error=6" & goto :error
-)
-
-:: 5.- Localizar los modulos de tryton (Base y lenguajes)
-call "%DIR_SCRIPT%message.bat" "%CHECK%" "!INSTALL_MODU_35!"
-call "%DIR_SCRIPT%base_modules.bat" "%proyecto%"
-exit /b 0
+exit /b 
 
 :error
   set "MESSAGE="
   if "%log_error%" EQU "2" set "MESSAGE=!STAT_ERR_NOT_INSTALLED:PROYECTO=%proyecto%!"
   if "%log_error%" EQU "3" set "MESSAGE=!STAT_ERR_NOT_INSTALLED:PROYECTO=%proyecto%!"
   if "%log_error%" EQU "4" set "MESSAGE=!BCK_CONT_STOP:PROYECTO=%proyecto%!"
-  if "%log_error%" EQU "5" set "MESSAGE=!LOG_ERR_FILE:ARCHIVO=%DIR_PYTHON%auto_full_setup.py!"
-  if "%log_error%" EQU "6" set "MESSAGE=!LOG_ERR_FILE:ARCHIVO=%DIR_CONFIG%trytond.conf!"
-  if /i "!MESSAGE!" NEQ "" call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!MESSAGE!"
-  pause & exit /b 2
+  if /i "!MESSAGE!" NEQ "" call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "[%log_error%] !MESSAGE!"
+  pause 
+  exit /b 2

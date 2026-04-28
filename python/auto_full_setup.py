@@ -1,10 +1,10 @@
 # ===============================================================================
 # PROGRAM:   auto_full_setup.py
 # PROJECT:   Tryton Docker Manager
-# VERSION:   1.0.0
-# DATE:      23/03/2026
+# VERSION:   1.1.0
+# DATE:      28/04/2026
 # LICENSE:   MIT License
-# DESCRIPTION: Enlace TryDockCmd con proteus
+# DESCRIPTION: Enlace TryDockCmd con proteus version 7 y 8
 # ==============================================================================
 import os
 import logging
@@ -13,6 +13,7 @@ import time
 import sys
 import configparser
 import subprocess
+import trytond
 from decimal import Decimal
 import proteus
 # Añadimos p_config como alias para que coincida con la subrutina
@@ -81,7 +82,7 @@ MESSAGES = {
         'invoice_seq_missing': "No hay secuencias de factura para el ejercicio.",
         'unsupported_action': "Acción no soportada: {}",
         'journal_created': "Diario contable {} creado.",
-        'vat_skipped_no_module': "IVA España omitido: módulo account_es no activo.",
+        'vat_skipped_no_module': "Localización omitida: módulos de contabilidad específicos no detectados.",
         'vat_skipped_no_account': "No se pudo crear IVA: no hay cuentas contables disponibles.",
         'vat_skipped_bad_type': "No se pudo crear {}: tipo de impuesto no compatible.",
         'vat_skipped_bad_rate': "No se pudo crear {}: campo de porcentaje no compatible.",
@@ -126,7 +127,7 @@ MESSAGES = {
         'invoice_seq_missing': "No invoice sequence links available for fiscal year.",
         'unsupported_action': "Unsupported action: {}",
         'journal_created': "Accounting journal {} created.",
-        'vat_skipped_no_module': "Spanish VAT skipped: account_es module is not active.",
+        'vat_skipped_no_module': "Localization skipped: specific accounting modules not detected.",
         'vat_skipped_no_account': "Could not create VAT: no accounting accounts available.",
         'vat_skipped_bad_type': "Could not create {}: incompatible tax type.",
         'vat_skipped_bad_rate': "Could not create {}: incompatible percentage field.",
@@ -171,7 +172,7 @@ MESSAGES = {
         'invoice_seq_missing': "Aucun lien de séquence de facture disponible pour l'exercice.",
         'unsupported_action': "Action non prise en charge : {}",
         'journal_created': "Journal comptable {} créé.",
-        'vat_skipped_no_module': "TVA Espagne ignorée : le module account_es n'est pas actif.",
+        'vat_skipped_no_module': "Localisation ignorée : modules comptables spécifiques non détectés.",
         'vat_skipped_no_account': "Impossible de créer la TVA : aucun compte comptable disponible.",
         'vat_skipped_bad_type': "Impossible de créer {} : type de taxe incompatible.",
         'vat_skipped_bad_rate': "Impossible de créer {} : champ de pourcentage incompatible.",
@@ -216,7 +217,7 @@ MESSAGES = {
         'invoice_seq_missing': "Keine Rechnungssequenz-Verknüpfungen für das Geschäftsjahr verfügbar.",
         'unsupported_action': "Nicht unterstützte Aktion: {}",
         'journal_created': "Buchungsjournal {} erstellt.",
-        'vat_skipped_no_module': "Spanische MwSt. übersprungen: Modul account_es ist nicht aktiv.",
+        'vat_skipped_no_module': "Lokalisierung übersprungen: spezifische Buchhaltungsmodule nicht erkannt.",
         'vat_skipped_no_account': "MwSt. konnte nicht erstellt werden: keine Buchhaltungskonten verfügbar.",
         'vat_skipped_bad_type': "{} konnte nicht erstellt werden: inkompatibler Steuertyp.",
         'vat_skipped_bad_rate': "{} konnte nicht erstellt werden: inkompatibles Prozentfeld.",
@@ -654,7 +655,12 @@ def _pick_account_for_taxes(company):
     return account[0] if account else None
 
 def ensure_spanish_vat_taxes(company, company_conf):
-    if not is_module_activated('account_es'):
+    # Detectamos la versión para decidir qué módulo usar como ancla de localización
+    major_ver = int(trytond.__version__.split('.')[0])
+    proxy_es = 'account_es' if major_ver < 8 else 'account_statement_sepa'
+    logging.info(f"Detección de impuestos - Major Ver: {major_ver}, Ancla ES: {proxy_es}")
+
+    if not is_module_activated(proxy_es):
         logging.info(msg['vat_skipped_no_module'])
         return
     Tax = Model.get('account.tax')
@@ -717,8 +723,18 @@ def run_setup():
 
     if not connect_and_init(DB_NAME, CONF_FILE): sys.exit(10)
     
-    # Definimos el mapeo de módulos para reutilizar en LANG y ACC
-    chart_mapping = {'es': 'account_es', 'fr': 'account_fr', 'de': 'account_de_skr03'}
+    # Detectar la versión mayor de Tryton para ajustar proxies de localización
+    tryton_version = trytond.__version__
+    major_ver = int(tryton_version.split('.')[0])
+    logging.info(f"Versión de Tryton detectada: {tryton_version}")
+
+    # Mapeo dinámico: Si la versión es nueva, usamos 'anclas'. Si es antigua, los módulos originales.
+    chart_mapping = {
+        'es': 'account_es' if major_ver < 8 else 'account_statement_sepa',
+        'fr': 'account_fr' if major_ver < 9 else 'party_siret',
+        'de': 'account_de_skr03' if major_ver < 8 else 'account_statement_mt940'
+    }
+    logging.info(f"Módulos ancla de localización seleccionados (Major Ver: {major_ver}): {chart_mapping}")
     
     # 1. PRIMERO: Sincronizar módulos para que 'country' esté disponible en el Pool
     # Esto asegura que Model.get('country.zip') no falle

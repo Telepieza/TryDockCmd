@@ -4,9 +4,9 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
-:: DATE:      23/03/2026
-:: LICENSE:   MIT License
+:: VERSION:   1.1.0
+:: DATE:      28/04/2026
+:: LICENSE:   MIT License version 7 y 8
 :: DESCRIPTION: Database Hot-Import - Unzip the files and folder.
 :: ==============================================================================
 setlocal enabledelayedexpansion
@@ -107,12 +107,42 @@ if %size% LSS 1024 (
   goto :error
 )
 
+:: Verificación de Integridad MD5 (Si existe el fichero de firma)
+if exist "%BACKUP_PATH%\trytond_persist.tar.md5" (
+    call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!RES_MD5_CHECK!"
+    
+    :: Leer MD5 original
+    set /p md5_original=<"%BACKUP_PATH%\trytond_persist.tar.md5"
+    set "md5_original=!md5_original: =!"
+    
+    :: Calcular MD5 actual del archivo restaurado
+    set "md5_actual="
+    for /f "skip=1 tokens=*" %%A in ('certutil -hashfile "%BACKUP_PATH%\trytond_persist.tar" MD5') do (
+        if not defined md5_actual (
+            set "md5_actual=%%A"
+            set "md5_actual=!md5_actual: =!"
+        )
+    )
+    
+    if "!md5_actual!"=="!md5_original!" (
+        call "%DIR_SCRIPT%message.bat" "!LOG-SUCC!" "!RES_MD5_OK!"
+    ) else (
+        set "MESSAGE=!RES_MD5_ERROR!"
+        goto :error
+    )
+)
+
 if /i "%DO_IMAGES%" NEQ "2" (
-  set "work_dir=!BACKUP_PATH!\trytond"
-  call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!RES_VALIDATE_ZIP! !work_dir!"
-  if not exist "!work_dir!" (
-    set "MESSAGE=7.-!RES_REQUIRED_MISSING! !work_dir!"
-    goto :error 
+  :: En Tryton 8, si existe el .tar, no buscamos la carpeta física 'trytond'
+  if exist "%BACKUP_PATH%\trytond_persist.tar" (
+    call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!RES_VALIDATE_ZIP! trytond_persist.tar"
+  ) else (
+    set "work_dir=!BACKUP_PATH!\trytond"
+    call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!RES_VALIDATE_ZIP! !work_dir!"
+    if not exist "!work_dir!" (
+      set "MESSAGE=7.-!RES_REQUIRED_MISSING! !work_dir!"
+      goto :error 
+    )
   )
 )
 

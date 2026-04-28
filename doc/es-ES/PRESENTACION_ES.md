@@ -1,4 +1,4 @@
-# 🚀 TryDockCmd: El Framework Definitivo para Tryton ERP (2026)
+# 🚀 TryDockCmd: El Framework Definitivo para Tryton ERP (2026) - v1.1.0
 
 ## 1. FILOSOFÍA Y VISIÓN DEL PROYECTO
 TryDockCmd no es solo un instalador; es una solución de ingeniería diseñada para democratizar el acceso a Tryton ERP, el sistema más sólido y ético del mercado.
@@ -6,6 +6,7 @@ TryDockCmd no es solo un instalador; es una solución de ingeniería diseñada p
 * **Legado Histórico:** Nacido en 2008 como un fork de TinyERP (Odoo), Tryton mantiene la integridad técnica frente al modelo comercial. Software libre (LGPLv3).
 * **Soberanía del Software:** 100% Software Libre bajo licencia GPL. Sin versiones "Enterprise" ni funciones bloqueadas.
 * **Misión:** Reducir la barrera de entrada técnica de días a menos de 30 minutos mediante automatización atómica.
+* **Compatibilidad Multi-Versión:** Soporte nativo para **Tryton 7.0 y 8.0**, preparado para la futura v9.0.
 
 ---
 
@@ -36,8 +37,9 @@ El corazón del despliegue es el motor `auto_full_setup.py`, que actúa como un 
 Generación automática de la estructura vital de la empresa:
 1.  **Entidad:** Creación de Empresa y Tercero (Party) con bypass de errores de contexto.
 2.  **Temporalidad:** 5 ejercicios fiscales (2026-2030) y 60 períodos contables.
-3.  **Localización ES:** Inyección de 776 cuentas del Plan Contable Nacional (account_es).
-    * *Nota: Las localizaciones de FR y DE están en el roadmap para futuras versiones.*
+3.  **Localización Inteligente (ES, FR, DE):** 
+    * **Tryton < 8.0:** Gestión de módulos de localización independientes (`account_es`, `account_de_skr03`).
+    * **Tryton 8.0+:** Reconocimiento de la integración de planes contables en el módulo base `account`. Detección mediante "módulos ancla" (`account_statement_sepa`, `party_siret`).
 
 ### ⚖️ FASE TAX (Fiscalidad)
 * Configuración automática de 64 tipos de IVA (21%, 10%, 4%) para la localización española.
@@ -73,4 +75,3 @@ TryDockCmd convierte un "arte oscuro" en un proceso científico, repetible e imp
 ---
 
 ##### Optimizado y documentado con la ayuda de Gemini (Google AI)
-

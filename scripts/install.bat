@@ -4,9 +4,9 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
-:: DATE:      23/03/2026
-:: LICENSE:   MIT License
+:: VERSION:   1.1.0
+:: DATE:      28/04/2026
+:: LICENSE:   MIT License version 7 y 8
 :: DESCRIPTION: Deploy ERP TRYTON (First time) - Instalar Tryton/Arrancar (INSTALL)   
 :: =============================================================================== 
 setlocal enabledelayedexpansion
@@ -78,11 +78,6 @@ call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timei
   call "%DIR_SCRIPT%client.bat" "%proyecto%" "%INS%"
   if %errorlevel% NEQ 0 call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!STAT_NOT_HTTP!"  
   
-  if "%ACTIVE_COPY%" NEQ "0" (
-    docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/auto_full_setup.py
-    docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_setup.conf
-    set "ACTIVE_COPY=0"
-  )
   :: Buscar errores en los log de Docker
   call "%DIR_SCRIPT%errors.bat" "%proyecto%" "%INS%"
   echo.

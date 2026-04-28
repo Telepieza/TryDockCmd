@@ -4,10 +4,10 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
-:: DATE:      23/03/2026
+:: VERSION:   1.1.0
+:: DATE:      24/03/2026
 :: LICENSE:   MIT License
-:: DESCRIPTION: Install trytond tryton 
+:: DESCRIPTION: Install trytond tryton version 7 y 8
 :: ==============================================================================
 setlocal enabledelayedexpansion
 :: Cambia la consola a UTF-8
@@ -22,6 +22,11 @@ set "file_lang_tmp=%DIR_TMP%\trytond_lang"
 if /i "!ins_lang_action!"=="%INS%" set "log_action=%INS%"
 call "%DIR_SCRIPT%install_header.bat" "%proyecto%" "%ins_lang_action%" "%LANG%" "install_language"
 if %ERRORLEVEL% NEQ 0 goto :exit
+
+set "BASE_MODULES_FILTERED=0"
+:: 5.- Localizar los modulos de tryton (Fuera de setlocal para que las variables LL, LX, C1... persistan)
+call "%DIR_SCRIPT%message.bat" "%CHECK%" "!INSTALL_MODU_35!"
+call "%DIR_SCRIPT%base_modules.bat" "%proyecto%" "%ins_tryton_action%"
 
 set "COM1=TRYTOND_DATABASE_URI=!DB_URI! trytond-admin -c /etc/trytond.conf -d %DB_NAME%"
 set "COM2=TRYTONPASSFILE=/tmp/.passwd"
@@ -47,6 +52,7 @@ if /i "!ins_lang_action!"=="%INS%" (
     set "iso_code=DE" 
     set "iso_lang=1"
   )
+
   if defined iso_lang (
     call :head_modules_lang
     call :language_modules_country
@@ -145,6 +151,10 @@ if /i "!ins_lang_action!"=="%INS%" (
   call :logger "%log_action%" "!INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "%noclear_file%" "" ""
+  
+  call :logger "%log_action%" "!INSTALL_MODU_HEAD34_ALL!" "3"
+  set "cmd=!COM2! !COM1! --all !COM3!"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "%noclear_file%" "" ""
 
   :: 2. Activar el idioma seleccionado
   call :logger "%log_action%" "!INSTALL_MODU_HEADCO! -l CODE !TRYTON_LANGUAGE!" "3"
@@ -224,6 +234,11 @@ if /i "!ins_lang_action!"=="%INS%" (
 
   call :logger "%log_action%" "!INSTALL_MODU_HEAD34!" "3"
   set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
+
+  :: Finalizar actualización global tras instalar localización
+  call :logger "%log_action%" "!INSTALL_MODU_HEAD34_ALL!" "3"
+  set "cmd=!COM2! !COM1! --all !COM3!"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 
   :: Reports Verificar y comprobar que todos los módulos están activated

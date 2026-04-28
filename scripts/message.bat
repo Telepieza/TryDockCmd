@@ -4,10 +4,10 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
-:: DATE:      23/03/2026
+:: VERSION:   1.1.0
+:: DATE:      28/04/2026
 :: LICENSE:   MIT License
-:: DESCRIPTION: Message
+:: DESCRIPTION: Message version 7 y 8
 :: ==============================================================================
 setlocal enabledelayedexpansion
 :: Cambia la consola a UTF-8
@@ -72,7 +72,7 @@ if /i "!tipo!"=="%TXT%" set "sin_tipo=1"
 if /i "!tipo!"=="%SQL%" set "sin_tipo=1"
 if /i "!tipo!"=="%MENU%" set "sin_tipo=1"
 if /i "!tipo!"=="%INS%" set "sin_tipo=1"
-if /i "!tipo!"==""      set "sin_tipo=1"
+if /i "!tipo!"=="" set "sin_tipo=1"
    
 if "!sin_tipo!"=="1" ( 
     if %numer% GTR 0 (

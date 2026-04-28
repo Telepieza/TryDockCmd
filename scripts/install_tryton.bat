@@ -4,10 +4,10 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    [https://www.telepieza.com
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
-:: DATE:      23/03/2026
+:: VERSION:   1.1.0
+:: DATE:      28/04/2026
 :: LICENSE:   MIT License
-:: DESCRIPTION: Install trytond tryton 
+:: DESCRIPTION: Install trytond tryton version 7 y 8
 :: ==============================================================================
 setlocal enabledelayedexpansion
 :: Cambia la consola a UTF-8
@@ -22,6 +22,14 @@ set /a "wait_timetry20=20"
 
 call "%DIR_SCRIPT%install_header.bat" "%proyecto%" "%ins_tryton_action%" "%INS%" "install_tryton"
 if %ERRORLEVEL% NEQ 0 goto :exit
+
+call "%DIR_SCRIPT%install_copyfile.bat" "%proyecto%" "%ins_tryton_action%"
+if %ERRORLEVEL% NEQ 0 goto :exit
+
+set "BASE_MODULES_FILTERED=0"
+:: 5.- Localizar los modulos de tryton (Fuera de setlocal para que las variables LL, LX, C1... persistan)
+call "%DIR_SCRIPT%message.bat" "%CHECK%" "!INSTALL_MODU_35!"
+call "%DIR_SCRIPT%base_modules.bat" "%proyecto%" "%ins_tryton_action%"
 
 :: Si es de install.bat seguimos en el proceso de instalacion
 if /i "%ins_tryton_action%"=="%INS%" (
@@ -172,6 +180,11 @@ call :logger "%INS%" "[9.-] !INSTALL_MODU_HEAD34!" "3"
 set "cmd=!COM2! !COM1! --update-modules-list !COM3!"
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
 
+:: Forzar actualizacion global para pasar de 'to upgrade' a 'activated'
+call :logger "%INS%" "[9.1.-] !INSTALL_MODU_HEAD34_ALL!" "3"
+set "cmd=!COM2! !COM1! --all !COM3!"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%" "!cmd!" "!DB_NAME!" "" "%file_base%" "YES" "" ""
+
 :: Crear Emprea, Ejercicio fiscal. secuencias y periodos contables
 call :logger "%INS%" "[10.-] !INSTALL_MODU_HEAD44!" "3"
 call "%DIR_SCRIPT%install_accounts.bat" "%proyecto%" "%INS%"
@@ -290,7 +303,7 @@ pause & goto :menu_trytond
   set "event=%~1"
   set "title=%~2"
   set "numer=%~3"
-  set "cmd=SELECT name, state FROM ir_module ORDER BY name;"
+  set "cmd=SELECT name, state FROM ir_module ORDER BY state DESC, name ASC;"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%file_modules%" "%file_err%" "" ""
   if %ERRORLEVEL% NEQ 0  exit /b
   call "%DIR_SCRIPT%install_reports.bat" "%proyecto%" "8" "%event%" "%title%" "%numer%" "%file_modules%"

@@ -244,7 +244,7 @@ All events are recorded in /log/tryton_YYYYMMDD.log. The manager correlates syst
 ### 🛡️ Security & Maintenance
 
 - Modular Guard: startcontrol.bat prevents accidental direct execution of sub-scripts, forcing all operations through the secure tcd.bat.
-- Version-Aware: Automatically adapts to **7.8.4, 7.8.5, and beyond** without code changes.
+- Version-Aware: Automatically adapts to **7.8.X and 8.X.X, and beyond** without code changes.
 - Privilege Check: Audits PostgreSQL to ensure the `postgres` user has `Create DB` and `Superuser` roles.
 - Proactive Auditing: Option 5 (errors.bat) automatically filters thousands of log lines to show you only critical FATAL or EXCEPTION errors.
 - Reliable Backups: Option 6 ensures your business data is backed up into a secure file with timestamps.

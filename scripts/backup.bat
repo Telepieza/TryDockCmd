@@ -4,7 +4,7 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
+:: VERSION:   1.1.0
 :: DATE:      23/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Database Hot-Export - Exportar imágenes y Base de datos (BACKUP)
@@ -188,9 +188,31 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
   set "MESSAGE=!BCK_COPY_FILES:DESTINO=%msg_cont%!"
   call :logger "!log_action!" "!MESSAGE!"
   :: Copiamos la carpeta de datos del servidor a la carpeta destino.
-  :: La copia de la carpeta trytond/db es muy importante, son nuestros datos creados en la base de datos.
-  docker cp "%CURRENT_TRYTON%:/var/lib/trytond/" "%destino_mode%" >nul
-  if !errorlevel! NEQ 0 (
+  :: Para evitar errores de symlinks en Windows (privilegios), empaquetamos en un .tar dentro del contenedor primero.
+  :: Esto permite copiar TODA la ruta de forma segura.
+  docker exec "%CURRENT_TRYTON%" tar -cf /tmp/trytond_persist.tar -C /var/lib/trytond . >nul 2>&1
+  if !errorlevel! EQU 0 (
+    docker cp "%CURRENT_TRYTON%:/tmp/trytond_persist.tar" "%destino_mode%\trytond_persist.tar" >nul
+    
+    :: Generar firma MD5
+    call :logger "!log_action!" "!BCK_MD5_GEN!"
+    set "md5_tmp="
+    for /f "skip=1 tokens=*" %%A in ('certutil -hashfile "%destino_mode%\trytond_persist.tar" MD5') do (
+        if not defined md5_tmp (
+            set "md5_tmp=%%A"
+            set "md5_tmp=!md5_tmp: =!"
+            echo !md5_tmp! > "%destino_mode%\trytond_persist.tar.md5"
+        )
+    )
+    
+    docker exec "%CURRENT_TRYTON%" rm /tmp/trytond_persist.tar >nul
+    set "CP_STATUS=0"
+  ) else (
+    :: Fallback: Si tar falla, intentamos cp directo (necesitará privilegios de Admin si hay symlinks)
+    docker cp "%CURRENT_TRYTON%:/var/lib/trytond/" "%destino_mode%" >nul
+    set "CP_STATUS=!errorlevel!"
+  )
+  if !CP_STATUS! NEQ 0 (
     set "MESSAGE=!BCK_COPY_ERROR:DESTINO=%msg_cont%!"
     call :logger "!LOG-ERROR!" "!MESSAGE!"
   )

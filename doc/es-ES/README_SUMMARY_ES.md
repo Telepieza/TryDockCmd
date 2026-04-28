@@ -43,6 +43,17 @@ TryDockCmd is an operations layer for Tryton ERP in Docker, on the Windows opera
 
 ---
 
+# Resumen de Compatibilidad - Tryton 8.0
+
+TryDockCmd ha sido actualizado para soportar los cambios estructurales de la **versión 8 de Tryton**:
+
+1. **Integración de Módulos:** Se ha documentado y gestionado la eliminación de módulos de localización individuales (España/Alemania) para ser incluidos en el módulo `account` base.
+2. **Detección Dinámica:** El motor de configuración (`auto_full_setup.py`) ahora utiliza una lógica de "módulos ancla" para identificar el país de operación sin depender de paquetes que ahora son parte del núcleo.
+3. **Seguridad en Backups:** Implementación de volcados `.tar` para evitar errores de privilegios con enlaces simbólicos en Windows.
+4. **Integridad:** Validación mediante firmas MD5 en los procesos de restauración.
+
+---
+
 - **Autor:** [https://www.telepieza.com]
 - **Colaborador:** Gemini (Google AI)
 - **Plataforma:** Windows (CMD/Batch)
