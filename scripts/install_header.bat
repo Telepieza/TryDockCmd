@@ -4,12 +4,11 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.0
-:: DATE:      28/04/2026
+:: VERSION:   1.1.1
+:: DATE:      29/04/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install header tryton version 7 y 8
 :: ==============================================================================
-setlocal enabledelayedexpansion
 :: Cambia la consola a UTF-8
 chcp 65001 >nul
 :: Analiza si la llamada es del tcd.bat
@@ -48,7 +47,7 @@ set "file_modules=%wfile_modules%%sufijo%%EXT_TXT%"
 set "file_csv_modultable=%wfile_csv_modultable%%sufijo%%EXT_CSV%"
 set "file_sql_exportable=%wfile_sql_exportable%%sufijo%%EXT_SQL%"
 
-set "DB_URI=postgresql://%POSTGRES%:%DB_PASSWORD%@%DB_HOSTNAME%:%DB_PORT%/"
+if "%DB_URI%"=="" set "DB_URI=postgresql://%POSTGRES%:%DB_PASSWORD%@%DB_HOSTNAME%:%DB_PORT%/"
 
 :: 1. Verificar existencia del proyecto tryton en docker
 if /i "%ins_head_action%"=="%APP%" if /i "%CURRENT_TRYTON%"=="" if /i "%CURRENT_POSTGRES%"=="" (

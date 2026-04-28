@@ -1,8 +1,8 @@
 # ===============================================================================
 # PROGRAM:   auto_full_setup.py
 # PROJECT:   Tryton Docker Manager
-# VERSION:   1.1.0
-# DATE:      28/04/2026
+# VERSION:   1.1.1
+# DATE:      29/04/2026
 # LICENSE:   MIT License
 # DESCRIPTION: Enlace TryDockCmd con proteus version 7 y 8
 # ==============================================================================
@@ -78,7 +78,7 @@ MESSAGES = {
         'geo_error1': "Error en script oficial (Código {})",
         'currency_not_found': "Moneda no encontrada: {}",
         'company_not_created': "El asistente no creó la empresa: {}",
-        'admin_lang_skip': "Actualización de idioma admin omitida: {}",
+        'admin_lang_skip': "Actualización de idioma admin omitida o fallida: {}",
         'invoice_seq_missing': "No hay secuencias de factura para el ejercicio.",
         'unsupported_action': "Acción no soportada: {}",
         'journal_created': "Diario contable {} creado.",
@@ -86,7 +86,8 @@ MESSAGES = {
         'vat_skipped_no_account': "No se pudo crear IVA: no hay cuentas contables disponibles.",
         'vat_skipped_bad_type': "No se pudo crear {}: tipo de impuesto no compatible.",
         'vat_skipped_bad_rate': "No se pudo crear {}: campo de porcentaje no compatible.",
-        'vat_created': "IVA España creado para account_es: {}.",
+        'vat_created': "IVA creado para {}: {}.",
+        'admin_lang_set': "Perfil Admin configurado a {}.",
         'vat_already_present': "IVA España ya existente, no recreado: {}."
     },
     'en': {
@@ -123,7 +124,7 @@ MESSAGES = {
         'geo_error1': "Error in official script (Code {})",
         'currency_not_found': "Currency not found: {}",
         'company_not_created': "Company wizard did not create company: {}",
-        'admin_lang_skip': "Admin language update skipped: {}",
+        'admin_lang_skip': "Admin language update skipped or failed: {}",
         'invoice_seq_missing': "No invoice sequence links available for fiscal year.",
         'unsupported_action': "Unsupported action: {}",
         'journal_created': "Accounting journal {} created.",
@@ -131,7 +132,8 @@ MESSAGES = {
         'vat_skipped_no_account': "Could not create VAT: no accounting accounts available.",
         'vat_skipped_bad_type': "Could not create {}: incompatible tax type.",
         'vat_skipped_bad_rate': "Could not create {}: incompatible percentage field.",
-        'vat_created': "Spanish VAT created for account_es: {}.",
+        'vat_created': "VAT created for {}: {}.",
+        'admin_lang_set': "Admin profile set to {}.",
         'vat_already_present': "Spanish VAT already exists, not recreated: {}."
     },
     'fr': {
@@ -168,7 +170,7 @@ MESSAGES = {
         'geo_error1': "Erreur dans le script officiel (Code {})",
         'currency_not_found': "Devise introuvable : {}",
         'company_not_created': "L'assistant n'a pas créé l'entreprise : {}",
-        'admin_lang_skip': "Mise à jour de la langue admin ignorée : {}",
+        'admin_lang_skip': "Mise à jour de la langue admin ignorée ou échouée : {}",
         'invoice_seq_missing': "Aucun lien de séquence de facture disponible pour l'exercice.",
         'unsupported_action': "Action non prise en charge : {}",
         'journal_created': "Journal comptable {} créé.",
@@ -176,7 +178,8 @@ MESSAGES = {
         'vat_skipped_no_account': "Impossible de créer la TVA : aucun compte comptable disponible.",
         'vat_skipped_bad_type': "Impossible de créer {} : type de taxe incompatible.",
         'vat_skipped_bad_rate': "Impossible de créer {} : champ de pourcentage incompatible.",
-        'vat_created': "TVA Espagne créée pour account_es : {}.",
+        'vat_created': "TVA créée pour {} : {}.",
+        'admin_lang_set': "Profil Admin configuré à {}.",
         'vat_already_present': "TVA Espagne déjà existante, non recréée : {}."
     },
     'de': {
@@ -213,7 +216,7 @@ MESSAGES = {
         'geo_error1': "Fehler im offiziellen Skript (Code {})",
         'currency_not_found': "Währung nicht gefunden: {}",
         'company_not_created': "Der Assistent hat das Unternehmen nicht erstellt: {}",
-        'admin_lang_skip': "Admin-Sprachaktualisierung übersprungen: {}",
+        'admin_lang_skip': "Admin-Sprachaktualisierung übersprungen oder fehlgeschlagen: {}",
         'invoice_seq_missing': "Keine Rechnungssequenz-Verknüpfungen für das Geschäftsjahr verfügbar.",
         'unsupported_action': "Nicht unterstützte Aktion: {}",
         'journal_created': "Buchungsjournal {} erstellt.",
@@ -221,7 +224,8 @@ MESSAGES = {
         'vat_skipped_no_account': "MwSt. konnte nicht erstellt werden: keine Buchhaltungskonten verfügbar.",
         'vat_skipped_bad_type': "{} konnte nicht erstellt werden: inkompatibler Steuertyp.",
         'vat_skipped_bad_rate': "{} konnte nicht erstellt werden: inkompatibles Prozentfeld.",
-        'vat_created': "Spanische MwSt. für account_es erstellt: {}.",
+        'vat_created': "MwSt. erstellt für {}: {}.",
+        'admin_lang_set': "Admin-Profil auf {} gesetzt.",
         'vat_already_present': "Spanische MwSt. bereits vorhanden, nicht neu erstellt: {}."
     }
 }
@@ -469,6 +473,8 @@ def setup_or_get_company(company_name, currency_code, db_name, config_file, targ
     
     # Crear el Party ANTES de asignarlo
     party = Party(name=company_name)
+    # Asignar el idioma por defecto de la empresa (Party)
+    party.lang = get_company_language(target_lang)
     party.save() # Si esto falla aquí, usa el bloque 'with cfg.set_context(company=None):' que pusimos antes
     
     company_form = company_config.form
@@ -483,29 +489,30 @@ def setup_or_get_company(company_name, currency_code, db_name, config_file, targ
     return new_company
 
 
-def activate_languages(dependencies):
+def activate_languages(dependencies, target_lang):
     logging.info(msg['lang_phase'])
     Lang = Model.get('ir.lang')
     Module = Model.get('ir.module')
     for code, module_name in dependencies.items():
         if Module.find([('name', '=', module_name), ('state', '=', 'activated')]):
             lang_found = Lang.find([('code', '=', code)])
-            if lang_found:
+            if lang_found and not lang_found[0].translatable:
                 lang = lang_found[0]
-                if not lang.translatable:
-                    logging.info(msg['lang_act'].format(code))
-                    lang.translatable = True
-                    lang.save()
-                active_mods = Module.find([('state', '=', 'activated')])
-                for mod in active_mods: mod.click('upgrade')
+                logging.info(msg['lang_act'].format(code))
+                lang.translatable = True
+                lang.save()
+                # Forzar una actualización de módulos para que las traducciones se apliquen
+                # Esto es más robusto que intentar clickear 'upgrade' en cada módulo individualmente
+                # ya que el Wizard maneja las dependencias.
                 Wizard('ir.module.activate_upgrade').execute('upgrade')
     try:
         admin = Model.get('res.user')(1)
-        es_lang = Lang.find([('code', '=', 'es')])
-        if es_lang:
-            admin.language = es_lang[0]
+        # Usar el idioma objetivo para el usuario admin
+        admin_lang_obj = Lang.find([('code', '=', target_lang)])
+        if admin_lang_obj:
+            admin.language = admin_lang_obj[0]
             admin.save()
-            logging.info(msg['admin_es'])
+            logging.info(msg['admin_lang_set'].format(target_lang))
     except Exception as e:
         logging.debug(msg['admin_lang_skip'].format(str(e)))
 
@@ -762,7 +769,7 @@ def run_setup():
     # ACCIÓN: LANG (Traducciones e Idiomas)
     if 'FULL' in actions or 'LANG' in actions:
         try:
-            activate_languages(chart_mapping)
+            activate_languages(chart_mapping, TARGET_LANG)
         except Exception as e:
              logging.error(msg['lang_error'].format(str(e)))
              logging.shutdown()

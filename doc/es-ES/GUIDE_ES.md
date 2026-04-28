@@ -115,7 +115,7 @@ Tareas principales:
 - **Plataforma:** Windows (CMD/Batch)
 - **Motor:** Docker & Docker Compose
 - **Licencia:** MIT  
-- **Versión del proyecto** v1.0.0 estable
+- **Versión del proyecto** v1.1.0 estable
   
 ---
 

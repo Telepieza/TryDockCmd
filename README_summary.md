@@ -94,7 +94,7 @@ Tryton-Docker-Manager - Making Tryton ERP management easy and secure.
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT  
-- **Project Status:** v1.0.0 Stable
+- **Project Status:** v1.1.0 Stable
   
 ---
 

@@ -78,7 +78,6 @@ The Proteus Engine relies on this file to automatically configure your business 
 [database]
 # Connection URI for the Docker bridge
 uri = postgresql://postgres:YourPassword@tryton-postgres-1:5432/ # <-- Change YourPassword to match the value of the DB_PASSWORD
-path = /var/lib/trytond/db
 
 [company]
 # Business Identity (Read by auto_full_setup.py)
@@ -287,7 +286,7 @@ Tryton-Docker-Manager - Making Tryton ERP management easy and secure.
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT  
-- **Project Status:** v1.0.0 Stable
+- **Project Status:** v1.1.0 Stable
   
 ---
 

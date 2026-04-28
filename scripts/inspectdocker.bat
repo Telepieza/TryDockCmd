@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
-:: DATE:      23/03/2026
+:: VERSION:   1.1.1
+:: DATE:      29/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Check containers - Comprobar contenedores con docker inspect y docker ps -a
 :: =========================================================================================
@@ -16,7 +16,7 @@ chcp 65001 >nul
 set "proyecto=%~1"
 set "idr_action=%~2"
 set /a "wait_service=2"
-call "%DIR_SCRIPT%startcontrol" "%proyecto%"
+call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
 set "PROGRAM=inspectdocker"
 call "%DIR_SCRIPT%message.bat" "%APP%" "%PROGRAM% %idr_action%"
 

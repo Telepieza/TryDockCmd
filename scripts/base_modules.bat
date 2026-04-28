@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.0
-:: DATE:      28/04/2026
+:: VERSION:   1.1.1
+:: DATE:      29/04/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: modulos basicos de trypton version 7 y 8
 :: ==============================================================================
@@ -18,21 +18,22 @@ set "LX="
 set "LL="
 
 :: modulos tryton
-if !TRYTON_MODULE_F1! NEQ "" set "C1=!TRYTON_MODULE_F1!"
-if !TRYTON_MODULE_F1! EQU "" set "C1=country currency company party bank"
-if !TRYTON_MODULE_F2! NEQ "" set "C2=!TRYTON_MODULE_F2!"
-if !TRYTON_MODULE_F2! EQU "" set "C2=product stock"
-if "!TRYTON_MODULE_F3!" NEQ "" (set "C3=!TRYTON_MODULE_F3!") else (set "C3=account account_eu account_product account_invoice account_invoice_stock account_payment account_statement")
-if !TRYTON_MODULE_F4! NEQ "" set "C4=!TRYTON_MODULE_F4!"
-if !TRYTON_MODULE_F4! EQU "" set "C4=sale purchase"
-if !TRYTON_MODULE_F5! NEQ "" set "C5=!TRYTON_MODULE_F5!"
-if !TRYTON_MODULE_F5! EQU "" set "C5=stock_supply purchase_request"
-if !TRYTON_MODULE_F6! NEQ "" set "C6=!TRYTON_MODULE_F6!"
-if !TRYTON_MODULE_F6! EQU "" set "C6=product_image product_attribute product_measurements product_price_list stock_lot"
-if !TRYTON_MODULE_F7! NEQ "" set "C7=!TRYTON_MODULE_F7!"
-if !TRYTON_MODULE_F7! EQU "" set "C7=production production_routing production_work stock_supply_production project timesheet company_work_time carrier stock_shipment_cost sale_shipment_cost incoterm"
-if !TRYTON_MODULE_F8! NEQ "" set "C8=!TRYTON_MODULE_F8!"
-if !TRYTON_MODULE_F8! EQU "" set "C8=dashboard marketing party_relationship party_avatar"
+if "!TRYTON_MODULE_F1!" NEQ "" set "C1=!TRYTON_MODULE_F1!"
+if "!TRYTON_MODULE_F1!" EQU "" set "C1=country currency company party bank"
+if "!TRYTON_MODULE_F2!" NEQ "" set "C2=!TRYTON_MODULE_F2!"
+if "!TRYTON_MODULE_F2!" EQU "" set "C2=product stock"
+if "!TRYTON_MODULE_F3!" NEQ "" set "C3=!TRYTON_MODULE_F3!"
+if "!TRYTON_MODULE_F3!" EQU "" set "C3=account account_product account_invoice account_invoice_stock account_payment account_statement"
+if "!TRYTON_MODULE_F4!" NEQ "" set "C4=!TRYTON_MODULE_F4!"
+if "!TRYTON_MODULE_F4!" EQU "" set "C4=sale purchase"
+if "!TRYTON_MODULE_F5!" NEQ "" set "C5=!TRYTON_MODULE_F5!"
+if "!TRYTON_MODULE_F5!" EQU "" set "C5=stock_supply purchase_request"
+if "!TRYTON_MODULE_F6!" NEQ "" set "C6=!TRYTON_MODULE_F6!"
+if "!TRYTON_MODULE_F6!" EQU "" set "C6=product_image product_attribute product_measurements product_price_list stock_lot"
+if "!TRYTON_MODULE_F7!" NEQ "" set "C7=!TRYTON_MODULE_F7!"
+if "!TRYTON_MODULE_F7!" EQU "" set "C7=production production_routing production_work stock_supply_production project timesheet company_work_time carrier stock_shipment_cost sale_shipment_cost incoterm"
+if "!TRYTON_MODULE_F8!" NEQ "" set "C8=!TRYTON_MODULE_F8!"
+if "!TRYTON_MODULE_F8!" EQU "" set "C8=dashboard marketing party_relationship party_avatar"
 
 set "F1= [1/8] !INSTALL_MODU_PRODC1! (!C1: =, !)"
 set "F2= [2/8] !INSTALL_MODU_PRODC2! (!C2: =, !)"
@@ -44,16 +45,8 @@ set "F7= [7/8] !INSTALL_MODU_PRODC7! (!C7: =, !)"
 set "F8= [8/8] !INSTALL_MODU_PRODC8! (!C8: =, !)"
 
 :: Determine Python version based on Tryton version for module paths
-set "PYTHON_VERSION_DIR="
-if "!CURRENT_VERSION:~0,1!"=="8" (
-  set "PYTHON_VERSION_DIR=python3.13"
-) else if "!CURRENT_VERSION:~0,1!"=="7" (
-  set "PYTHON_VERSION_DIR=python3.11"
-) else (
-  :: Default for older versions or if not detected
-  set "PYTHON_VERSION_DIR=python3.11"
-)
-
+set "PYTHON_VERSION_DIR=python3.11"
+if "!CURRENT_VERSION:~0,1!"=="8" set "PYTHON_VERSION_DIR=python3.13"
 :: Rutas para localizar los módulos en trytond
 if /i "!TRYTON_BASE_IR!" NEQ "" (
   set "BASE_I=!TRYTON_BASE_IR!"
@@ -71,17 +64,18 @@ if /i "!TRYTON_BASE_RES!" NEQ "" (
   set "BASE_R=/usr/local/lib/!PYTHON_VERSION_DIR!/dist-packages/trytond/res"
 )
 
-if !TRYTON_MODULE_D1! NEQ "" set "D1=!TRYTON_MODULE_D1!"
-if !TRYTON_MODULE_D1! EQU "" set "D1=country currency company party bank"
-if !TRYTON_MODULE_D2! NEQ "" set "D2=!TRYTON_MODULE_D2!"
-if !TRYTON_MODULE_D2! EQU "" set "D2=product stock"
-if "!TRYTON_MODULE_D3!" NEQ "" (set "D3=!TRYTON_MODULE_D3!") else (set "D3=account account_payment account_product account_statement account_invoice account_invoice_stock")
-if !TRYTON_MODULE_D4! NEQ "" set "D4=!TRYTON_MODULE_D4!"
-if !TRYTON_MODULE_D4! EQU "" set "D4=sale purchase"
-if !TRYTON_MODULE_D5! NEQ "" set "D5=!TRYTON_MODULE_D5!"
-if !TRYTON_MODULE_D5! EQU "" set "D5=production production_work party_avatar company_work_time timesheet"
-if !TRYTON_MODULE_D6! NEQ "" set "D6=!TRYTON_MODULE_D6!"
-if !TRYTON_MODULE_D6! EQU "" set "D6=project"
+if "!TRYTON_MODULE_D1!" NEQ "" set "D1=!TRYTON_MODULE_D1!"
+if "!TRYTON_MODULE_D1!" EQU "" set "D1=country currency company party bank"
+if "!TRYTON_MODULE_D2!" NEQ "" set "D2=!TRYTON_MODULE_D2!"
+if "!TRYTON_MODULE_D2!" EQU "" set "D2=product stock"
+if "!TRYTON_MODULE_D3!" NEQ "" set "D3=!TRYTON_MODULE_D3!"
+if "!TRYTON_MODULE_D3!" EQU "" set "D3=account account_payment account_product account_statement account_invoice account_invoice_stock"
+if "!TRYTON_MODULE_D4!" NEQ "" set "D4=!TRYTON_MODULE_D4!"
+if "!TRYTON_MODULE_D4!" EQU "" set "D4=sale purchase"
+if "!TRYTON_MODULE_D5!" NEQ "" set "D5=!TRYTON_MODULE_D5!"
+if "!TRYTON_MODULE_D5!" EQU "" set "D5=production production_work party_avatar company_work_time timesheet"
+if "!TRYTON_MODULE_D6!" NEQ "" set "D6=!TRYTON_MODULE_D6!"
+if "!TRYTON_MODULE_D6!" EQU "" set "D6=project"
 
 set "G1= [1/6] !INSTALL_MODU_DEMOC1! (!D1: =, !)"
 set "G2= [2/6] !INSTALL_MODU_DEMOC2! (!D2: =, !)"

@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    [https://www.telepieza.com
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.0
-:: DATE:      28/04/2026
+:: VERSION:   1.1.1
+:: DATE:      29/04/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install trytond tryton version 7 y 8
 :: ==============================================================================
@@ -129,8 +129,8 @@ if /i "%ins_tryton_action%" NEQ "%INS%" (
 call :database_process "YES" "%INS%"
 :: 7.- Instalar modulos
 echo.
-call :logger "%INS%" "[7.-] !INSTALL_MODU_HEAD17!" "3"
-set "COM1=TRYTOND_DATABASE_URI=!DB_URI! trytond-admin -c /etc/trytond.conf -d %DB_NAME%" 
+call :logger "%INS%" "[7.-] !INSTALL_MODU_HEAD17! DB_URI=!DB_URI! DB_NAME=!DB_NAME! DB_EMAIL=!EMAIL!" "3"
+set "COM1=TRYTOND_DATABASE_URI=!DB_URI! trytond-admin -c /etc/trytond.conf -d !DB_NAME!" 
 set "COM2=TRYTONPASSFILE=/tmp/.passwd"
 set "COM3= --email !EMAIL! -vv"
 

@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    [https://www.telepieza.com - Gemini (Google AI)]
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
-:: DATE:      23/03/2026
+:: VERSION:   1.1.1
+:: DATE:      29/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Tryton Docker Manager (TCD)
 :: ==============================================================================
@@ -73,6 +73,7 @@ set "POSTGRES_VERSION=%LATEST%"
 set "SERVER_TARGET=8000"
 set "SERVER_PUBLISHED=8000"
 set "DB_NAME_DEMO=tryton_demo"
+set "DB_URI="
 :: inspectdocker.bat localiza en docker los nombres de los contenedores
 set "CURRENT_TRYTON="
 set "CURRENT_CRON="
@@ -185,14 +186,19 @@ if not "%MESSAGE%"=="" (
    call :logger "%ERR%" "%MESSAGE%"
    pause & goto :exit
 )
-call :logger "%TXT%" "[+] 7.-!LOG_INFO_DATA! !WORD_ROUTE!: %DIR_CONFIG%%CONF_FILE_TRY%" "3"
-if exist "%DIR_CONFIG%%CONF_FILE_TRY%" (
-  for /f "usebackq tokens=1,* delims==" %%A in ("%DIR_CONFIG%%CONF_FILE_TRY%") do (
-    set "K=%%A"
-    set "V=%%B"
-    :: Limpieza eficiente de espacios
-    for /f "tokens=* delims= " %%i in ("!K!") do set "K=%%i"
-    for /f "tokens=* delims= " %%i in ("!V!") do set "V=%%i"
+set "origen=%DIR_CONFIG%%CONF_FILE_TRY%"
+call :logger "%TXT%" "[+] 7.-!LOG_INFO_DATA! !WORD_ROUTE!: %origen%" "3"
+if exist "!origen!" (
+  for /f "usebackq tokens=1,* delims==" %%a in ("!origen!") do (
+    set "K=%%a"
+    set "V=%%b"
+    :: Ignorar líneas vacías o comentarios
+    if not "!K!"=="" if not "!K:~0,1!"==";" if not "!K:~0,1!"=="#" if not "!K:~0,1!"=="[" (
+      :: Eliminamos TODOS los espacios de la clave (K)
+      set "K=!K: =!"
+      :: Eliminamos solo espacios iniciales del valor (V)
+      for /f "tokens=* delims= " %%i in ("!V!") do set "V=%%i"
+      :: Asignación de variables
       if /i "!K!"=="name" set "CURRENT_COMPANY_NAME=!V!"
       if /i "!K!"=="currency" set "CURRENT_COMPANY_CURRENCY=!V!"
       if /i "!K!"=="journal_code" set "CURRENT_JOURNAL_CODE=!V!"
@@ -200,15 +206,14 @@ if exist "%DIR_CONFIG%%CONF_FILE_TRY%" (
       if /i "!K!"=="vat_rates" set "CURRENT_VAT_RATES=!V!"
       if /i "!K!"=="uri"       set "CURRENT_URI=!V!"
     )
+  )
 )
-
 :: Validar si se cargaron los datos, si no, usar fallbacks de seguridad
 if "!CURRENT_COMPANY_NAME!"=="" set "CURRENT_COMPANY_NAME=!WORD_COMPANY!"
 if "!CURRENT_COMPANY_CURRENCY!"=="" set "CURRENT_COMPANY_CURRENCY=EUR"
 if "!CURRENT_JOURNAL_CODE!"=="" set "CURRENT_JOURNAL_CODE=GEN"
 if "!CURRENT_JOURNAL_NAME!"=="" set "CURRENT_JOURNAL_NAME=!WORD_GEN_DIARY!"
 if "!CURRENT_VAT_RATES!"=="" set "CURRENT_VAT_RATES=!WORD_VAT_RATES!"
-
 set "action_ins=%INS%"
 :verify_docker
   set "LOAD_FILE=0"
