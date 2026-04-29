@@ -1,3 +1,4 @@
+# Tryton 29/04/2026 Version V7/V8
 services:
   server:
     image: tryton/tryton:${VERSION:-latest}
