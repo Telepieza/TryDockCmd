@@ -4,7 +4,7 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.0
+:: VERSION:   1.1.25
 :: DATE:      24/03/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install trytond tryton version 7 y 8
@@ -27,6 +27,10 @@ set "BASE_MODULES_FILTERED=0"
 :: 5.- Localizar los modulos de tryton (Fuera de setlocal para que las variables LL, LX, C1... persistan)
 call "%DIR_SCRIPT%message.bat" "%CHECK%" "!INSTALL_MODU_35!"
 call "%DIR_SCRIPT%base_modules.bat" "%proyecto%" "%ins_tryton_action%"
+
+call :logger "%CHECK%" "BASE_I:[!BASE_I!] BASE_M:[!BASE_M!] BASE_R:[!BASE_R!]" 
+call :logger "%CHECK%" "!WORD_VERSION!:[!CURRENT_VERSION!] TRYTON_BASE_MODULE:[!TRYTON_BASE_MODULE!]" 
+call :logger "%CHECK%" "LX:[!LX!] LL:[!LL!]" 
 
 set "COM1=TRYTOND_DATABASE_URI=!DB_URI! trytond-admin -c /etc/trytond.conf -d %DB_NAME%"
 set "COM2=TRYTONPASSFILE=/tmp/.passwd"

@@ -4,7 +4,7 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.0
+:: VERSION:   1.1.25
 :: DATE:      28/04/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install copy file container tryton version 7 y 8
@@ -21,6 +21,31 @@ set "log_action=%APP%"
 call "%DIR_SCRIPT%startcontrol.bat" "%proyecto%"
 call "%DIR_SCRIPT%message.bat" "%APP%" "install_copyfile %ins_file_action%"
 if /i "%ins_file_action%"=="%INS%" set "log_action=%INS%"
+
+:: Check if the custom modules directory exists
+call "%DIR_SCRIPT%message.bat" "%log_action%" "!INSTALL_MODU_HEAD71!" "3" 
+set "TRYTON_BASE_MODULE=!TRYTON_BASE_MODULE_V7!"
+if "!CURRENT_VERSION:~0,1!"=="8"  set "TRYTON_BASE_MODULE=!TRYTON_BASE_MODULE_V8!"
+  :: Iterate through each subdirectory (module) in CUSTOM_MODULES_DIR
+  for /d %%M in ("!DIR_MODULES!\*") do (
+    set "MODULE_NAME=%%~nM"
+    set "CONTAINER_MODULE_PATH=!TRYTON_BASE_MODULE!/!MODULE_NAME!"
+    :: Check if the module exists in the container
+    docker exec -u 0 !CURRENT_TRYTON! test -d "!CONTAINER_MODULE_PATH!" >nul 2>&1
+    if !errorlevel! NEQ 0 (
+        call "%DIR_SCRIPT%message.bat" "%log_action%" "!WORD_MODULE! !MODULE_NAME! !INSTALL_MODU_HEAD70! !TRYTON_BASE_MODULE!" "3"
+        :: Copy the module from host to container
+        docker cp "%%M" !CURRENT_TRYTON!:!CONTAINER_MODULE_PATH!
+        if !errorlevel! EQU 0 (
+            :: Ajuste de permisos y propietario para asegurar que Python pueda importar el módulo
+            docker exec -u 0 !CURRENT_TRYTON! chown -R root:root "!CONTAINER_MODULE_PATH!" >nul 2>&1
+            docker exec -u 0 !CURRENT_TRYTON! chmod -R 755 "!CONTAINER_MODULE_PATH!" >nul 2>&1           
+            call "%DIR_SCRIPT%message.bat" "!log_action!" "!INSTALL_MODU_HEAD72! '!MODULE_NAME!' !INSTALL_MODU_HEAD74!" "3"
+        ) else (
+            call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!INSTALL_MODU_HEAD73! '!MODULE_NAME!' !INSTALL_MODU_HEAD74!" "3"
+        )
+    ) 
+)
 
 set "lorigenpy=!DIR_PYTHON!auto_full_setup.py"
 set "sdestinopy=!CURRENT_TRYTON!:/tmp/auto_full_setup.py"

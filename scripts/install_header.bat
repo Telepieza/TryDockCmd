@@ -3,8 +3,8 @@
 :: PROGRAM:   install.header.bat
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
-:: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.1
+:: COLLABORATOR: Gemini Code Assist
+:: VERSION:   1.1.25
 :: DATE:      29/04/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install header tryton version 7 y 8

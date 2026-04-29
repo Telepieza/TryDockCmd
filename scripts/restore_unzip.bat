@@ -4,7 +4,7 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.0
+:: VERSION:   1.1.25
 :: DATE:      28/04/2026
 :: LICENSE:   MIT License version 7 y 8
 :: DESCRIPTION: Database Hot-Import - Unzip the files and folder.

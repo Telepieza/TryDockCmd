@@ -4,8 +4,8 @@ REM PROGRAM:   restore_sql.bat
 REM PROJECT:   Tryton Docker Manager
 REM AUTHOR: Telepieza
 REM COLLABORATOR: Gemini (Google AI)
-REM VERSION:   1.0.0
-REM DATE:      23/03/2026
+REM VERSION:   1.1.25
+REM DATE:     29/04/2026
 REM LICENSE:   MIT License
 REM DESCRIPTION: Database Hot-Import - Import file sql (RESTORE)
 REM ==============================================================================

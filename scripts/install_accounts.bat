@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.0.0
-:: DATE:      23/03/2026
+:: VERSION:   1.1.25
+:: DATE:     29/04/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install accounts (Accounting data) 
 :: ==============================================================================

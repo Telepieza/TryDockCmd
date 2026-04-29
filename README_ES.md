@@ -158,8 +158,8 @@ Tryton-Docker-Manager: Facilita y protege la gestión de Tryton ERP.
 - __Colaborador:__ Gemini (Google AI)
 - __Plataforma:__ Windows (CMD/Batch)
 - __Motor:__ Docker & Docker Compose
-- __Licencia:__ MIT  
-- __Versión del proyecto:__ v1.1.0 estable
+- __Licencia:__ MIT
+- __Versión del proyecto:__ v1.1.24 estable
   
 ---
 

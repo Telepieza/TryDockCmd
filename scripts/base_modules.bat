@@ -3,8 +3,8 @@
 :: PROGRAM:   base_modules
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
-:: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.1
+:: COLLABORATOR: Gemini Code Assist
+:: VERSION:   1.1.25
 :: DATE:      29/04/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: modulos basicos de trypton version 7 y 8
@@ -23,7 +23,10 @@ if "!TRYTON_MODULE_F1!" EQU "" set "C1=country currency company party bank"
 if "!TRYTON_MODULE_F2!" NEQ "" set "C2=!TRYTON_MODULE_F2!"
 if "!TRYTON_MODULE_F2!" EQU "" set "C2=product stock"
 if "!TRYTON_MODULE_F3!" NEQ "" set "C3=!TRYTON_MODULE_F3!"
-if "!TRYTON_MODULE_F3!" EQU "" set "C3=account account_product account_invoice account_invoice_stock account_payment account_statement"
+if "!TRYTON_MODULE_F3!" EQU "" (
+    set "C3=account account_product account_invoice account_invoice_stock account_payment account_statement"
+    if "!CURRENT_VERSION:~0,1!"=="7" set "C3=!C3! account_eu"
+)
 if "!TRYTON_MODULE_F4!" NEQ "" set "C4=!TRYTON_MODULE_F4!"
 if "!TRYTON_MODULE_F4!" EQU "" set "C4=sale purchase"
 if "!TRYTON_MODULE_F5!" NEQ "" set "C5=!TRYTON_MODULE_F5!"
@@ -47,29 +50,37 @@ set "F8= [8/8] !INSTALL_MODU_PRODC8! (!C8: =, !)"
 :: Determine Python version based on Tryton version for module paths
 set "PYTHON_VERSION_DIR=python3.11"
 if "!CURRENT_VERSION:~0,1!"=="8" set "PYTHON_VERSION_DIR=python3.13"
+set "BASE_PATH=/usr/local/lib/"!PYTHON_VERSION_DIR!"/dist-packages/trytond"
 :: Rutas para localizar los módulos en trytond
-if /i "!TRYTON_BASE_IR!" NEQ "" (
-  set "BASE_I=!TRYTON_BASE_IR!"
-) else (
-  set "BASE_I=/usr/local/lib/!PYTHON_VERSION_DIR!/dist-packages/trytond/ir"
+
+if /i "!BASE_I!" EQU "" (
+  set "BASE_I=!TRYTON_BASE_IR_V7!"
+  if "!CURRENT_VERSION:~0,1!"=="8" set "BASE_I=!TRYTON_BASE_IR_V8!"
+  if /i "!BASE_I!" EQU "" set "BASE_I=!BASE_PATH!/ir"
+)  
+if /i "!BASE_M!" EQU "" (
+  set "BASE_M=!TRYTON_BASE_MODULE_V7!"
+  if "!CURRENT_VERSION:~0,1!"=="8" set "BASE_M=!TRYTON_BASE_MODULE_V8!"
+  if /i "!BASE_M!" EQU "" set "BASE_M=!BASE_PATH!/modules"
 )
-if /i "!TRYTON_BASE_MODULE!" NEQ "" (
-  set "BASE_M=!TRYTON_BASE_MODULE!"
-) else (
-  set "BASE_M=/usr/local/lib/!PYTHON_VERSION_DIR!/dist-packages/trytond/modules"
+
+if /i "!BASE_R!" EQU "" (
+  set "BASE_R=!TRYTON_BASE_RES_V7!"
+  if "!CURRENT_VERSION:~0,1!"=="8" set "BASE_R=!TRYTON_BASE_RES_V8!"
+  if /i "!BASE_R!" EQU "" set "BASE_M=!BASE_PATH!/res"
 )
-if /i "!TRYTON_BASE_RES!" NEQ "" (
-  set "BASE_R=!TRYTON_BASE_RES!"
-) else (
-  set "BASE_R=/usr/local/lib/!PYTHON_VERSION_DIR!/dist-packages/trytond/res"
-)
+
+if /i "!TRYTON_BASE_MODULE!" EQU "" set "TRYTON_BASE_MODULE=!BASE_M!"
 
 if "!TRYTON_MODULE_D1!" NEQ "" set "D1=!TRYTON_MODULE_D1!"
 if "!TRYTON_MODULE_D1!" EQU "" set "D1=country currency company party bank"
 if "!TRYTON_MODULE_D2!" NEQ "" set "D2=!TRYTON_MODULE_D2!"
 if "!TRYTON_MODULE_D2!" EQU "" set "D2=product stock"
 if "!TRYTON_MODULE_D3!" NEQ "" set "D3=!TRYTON_MODULE_D3!"
-if "!TRYTON_MODULE_D3!" EQU "" set "D3=account account_payment account_product account_statement account_invoice account_invoice_stock"
+if "!TRYTON_MODULE_D3!" EQU "" (
+    set "D3=account account_payment account_product account_statement account_invoice account_invoice_stock"
+    if "!CURRENT_VERSION:~0,1!"=="7" set "D3=!D3! account_eu"
+)
 if "!TRYTON_MODULE_D4!" NEQ "" set "D4=!TRYTON_MODULE_D4!"
 if "!TRYTON_MODULE_D4!" EQU "" set "D4=sale purchase"
 if "!TRYTON_MODULE_D5!" NEQ "" set "D5=!TRYTON_MODULE_D5!"

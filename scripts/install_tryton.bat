@@ -3,8 +3,8 @@
 :: PROGRAM:   install.tryton.bat
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    [https://www.telepieza.com
-:: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.1
+:: COLLABORATOR: Gemini Code Assist
+:: VERSION:   1.1.25
 :: DATE:      29/04/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install trytond tryton version 7 y 8
@@ -30,6 +30,10 @@ set "BASE_MODULES_FILTERED=0"
 :: 5.- Localizar los modulos de tryton (Fuera de setlocal para que las variables LL, LX, C1... persistan)
 call "%DIR_SCRIPT%message.bat" "%CHECK%" "!INSTALL_MODU_35!"
 call "%DIR_SCRIPT%base_modules.bat" "%proyecto%" "%ins_tryton_action%"
+
+call :logger "%CHECK%" "BASE_I:[!BASE_I!] BASE_M:[!BASE_M!] BASE_R:[!BASE_R!]" 
+call :logger "%CHECK%" "!WORD_VERSION!:[!CURRENT_VERSION!] TRYTON_BASE_MODULE:[!TRYTON_BASE_MODULE!]" 
+call :logger "%CHECK%" "LX:[!LX!] LL:[!LL!]" 
 
 :: Si es de install.bat seguimos en el proceso de instalacion
 if /i "%ins_tryton_action%"=="%INS%" (

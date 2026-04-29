@@ -1,8 +1,8 @@
 # ===============================================================================
 # PROGRAM:   auto_full_setup.py
 # PROJECT:   Tryton Docker Manager
-# VERSION:   1.1.1
-# DATE:      29/04/2026
+# VERSION:   1.1.24
+# DATE:      02/05/2026
 # LICENSE:   MIT License
 # DESCRIPTION: Enlace TryDockCmd con proteus version 7 y 8
 # ==============================================================================
@@ -63,7 +63,8 @@ MESSAGES = {
         'ctx_upd': "Contexto actualizado para {}. Moneda: {}",
         'admin_es': "Perfil Admin set en Español.",
         'error': "ERROR EN EL SETUP: {}",
-        'read_error': "Error en lectura de configuración: {}",
+        'acc_template_not_found': "Plantilla de cuentas '{}' no encontrada para '{}'.",
+        'acc_templates_available': "Plantillas de cuentas raíz disponibles: {}",
         'acc_error': "Error en el plan contable {}: {}",
         'conf_phase': "--- FASE DE CONFIGURACIÓN ---",
         'end_phase': "--- FASE {} FINALIZADA ---",
@@ -109,6 +110,8 @@ MESSAGES = {
         'ctx_upd': "Context updated for {}. Currency: {}",
         'admin_es': "Admin profile set to Spanish.",
         'error': "SETUP ERROR: {}",
+        'acc_template_not_found': "Account template '{}' not found for '{}'.",
+        'acc_templates_available': "Available root account templates: {}",
         'read_error': "Configuration reading error: {}",
         'acc_error': "Error in accounting plan {}: {}",
         'conf_phase': "--- CONFIGURATION PHASE ---",
@@ -155,6 +158,8 @@ MESSAGES = {
         'ctx_upd': "Contexte mis à jour pour {}. Devise: {}",
         'admin_es': "Profil Admin configuré en Espagnol.",
         'error': "ERREUR DE CONFIGURATION: {}",
+        'acc_template_not_found': "Modèle de compte '{}' introuvable pour '{}'.",
+        'acc_templates_available': "Modèles de comptes racine disponibles: {}",
         'read_error': "Erreur de lecture de la configuration: {}",
         'acc_error': "Erreur dans le plan comptable {}: {}",
         'conf_phase': "--- PHASE DE CONFIGURATION ---",
@@ -201,6 +206,8 @@ MESSAGES = {
         'ctx_upd': "Kontext aktualisiert für {}. Währung: {}",
         'admin_es': "Admin-Profil auf Spanisch gesetzt.",
         'error': "SETUP-FEHLER: {}",
+        'acc_template_not_found': "Kontenvorlage '{}' für '{}' nicht gefunden.",
+        'acc_templates_available': "Verfügbare Root-Kontenvorlagen: {}",
         'read_error': "Fehler beim Lesen der Konfiguration: {}",
         'acc_error': "Fehler im Kontenplan {}: {}",
         'conf_phase': "--- KONFIGURATIONSPHASE ---",
@@ -414,7 +421,6 @@ def get_company_language(lang_code):
     return found[0] if found else None
 
 def connect_and_init(db_name, config_file):
-    trytond_config.update_etc(config_file)
     for attempt in range(1, 11):
         try:
             p_config.set_trytond(db_name, config_file=config_file)
@@ -570,25 +576,66 @@ def setup_accounts(company, dependencies):
     Account = Model.get('account.account')
     Module = Model.get('ir.module')
     Party = Model.get('party.party')
+
+    # Diagnóstico: Listar solo las plantillas raíz disponibles para depuración
+    try:
+        all_templates = AccountTemplate.find([('parent', '=', None)])
+        template_names = [t.name for t in all_templates]
+        logging.info(msg['acc_templates_available'].format(template_names))
+    except Exception as e:
+        logging.debug("Error listing templates: %s", str(e))
+
+    # Mapeo multiversión: busca nombres de módulos tradicionales o integrados en el core (V8)
     mapping = {
-        'es': {'name': '%Pymes%', 'receivable': '4300', 'payable': '4000'},
-        'fr': {'name': '%Plan comptable général%', 'receivable': '411', 'payable': '401'},
-        'de': {'name': '%SKR03%', 'receivable': '10000', 'payable': '70000'}
+        'es': {'names': ['%Pymes%', '%Normal%', '%español%', '%Plan de cuentas universal%'], 'receivable': ['4300', 'Cuentas a cobrar'], 'payable': ['4000', 'Cuentas a pagar']},
+        'fr': {'names': ['%Plan comptable général%', '%français%', '%Plan comptable universel%'], 'receivable': ['411', 'Comptes clients'], 'payable': ['401', 'Comptes fournisseurs']},
+        'de': {'names': ['%SKR03%', '%Deutscher%', '%Universal-Kontenplan%'], 'receivable': ['10000', 'Forderungen'], 'payable': ['70000', 'Verbindlichkeiten']}
     }
     for code, mod_name in dependencies.items():
-        if not Module.find([('name', '=', mod_name), ('state', '=', 'activated')]): continue
+        # Verificar estado del módulo de localización
+        mod_list = Module.find([('name', '=', mod_name)])
+        if not mod_list or mod_list[0].state != 'activated':
+            status = mod_list[0].state if mod_list else "no instalado"
+            logging.warning(f"Fase ACC: El módulo '{mod_name}' está en estado '{status}'. No se pueden crear cuentas para '{code}'.")
+            continue
+
         conf = mapping[code]
+        templates = []
         try:
-            templates = AccountTemplate.find([('parent', '=', None), ('name', 'ilike', conf['name'])])
-            if not templates: continue
+            for t_name in conf['names']:
+                # Intento 1: Plantilla raíz
+                templates = AccountTemplate.find([('parent', '=', None), ('name', 'ilike', t_name)])
+                # Intento 2: Búsqueda global (V8)
+                if not templates:
+                    templates = AccountTemplate.find([('name', 'ilike', t_name)])
+                
+                if templates:
+                    logging.info(f"Localizada plantilla '{templates[0].name}' para '{code}'.")
+                    break
+
+            if not templates:
+                logging.warning(msg['acc_template_not_found'].format(conf['names'][0], code))
+                continue
             create_chart = Wizard('account.create_chart')
             create_chart.execute('account')
             create_chart.form.account_template = templates[0]
             create_chart.form.company = company
             try: create_chart.execute('create_account')
             except: pass
-            rec = Account.find([('code', '=', conf['receivable']), ('company', '=', company.id)])
-            pay = Account.find([('code', '=', conf['payable']), ('company', '=', company.id)])
+            
+            # Búsqueda flexible de cuentas por código o nombre (para Plan Universal)
+            major_ver = int(trytond.__version__.split('.')[0])
+            attr_filter = ('kind', '!=', 'view') if major_ver >= 8 else ('type', '!=', None)
+            
+            rec = []
+            for r_term in conf['receivable']:
+                rec = Account.find([('company', '=', company.id), attr_filter, ('code', '=', r_term)]) or Account.find([('company', '=', company.id), attr_filter, ('name', 'ilike', f"%{r_term}%")])
+                if rec: break
+            pay = []
+            for p_term in conf['payable']:
+                pay = Account.find([('company', '=', company.id), attr_filter, ('code', '=', p_term)]) or Account.find([('company', '=', company.id), attr_filter, ('name', 'ilike', f"%{p_term}%")])
+                if pay: break
+                
             if rec and pay:
                 for p in Party.find([]):
                     try:
@@ -620,9 +667,31 @@ def _safe_set_any_field(record, field_names, values):
             return field_name, applied
     return None, None
 
+# Función mejorada para verificar y activar módulos
 def is_module_activated(module_name):
     Module = Model.get('ir.module')
-    return bool(Module.find([('name', '=', module_name), ('state', '=', 'activated')], limit=1))
+    mod_list = Module.find([('name', '=', module_name)])
+    if not mod_list:
+        logging.debug(f"Verificación de módulo: '{module_name}' no encontrado.")
+        return False
+    
+    module_record = mod_list[0]
+    if module_record.state != 'activated':
+        logging.info(f"Verificación de módulo: '{module_name}' está en estado '{module_record.state}'. Intentando activarlo.")
+        try:
+            # Usar el wizard para activar el módulo
+            Wizard('ir.module.activate_upgrade').execute('activate', [module_record])
+            module_record = Module.find([('name', '=', module_name)])[0] # Volver a obtener el estado
+            if module_record.state == 'activated':
+                logging.info(f"Verificación de módulo: '{module_name}' activado exitosamente.")
+                return True
+            else:
+                logging.warning(f"Verificación de módulo: Falló la activación de '{module_name}'. Estado actual: '{module_record.state}'.")
+                return False
+        except Exception as e:
+            logging.error(f"Verificación de módulo: Error al activar '{module_name}': {e}.")
+            return False
+    return True
 
 def ensure_general_journal(company, company_conf):
     if not is_module_activated('account'):
@@ -643,29 +712,41 @@ def ensure_general_journal(company, company_conf):
 
 def _pick_account_for_taxes(company):
     Account = Model.get('account.account')
-    account = Account.find([('company', '=', company.id), ('code', '=', '47700000')], limit=1)
-    if account:
-        return account[0]
-    account = Account.find([('company', '=', company.id), ('code', '=', '477')], limit=1)
-    if account:
-        return account[0]
-    account = Account.find([('company', '=', company.id), ('code', 'like', '477%')], limit=1)
-    if account:
-        return account[0]
-    account = Account.find([('company', '=', company.id), ('code', 'like', '470%')], limit=1)
-    if account:
-        return account[0]
-    account = Account.find([('company', '=', company.id), ('code', 'like', '7%')], limit=1)
-    if account:
-        return account[0]
-    account = Account.find([('company', '=', company.id), ('code', 'like', '6%')], limit=1)
-    return account[0] if account else None
+    major_ver = int(trytond.__version__.split('.')[0])
+    # Verificación estricta de campos: Tryton 7 usa 'type', Tryton 8+ usa 'kind'
+    attr_filter = ('kind', '!=', 'view') if major_ver >= 8 else ('type', '!=', None)
+
+    # 1. Prioridad: Códigos estándar del PGC que permitan asientos
+    # Nota: Usamos 'code', '=', valor para ser más precisos en localizaciones reales
+    for code in ['47700000', '47200000', '477', '472']:
+        acc = Account.find([('company', '=', company.id), attr_filter, ('code', '=', code)], limit=1)
+        if acc: 
+            logging.info(f"Fase TAX: Cuenta detectada por código '{code}': {acc[0].name}")
+            return acc[0]
+    
+    # 2. Búsqueda por nombre (PGC Pymes/Normal inyectado)
+    for name in ['%Hacienda Pública, IVA repercutido%', '%Hacienda Pública, IVA soportado%']:
+        acc = Account.find([('company', '=', company.id), attr_filter, ('name', 'ilike', name)], limit=1)
+        if acc:
+            logging.info(f"Fase TAX: Cuenta detectada por nombre '{name}': {acc[0].name}")
+            return acc[0]
+    
+    # 3. Fallback para Plan Universal: Buscar por nombre "IVA" o "Tax" que acepte apuntes
+    for term in ['%IVA%', '%Tax%', '%Impuesto%', '%Taxes%']:
+        acc = Account.find([('company', '=', company.id), attr_filter, ('name', 'ilike', term)], limit=1)
+        if acc: return acc[0]
+
+    # 3. Último recurso: Cualquier cuenta de pasivo/gasto que no sea vista
+    acc = Account.find([('company', '=', company.id), attr_filter], limit=1)
+    return acc[0] if acc else None
 
 def ensure_spanish_vat_taxes(company, company_conf):
     # Detectamos la versión para decidir qué módulo usar como ancla de localización
     major_ver = int(trytond.__version__.split('.')[0])
-    proxy_es = 'account_es' if major_ver < 8 else 'account_statement_sepa'
-    logging.info(f"Detección de impuestos - Major Ver: {major_ver}, Ancla ES: {proxy_es}")
+    # En V8+, account_es es opcional pero necesario para tener cuentas imputables.
+    # Si no está inyectado, omitimos para evitar errores de dominio con el Plan Universal.
+    proxy_es = 'account_es'
+    logging.info(f"Detección de impuestos - Major Ver: {major_ver}, Requisito: {proxy_es}")
 
     if not is_module_activated(proxy_es):
         logging.info(msg['vat_skipped_no_module'])
@@ -713,7 +794,7 @@ def ensure_spanish_vat_taxes(company, company_conf):
         tax.save()
         created.append(amount)
     if created:
-        logging.info(msg['vat_created'].format("/".join(created)))
+        logging.info(msg['vat_created'].format(company.rec_name, "/".join(created)))
     if already_present:
         logging.info(msg['vat_already_present'].format("/".join(already_present)))
 
@@ -737,8 +818,8 @@ def run_setup():
 
     # Mapeo dinámico: Si la versión es nueva, usamos 'anclas'. Si es antigua, los módulos originales.
     chart_mapping = {
-        'es': 'account_es' if major_ver < 8 else 'account_statement_sepa',
-        'fr': 'account_fr' if major_ver < 9 else 'party_siret',
+        'es': 'account_es', # Forzamos account_es para evitar planes "vacíos" en V8
+        'fr': 'account_fr' if major_ver < 8 else 'party_siret',
         'de': 'account_de_skr03' if major_ver < 8 else 'account_statement_mt940'
     }
     logging.info(f"Módulos ancla de localización seleccionados (Major Ver: {major_ver}): {chart_mapping}")
@@ -758,13 +839,9 @@ def run_setup():
             run_geodata_import(DB_NAME, CONF_FILE, TARGET_LANG)
         except RuntimeError as e:
             logging.error(msg['geo_error'].format(str(e)))
-            logging.shutdown()
-            sys.exit(20) # <--- Código específico para GEO
         except Exception as e:
             # Captura cualquier otro error inesperado (fallo de red, disco lleno, etc.)
             logging.error(msg['geo_error'].format(str(e)))
-            logging.shutdown()
-            sys.exit(21)
         
     # ACCIÓN: LANG (Traducciones e Idiomas)
     if 'FULL' in actions or 'LANG' in actions:
@@ -772,8 +849,6 @@ def run_setup():
             activate_languages(chart_mapping, TARGET_LANG)
         except Exception as e:
              logging.error(msg['lang_error'].format(str(e)))
-             logging.shutdown()
-             sys.exit(30) # <--- Código específico para LANG
 
     # ACCIÓN: ACC (Solo contabilidad y empresa) o FULL
     if 'FULL' in actions or 'ACC' in actions:
@@ -787,8 +862,6 @@ def run_setup():
                 create_fiscalyear(year, company)
         except Exception as e:
             logging.exception(msg['error'].format(str(e)))
-            logging.shutdown()
-            sys.exit(40) # <--- Código específico para ACC
 
     # ACCIÓN: TAX (IVA España) o FULL
     if 'FULL' in actions or 'TAX' in actions:
@@ -799,8 +872,6 @@ def run_setup():
             ensure_spanish_vat_taxes(company, conf_data)
         except Exception as e:
             logging.exception(msg['error'].format(str(e)))
-            logging.shutdown()
-            sys.exit(50) # <--- Código específico para TAX
 
     valid_actions = {'FULL', 'GEO', 'LANG', 'ACC', 'TAX'}
     invalid_actions = sorted([item for item in actions if item not in valid_actions])

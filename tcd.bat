@@ -3,9 +3,9 @@
 :: PROGRAM:   tcd.bat
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    [https://www.telepieza.com - Gemini (Google AI)]
-:: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.1
-:: DATE:      29/03/2026
+:: COLLABORATOR: Gemini Code Assist
+:: VERSION:   1.1.25
+:: DATE:      29/04/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Tryton Docker Manager (TCD)
 :: ==============================================================================
@@ -30,6 +30,7 @@ set "DIR_RESTORE=%DIR_HOME%restore"
 set "DIR_LANG=%DIR_HOME%lang"
 set "DIR_TMP=%DIR_HOME%tmp"
 set "DIR_SQL=%DIR_HOME%sql"
+set "DIR_MODULES=%DIR_HOME%modules"
 set "DIR_CONFIG=%DIR_HOME%config\"
 set "DIR_PYTHON=%DIR_HOME%python\"
 set "DIR_SCRIPT=%DIR_HOME%scripts\"
@@ -116,17 +117,19 @@ set "C_M_YELLOW="
 set "C_M_GREEN="
 set "C_M_RESET="
 set "ANSI_SUPPORTED=0"
+set "TRYTON_BASE_MODULE="
 set "BASE_MODULES_FILTERED=0"
 :: Crear directorios si no existen
 if not exist "%DIR_LOG%"    mkdir "%DIR_LOG%"
 if not exist "%DIR_BACKUP%" mkdir "%DIR_BACKUP%"
-if not exist "%DIR_RESTORE%" mkdir "%DIR_RESTORE%"
 if not exist "%DIR_LANG%"   mkdir "%DIR_LANG%"
 if not exist "%DIR_SCRIPT%" mkdir "%DIR_SCRIPT%"
 if not exist "%DIR_SQL%"    mkdir "%DIR_SQL%"
 if not exist "%DIR_CONFIG%" mkdir "%DIR_CONFIG%"
 if not exist "%DIR_TMP%"    mkdir "%DIR_TMP%"
 if not exist "%DIR_PYTHON%" mkdir "%DIR_PYTHON%"
+if not exist "%DIR_RESTORE%" mkdir "%DIR_RESTORE%"
+if not exist "%DIR_MODULES%" mkdir "%DIR_MODULES%"
 :: graba en el log fecha hora y nombre del script de arranque
 
 set "PROGRAM=tcd"

@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.1
-:: DATE:      29/03/2026
+:: VERSION:   1.1.11
+:: DATE:      29/04/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Check containers - Comprobar contenedores con docker inspect y docker ps -a
 :: =========================================================================================
@@ -86,6 +86,14 @@ if "%exist_imgpostgres%"=="1" goto :error
 if "%exist_tryton%"=="1" goto :error 
 if "%exist_postgres%"=="1" goto :error 
 if "%exist_cron%"=="1" goto :error 
+
+:: 3.1 Auditoría de ADN (Pip packages) - Solo si el contenedor está corriendo
+docker ps -q --filter "name=%conw_server%" | findstr "^" >nul
+if %errorlevel% equ 0 (
+    call "%DIR_SCRIPT%message.bat" "%CHECK%" "--- AUDITORÍA DE PAQUETES PIP (V8) ---" "3"
+    docker exec %conw_server% pip list | findstr "trytond_account trytond_country"
+    echo.
+)
 
 :: 4. MÉTODO 1: Búsqueda por Label (El más profesional para Docker Compose). Docker Compose etiqueta los contenedores con el nombre del proyecto.
 
