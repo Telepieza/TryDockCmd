@@ -1,4 +1,4 @@
-# 🛡️ Tryton ERP Docker Manager v1.0.0
+# 🛡️ Tryton ERP Docker Manager v1.1.25
 
 TryDockCmd es una capa de operaciones para Tryton ERP en Docker, en el sistema operativo Windows.
 
@@ -94,7 +94,7 @@ Tryton-Docker-Manager - Making Tryton ERP management easy and secure.
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT  
-- **Project Status:** v1.1.0 Stable
+- **Project Status:** v1.1.25 Stable
   
 ---
 

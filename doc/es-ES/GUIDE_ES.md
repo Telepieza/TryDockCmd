@@ -18,6 +18,7 @@ Valores mínimos:
 ```bash
 DB_PASSWORD=your_db_password
 PASSWORD=your_tryton_admin_password
+VERSION=7.8        # Indicar Tryton version. Ver todas las versiones Tryton url: https://downloads.tryton.org/
 EMAIL=admin@example.com
 LANGUAGE=es-ES
 TRYTON_LANGUAGE=es
@@ -115,7 +116,7 @@ Tareas principales:
 - **Plataforma:** Windows (CMD/Batch)
 - **Motor:** Docker & Docker Compose
 - **Licencia:** MIT  
-- **Versión del proyecto** v1.1.0 estable
+- **Versión del proyecto** v1.1.25 Estable
   
 ---
 

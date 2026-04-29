@@ -104,6 +104,7 @@ Tareas implementadas:
 ```bash
 DB_PASSWORD=tu_password_db
 PASSWORD=tu_password_admin_tryton
+VERSION=7.8      # Indicate Tryton version. View Tryton versions url: https://downloads.tryton.org/
 EMAIL=admin@dominio.com
 LANGUAGE=es-ES
 TRYTON_LANGUAGE=es
@@ -159,7 +160,7 @@ Tryton-Docker-Manager: Facilita y protege la gestión de Tryton ERP.
 - __Plataforma:__ Windows (CMD/Batch)
 - __Motor:__ Docker & Docker Compose
 - __Licencia:__ MIT
-- __Versión del proyecto:__ v1.1.24 estable
+- __Versión del proyecto:__ v1.1.25 estable
   
 ---
 

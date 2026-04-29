@@ -62,7 +62,7 @@ The project leaves the system **"AI-Ready."** Based on an open API architecture 
 - **Plataforma:** Windows (CMD/Batch)
 - **Motor:** Docker & Docker Compose
 - **Licencia:** MIT  
-- **Versión del proyecto** v1.1.0 estable
+- **Versión del proyecto** v1.1.25 Stable
   
 ---
 

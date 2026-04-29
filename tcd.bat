@@ -233,7 +233,10 @@ set "action_ins=%INS%"
     call :logger "%MENU%" "9.2.- %POSTGRES%:[!CURRENT_PGALL_VERSION!]" "7"
     call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "timeout_start" "!wait_time!" "1" "N"
   ) 
-  if "!CURRENT_VER_MENU!" EQU "" set "CURRENT_VER_MENU=%LATEST%"
+  
+  if "!CURRENT_VER_MENU!" EQU "" set "CURRENT_VER_MENU=!VERSION!" & set "CURRENT_PG_VERSION=!VERSION!"
+  if "!CURRENT_VER_MENU!" EQU "" set "CURRENT_VER_MENU=%LATEST%"  & set "CURRENT_PG_VERSION=%LATEST%"
+
   echo.
   call :logger "%LOG-SUCC%" "tcd !LOG_INFO_PROCES!"
   for /f %%A in ('"prompt $H & echo on & for %%B in (1) do rem"') do set "BS=%%A"

@@ -59,7 +59,7 @@ TryDockCmd ha sido actualizado para soportar los cambios estructurales de la **v
 - **Plataforma:** Windows (CMD/Batch)
 - **Motor:** Docker & Docker Compose
 - **Licencia:** MIT  
-- **Versión del proyecto** v1.1.0 estable
+- **Versión del proyecto** v1.1.25 Estable
   
 ---
 

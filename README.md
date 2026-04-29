@@ -62,6 +62,7 @@ The existing values are for testing purposes; replace them with your own secure 
 # Database Credentials
 DB_PASSWORD=YourPassword       # <-- Change to a secure DB password
 DB_USER=admin                  # <-- Change to a tryton User
+VERSION=7.8                    # <-- Indicate Tryton version. View Tryton versions url: https://downloads.tryton.org/
 # Tryton Initial Admin Configuration
 PASSWORD=YourPassword          # <-- This will be your 'admin' login password
 EMAIL=yourUser@yourDomain.com  # <-- Your admin email address
@@ -286,7 +287,7 @@ Tryton-Docker-Manager - Making Tryton ERP management easy and secure.
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT
-- **Project Status:** v1.1.24 Stable
+- **Project Status:** v1.1.25 Stable
   
 ---
 

@@ -70,7 +70,7 @@ TryDockCmd convierte un "arte oscuro" en un proceso científico, repetible e imp
 - **Plataforma:** Windows (CMD/Batch)
 - **Motor:** Docker & Docker Compose
 - **Licencia:** MIT  
-- **Versión del proyecto** v1.1.0 estable
+- **Versión del proyecto** v1.1.25 Estable
 
 ---
 

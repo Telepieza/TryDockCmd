@@ -1,4 +1,4 @@
-# 🚀 Release v1.0.0 - Stable Launch
+# 🚀 Release v1.1.25 - Stable Launch
 
 ### TryDockCmd: The Command-Center for Tryton ERP on Windows
 
@@ -49,7 +49,7 @@ graph TD
 - __Platform:__ Windows (CMD/Batch)
 - __Engine:__ Docker & Docker Compose
 - __License:__ MIT  
-- __Project Status:__ v1.1.0 Stable
+- __Project Status:__ v1.1.25 Stable
 ---
 
 ##### Optimized & Documented with the help of Gemini (Google AI)

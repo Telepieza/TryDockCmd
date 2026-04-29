@@ -7,6 +7,7 @@ Edit `.env`:
 ```bash
 DB_PASSWORD=your_db_password
 PASSWORD=your_tryton_admin_password
+VERSION=7.8         # Indicate Tryton version. View Tryton versions url: https://downloads.tryton.org/
 EMAIL=admin@example.com
 LANGUAGE=es-ES
 TRYTON_LANGUAGE=es
@@ -68,7 +69,7 @@ tcd.bat
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT  
-- **Project Status:** v1.1.0 Stable
+- **Project Status:** v1.1.25 Stable
 
 ---
 

@@ -9,7 +9,7 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 - **Inyección Dinámica de Módulos (V8):** Implementada la capacidad de inyectar módulos personalizados (ej. `account_es`, `account_es_sii`) desde la carpeta `TryDockCmd/modules/` al contenedor de Tryton 8 si no existen previamente. Esto permite extender la funcionalidad de la V8 con módulos de versiones anteriores o externos.
 - **Validación de Inyección Total:** Se confirma que la inyección de las carpetas completas de `account_es` y `account_es_sii` (versión 7.8) proporciona a Proteus todas las plantillas de cuentas imputables y tasas de IVA necesarias para un entorno funcional en Tryton 8.
 - **Estabilidad Cross-Version:** Validación completa de compatibilidad entre las ramas 7.8 y 8.0. Se unifican todos los scripts del sistema bajo el mismo número de versión para garantizar la integridad del despliegue.
-**Reportes de instalación:** Se incluye el documento ModulesTrytonV8.md, indicando todos los módulos que contiene tryton en la version 8 en su imagen de docker.
+- **Reportes de instalación:** Se incluye el documento ModulesTrytonV8.md, indicando todos los módulos que contiene tryton en la version 8 en su imagen de docker.
 - **Módulos:** Se quita el módulo account_eu en version 8, por dar problema en el --update
 - **Integración Proteus:** Se incluye el idioma en la empresa y usuario admin al crear las tablas en tryton.
 
@@ -26,17 +26,16 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 - **Compatibilidad Tryton 8:** Actualizado `auto_full_setup.py` para usar `account_statement_sepa` como módulo ancla para la localización española, dado que `account_es` está integrado en el núcleo en la versión 8.
 - **Integración Proteus:** Añadida validación de existencia para plantillas de plan contable en `auto_full_setup.py` para evitar fallos silenciosos en la creación de cuentas.
  Corregido el `chart_mapping` en `auto_full_setup.py` para asegurar la correcta creación de cuentas contables y tasas de impuestos en Tryton 8.
-**Estandarización de Comandos:** Se solucionan varios problemas de variables globales en TryDockCmd.
+- **Estandarización de Comandos:** Se solucionan varios problemas de variables globales en TryDockCmd.
 
 ### Changed
 - **Optimización de Logs:** Se modifica `auto_full_setup.py` para listar únicamente las plantillas de cuentas raíz en lugar de todas las cuentas del sistema, mejorando la legibilidad del log de instalación y facilitando el diagnóstico de localizaciones disponibles.
 - **Filtro de Localización V8:** Se restringe la configuración contable y fiscal para España únicamente cuando el módulo `account_es` está presente y activo. Esto evita que en Tryton 8 se intenten usar las plantillas universales del núcleo, las cuales carecen de cuentas imputables.
 - **Resiliencia:** `auto_full_setup.py` ya no detiene la ejecución ante fallos en acciones individuales, permitiendo que todas las tareas se intenten y se registren para auditoría.
 - **Diagnóstico:** Se ha añadido el volcado al log de todas las plantillas de cuentas raíz disponibles en `setup_accounts` para facilitar la resolución de problemas de localización.
--**Optimización:** Se eliminan los blancos al leer el fichero tritond.conf, en cada una de las opciones.
+- **Optimización:** Se eliminan los blancos al leer el fichero tritond.conf, en cada una de las opciones.
 
 ---
-
 
 ## [1.1.0] - 2026-04-28
 
@@ -85,7 +84,7 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT  
-- **Project Status:** v1.1.0 Stable
+- **Project Status:** v1.1.25 Stable
 
 ---
 
