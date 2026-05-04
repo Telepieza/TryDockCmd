@@ -11,6 +11,8 @@ The true "magic" lies in the integration of Proteus (Python API), which acts as 
 - **Dynamic Localization:** Activates and synchronizes languages ​​(es, fr, de), countries, subdivisions, postal codes, and links specific accounting charts according to the selected legislation.
 - **Dual-Environment Ready:** Delivers a clean production database tryton and a tryton_demo instance with real data in record time.
 
+Video guide on YouTube: https://youtu.be/4i9TWQKoBeQ
+
 ---
 
 ## 📋 1. Prerequisites: Installing Docker

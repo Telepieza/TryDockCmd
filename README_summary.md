@@ -10,6 +10,8 @@ TryDockCmd es una capa de operaciones para Tryton ERP en Docker, en el sistema o
 
 * *The manager will auto-pull images, create DBs (Real & Demo), inject dynamic data for v7.8.x+ and V8.0.x+, and activate 41 core modules.*
 
+Video guide on YouTube: https://youtu.be/4i9TWQKoBeQ
+
 ---
 
 ## 🧠 2. The Proteus Engine (Zero-Touch Setup)

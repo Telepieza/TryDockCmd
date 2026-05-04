@@ -5,6 +5,8 @@ Kit de automatización orientado a producción para desplegar y operar Tryton ER
 TryDockCmd proporciona un flujo controlado por menú para ciclo de vida de infraestructura, instalación de módulos, diagnóstico, backup y recuperación.  
 Combina orquestación Batch (`tcd.bat`) con automatización Python/Proteus (`python/auto_full_setup.py`) para reducir tareas manuales post-instalación.
 
+Video guia en youtube: https://youtu.be/4i9TWQKoBeQ
+
 ## Por qué este proyecto
 
 - Estandariza la operación de Tryton sobre Docker para perfiles técnicos.

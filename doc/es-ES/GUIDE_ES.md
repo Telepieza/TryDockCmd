@@ -2,6 +2,8 @@
 
 Guia operativa para desplegar y administrar Tryton ERP sobre Docker en Windows.
 
+Video guia en youtube: https://youtu.be/4i9TWQKoBeQ
+
 ## 1. Requisitos previos
 
 - Docker Desktop instalado y arrancado.

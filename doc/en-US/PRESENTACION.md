@@ -2,6 +2,7 @@
 
 ## 1. PROJECT PHILOSOPHY AND VISION
 TryDockCmd is not just an installer; it is an engineering solution designed to democratize access to Tryton ERP, the most robust and ethical system on the market.
+Video guide on YouTube: https://youtu.be/4i9TWQKoBeQ
 
 * **Historical Legacy:** Born in 2008 as a fork of TinyERP (Odoo), Tryton maintains technical integrity over commercial models. Free Software (LGPLv3).
 * **Software Sovereignty:** 100% Free Software under the GPL license. No "Enterprise" versions or locked features.
