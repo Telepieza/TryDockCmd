@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file. The format 
 
 **[Versión en Español disponible aquí](changelog_es.md)**
 
+## [1.1.26] - 2026-05-10
+
+## Fixed
+- **Modules:** When importing modules from the modules folder, the system didn't check the version of the module and the Tryton image. The modules and the image must be the same version.
+  
+### Changed
+
+- **Modules:** The import of external modules is eliminated in version 1.1.26, in order to perfect the incorporation of the facturae, verifactu and sii modules in the next version, checking the module version with that of the tryton image.
+
+- **Proteus V7 Compatibility:** Update `auto_full_setup.py` by including process_env["PYTHONWARNINGS"] = "ignore:RequestsDependencyWarning", to avoid warning errors when incorporating postal codes.
+
 ---
 
 ## [1.1.25] - 2026-04-29

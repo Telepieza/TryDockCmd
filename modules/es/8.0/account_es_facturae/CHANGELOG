@@ -1,0 +1,5 @@
+Version 8.0.0 - 2026-04-21
+--------------------------
+* Bug fixes (see mercurial logs for details)
+* Add support for Python 3.14
+* Remove support for Python 3.9

@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    [https://www.telepieza.com
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.25
-:: DATE:      29/04/2026
+:: VERSION:   1.1.26
+:: DATE:      10/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install trytond tryton version 7 y 8
 :: ==============================================================================
@@ -15,7 +15,6 @@ chcp 65001 >nul
 :: Analiza si la llamada es del tcd.bat
 set "proyecto=%~1"
 set "ins_tryton_action=%~2"
-set "log_action=!LOG-INFO!"
 set /a "wait_timetry=10"
 set /a "wait_timetry5=5"
 set /a "wait_timetry20=20"

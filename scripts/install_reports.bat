@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.25
-:: DATE:      29/04/2026
+:: VERSION:   1.1.26
+:: DATE:      10/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install reports version 7 y 8
 :: ==============================================================================
@@ -93,6 +93,12 @@ if /i "%option%"== "9" (
   call :foot_report "!file_activ_list!"
   exit /b
 )  
+
+:: Comprende opciones 10 - Árbol de dependencias
+if /i "%option%"== "10" (
+  call :report_dependency_tree "!title!" "!file!"
+  exit /b
+)
 
 :: 06
 :listing_modules
@@ -312,6 +318,19 @@ exit /b
       echo !LOG-ALERT! !lin1! >> "%file_activ_list%" & call "%DIR_SCRIPT%message.bat" "!LOG-ALERT!" "!lin1!"
     )
   )
+  exit /b
+
+:report_dependency_tree
+  set "title=%~1"
+  set "file_tree=%~2"
+  if not exist "%file_tree%" exit /b
+
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "fill_in_field" "%CHECK%" "!title!" "3"
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "display_file_event_all" "!LOG-INFO!" "!file_tree!"
+  
+  :: Guardar en log permanente para auditoría histórica
+  (echo. & echo --- INSTALACIÓN !idate_rts_fmt! !itime_rts_fmt! ---) >> "%DIR_LOG%\dependencies_audit.log"
+  type "!file_tree!" >> "%DIR_LOG%\dependencies_audit.log"
   exit /b
 
 :extract_xml_from_log_moduls

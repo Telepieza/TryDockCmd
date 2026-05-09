@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<tryton>
+    <data grouped="1">
+        <record model="ir.message" id="msg_invoice_unique">
+            <field name="text">You can create only one Facturae invoice per invoice.</field>
+        </record>
+        <record model="ir.message" id="msg_invalid_facturae_xml_file">
+            <field name="text">The Facturae invoice "%(invoice)s" is not valid:
+%(message)s</field>
+        </record>
+    </data>
+</tryton>

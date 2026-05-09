@@ -1,13 +1,14 @@
 # ===============================================================================
 # PROGRAM:   auto_full_setup.py
 # PROJECT:   Tryton Docker Manager
-# VERSION:   1.1.24
-# DATE:      02/05/2026
+# VERSION:   1.1.26
+# DATE:      10/05/2026
 # LICENSE:   MIT License
 # DESCRIPTION: Enlace TryDockCmd con proteus version 7 y 8
 # ==============================================================================
 import os
 import logging
+import warnings
 from datetime import date
 import time
 import sys
@@ -250,11 +251,18 @@ def run_geodata_import(database, config_file, iso_code):
     scripts_path = f"{base_mod}/country/scripts"
     iso_up = iso_code.upper()
     try:
+        # 0. CONFIGURACIÓN DE SILENCIO DE AVISOS
+        # Ignoramos avisos en el proceso principal
+        warnings.filterwarnings("ignore")
+        # Preparamos el entorno para ignorar avisos en subprocesos (vía variable de entorno)
+        process_env = os.environ.copy()
+        process_env["PYTHONWARNINGS"] = "ignore"
+
         # 1. COMPROBACIÓN DE PAÍSES
         Country = Model.get('country.country')
         countries_exist = False
         try:
-            if len(Country.find([], limit=201)) > 200:
+            if len(Country.find([], limit=201)) >= 200:
                 countries_exist = True
         except Exception:
             pass 
@@ -263,8 +271,8 @@ def run_geodata_import(database, config_file, iso_code):
         else:
             logging.info(msg['geo_step1'])
             result = subprocess.run(
-                [sys.executable, f"{scripts_path}/import_countries.py", "-d", database, "-c", config_file],
-                capture_output=True, text=True, check=True
+                [sys.executable, "-W", "ignore", f"{scripts_path}/import_countries.py", "-d", database, "-c", config_file],
+                capture_output=True, text=True, check=True, env=process_env
             )
             if result.stderr:
                 logging.debug(result.stderr.strip())
@@ -285,10 +293,12 @@ def run_geodata_import(database, config_file, iso_code):
         else:
             logging.info(msg['geo_step2'].format(iso_up))
             # Ejecutamos con salida en vivo para facilitar diagnóstico de cargas grandes.
+            # Usamos '-W ignore' directamente en el intérprete para asegurar el silencio de avisos de 'requests'
             subprocess.run(
-                [sys.executable, f"{scripts_path}/import_postal_codes.py", "-d", database, "-c", config_file, iso_up],
+                [sys.executable, "-W", "ignore", f"{scripts_path}/import_postal_codes.py", "-d", database, "-c", config_file, iso_up],
                 stdout=sys.stdout,
                 stderr=sys.stderr,
+                env=process_env,
                 text=True,
                 check=True
             )

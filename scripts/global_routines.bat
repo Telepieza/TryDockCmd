@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.25
-:: DATE:      29/04/2026
+:: VERSION:   1.1.26
+:: DATE:      10/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Subrutinas globales 
 :: ==============================================================================
@@ -42,6 +42,26 @@ if /i "%glo_action%" == "fill_in_field" (
 if /i "%glo_action%" == "display_file_event_all" (
     call "%DIR_SCRIPT%message.bat" "%APP%" "global_routines !glo_action! [!param1!] [!param2!]"
     call :%glo_action% "!param1!" "!param2!"
+    goto :exit
+)
+if /i "%glo_action%" == "install_python_deps" (
+    call "%DIR_SCRIPT%message.bat" "%APP%" "global_routines !glo_action! [!param1!] [!param2!]"
+    call :%glo_action% "!param1!" "!param2!"
+    goto :exit
+)
+if /i "%glo_action%" == "check_system_version" (
+    call "%DIR_SCRIPT%message.bat" "%APP%" "global_routines !glo_action!"
+    call :%glo_action%
+    goto :exit
+)
+if /i "%glo_action%" == "audit_xml_models" (
+    call "%DIR_SCRIPT%message.bat" "%APP%" "global_routines !glo_action! [!param1!]"
+    call :%glo_action% "!param1!"
+    goto :exit
+)
+if /i "%glo_action%" == "fix_xml_models" (
+    call "%DIR_SCRIPT%message.bat" "%APP%" "global_routines !glo_action! [!param1!]"
+    call :%glo_action% "!param1!"
     goto :exit
 )
 
@@ -122,16 +142,98 @@ goto :exit
 
 : Recibe un fichero, lo lee y es visualizado por consola y grabado en el fichero de log
 :display_file_event_all
-  set "event=%~1"
+  set "event_default_file=%~1"
   set "file_temp=%~2"
   :: 1. Validar que el archivo existe y no está vacío
   if not exist "%file_temp%" exit /b
   :: 2. Recorre cada línea completa del fichero
   for /F "usebackq delims=" %%L in ("%file_temp%") do (
-    if "%%L" NEQ "" (
-      echo [%event%] %%L >nul
-      call "%DIR_SCRIPT%message.bat" "%event%" "!WORD_MESSAGE! %%L"
-    )
+    set "clean_line=%%L"
+    set "event_now=!event_default_file!"
+
+    :: Analizar contenido de la línea para ajustar el color dinámicamente
+    echo "!clean_line!" | findstr /I "INFO NATIVO" >nul
+    if !errorlevel! EQU 0 set "event_now=!LOG-INFO!"
+
+    echo "!clean_line!" | findstr /I "ERROR Traceback AttributeError ValueError ParsingError" >nul
+    if !errorlevel! EQU 0 set "event_now=!LOG-ERROR!"
+
+    echo "!clean_line!" | findstr /I "EXTERNO" >nul
+    if !errorlevel! EQU 0 set "event_now=!LOG-WARN!"
+
+    :: Limpiar caracteres que rompen el comando message.bat
+    set "clean_line=!clean_line:)=]!"
+    set "clean_line=!clean_line:(=[!"
+    set "clean_line=!clean_line:<=]!"
+    set "clean_line=!clean_line:>=[!"
+    set "clean_line=!clean_line:^&=y!"
+    set "clean_line=!clean_line:"=!"
+    
+    call "%DIR_SCRIPT%message.bat" "!event_now!" "!WORD_MESSAGE! !clean_line!"
+  )
+  exit /b
+
+:audit_xml_models
+  set "folder=%~1"
+  call "%DIR_SCRIPT%message.bat" "%CHECK%" "Auditoría XML: Buscando campos 'model' con 'ref' para revertir en !folder!..."
+  set "found_err=0"
+  for /r "!folder!" %%f in (*.xml) do (
+      findstr /I "name=\"model\"" "%%f" | findstr /I "ref=" >nul
+      if !errorlevel! EQU 0 (
+          set "found_err=1"
+          call "%DIR_SCRIPT%message.bat" "!LOG-WARN!" "Sintaxis 'ref' detectada (necesita revertir a search) en: %%f"
+          findstr /n /I "name=\"model\"" "%%f" | findstr /I "ref="
+      )
+  )
+  if "!found_err!"=="0" call "%DIR_SCRIPT%message.bat" "!LOG-SUCC!" "No se encontraron conflictos en los XML."
+  exit /b !found_err!
+
+:fix_xml_models
+  set "folder=%~1"
+  call "%DIR_SCRIPT%message.bat" "%CHECK%" "Iniciando corrección automática de XML en !folder!..."
+  :: Ejecuta PowerShell para realizar el reemplazo por Regex en todos los XML de la carpeta
+  powershell -Command ^
+    "Get-ChildItem -Path '!folder!' -Filter *.xml -Recurse | ForEach-Object { ^
+        $content = Get-Content $_.FullName -Raw; ^
+        $newContent = [regex]::Replace($content, 'ref=\"model_(?<model>[^\"\s]+)\"', { ^
+            param($m) 'search=\"[(''model'', ''='', ''' + ($m.Groups['model'].Value -replace '_', '.') + ''')]\"' ^
+        }); ^
+        if ($content -ne $newContent) { ^
+            $newContent | Set-Content $_.FullName -Encoding UTF8; ^
+            Write-Host 'Revertido a search: ' $_.FullName ^
+        } ^
+    }"
+  call "%DIR_SCRIPT%message.bat" "!LOG-SUCC!" "Proceso de corrección finalizado."
+  exit /b
+
+:check_system_version
+  echo.
+  call "%DIR_SCRIPT%message.bat" "%CHECK%" "--- AUDITORIA DE SISTEMA ---"
+  docker exec "!CURRENT_TRYTON!" trytond-admin --version > "%TEMP%\t_ver.txt" 2>&1
+  set /p v_real=<"%TEMP%\t_ver.txt"
+  call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "Versión Real en Contenedor: !v_real!"
+  exit /b
+
+:install_python_deps
+  REM %1 = paquete pip
+  REM %2 = dependencias apt (opcional)
+  set "package=%~1"
+  set "check_import=%~1"
+  :: Casos especiales donde el nombre del paquete pip != nombre de importación
+  if /i "%package%" == "pyOpenSSL" set "check_import=OpenSSL"
+  set "sys_deps=%~2"
+  :: 1. Comprobar si el paquete ya está instalado en el contenedor
+  docker exec -u 0 "!CURRENT_TRYTON!" bash -c "python3 -c \"import !check_import!\"" >nul 2>&1
+  if !errorlevel! EQU 0 (
+    call "%DIR_SCRIPT%message.bat" "!LOG-INFO!" "!WORD_MODULE! !package! ya está instalado en el contenedor."
+    exit /b 0
+  )
+
+  :: 2. Si no está instalado, proceder con la instalación
+  if "!sys_deps!" NEQ "" (
+      docker exec -u 0 "!CURRENT_TRYTON!" bash -c "apt-get update && apt-get install -y !sys_deps! && pip install !package! --break-system-packages"
+  ) else (
+      docker exec -u 0 "!CURRENT_TRYTON!" bash -c "pip install !package! --break-system-packages"
   )
   exit /b
 
@@ -196,5 +298,5 @@ goto :exit
   exit /b 0
 
 :exit
-  endlocal
-  exit /b 0
+  set "RES_ERROR=%errorlevel%"
+  endlocal & exit /b %RES_ERROR%

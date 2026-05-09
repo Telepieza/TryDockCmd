@@ -2,10 +2,10 @@
 :: ===============================================================================
 :: PROGRAM:   install.header.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR: Telepieza
+:: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.25
-:: DATE:      29/04/2026
+:: VERSION:   1.1.26
+:: DATE:      10/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install header tryton version 7 y 8
 :: ==============================================================================
@@ -36,6 +36,7 @@ set "sufijo="
 if /i "%type%"=="%DEMO%" set "sufijo=_demo"
 if /i "%type%"=="%LANG%" if "%ins_head_action%"=="%APP%" set "sufijo=_lang"
 if /i "%type%"=="%PYTH%" set "sufijo=_pyth"
+if /i "%type%"=="%TEST%" set "sufijo=_test"
 
 set "file_err=%wfile_err%%sufijo%%EXT_TXT%"
 set "file_log=%wfile_log%%sufijo%%EXT_TXT%"

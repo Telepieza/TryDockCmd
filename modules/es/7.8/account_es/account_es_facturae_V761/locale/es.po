@@ -1,0 +1,114 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:account.invoice.facturae,invoice:"
+msgid "Invoice"
+msgstr "Factura"
+
+msgctxt "field:account.invoice.facturae,method:"
+msgid "Method"
+msgstr "Método"
+
+msgctxt "field:account.invoice.facturae,state:"
+msgid "State"
+msgstr "Estado"
+
+msgctxt "field:account.invoice.facturae.export.result,filename:"
+msgid "Filename"
+msgstr "Nombre del fichero"
+
+msgctxt "field:account.invoice.facturae.export.result,result:"
+msgid "Result"
+msgstr "Resultado"
+
+msgctxt "field:account.invoice.facturae.export.start,version:"
+msgid "Version"
+msgstr "Versión"
+
+msgctxt "field:party.party,facturae:"
+msgid "Facturae"
+msgstr "Facturae"
+
+msgctxt "model:account.invoice.facturae,name:"
+msgid "Invoice Facturae"
+msgstr "Factura Facturae"
+
+msgctxt "model:account.invoice.facturae.export.result,name:"
+msgid "Export Facturae Result"
+msgstr "Resultado exportar facturae"
+
+msgctxt "model:account.invoice.facturae.export.start,name:"
+msgid "Export Facturae Start"
+msgstr "Inicio exportar facturae"
+
+msgctxt "model:ir.action,name:act_invoice_facturae_form"
+msgid "Facturae"
+msgstr "Facturae"
+
+msgctxt "model:ir.action,name:wizard_export_facturae"
+msgid "Export Facturae"
+msgstr "Exportar facturae"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_facturae_form_domain_all"
+msgid "All"
+msgstr "Todo"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_facturae_form_domain_pending"
+msgid "Pending"
+msgstr "Pendiente"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_invalid_facturae_xml_file"
+msgid ""
+"The Facturae file \"%(invoice)s\" is not valid:\n"
+"%(message)s"
+msgstr ""
+"El fichero Facturae \"%(invoice)s\" no es válido:\n"
+"%(message)s"
+
+msgctxt "model:ir.message,text:msg_invoice_unique"
+msgid "You can create only one Facturae invoice per invoice."
+msgstr "Solo puedes crear una factura FActurae para cada factura"
+
+msgctxt "model:ir.model.button,string:invoice_export_facturae_button"
+msgid "Export"
+msgstr "Exportar"
+
+msgctxt "model:ir.model.button,string:invoice_pending_button"
+msgid "Pending"
+msgstr "Pendiente"
+
+msgctxt "model:ir.model.button,string:invoice_sent_button"
+msgid "Sent"
+msgstr "Enviado"
+
+msgctxt "model:ir.ui.menu,name:menu_invoice_facturae_form"
+msgid "Facturae"
+msgstr "Facturae"
+
+msgctxt "selection:account.invoice.facturae,state:"
+msgid "Pending"
+msgstr "Pendiente"
+
+msgctxt "selection:account.invoice.facturae,state:"
+msgid "Sent"
+msgstr "Enviado"
+
+msgctxt "selection:party.party,facturae:"
+msgid "Manual"
+msgstr "Manual"
+
+msgctxt "wizard_button:account.invoice.facturae_export,result,end:"
+msgid "Close"
+msgstr "Cerrar"
+
+msgctxt "wizard_button:account.invoice.facturae_export,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:account.invoice.facturae_export,start,export:"
+msgid "Export"
+msgstr "Exportar"

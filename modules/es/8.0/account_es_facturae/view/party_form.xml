@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<data>
+    <xpath expr="/form/notebook/page[@id='facturae']/field[@name='es_facturae_administrative_centers']" position="before">
+        <label name="facturae"/>
+        <field name="facturae"/>
+        <newline/>
+    </xpath>
+</data>

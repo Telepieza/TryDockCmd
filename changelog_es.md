@@ -3,6 +3,16 @@
 Todos los cambios notables en este proyecto serán documentados en este archivo. El formato se basa en [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [1.1.26] - 2026-05-10
+
+### Fixed
+- **Módulos:** Al importar los modulos de la carpeta modules no controlaba la versión del módulo y de la imagen tryton. Los módulos y la imagen tienen que ser de la misma versión
+
+### Changed
+- **Módulos:** Se elimina la importación de módulos externos en la version 1.1.26, para perfeccionar en la siguiente versión la incorporación los modulos facturae, verifactu y sii, comprobando la versión del módulo con la de la imagen tryton, antes de la importación.
+
+- **Compatibilidad Tryton:** Se modifica `auto_full_setup.py` incluyendo process_env["PYTHONWARNINGS"] = "ignore:RequestsDependencyWarning", para no dar errores de warning al incorporar los códigos postales.
+
 ## [1.1.25] - 2026-04-29
 
 ### Added

@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    [https://www.telepieza.com - Gemini (Google AI)]
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.25
-:: DATE:      29/04/2026
+:: VERSION:   1.1.26
+:: DATE:      10/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Tryton Docker Manager (TCD)
 :: ==============================================================================
@@ -60,6 +60,7 @@ set "TIM=[TIME]"
 set "DEMO=[DEMO]"
 set "LANG=[LANG]"
 set "PYTH=[PYTHON]"
+set "TEST=[TEST]"
 set "ERROR_PATTERNS=error fatal fail exception traceback panic"
 set "EXT_TXT=.txt"
 set "EXT_CSV=.csv"
@@ -95,16 +96,16 @@ set "MESSAGE="
 set "SEARCH_TERM="
 set "ACTIVE_COPY=0"
 :: Variables de trabajo. readcompose.bat se encarga de buscar y grabar sus valores
-set "SERVER_IMAGE_NAME=" 
-set "SERVER_IMAGE_VERSION="  
+set "SERVER_IMAGE_NAME="
+set "SERVER_IMAGE_VERSION="
 set "SERVER_PORT_TARGET="
-set "SERVER_PORT_PUBLISHED="  
+set "SERVER_PORT_PUBLISHED="
 set "CRON_IMAGE="
-set "CRON_IMAGE_NAME="  
-set "CRON_IMAGE_VERSION="  
+set "CRON_IMAGE_NAME="
+set "CRON_IMAGE_VERSION="
 set "POSTGRES_IMAGE="
-set "POSTGRES_IMAGE_NAME=" 
-set "POSTGRES_IMAGE_VERSION="  
+set "POSTGRES_IMAGE_NAME="
+set "POSTGRES_IMAGE_VERSION="
 :: Fecha formato YYYYMMDD para el LOG
 call "%DIR_SCRIPT%cycletime.bat" "%DAT%" "%date%" 
 ::set "FECHA_LOG=%date:~-4,4%%date:~-7,2%%date:~-10,2%"
