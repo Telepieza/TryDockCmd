@@ -9,7 +9,7 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 - **Módulos:** Al importar los modulos de la carpeta modules no controlaba la versión del módulo y de la imagen tryton. Los módulos y la imagen tienen que ser de la misma versión
 
 ### Changed
-- **Módulos:** Se elimina la importación de módulos externos en la version 1.1.26, para perfeccionar en la siguiente versión la incorporación los modulos facturae, verifactu y sii, comprobando la versión del módulo con la de la imagen tryton, antes de la importación.
+- **Módulos:** Se elimina la importación de módulos externos en la version 1.1.26, para perfeccionar en la siguiente versión la incorporación de los modulos facturae, verifactu y sii, comprobando la versión del módulo con la de la imagen tryton, antes de la importación.
 
 - **Compatibilidad Tryton:** Se modifica `auto_full_setup.py` incluyendo process_env["PYTHONWARNINGS"] = "ignore:RequestsDependencyWarning", para no dar errores de warning al incorporar los códigos postales.
 
