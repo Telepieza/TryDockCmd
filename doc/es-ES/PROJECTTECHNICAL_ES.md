@@ -1,4 +1,4 @@
-# 📋 FICHA TÉCNICA: Proyecto TryDockCmd (v2026.1)
+# 📋 FICHA TÉCNICA: Proyecto TryDockCmd (v1.1.30)
 
 ## 1. DESCRIPCIÓN GENERAL
 **TryDockCmd** es un framework de automatización para **Tryton ERP** diseñado para entornos Windows/Linux. Su objetivo es la transición inmediata de una infraestructura vacía a un sistema contable profesional plenamente operativo (Producción/Demo) en menos de 30 minutos.
@@ -40,6 +40,10 @@ El núcleo del proyecto utiliza **Python + Proteus** para garantizar un desplieg
 2.  **FASE TAX (Fiscalidad):**
     * Inyección de localización española.
     * Configuración de **64 tipos de impuestos** (IVA 21%, 10%, 4%).
+3.  **FASE EXT (Módulos Externos):**
+    * Gestión de dependencias críticas: SignXML, XMLSIG, pyOpenSSL.
+    * Lógica de **Anclaje Contable**: Detección de PREFIX para evitar conflictos entre modelos de NANTIC y la COMUNIDAD.
+    * Clonación dinámica desde Heptapod y GitHub.
 3.  **FASE GEO (Geografía):**
     * Carga masiva de códigos postales y subdivisiones (ES, FR, DE).
 
@@ -62,7 +66,7 @@ El proyecto deja el sistema **"IA-Ready"**. Al estar basado en una arquitectura 
 - **Plataforma:** Windows (CMD/Batch)
 - **Motor:** Docker & Docker Compose
 - **Licencia:** MIT  
-- **Versión del proyecto** v1.1.25 Estable
+- **Versión del proyecto** v1.1.30 Estable
   
 ---
 

@@ -1,67 +1,52 @@
-# TryDockCmd - Resumen
+# 🛡️ Tryton ERP Docker Manager v1.1.30 - RESUMEN
 
-TryDockCmd is an operations layer for Tryton ERP in Docker, on the Windows operating system.
+**Misión principal:** Desplegar un entorno profesional de Tryton ERP desde cero hasta que esté plenamente funcional en menos de 30 minutos en Windows.
+
+---
+
+## 🧠 1. El Motor Proteus (Configuración Zero-Touch)
+El sistema utiliza un "cerebro" Python Proteus para evitar horas de configuración manual:
+1. **Ingeniería Fiscal:** Genera automáticamente ejercicios fiscales (2026-2030), periodos y secuencias.
+2. **Localización Inteligente:** Activa automáticamente ES, FR o DE y vincula los planes contables específicos.
+3. **Maestría en Geodatos:** Importación nativa de países, subdivisiones y códigos postales (GeoNames).
+
+## 📦 2. Nuevo Motor de Módulos Híbrido (v1.1.30)
+Gestiona flujos de negocio complejos no incluidos en las imágenes oficiales:
+- **Inyección Nativa:** Inyección de código pura para Facturae, Verifactu y SII.
+- **Inteligencia de Dependencias:** Instala automáticamente SignXML, pyOpenSSL y XMLSIG dentro del contenedor.
+- **Jerarquía de Proveedores:** Prioriza Comunidad (Heptapod) > Local > NaN-tic (GitHub).
+- **Anclaje Contable:** Detecta su "PREFIX" para prevenir conflictos entre modelos de NaN-tic y la Comunidad.
+
+## 📊 3. Menú Principal y Operaciones
+
+| Opción | Descripción |
+| :---:  | :--- |
+| **0**  | **Bootstrap Completo:** Despliegue automatizado e inicialización de la base de datos. |
+| **1-3**| **Ciclo de vida:** Estado, Arranque y Parada controlada. |
+| **4-5**| **Observabilidad:** Logs en tiempo real y Auditoría Forense de Errores (24h). |
+| **6-7**| **Protección de Datos:** Copia de seguridad (Hot-backup) y Recuperación ante desastres (verificado por MD5). |
+| **8**  | **Gestor de MODs:** Instalación de paquetes de sistema, dependencias Python y módulos externos. |
+| **9**  | **Laboratorio Demo:** Instala datos oficiales de demo de Tryton para pruebas. |
+| **10** | **Cliente:** Comprobación de conectividad + lanzamiento automatizado del navegador. |
+
+## 🔍 4. Auditoría Forense
+- **Integridad XML:** Clasifica los archivos como ESTRUCTURA o DATOS para detectar errores de carga.
+- **Sincronización de Módulos:** Verifica el estado `activated` de todos los módulos del núcleo y externos.
+- **Trazabilidad:** Registra los hashes de commit para todas las inyecciones de código externas.
+
+## 🛠️ 5. Requisitos y Compatibilidad
+- **SO:** Windows 10/11 + Docker Desktop (se recomienda WSL2).
+- **Motor:** Puente PowerShell 5.1+ para el procesamiento de YAML.
+- **Tryton:** Soporte completo para **7.0 (LTS)** y **8.0**.
+
+---
+
+- __Autor:__ [https://www.telepieza.com]
+- __Colaborador:__ Gemini (Google AI)
+- __Plataforma:__ Windows (CMD/Batch)
+- __Motor:__ Docker & Docker Compose
+- __Licencia:__ MIT
+- __Versión del proyecto:__ v1.1.30 estable
+
+---
 Video guia en youtube: https://youtu.be/4i9TWQKoBeQ
-
-## Que ofrece
-
-- Control por menú mediante `tcd.bat`.
-- Scripts de ciclo de vida Docker para iniciar/parar/estado/instalar.
-- Automatización post-instalación con Proteus (`python/auto_full_setup.py`).
-- Interfaz del gestor con idiomas `es-ES` y `en-US`.
-- Separación de entornos `tryton` (producción) y `tryton_demo` (demo).
-- Diagnostico, backup y restore integrados.
-
-## Modos del motor de setup
-
-- `FULL`: flujo completo
-- `GEO`:  solo importación geodata (Países, provincias, códigos postales)
-- `LANG`: solo flujo de idiomas
-- `ACC`:  solo contabilidad/empresa/fiscal
-- `TAX`:  solo contabilidad/empresa/impuestos
-
-## Puntos técnicos
-
-- Arquitectura modular en `scripts/`.
-- Validaciones pre-flight antes de acciones críticas.
-- Automatizacion en contenedor con inyección controlada de:
-  `/tmp/auto_full_setup.py`, `/tmp/trytond_setup.conf`.
-- Logs de setup disponibles en:
-  `/tmp/trytond_proteus.txt`.
-
-## Requisitos
-
-- Docker Desktop
-- PowerShell 5.1+
-- `.env` y `config/trytond.conf` validos
-
-## Inicio
-
-1. Configurar `.env` y `config/trytond.conf`.
-2. Ejecutar `tcd.bat`.
-3. Usar opción `0` en primera instalación.
-4. Acceder a Tryton con opción `10`.
-
----
-
-# Resumen de Compatibilidad - Tryton 8.0
-
-TryDockCmd ha sido actualizado para soportar los cambios estructurales de la **versión 8 de Tryton**:
-
-1. **Integración de Módulos:** Se ha documentado y gestionado la eliminación de módulos de localización individuales (España/Alemania) para ser incluidos en el módulo `account` base.
-2. **Detección Dinámica:** El motor de configuración (`auto_full_setup.py`) ahora utiliza una lógica de "módulos ancla" para identificar el país de operación sin depender de paquetes que ahora son parte del núcleo.
-3. **Seguridad en Backups:** Implementación de volcados `.tar` para evitar errores de privilegios con enlaces simbólicos en Windows.
-4. **Integridad:** Validación mediante firmas MD5 en los procesos de restauración.
-
----
-
-- **Autor:** [https://www.telepieza.com]
-- **Colaborador:** Gemini (Google AI)
-- **Plataforma:** Windows (CMD/Batch)
-- **Motor:** Docker & Docker Compose
-- **Licencia:** MIT  
-- **Versión del proyecto** v1.1.25 Estable
-  
----
-
-##### Optimizado y documentado con la ayuda de Gemini (Google AI)

@@ -1,4 +1,4 @@
-# TryDockCmd
+# TryDockCmd v1.1.30
 
 Kit de automatización orientado a producción para desplegar y operar Tryton ERP con Docker en Windows.
 
@@ -19,11 +19,12 @@ Video guia en youtube: https://youtu.be/4i9TWQKoBeQ
 - Gestión de ciclo de vida Docker: `checkdocker`, `startup`, `startdown`, `status`.
 - Pipeline guiado de instalación: Descubrimiento de imágenes/contenedores, lectura de compose, inicialización.
 - Automatización post-instalación de Tryton con Proteus: Empresa, Idiomas, Contabilidad, Ejercicios fiscales.
+- **Motor de Módulos Externos:** Instalación inteligente de Facturae, Verifactu y SII con gestión de dependencias (SignXML, pyOpenSSL).
 - Importación geográfica: Países y códigos postales por ISO seleccionado (`es`, `fr`, `de`).
 - Diagnóstico forense:  Filtrado de errores, trazas y reportes de comparación de módulos.
 - Protección de datos: Flujos de backup y restore desde menú.
 
-## Alcance funcional (incluido)
+## Alcance funcional
 
 - Orquestación Windows-first con CMD/Batch.
 - Stack Docker Compose de tres servicios: `server`, `cron`, `postgres`.
@@ -31,6 +32,7 @@ Video guia en youtube: https://youtu.be/4i9TWQKoBeQ
 - Automatización de idiomas/módulos Tryton: `TRYTON_LANGUAGE=es|fr|de`.
 - Automatización Python por acción: `FULL`, `GEO`, `LANG`, `ACC`, `TAX`.
 - Inyección en caliente de archivos hacia el contenedor activo: `/tmp/auto_full_setup.py`, `/tmp/trytond_setup.conf`.
+- **Jerarquía de Proveedores:** Resolución de módulos priorizando Heptapod, Local y NaN-tic (GitHub).
 
 ## Fuera de alcance (no incluido)
 
@@ -75,7 +77,7 @@ El menú de operaciones está organizado como ciclo de ejecución:
 | 5 | `errors.bat` | Auditoría centrada en errores |
 | 6 | `backup.bat` | Backup |
 | 7 | `restore.bat` | Restore |
-| 8 | `install_tryton.bat` | Flujo de módulos en BD productiva |
+| 8 | `install_modules.bat` | Gestión de paquetes, dependencias y módulos externos (Facturae/SII) |
 | 9 | `install_demo.bat` | Flujo de demo/módulos en BD demo |
 | 10 | `client.bat` | Verificación de conectividad y lanzamiento |
 
@@ -162,7 +164,7 @@ Tryton-Docker-Manager: Facilita y protege la gestión de Tryton ERP.
 - __Plataforma:__ Windows (CMD/Batch)
 - __Motor:__ Docker & Docker Compose
 - __Licencia:__ MIT
-- __Versión del proyecto:__ v1.1.25 estable
+- __Versión del proyecto:__ v1.1.30 estable
   
 ---
 

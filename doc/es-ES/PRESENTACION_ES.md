@@ -1,4 +1,4 @@
-# 🚀 TryDockCmd: El Framework Definitivo para Tryton ERP (2026) - v1.1.0
+# 🚀 TryDockCmd: El Framework Definitivo para Tryton ERP (2026) - v1.1.30
 
 ## 1. FILOSOFÍA Y VISIÓN DEL PROYECTO
 TryDockCmd no es solo un instalador; es una solución de ingeniería diseñada para democratizar el acceso a Tryton ERP, el sistema más sólido y ético del mercado.
@@ -21,6 +21,7 @@ La fiabilidad y rapidez del despliegue se basan en una infraestructura inmutable
 | **PostgreSQL** | Motor de Datos | Integridad referencial y concurrencia profesional. |
 | **WSL2 (Windows 10+)** | Entorno de Ejecución | Potencia de Kernel Linux con la sencillez de Windows. |
 | **PowerShell / CMD** | Orquestación | Scripts .bat y .ps1 que actúan como el "pegamento" del sistema. |
+| **Git & Mercurial** | Control de Código | Gestión de repositorios externos en tiempo real dentro del contenedor. |
 
 ---
 
@@ -47,6 +48,12 @@ Generación automática de la estructura vital de la empresa:
 * Configuración automática de 64 tipos de IVA (21%, 10%, 4%) para la localización española.
 * Vinculación automática de impuestos con diarios y secuencias.
 
+### 📦 FASE MOD (Módulos Externos) - v1.1.30
+* **Motor Híbrido:** Instalación inteligente de módulos fuera de la imagen oficial (Facturae, Verifactu, SII).
+* **Jerarquía de Proveedores:** Búsqueda priorizada en Heptapod (Comunidad), Local (TryDockCmd) y GitHub (Nantic).
+* **Inyección Pura:** Solución de conflictos de dependencias mediante inyección directa de código en el volumen.
+* **Auditoría Total:** Registro de Hashes de commits para trazabilidad absoluta del software instalado.
+
 ### 🌍 FASE GEO (Geografía)
 * Importación masiva de países, subdivisiones y códigos postales (GeoNames) para España, Francia y Alemania.
 
@@ -54,7 +61,7 @@ Generación automática de la estructura vital de la empresa:
 
 ## 5. GESTIÓN OPERATIVA: EL MENÚ TCD.BAT
 Hemos encapsulado la complejidad en una interfaz sencilla de comandos:
-
+* **Opción 8 (Nuevo):** Menú especializado en paquetes de sistema, dependencias Python y módulos externos.
 * **Opción 0:** Instalación "Full" (0 a 100 en 30 minutos).
 * **Opción 8/9:** Gestión de base de datos de Producción y Demo.
 * **Opción 6/7:** Sistema de Backup y Restore integrado.
@@ -72,7 +79,7 @@ TryDockCmd convierte un "arte oscuro" en un proceso científico, repetible e imp
 - **Plataforma:** Windows (CMD/Batch)
 - **Motor:** Docker & Docker Compose
 - **Licencia:** MIT  
-- **Versión del proyecto** v1.1.25 Estable
+- **Versión del proyecto** v1.1.30 Estable
 
 ---
 

@@ -1,4 +1,4 @@
-# 🛡️ Tryton ERP Docker Manager 🚀
+# 🛡️ Tryton ERP Docker Manager v1.1.30 🚀
 
 An intuitive, menu-driven automation framework to deploy, manage, and protect your **Tryton ERP** environment on Windows with Docker.
 This suite transforms complex Docker orchestration into a reliable, audited, and resilient infrastructure.
@@ -9,6 +9,7 @@ The true "magic" lies in the integration of Proteus (Python API), which acts as 
 - **Automated Post-Installation:** It completes all configuration Wizards (Company, Currency, Users) without human intervention.
 - **Instant Fiscal Engineering:** Automatically creates fiscal years (2026-2030), invoicing sequences, and monthly accounting periods.
 - **Dynamic Localization:** Activates and synchronizes languages ​​(es, fr, de), countries, subdivisions, postal codes, and links specific accounting charts according to the selected legislation.
+- **Hybrid Module Engine:** Seamlessly injects external modules like Facturae, Verifactu, and SII, handling complex Python dependencies (SignXML, XMLSIG).
 - **Dual-Environment Ready:** Delivers a clean production database tryton and a tryton_demo instance with real data in record time.
 
 Video guide on YouTube: https://youtu.be/4i9TWQKoBeQ
@@ -176,7 +177,7 @@ The operations menu is organized as an execution lifecycle:
 | **5**  | `errors.bat`  | Smart Audit: Scans logs for errors/fails in the last 24h.   |
 | **6**  | `backup.bat`  | Hot-backup of your database (No downtime required).         |
 | **7**  | `restore.bat` | Disaster recovery from your backup files.                   |
-| **8**  | `install_tryton.bat`| (REAL) install modules in trytond in the tryton database |
+| 8 | `install_modules.bat`| (REAL) Package manager, Python dependencies & External modules |
 | **9**  | `install_demo.bat`  | (DEMO) Install database-X.X.dump in (tryton_demo)     |
 | **10** | `client.bat` | Start client webpage                  |
 
@@ -289,7 +290,7 @@ Tryton-Docker-Manager - Making Tryton ERP management easy and secure.
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT
-- **Project Status:** v1.1.25 Stable
+- **Project Status:** v1.1.30 Stable
   
 ---
 
