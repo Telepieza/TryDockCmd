@@ -12,7 +12,7 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 - **Inyección Pura (Pure Modules):** Capacidad de clonar e inyectar código directamente en el volumen de Tryton para módulos con `setup.py` obsoletos o incompatibles con `pip`.
 - **Flujos de Negocio Españoles:** Automatización completa para la instalación de Facturae, Verifactu y SII, incluyendo dependencias críticas (SignXML, XMLSIG, pyOpenSSL).
 - **Auditoría de Versiones:** Registro detallado en `log/modules_git_audit.log` con Hashes de commits para garantizar la trazabilidad del código inyectado.
-- **Documentación:** Creadas las guías detalladas `Guia_Instalación_Modulos_Externos.md` (ES) y `External_Module_Installation_Guide.md` (EN).
+- **Documentación:** Creadas las guías detalladas `Guia_Modulos_Externos.md` (ES) y `External_Module_Guide.md` (EN).
 
 ### Changed
 - **Ciclo de Vida Post-Instalación:** El sistema ahora realiza un `--update-modules-list` seguido de un `--all` para refrescar traducciones y reinicia los contenedores automáticamente para asegurar estabilidad.
