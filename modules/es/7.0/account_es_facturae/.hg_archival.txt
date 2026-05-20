@@ -1,0 +1,6 @@
+repo: dfac0839f77916e94323dd1753bb72fac085a9a1
+node: c85ff57718c9e5b09effff57d9be324bf64968be
+branch: 7.0
+latesttag: 7.0.2
+latesttagdistance: 2
+changessincelatesttag: 2

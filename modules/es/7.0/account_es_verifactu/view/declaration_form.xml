@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<form>
+    <label name="display_name"/>
+    <field name="display_name"/>
+
+    <label name="nif"/>
+    <field name="nif"/>
+
+    <label name="direction"/>
+    <field name="direction"/>
+
+    <label name="date"/>
+    <field name="date"/>
+
+    <label name="place"/>
+    <field name="place"/>
+
+    <label name="software_version"/>
+    <field name="software_version"/>
+
+    <label name="software_composition"/>
+    <field name="software_composition"/>
+
+    <label name="software_description"/>
+    <field name="software_description"/>
+
+    <label name="phone_company"/>
+    <field name="phone_company"/>
+
+    <label name="fax_company"/>
+    <field name="fax_company"/>
+
+    <label name="email"/>
+    <field name="email"/>
+
+    <label name="web"/>
+    <field name="web"/>
+
+    <label name="web_product"/>
+    <field name="web_product"/>
+</form>

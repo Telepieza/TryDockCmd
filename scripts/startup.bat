@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR: Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.25
-:: DATE:     29/04/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Power On containers - Arrancar los contenedores (START) 
 :: ==============================================================================
@@ -104,7 +104,7 @@ if /i "!confirm!" NEQ "YES" (
   if /i "%service%" equ "%SERVER%" set "msg_cont=%CURRENT_TRYTON% - !WORD_SERVICE!: %service%" 
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps "%service%" --status running -q | findstr "^" >nul 2>&1
   if %errorlevel% equ 0 (
-    set "MESSAGE=!UP_ACTIVE:PROYECTO=%msg_cont%!"
+    set "MESSAGE=STARTUP !UP_ACTIVE:PROYECTO=%msg_cont%!"
     call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
     goto :exit_services
   )
@@ -138,7 +138,7 @@ if /i "!confirm!" NEQ "YES" (
   docker exec "%CURRENT_POSTGRES%" pg_isready -U "%DB_USER%" >nul 2>&1
   if %errorlevel% equ 0 (
     if "%up_action%" NEQ "%INS%" (
-      set "MESSAGE=!UP_CONNECT_DB:PROYECTO=%msg_cont%!"
+      set "MESSAGE=STARTUP !UP_CONNECT_DB:PROYECTO=%msg_cont%!"
       if /i "%up_action%"=="%INS%" call "%DIR_SCRIPT%message.bat" "%log_action%" "!LOG-SUCC! !MESSAGE!"
       if /i "%up_action%" NEQ "%INS%" call "%DIR_SCRIPT%message.bat" "!LOG-SUCC!" "!MESSAGE!"
     )

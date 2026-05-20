@@ -2,10 +2,10 @@
 :: ===============================================================================
 :: PROGRAM:   install.accounts.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR: Telepieza
+:: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.25
-:: DATE:     29/04/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install accounts (Accounting data) 
 :: ==============================================================================
@@ -40,11 +40,12 @@ if /i "!iso_code!"=="fr" set "iso_code=FR"
 if /i "!iso_code!"=="de" set "iso_code=DE"
 
 set "ACCION=ACC"
-docker exec -t ^
+docker exec ^
   -e COMPANY_NAME="!CURRENT_COMPANY_NAME!" ^
   -e COMPANY_CURRENCY="!CURRENT_COMPANY_CURRENCY!" ^
   -e APP_LANGUAGE="!LOCALE!" ^
-  !CURRENT_TRYTON! python3 /tmp/auto_full_setup.py !DB_NAME! /tmp/trytond_setup.conf !iso_code! !ACCION!
+  -e PYTHONWARNINGS="ignore" ^
+  !CURRENT_TRYTON! python3 -W ignore /tmp/auto_full_setup.py !DB_NAME! /tmp/trytond_setup.conf !iso_code! !ACCION! 2>NUL
   if %ERRORLEVEL% GEQ 10 (
     set "MESSAGE=ERROR %ERRORLEVEL%:"
     if %ERRORLEVEL% equ 10 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD55! !DB_NAME!."
@@ -66,6 +67,41 @@ if %ERRORLEVEL% EQU 0 (
   docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_proteus.txt >nul
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timepyt10%" "1" "N"
 )  
+
+set "COUNTRIES="
+set "cmd=SELECT count(*) FROM country_country;"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
+for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "COUNTRIES=%%i"
+if defined COUNTRIES call :logger "%log_action%" "Países: !COUNTRIES! !WORD_RECORDS!" "4"
+
+set "TABLE_EXISTS=0"
+set "cmd=SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace WHERE c.relname = 'country_postal_code' AND n.nspname = 'public';"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
+:: Limpieza de espacios para detectar si existe la tabla
+for /f "usebackq tokens=*" %%i in ("%temp_file%") do (
+    set "val=%%i"
+    set "val=!val: =!"
+    if "!val!" NEQ "" if !val! GTR 0 set "TABLE_EXISTS=1"
+)
+
+if "!TABLE_EXISTS!"=="1" (
+    set "ZIPCODES="
+    set "cmd=SELECT count(*) FROM country_postal_code;"
+    call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
+    set "ZIPCODES="
+    for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do (
+        set "ZIPCODES=%%i"
+        set "ZIPCODES=!ZIPCODES: =!"
+    )
+    if defined ZIPCODES call :logger "%log_action%" "Códigos Postales: !ZIPCODES! !WORD_RECORDS!" "4"
+)
+
+set "CURRENCIES="
+set "cmd=SELECT count(*) FROM currency_currency;"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
+for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "CURRENCIES=%%i"
+if defined CURRENCIES call :logger "%log_action%" "Monedas: !CURRENCIES! !WORD_RECORDS!" "4"
+
 set "ACCOUNTS="
 set "cmd=SELECT count(*) FROM account_account;"
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
@@ -89,7 +125,7 @@ set "PERIODS_5Y="
 set "cmd=SELECT count(*) FROM account_fiscalyear WHERE name >= '2026';"
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
 for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "FY_5Y=%%i"
-if defined FY_5Y call :logger "%log_action%" "!WORD_VERIFICATION! 2026-2030: !FY_5Y! !WORD_FISCAL_YEARS!" "4"
+
 set "cmd=SELECT count(*) FROM account_period p JOIN account_fiscalyear f ON f.id = p.fiscalyear WHERE f.name >= '2026';"
 call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%POSTGRES%" "!cmd!" "!DB_NAME!" "%temp_file%" "" "" "" ""
 for /f "usebackq tokens=* delims=" %%i in ("%temp_file%") do set "PERIODS_5Y=%%i"
@@ -97,11 +133,12 @@ if defined FY_5Y if defined PERIODS_5Y call :logger "%log_action%" "!WORD_VERIFI
 echo.
 
 set "ACCION=TAX"
-docker exec -t ^
+docker exec ^
   -e COMPANY_NAME="!CURRENT_COMPANY_NAME!" ^
   -e COMPANY_CURRENCY="!CURRENT_COMPANY_CURRENCY!" ^
   -e APP_LANGUAGE="!LOCALE!" ^
-  !CURRENT_TRYTON! python3 /tmp/auto_full_setup.py !DB_NAME! /tmp/trytond_setup.conf !iso_code! !ACCION!
+  -e PYTHONWARNINGS="ignore" ^
+  !CURRENT_TRYTON! python3 /tmp/auto_full_setup.py !DB_NAME! /tmp/trytond_setup.conf !iso_code! !ACCION! 2>NUL
   if %ERRORLEVEL% GEQ 10 (
     set "MESSAGE=ERROR %ERRORLEVEL%:"
     if %ERRORLEVEL% equ 10 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD55! !DB_NAME!."

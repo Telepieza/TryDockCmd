@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file. The format 
 
 **[Versión en Español disponible aquí](changelog_es.md)**
 
+## [1.1.30] - 2026-05-18
+
+### Added
+- **External Module Engine:** Implementation of the `install_external.bat` hybrid engine for intelligent dependency and off-image module management.
+- **Accounting Anchor Logic:** `PREFIX` detection system in `account_es` to prevent conflicts between providers (NANTIC vs COMMUNITY).
+- **Multi-Provider Hierarchy:** Automated search strategy prioritizing: 1. Heptapod (Community), 2. Local (TryDockCmd), 3. GitHub (Nantic).
+- **Pure Injection (Pure Modules):** Ability to clone and inject code directly into the Tryton volume for modules with obsolete or `pip`-incompatible `setup.py`.
+- **Spanish Business Flows:** Full automation for Facturae, Verifactu, and SII installation, including critical dependencies (SignXML, XMLSIG, pyOpenSSL).
+- **Version Auditing:** Detailed logging in `log/modules_git_audit.log` with commit hashes to ensure traceability of injected code.
+- **Documentation:** Created detailed guides `Guia_Instalación_Modulos_Externos.md` (ES) and `External_Module_Installation_Guide.md` (EN).
+
+### Changed
+- **Post-Installation Lifecycle:** The system now performs `--update-modules-list` followed by `--all` to refresh translations and automatically restarts containers to ensure stability.
+- **Translation Optimization:** Improved language loading using the `-l` parameter during the final activation phase.
+
+---
 ## [1.1.26] - 2026-05-10
 
 ## Fixed
@@ -98,7 +114,7 @@ All notable changes to this project will be documented in this file. The format 
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT  
-- **Project Status:** v1.1.25 Stable
+- **Project Status:** v1.1.30 Stable
 
 ---
 

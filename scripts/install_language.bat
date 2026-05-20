@@ -172,11 +172,11 @@ if /i "!ins_lang_action!"=="%INS%" (
  :: 4. Importar Paises , subdivisiones y códigos postales 
   call :logger "%log_action%" "!INSTALL_MODU_HEAD54! !TRYTON_LANGUAGE!" "3"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timelan%" "1"
-  docker exec -t ^
+  docker exec ^
   -e COMPANY_NAME="!CURRENT_COMPANY_NAME!" ^
   -e COMPANY_CURRENCY="!CURRENT_COMPANY_CURRENCY!" ^
   -e APP_LANGUAGE="!LOCALE!" ^
-  !CURRENT_TRYTON! python3 /tmp/auto_full_setup.py !DB_NAME! /tmp/trytond_setup.conf !iso_code! !ACCION!
+  !CURRENT_TRYTON! python3 -W ignore /tmp/auto_full_setup.py !DB_NAME! /tmp/trytond_setup.conf !iso_code! !ACCION! 2>NUL
   if %ERRORLEVEL% GEQ 10 (
     set "MESSAGE=ERROR %ERRORLEVEL%:"
     if %ERRORLEVEL% equ 10 set "MESSAGE=!MESSAGE! !INSTALL_MODU_HEAD55! !DB_NAME!."
@@ -201,11 +201,11 @@ if /i "!ins_lang_action!"=="%INS%" (
   :: 6 Ejecuta la inyección combinada
   call :logger "%log_action%" "!INSTALL_MODU_HEAD68! !TRYTON_LANGUAGE!" "3"
   set "ACCION=LANG"
-  docker exec -t ^
+  docker exec ^
   -e COMPANY_NAME="!CURRENT_COMPANY_NAME!" ^
   -e COMPANY_CURRENCY="!CURRENT_COMPANY_CURRENCY!" ^
   -e APP_LANGUAGE="!LOCALE!" ^
-  !CURRENT_TRYTON! python3 /tmp/auto_full_setup.py !DB_NAME! /tmp/trytond_setup.conf !iso_code! !ACCION!
+  !CURRENT_TRYTON! python3 -W ignore /tmp/auto_full_setup.py !DB_NAME! /tmp/trytond_setup.conf !iso_code! !ACCION! 2>NUL
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timelan!" "1"
   if %ERRORLEVEL% GEQ 10 (
     set "MESSAGE=ERROR %ERRORLEVEL%:"

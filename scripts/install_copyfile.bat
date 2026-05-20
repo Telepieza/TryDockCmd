@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.26
-:: DATE:      10/05/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install copy file container tryton version 7 y 8
 :: ==============================================================================
@@ -24,6 +24,8 @@ if /i "%ins_file_action%"=="%INS%" set "log_action=%INS%"
 
 set "lorigenpy=!DIR_PYTHON!auto_full_setup.py"
 set "sdestinopy=!CURRENT_TRYTON!:/tmp/auto_full_setup.py"
+set "lorigenzip=!DIR_PYTHON!import_postal_codes.py"
+set "sdestinozip=!CURRENT_TRYTON!:/tmp/import_postal_codes.py"
 set "lorigencof=!DIR_CONFIG!trytond.conf"
 set "sdestinocof=!CURRENT_TRYTON!:/tmp/trytond_setup.conf"
 
@@ -42,6 +44,12 @@ if /i "%log_error%" EQU "0" (
   if %ERRORLEVEL% NEQ 0 set "log_error=8" 
 )
 
+if /i "%log_error%" EQU "0" if exist "!lorigenzip!" (
+    call "%DIR_SCRIPT%message.bat" "!CHECK!" "!lorigenzip! !sdestinozip!"
+    docker cp "!lorigenzip!" "!sdestinozip!" > nul
+    if %ERRORLEVEL% NEQ 0 set "log_error=9" 
+)
+
 if "%log_error%" EQU "0" (
   set "ACTIVE_COPY=1"
   exit /b
@@ -52,6 +60,7 @@ if "%log_error%" EQU "5" set "MESSAGE=!LOG_ERR_FILE:ARCHIVO=%DIR_PYTHON%auto_ful
 if "%log_error%" EQU "6" set "MESSAGE=!LOG_ERR_FILE:ARCHIVO=%DIR_CONFIG%trytond.conf!"
 if "%log_error%" EQU "7" set "MESSAGE=!LOG_ERR_FILE:ARCHIVO=%DIR_CONFIG%trytond.conf!"
 if "%log_error%" EQU "8" set "MESSAGE=!LOG_ERR_FILE:ARCHIVO=%DIR_PYTHON%auto_full_setup.py!"
+if "%log_error%" EQU "9" set "MESSAGE=!LOG_ERR_FILE:ARCHIVO=%DIR_PYTHON%import_postal_codes.py!"
 if /i "!MESSAGE!" NEQ "" call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "[%log_error%] !MESSAGE!"
 pause 
 exit /b 2

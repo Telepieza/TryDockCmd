@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.26
-:: DATE:      10/05/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install header tryton version 7 y 8
 :: ==============================================================================
@@ -20,6 +20,7 @@ set "log_error=0"
 
 set "wfile_err=%DIR_TMP%\trytond_err"
 set "wfile_log=%DIR_TMP%\trytond_log"
+set "wfile_tmp=%DIR_TMP%\trytond_tmp"
 set "wfile_base=%DIR_TMP%\trytond_base"
 set "wfile_table=%DIR_TMP%\trytond_table"
 set "wfile_activ=%DIR_TMP%\trytond_activ"
@@ -37,9 +38,11 @@ if /i "%type%"=="%DEMO%" set "sufijo=_demo"
 if /i "%type%"=="%LANG%" if "%ins_head_action%"=="%APP%" set "sufijo=_lang"
 if /i "%type%"=="%PYTH%" set "sufijo=_pyth"
 if /i "%type%"=="%TEST%" set "sufijo=_test"
+if /i "%type%"=="%MODU%" set "sufijo=_modu"
 
 set "file_err=%wfile_err%%sufijo%%EXT_TXT%"
 set "file_log=%wfile_log%%sufijo%%EXT_TXT%"
+set "file_tmp=%wfile_tmp%%sufijo%%EXT_TXT%"
 set "file_base=%wfile_base%%sufijo%%EXT_TXT%"
 set "file_table=%wfile_table%%sufijo%%EXT_TXT%"
 set "file_activ=%wfile_activ%%sufijo%%EXT_TXT%"

@@ -2,10 +2,10 @@
 :: ===============================================================================
 :: PROGRAM:   banner.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR: Telepieza
+:: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.25
-:: DATE:      29/04/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: banner
 :: ==============================================================================
@@ -29,7 +29,7 @@ echo        # %B_CYAN%   ^| ^|  ^|  _  / \   / ^| ^|  ^| ^| ^|  ^| ^| ^|    ^|  
 echo        # %B_CYAN%   ^| ^|  ^| ^| \ \  ^| ^|  ^| ^|__^| ^| ^|__^| ^| ^|____^| . \^| ^|____^| ^|  ^| ^|%B_GREY% #
 echo        # %B_CYAN%   ^|_^|  ^|_^|  \_\ ^|_^|  ^|_____/\____/ \______^|_^|\_\\_____^|_^|  ^|_^|%B_GREY% #
 echo        #                                                                 #
-echo        #                  %B_WHITE%TRYDOCKCMD DOCKER MANAGER v1.1.25%B_GREY%              #
+echo        #                  %B_WHITE%TRYDOCKCMD DOCKER MANAGER v1.1.30%B_GREY%              #
 echo        #          ------------------------------------------             #
 echo        #          Maintenance - Security - ERP Optimization              #
 echo        # Tryton (V7/V8) ERP Docker Manager     https://www.telepieza.com #

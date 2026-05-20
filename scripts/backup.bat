@@ -2,10 +2,10 @@
 :: ===============================================================================
 :: PROGRAM:   backup.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR: Telepieza
+:: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.25
-:: DATE:     29/04/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Database Hot-Export - Exportar imágenes y Base de datos (BACKUP)
 :: ==============================================================================
@@ -32,6 +32,11 @@ if /i "%back_action%"=="%INS%"  (
   set "log_action=%INS%"
   goto :continue
 )
+if /i "%back_action%"=="%FULL%"  (
+  set "log_action=%INS%"
+  goto :continue
+)
+
 :: mensajes visualizados en consola
 set "value_title=!BCK_PROCESS:PROYECTO=%MENU_TRYDOCK%! %TRYTON%:[%CURRENT_VER_MENU%] - [%CURRENT_PG_VERSION%]"
 call :logger "%MENU%" "[+] 1.- !value_title!" "3"
@@ -84,6 +89,11 @@ if "%DB_ERROR%"=="2" goto :exit
 if /i "%back_action%"=="%INS%" (
   set "MODE=2"
   goto :data_backup
+)
+
+if /i "%back_action%"=="%FULL%" (
+  set "MODE=3"
+  goto :full_backup
 )
 
 :: Busca DDBB tryton_demo
@@ -140,14 +150,14 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
   
 :full_backup
   set "MESSAGE=!BCK_EXP_IMG_DB:DBIMAGEN=%POSTGRES_IMAGE_NAME%!"
-  call :logger "!LOG-INFO!" "!MESSAGE!"
+  call :logger "!log_action!" "!MESSAGE!"
   set "destino_mode=%destino%_%MODE%"
   if not exist "%destino_mode%" mkdir "%destino_mode%" 
   :: Docker save copiamos la imagen de Base de Datos a un fichero img_postgres.tar
   docker save "%POSTGRES_IMAGE%" > "%destino_mode%\img_postgres.tar"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
   set "MESSAGE=!BCK_EXP_IMG_TRY:TRYIMAGEN=%SERVER_IMAGE_NAME%!"
-  call :logger "!LOG-INFO!" "!MESSAGE!"
+  call :logger "!log_action!" "!MESSAGE!"
   :: Docker save copiamos la imagen de tryton a un fichero img_tryton.tar
   docker save "%SERVER_IMAGE%" > "%destino_mode%\img_tryton.tar"
   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timeback!" "1"
@@ -252,6 +262,7 @@ call :logger "%MENU%" "6.3.- !MESSAGE!" "8"
   )
   call :logger "!fuction!" "!MESSAGE!"
   if /i "%back_action%"=="%INS%"  goto :exit
+  if /i "%back_action%"=="%FULL%" goto :exit
   echo.
   call :logger "!LOG-SUCC!" "!BCK_ENDING!"
   echo.

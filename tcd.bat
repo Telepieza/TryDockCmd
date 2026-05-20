@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    [https://www.telepieza.com - Gemini (Google AI)]
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.26
-:: DATE:      10/05/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Tryton Docker Manager (TCD)
 :: ==============================================================================
@@ -53,11 +53,14 @@ set "SEE=[SEE]"
 set "SQL=[SQL]"
 set "CHECK=[CHECK]"
 set "MENU=[MENU]"
+set "INFO=[INFO]"
 set "INS=[INS]"
+set "FULL=[FULL]"
 set "CALC=[CALC]"
 set "DAT=[DATE]"
 set "TIM=[TIME]"
 set "DEMO=[DEMO]"
+set "MODU=[MODU]"
 set "LANG=[LANG]"
 set "PYTH=[PYTHON]"
 set "TEST=[TEST]"
@@ -154,7 +157,7 @@ call :logger "%TXT%" "[+] 1.-Lenguaje APP : %LOCALE% ROUTE: %DIR_LANG%\%LOCALE%.
 call :check_file_lang
 if "!LOAD_FILE!"=="1" pause & goto :exit
 :: Analiza si existe el fichero .env en DIR_HOME
-call :logger "%TXT%" "[+] 2.-!LOG_INFO_FILE! %ENV_FILE%. !WORD_ROUTE!: %DIR_HOME%%ENV_FILE%" "3"
+call :logger "%INFO%" "[+] 2.-!LOG_INFO_FILE! %ENV_FILE%. !WORD_ROUTE!: %DIR_HOME%%ENV_FILE%" "3"
 call :check_file_env
 if "!LOAD_FILE!"=="1" pause & goto :exit
 :: Cargar variables de entorno desde .env
@@ -169,7 +172,7 @@ if /i "!LANGUAGE!" NEQ "%LOCALE%" (
   call :check_file_lang
   if "!LOAD_FILE!"=="1" pause & goto :exit
 )
-call :logger "%TXT%" "[+] 4.-!LOG_INFO_FILE! !LOG_WORK_COMPOSE!. !WORD_ROUTE!: %DIR_HOME%%COMPOSE_FILE%" "3"
+call :logger "%INFO%" "[+] 4.-!LOG_INFO_FILE! !LOG_WORK_COMPOSE!. !WORD_ROUTE!: %DIR_HOME%%COMPOSE_FILE%" "3"
 :: Analiza si existe el fichero compose.yml en DIR_HOME
 call :check_file_compose
 if "!LOAD_FILE!"=="1" pause & goto :exit
@@ -180,7 +183,7 @@ if "!LOAD_FILE!" neq "0" (
   call :check_file_ps1
   if "!LOAD_FILE!"=="1" goto :exit
 )
-call :logger "%TXT%" "[+] 6.-!LOG_INFO_HEAD! !MENU_TITLE! (!MENU_TRYDOCK!)" "3"
+call :logger "%INFO%" "[+] 6.-!LOG_INFO_HEAD! !MENU_TITLE! (!MENU_TRYDOCK!)" "3"
 @REM :: --- Validación inicial ---
 call "%DIR_SCRIPT%header.bat" "%TRYTON%"
 set "MESSAGE="
@@ -221,7 +224,7 @@ if "!CURRENT_VAT_RATES!"=="" set "CURRENT_VAT_RATES=!WORD_VAT_RATES!"
 set "action_ins=%INS%"
 :verify_docker
   set "LOAD_FILE=0"
-  call :logger "%MENU%" "[+] 8.-!LOG_INFO_DOCKER!" "3"
+  call :logger "%INFO%" "[+] 8.-!LOG_INFO_DOCKER!" "3"
   :: Verifica si las imágenes y los contenedores existen en Docker.
   :: El control es para que todas las demás opciones funcionen más controladas y rápidas.
   call "%DIR_SCRIPT%checkdocker.bat" "%TRYTON%"
@@ -231,7 +234,7 @@ set "action_ins=%INS%"
     call "%DIR_SCRIPT%checkversion.bat" "%TRYTON%"
     if /i "!CURRENT_PGALL_VERSION!"=="%LATEST%" set "CURRENT_PGALL_VERSION=PostgreSQL %LATEST%"
     call :logger "%MENU%" "9.1.- %TRYTON%:[!CURRENT_VER_MENU!] " "7"
-    call :logger "%MENU%" "9.2.- %POSTGRES%:[!CURRENT_PGALL_VERSION!]" "7"
+    if /i "!CURRENT_PGALL_VERSION!" NEQ ""  call :logger "%MENU%" "9.2.- %POSTGRES%:[!CURRENT_PGALL_VERSION!]" "7"
     call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "timeout_start" "!wait_time!" "1" "N"
   ) 
   
@@ -494,6 +497,7 @@ exit /b
   )
   if "%ACTIVE_COPY%" NEQ "0" (
     docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/auto_full_setup.py
+    docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/import_postal_codes.py
     docker exec -u 0 !CURRENT_TRYTON! rm -f /tmp/trytond_setup.conf
   )
   call "%DIR_SCRIPT%cycletime.bat" "%TIM%" "%time%"

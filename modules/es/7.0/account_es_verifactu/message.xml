@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+    copyright notices and license terms. -->
+<tryton>
+    <data grouped="1">
+        <record model="ir.message" id="msg_tax_key_S1">
+            <field name="text">Subject and not exempt - No reverse charge</field>
+        </record>
+        <record model="ir.message" id="msg_tax_key_S2">
+            <field name="text">Subject and not exempt - With reverse charge</field>
+        </record>
+        <record model="ir.message" id="msg_tax_key_N1">
+            <field name="text">Not subject by Art. 7, 14, others</field>
+        </record>
+        <record model="ir.message" id="msg_tax_key_N2">
+            <field name="text">Not subject by location rules</field>
+        </record>
+        <record model="ir.message" id="msg_tax_key_E1">
+            <field name="text">Exempt by Art. 20</field>
+        </record>
+        <record model="ir.message" id="msg_tax_key_E2">
+            <field name="text">Exempt by Art. 21</field>
+        </record>
+        <record model="ir.message" id="msg_tax_key_E3">
+            <field name="text">Exempt by Art. 22</field>
+        </record>
+        <record model="ir.message" id="msg_tax_key_E4">
+            <field name="text">Exempt by Art. 23 and 24</field>
+        </record>
+        <record model="ir.message" id="msg_tax_key_E5">
+            <field name="text">Exempt by Art. 25</field>
+        </record>
+        <record model="ir.message" id="msg_tax_key_E6">
+            <field name="text">Exempt others</field>
+        </record>
+        <record model="ir.message" id="msg_es_verifactu_invoice_unique">
+            <field name="text">Only one Verifactu invoice can be created for each invoice.</field>
+        </record>
+        <record model="ir.message" id="msg_es_verifactu_invoice_delete_sent">
+            <field name="text">You cannot delete Verifactu invoice "%(invoice)s" because it has already been sent.</field>
+        </record>
+        <record model="ir.message" id="msg_es_verifactu_posted_invoices">
+            <field name="text">You can not change the Verifactu setting for period "%(period)s" because there are already posted invoices.</field>
+        </record>
+        <record model="ir.message" id="msg_es_verifactu_no_key_cert">
+            <field name="text">In order to send Verifactu invoice a private key and a certificate must be set for company "%(company)s".</field>
+        </record>
+        <record model="ir.message" id="msg_error_loading_credentials">
+            <field name="text">Error loading credentials: %(message)s</field>
+        </record>
+    </data>
+</tryton>

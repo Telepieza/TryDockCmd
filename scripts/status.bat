@@ -2,10 +2,10 @@
 :: =====================================================================================
 :: PROGRAM:   status.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR: Telepieza
+:: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.25
-:: DATE:     29/04/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Check containers and images - Comprobar imágenes y contenedores (STATUS)
 :: =====================================================================================
@@ -53,7 +53,7 @@ if /i "%est_action%" EQU "%SQL%" (
    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps -a --format "table {{.Name}}\t{{.Image}}\t{{.Service}}\t{{.Status}}\t{{.State}}\t{{.Ports}}"
 ) 
 :: Indicar que solo deseamos visualizar los Contenedores, servicios y state
-if /i "%est_action%" == "%SEE%" echo. & goto :exit
+if /i "%est_action%" EQU "%SEE%" echo. & goto :exit
 :: Comprobar si la base de datos admite conexiones.
 if /i "%CURRENT_POSTGRES%"=="" set "CURRENT_POSTGRES=%TRYTON_POSTGRES%-1"
 if /i "%CURRENT_TRYTON%"=="" set "CURRENT_TRYTON=%TRYTON%-%SERVER%-1"
@@ -80,10 +80,10 @@ goto :exit
   if /i "%service%" equ "%POSTGRES%" set "msg_cont=%CURRENT_POSTGRES% - !WORD_SERVICE!: %service%" 
   if /i "%service%" equ "%CRON%" set "msg_cont=%CURRENT_CRON% - !WORD_SERVICE!: %service%"
   if /i "%service%" equ "%SERVER%" set "msg_cont=%CURRENT_TRYTON% - !WORD_SERVICE!: %service%" 
-  set "MESSAGE=!STAT_ACTIVE_2:PROYECTO=%msg_cont%!"
+  set "MESSAGE=STATUS !STAT_ACTIVE_2:PROYECTO=%msg_cont%!"
   docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps "%service%" | findstr /I "Up" >nul
   if %errorlevel% neq 0 (
-    set "MESSAGE=!STAT_STOPPED_2:PROYECTO=%msg_cont%!"
+    set "MESSAGE=STATUS !STAT_STOPPED_2:PROYECTO=%msg_cont%!"
     set "LOAD_FILE=1"
   )
   call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
@@ -96,7 +96,7 @@ goto :exit
     docker exec "%CURRENT_POSTGRES%" pg_isready -U "%DB_USER%" >nul 2>&1
     if %errorlevel% neq 0 (
       set "db_error=1"
-      set "MESSAGE=!UP_WAIT_DB3:PROYECTO=%msg_cont%!"
+      set "MESSAGE=STATUS !UP_WAIT_DB3:PROYECTO=%msg_cont%!"
     )
     call "%DIR_SCRIPT%message.bat" "%log_action%" "!MESSAGE!"
     exit /b

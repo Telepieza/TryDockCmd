@@ -3,6 +3,22 @@
 Todos los cambios notables en este proyecto serán documentados en este archivo. El formato se basa en [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [1.1.30] - 2026-05-18
+
+### Added
+- **Motor de Módulos Externos:** Implementación del motor híbrido `install_external.bat` para la gestión inteligente de dependencias y módulos fuera de la imagen oficial.
+- **Lógica de Anclaje Contable:** Sistema de detección de `PREFIX` en `account_es` para bloquear conflictos entre proveedores (NANTIC vs COMMUNITY).
+- **Jerarquía Multi-Proveedor:** Estrategia de búsqueda automatizada en orden de prioridad: 1. Heptapod (Comunidad), 2. Local (TryDockCmd), 3. GitHub (Nantic).
+- **Inyección Pura (Pure Modules):** Capacidad de clonar e inyectar código directamente en el volumen de Tryton para módulos con `setup.py` obsoletos o incompatibles con `pip`.
+- **Flujos de Negocio Españoles:** Automatización completa para la instalación de Facturae, Verifactu y SII, incluyendo dependencias críticas (SignXML, XMLSIG, pyOpenSSL).
+- **Auditoría de Versiones:** Registro detallado en `log/modules_git_audit.log` con Hashes de commits para garantizar la trazabilidad del código inyectado.
+- **Documentación:** Creadas las guías detalladas `Guia_Instalación_Modulos_Externos.md` (ES) y `External_Module_Installation_Guide.md` (EN).
+
+### Changed
+- **Ciclo de Vida Post-Instalación:** El sistema ahora realiza un `--update-modules-list` seguido de un `--all` para refrescar traducciones y reinicia los contenedores automáticamente para asegurar estabilidad.
+- **Optimización de Traducciones:** Mejora en la carga de idiomas mediante el parámetro `-l` en la fase final de activación.
+
+---
 ## [1.1.26] - 2026-05-10
 
 ### Fixed
@@ -94,7 +110,7 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT  
-- **Project Status:** v1.1.25 Stable
+- **Project Status:** v1.1.30 Stable
 
 ---
 

@@ -1,14 +1,31 @@
 # ===============================================================================
 # PROGRAM:   auto_full_setup.py
 # PROJECT:   Tryton Docker Manager
-# VERSION:   1.1.26
-# DATE:      10/05/2026
+# VERSION:   1.1.30
+# DATE:      20/05/2026
 # LICENSE:   MIT License
 # DESCRIPTION: Enlace TryDockCmd con proteus version 7 y 8
 # ==============================================================================
-import os
-import logging
 import warnings
+import os
+
+# 1. Silencio total de Warnings de Python (Deprecation, Import, etc.)
+warnings.filterwarnings("ignore")
+os.environ["PYTHONWARNINGS"] = "ignore"
+
+import logging
+
+# 1.5 No capturar warnings en el log para evitar que StreamHandler los saque por stdout
+logging.captureWarnings(False)
+
+# 2. Configurar loggers ruidosos para ignorar todo lo que no sea un ERROR crítico
+# Se añade py.warnings (donde van los avisos capturados) y defusedxml
+NOISY_LOGGERS = ["trytond", "requests", "urllib3", "zeep", "braintree", "xmlschema", "amqp", "passlib", "py.warnings", "defusedxml", "proteus", "urllib3.connectionpool"]
+for logger_name in NOISY_LOGGERS:
+    l = logging.getLogger(logger_name)
+    l.setLevel(logging.ERROR)
+    l.propagate = False  # Evita que los mensajes INFO de estas librerías lleguen al log principal
+
 from datetime import date
 import time
 import sys
@@ -90,7 +107,27 @@ MESSAGES = {
         'vat_skipped_bad_rate': "No se pudo crear {}: campo de porcentaje no compatible.",
         'vat_created': "IVA creado para {}: {}.",
         'admin_lang_set': "Perfil Admin configurado a {}.",
-        'vat_already_present': "IVA España ya existente, no recreado: {}."
+        'vat_already_present': "IVA España ya existente, no recreado: {}.",
+        'ar_pos_created': "Punto de Venta Argentino (Manual) configurado.",
+        'ar_rate_set': "Cotización inicial ARS configurada.",
+        'ar_voucher_seq': "Secuencias de recibos argentinos creadas para {}.",
+        'geo_present': "Fase GEO: Códigos postales ya presentes para {}.",
+        'comp_exists': "Empresa {} ya existe.",
+        'comp_creating': "Creando empresa: {}",
+        'acc_seq_not_found': "Fase ACC: No se encontró tipo de secuencia para asientos ({}).",
+        'acc_mod_status': "Fase ACC: El módulo '{}' está en estado '{}'. No se pueden crear cuentas para '{}'.",
+        'acc_tpl_found': "Localizada plantilla '{}' para '{}'.",
+        'mod_not_found': "Verificación de módulo: '{}' no encontrado.",
+        'mod_act_try': "Verificación de módulo: '{}' está en estado '{}'. Intentando activarlo.",
+        'mod_act_succ': "Verificación de módulo: '{}' activado exitosamente.",
+        'mod_act_fail': "Verificación de módulo: Falló la activación de '{}'. Estado actual: '{}'.",
+        'mod_act_err': "Verificación de módulo: Error al activar '{}': {}.",
+        'tryton_ver': "Versión de Tryton detectada: {}",
+        'anchor_mods': "Módulos ancla de localización seleccionados (Major Ver: {}): {}",
+        'diag_py': "Diagnóstico: sys.executable = {}",
+        'tax_detect_code': "Fase TAX: Cuenta detectada por código '{}': {}.",
+        'tax_detect_name': "Fase TAX: Cuenta detectada por nombre '{}': {}.",
+        'tax_detect_ver': "Detección de impuestos - Major Ver: {}, Requisito: {}."
     },
     'en': {
         'start': "--- CONNECTION SUCCESSFUL ---",
@@ -138,7 +175,27 @@ MESSAGES = {
         'vat_skipped_bad_rate': "Could not create {}: incompatible percentage field.",
         'vat_created': "VAT created for {}: {}.",
         'admin_lang_set': "Admin profile set to {}.",
-        'vat_already_present': "Spanish VAT already exists, not recreated: {}."
+        'vat_already_present': "Spanish VAT already exists, not recreated: {}.",
+        'ar_pos_created': "Argentine POS (Manual) configured.",
+        'ar_rate_set': "Initial ARS rate configured.",
+        'ar_voucher_seq': "Argentine voucher sequences created for {}.",
+        'geo_present': "GEO Phase: Postal codes already present for {}.",
+        'comp_exists': "Company {} already exists.",
+        'comp_creating': "Creating company: {}",
+        'acc_seq_not_found': "ACC Phase: Sequence type for moves not found ({}).",
+        'acc_mod_status': "ACC Phase: Module '{}' is in state '{}'. Accounts cannot be created for '{}'.",
+        'acc_tpl_found': "Located template '{}' for '{}'.",
+        'mod_not_found': "Module verification: '{}' not found.",
+        'mod_act_try': "Module verification: '{}' is in state '{}'. Attempting to activate.",
+        'mod_act_succ': "Module verification: '{}' successfully activated.",
+        'mod_act_fail': "Module verification: Failed to activate '{}'. Current state: '{}'.",
+        'mod_act_err': "Module verification: Error activating '{}': {}.",
+        'tryton_ver': "Tryton version detected: {}",
+        'anchor_mods': "Localization anchor modules selected (Major Ver: {}): {}",
+        'diag_py': "Diagnostic: sys.executable = {}",
+        'tax_detect_code': "TAX Phase: Account detected by code '{}': {}.",
+        'tax_detect_name': "TAX Phase: Account detected by name '{}': {}.",
+        'tax_detect_ver': "Tax detection - Major Ver: {}, Requirement: {}."
     },
     'fr': {
         'start': "--- CONNEXION RÉUSSIE ---",
@@ -186,7 +243,27 @@ MESSAGES = {
         'vat_skipped_bad_rate': "Impossible de créer {} : champ de pourcentage incompatible.",
         'vat_created': "TVA créée pour {} : {}.",
         'admin_lang_set': "Profil Admin configuré à {}.",
-        'vat_already_present': "TVA Espagne déjà existante, non recréée : {}."
+        'vat_already_present': "TVA Espagne déjà existante, non recréée : {}.",
+        'ar_pos_created': "Terminal POS argentin (manuel) configuré.",
+        'ar_rate_set': "Taux de change initial ARS configuré.",
+        'ar_voucher_seq': "Séquences de reçus argentins créées {}.",
+        'geo_present': "Phase GEO : Codes postaux déjà présents pour {}.",
+        'comp_exists': "L'entreprise {} existe déjà.",
+        'comp_creating': "Création de l'entreprise : {}",
+        'acc_seq_not_found': "Phase ACC : Type de séquence pour les écritures non trouvé ({}).",
+        'acc_mod_status': "Phase ACC : Le module '{}' est dans l'état '{}'. Les comptes ne peuvent pas être créés pour '{}'.",
+        'acc_tpl_found': "Modèle '{}' localisé pour '{}'.",
+        'mod_not_found': "Vérification du module : '{}' non trouvé.",
+        'mod_act_try': "Vérification du module : '{}' est dans l'état '{}'. Tentative d'activation.",
+        'mod_act_succ': "Vérification du module : '{}' activé avec succès.",
+        'mod_act_fail': "Vérification du module : Échec de l'activation de '{}'. État actuel : '{}'.",
+        'mod_act_err': "Vérification du module : Erreur lors de l'activation de '{}' : {}.",
+        'tryton_ver': "Version de Tryton détectée : {}",
+        'anchor_mods': "Modules d'ancrage de localisation sélectionnés (Major Ver : {}) : {}",
+        'diag_py': "Diagnostic : sys.executable = {}",
+        'tax_detect_code': "Phase TAX : Compte détecté par code '{}' : {}.",
+        'tax_detect_name': "Phase TAX : Compte détecté par nom '{}' : {}.",
+        'tax_detect_ver': "Détection des taxes - Major Ver : {}, Requis : {}."
     },
     'de': {
         'start': "--- VERBINDUNG ERFOLGREICH ---",
@@ -234,7 +311,27 @@ MESSAGES = {
         'vat_skipped_bad_rate': "{} konnte nicht erstellt werden: inkompatibles Prozentfeld.",
         'vat_created': "MwSt. erstellt für {}: {}.",
         'admin_lang_set': "Admin-Profil auf {} gesetzt.",
-        'vat_already_present': "Spanische MwSt. bereits vorhanden, nicht neu erstellt: {}."
+        'vat_already_present': "Spanische MwSt. bereits vorhanden, nicht neu erstellt: {}.",
+        'ar_pos_created': "Argentinisches Kassensystem (manuell) konfiguriert.",
+        'ar_rate_set': "Die anfängliche ARS-Rate wurde konfiguriert.",
+        'ar_voucher_seq': "Argentinische Gutscheinsequenzen erstellt für {}.",
+        'geo_present': "GEO-Phase: Postleitzahlen bereits vorhanden für {}.",
+        'comp_exists': "Unternehmen {} existiert bereits.",
+        'comp_creating': "Unternehmen wird erstellt: {}",
+        'acc_seq_not_found': "ACC-Phase: Sequenztyp für Buchungen nicht gefunden ({}).",
+        'acc_mod_status': "ACC-Phase: Modul '{}' ist im Status '{}'. Konten können für '{}' nicht erstellt werden.",
+        'acc_tpl_found': "Vorlage '{}' für '{}' lokalisiert.",
+        'mod_not_found': "Modul-Verifizierung: '{}' nicht gefunden.",
+        'mod_act_try': "Modul-Verifizierung: '{}' ist im Status '{}'. Versuch der Aktivierung.",
+        'mod_act_succ': "Modul-Verifizierung: '{}' erfolgreich aktiviert.",
+        'mod_act_fail': "Modul-Verifizierung: Aktivierung von '{}' fehlgeschlagen. Aktueller Status: '{}'.",
+        'mod_act_err': "Modul-Verifizierung: Fehler beim Aktivieren von '{}': {}.",
+        'tryton_ver': "Tryton-Version erkannt: {}",
+        'anchor_mods': "Lokalisierungs-Ankermodule ausgewählt (Major Ver: {}): {}",
+        'diag_py': "Diagnose: sys.executable = {}",
+        'tax_detect_code': "TAX-Phase: Konto anhand des Codes '{}' erkannt: {}.",
+        'tax_detect_name': "TAX-Phase: Konto anhand des Namens '{}' erkannt: {}.",
+        'tax_detect_ver': "Steuererkennung - Major Ver: {}, Anforderung: {}."
     }
 }
 
@@ -247,17 +344,11 @@ msg = MESSAGES.get(requested_lang, MESSAGES['en'])
 # -------------------------------------------------
 def run_geodata_import(database, config_file, iso_code):
     logging.info(msg['geo_start'].format(iso_code))
+    logging.info(msg['diag_py'].format(sys.executable))
     base_mod = os.environ.get('TRYTON_BASE_MODULE', os.path.dirname(trytond.modules.__file__))
     scripts_path = f"{base_mod}/country/scripts"
     iso_up = iso_code.upper()
     try:
-        # 0. CONFIGURACIÓN DE SILENCIO DE AVISOS
-        # Ignoramos avisos en el proceso principal
-        warnings.filterwarnings("ignore")
-        # Preparamos el entorno para ignorar avisos en subprocesos (vía variable de entorno)
-        process_env = os.environ.copy()
-        process_env["PYTHONWARNINGS"] = "ignore"
-
         # 1. COMPROBACIÓN DE PAÍSES
         Country = Model.get('country.country')
         countries_exist = False
@@ -269,36 +360,44 @@ def run_geodata_import(database, config_file, iso_code):
         if countries_exist:
             logging.info(msg['geo_skip1'])
         else:
-            logging.info(msg['geo_step1'])
+            logging.debug(msg['geo_step1'])
             result = subprocess.run(
                 [sys.executable, "-W", "ignore", f"{scripts_path}/import_countries.py", "-d", database, "-c", config_file],
-                capture_output=True, text=True, check=True, env=process_env
+                capture_output=True, text=True, check=True
             )
             if result.stderr:
                 logging.debug(result.stderr.strip())
-            # Refresco del Pool usando el alias p_config
-            p_config.get_config().pool.init()
+
+        # Refresco del Pool obligatorio para asegurar que PostalCode esté registrado
+        p_config.get_config().pool.init()
 
         # 2. COMPROBACIÓN DE CÓDIGOS POSTALES (Carga perezosa)
         zips_exist = False
         try:
-            Zip = Model.get('country.zip')
-            if Zip.find([('country.code', '=', iso_up)], limit=1):
+            Zip = Model.get('country.postal_code')
+            found = Zip.find([('country.code', '=', iso_up)], limit=1)
+            if found:
                 zips_exist = True
+                logging.info(msg['geo_present'].format(iso_up))
         except (KeyError, Exception):
             zips_exist = False
 
         if zips_exist:
             logging.info(msg['geo_skip2'].format(iso_up))
         else:
-            logging.info(msg['geo_step2'].format(iso_up))
+            logging.debug(msg['geo_step2'].format(iso_up))
             # Ejecutamos con salida en vivo para facilitar diagnóstico de cargas grandes.
             # Usamos '-W ignore' directamente en el intérprete para asegurar el silencio de avisos de 'requests'
+            
+            # Priorizar el script parcheado en /tmp si existe, si no usar el oficial
+            local_patched = "/tmp/import_postal_codes.py"
+            run_path = local_patched if os.path.exists(local_patched) else f"{scripts_path}/import_postal_codes.py"
+            
             subprocess.run(
-                [sys.executable, "-W", "ignore", f"{scripts_path}/import_postal_codes.py", "-d", database, "-c", config_file, iso_up],
+                [sys.executable, "-W", "ignore", run_path, "-d", database, "-c", config_file, iso_up],
                 stdout=sys.stdout,
-                stderr=sys.stderr,
-                env=process_env,
+                stderr=subprocess.DEVNULL, # Silenciamos warnings de librerías en el subproceso
+                env=os.environ.copy(),
                 text=True,
                 check=True
             )
@@ -311,7 +410,6 @@ def run_geodata_import(database, config_file, iso_code):
 # -------------------------------------------------
 # FUNCIONES ORIGINALES (Tal cual me las pasaste)
 # -------------------------------------------------
-
 def get_company_config(conf_path='/config/trytond.conf'):
     logging.info(msg['conf_phase'])
     config = configparser.ConfigParser()
@@ -470,10 +568,10 @@ def setup_or_get_company(company_name, currency_code, db_name, config_file, targ
     # Intentar buscar si ya existe
     existing_companies = Company.find([('party.name', '=', company_name)])
     if existing_companies:
-        logging.info(f"Empresa {company_name} ya existe.")
+        logging.info(msg['comp_exists'].format(company_name))
         return existing_companies[0]
 
-    logging.info(f"Creando empresa: {company_name}")
+    logging.info(msg['comp_creating'].format(company_name))
     
     # 2. Asegurar moneda
     usd_list = Currency.find([('code', '=', currency_code)])
@@ -499,11 +597,13 @@ def setup_or_get_company(company_name, currency_code, db_name, config_file, targ
     company_config.execute('add')
 
     # 4. RECARGAR CONTEXTO (Vital para que el resto del script sepa que ya hay empresa)
-    p_config.get_config()._context = User.get_preferences(True, {})
-    
-    new_company, = Company.find([('party.name', '=', company_name)])
-    return new_company
+    config = p_config.get_config()
+    prefs = User.get_preferences(True, {})
+    config.context.update(prefs)
 
+    new_company, = Company.find([('party.name', '=', company_name)])
+    config.context['company'] = new_company.id
+    return new_company
 
 def activate_languages(dependencies, target_lang):
     logging.info(msg['lang_phase'])
@@ -542,44 +642,113 @@ def get_sequence_type_id(module, name, fallback_id):
 
 def create_fiscalyear(year, company):
     FiscalYear = Model.get('account.fiscalyear')
-    Period = Model.get('account.period')
-    SequenceStrict = Model.get('ir.sequence.strict')
+    Sequence = Model.get('ir.sequence')
     SequenceType = Model.get('ir.sequence.type') 
-    def _create_periods(fy):
-        Wizard('account.fiscalyear.create_periods', [fy]).execute('create_periods')
+    InvoiceSequence = Model.get('account.fiscalyear.invoice_sequence')
+    Period = Model.get('account.period')
+    Module = Model.get('ir.module')
+    SequenceStrict = Model.get('ir.sequence.strict')
+
+    # 1. Sincronización de contexto (v7 compatible)
+    config = p_config.get_config()
+    config.context.update({'company': company.id})
+
+    # 2. Comprobar existencia (Evitar duplicados)
     existing = FiscalYear.find([('name', '=', str(year)), ('company', '=', company.id)])
     if existing:
         fy = existing[0]
-        has_periods = bool(Period.find([('fiscalyear', '=', fy.id)], limit=1))
-        if not has_periods:
-            _create_periods(fy)
-            logging.info(msg['fisc_year'].format(year))
+        if not Period.find([('fiscalyear', '=', fy.id)], limit=1):
+            try: Wizard('account.fiscalyear.create_periods', [fy]).execute('create_periods')
+            except: pass
         return fy
-    fy = FiscalYear(name=str(year), company=company)
-    fy.start_date = date(year, 1, 1)
-    fy.end_date = date(year, 12, 31)
-    st_move = SequenceType(get_sequence_type_id('account', 'sequence_type_account_move', 11))
-    move_name = msg['seq_move'].format(year)
-    move_seq = SequenceStrict(name=move_name, sequence_type=st_move, company=company, padding=6)
-    move_seq.save()
-    fy.move_sequence = move_seq
-    st_inv = SequenceType(get_sequence_type_id('account_invoice', 'sequence_type_account_invoice', 13))
-    def _make_seq(n):
-        s = SequenceStrict(name=f"{n} {year}", sequence_type=st_inv, company=company, padding=6)
+
+    # 3. Localizar Tipos de Secuencia (Resolución Híbrida v7/v8)
+    def resolve_st(module, technical, fallbacks):
+        # Intento 1: XML ID (Independiente del idioma)
+        tid = get_sequence_type_id(module, technical, None)
+        if tid: return SequenceType(tid)
+        # Intento 2: Nombres conocidos
+        for name in fallbacks:
+            res = SequenceType.find([('name', '=', name)])
+            if res: return res[0]
+        return None
+
+    st_move = resolve_st('account', 'sequence_type_account_move', 
+                         ["Account Move", "Asiento contable", "Écriture comptable", "Buchungssatz"])
+    st_inv = resolve_st('account_invoice', 'sequence_type_account_invoice', 
+                        ["Invoice", "Factura", "Facture", "Rechnung"])
+
+    if not st_move:
+        logging.error(f"Fase ACC: No se encontró tipo de secuencia para asientos ({year}).")
+        return None
+
+    # 4. Crear Secuencias (Usando constructor y asignación explícita)
+    def make_seq(name_part, s_type, strict=False):
+        SModel = SequenceStrict if strict else Sequence
+        unique_name = f"{name_part} {year} ({company.party.name})"
+        
+        # Búsqueda previa para evitar duplicados
+        found = SModel.find([('name', '=', unique_name), ('company', '=', company.id)])
+        if found: return found[0]
+
+        s = SModel(name=unique_name)
+        s.sequence_type = s_type
+        s.company = company
+        s.padding = 6
         s.save()
         return s
-    if not fy.invoice_sequences:
-        raise RuntimeError(msg['invoice_seq_missing'])
-    inv_seq_link = fy.invoice_sequences[0]
-    inv_seq_link.company = company
-    inv_seq_link.out_invoice_sequence = _make_seq("INV")
-    inv_seq_link.out_credit_note_sequence = _make_seq("CRN")
-    inv_seq_link.in_invoice_sequence = _make_seq("SUP_INV")
-    inv_seq_link.in_credit_note_sequence = _make_seq("SUP_CRN")
-    fy.save()
-    _create_periods(fy)
-    logging.info(msg['fisc_year'].format(year))
-    return fy
+
+    move_seq = make_seq("Asientos", st_move)
+
+    # 5. Construcción del Ejercicio Fiscal
+    fy = FiscalYear()
+    fy.name = str(year)
+    fy.start_date = date(year, 1, 1)
+    fy.end_date = date(year, 12, 31)
+    fy.company = company
+    fy.post_move_sequence = move_seq
+
+    # 6. Secuencias de Facturación (Integridad NotNull v7)
+    if st_inv and fy.invoice_sequences:
+        is_link = fy.invoice_sequences[0]
+        is_link.company = company
+        is_link.out_invoice_sequence = make_seq("Ventas", st_inv, True)
+        is_link.out_credit_note_sequence = make_seq("Abonos Venta", st_inv, True)
+        is_link.in_invoice_sequence = make_seq("Compras", st_inv, True)
+        is_link.in_credit_note_sequence = make_seq("Abonos Compra", st_inv, True)
+
+    # 3b. Secuencias Argentinas (Recibos y Cooperativas)
+    # Si están los módulos de Argentina, creamos las secuencias que pide el paquete
+    ar_vouchers = Module.find([('name', '=', 'account_voucher_ar'), ('state', '=', 'activated')])
+    if ar_vouchers:
+        # Búsqueda robusta por nombre para tipos de secuencia de recibos
+        st_pay = SequenceType.find([('name', 'ilike', '%voucher.payment%')])
+        if st_pay:
+            s = make_seq("Recibo Pago", st_pay[0])
+            setattr(fy, 'payment_sequence', s)
+        
+        st_rec = SequenceType.find([('name', 'ilike', '%voucher.receipt%')])
+        if st_rec:
+            s = make_seq("Recibo Cobro", st_rec[0])
+            setattr(fy, 'receipt_sequence', s)
+        logging.info(msg['ar_voucher_seq'].format(year))
+
+    ar_coop = Module.find([('name', '=', 'cooperative_ar'), ('state', '=', 'activated')])
+    if ar_coop:
+        st_coop = SequenceType.find([('name', 'ilike', '%cooperative.receipt%')])
+        if st_coop:
+            s = make_seq("Recibo Cooperativa", st_coop[0])
+            setattr(fy, 'cooperative_receipt_sequence', s)
+
+    # 4. Guardar y crear períodos
+    try:
+        fy.save()
+        Wizard('account.fiscalyear.create_periods', [fy]).execute('create_periods')
+        logging.info(msg['fisc_year'].format(year))
+        return fy
+    except Exception as e:
+        logging.error(msg['error'].format(f"Al guardar {year}: {e}"))
+        return None
 
 def setup_accounts(company, dependencies):
     AccountTemplate = Model.get('account.account.template')
@@ -599,14 +768,15 @@ def setup_accounts(company, dependencies):
     mapping = {
         'es': {'names': ['%Pymes%', '%Normal%', '%español%', '%Plan de cuentas universal%'], 'receivable': ['4300', 'Cuentas a cobrar'], 'payable': ['4000', 'Cuentas a pagar']},
         'fr': {'names': ['%Plan comptable général%', '%français%', '%Plan comptable universel%'], 'receivable': ['411', 'Comptes clients'], 'payable': ['401', 'Comptes fournisseurs']},
-        'de': {'names': ['%SKR03%', '%Deutscher%', '%Universal-Kontenplan%'], 'receivable': ['10000', 'Forderungen'], 'payable': ['70000', 'Verbindlichkeiten']}
+        'de': {'names': ['%SKR03%', '%Deutscher%', '%Universal-Kontenplan%'], 'receivable': ['10000', 'Forderungen'], 'payable': ['70000', 'Verbindlichkeiten']},
+        'ar': {'names': ['%Plan Contable Argentino%'], 'receivable': ['11301', 'Deudores por ventas'], 'payable': ['21301', 'Proveedores']}
     }
     for code, mod_name in dependencies.items():
         # Verificar estado del módulo de localización
         mod_list = Module.find([('name', '=', mod_name)])
         if not mod_list or mod_list[0].state != 'activated':
             status = mod_list[0].state if mod_list else "no instalado"
-            logging.warning(f"Fase ACC: El módulo '{mod_name}' está en estado '{status}'. No se pueden crear cuentas para '{code}'.")
+            logging.warning(msg['acc_mod_status'].format(mod_name, status, code))
             continue
 
         conf = mapping[code]
@@ -620,7 +790,7 @@ def setup_accounts(company, dependencies):
                     templates = AccountTemplate.find([('name', 'ilike', t_name)])
                 
                 if templates:
-                    logging.info(f"Localizada plantilla '{templates[0].name}' para '{code}'.")
+                    logging.info(msg['acc_tpl_found'].format(templates[0].name, code))
                     break
 
             if not templates:
@@ -682,24 +852,24 @@ def is_module_activated(module_name):
     Module = Model.get('ir.module')
     mod_list = Module.find([('name', '=', module_name)])
     if not mod_list:
-        logging.debug(f"Verificación de módulo: '{module_name}' no encontrado.")
+        logging.debug(msg['mod_not_found'].format(module_name))
         return False
     
     module_record = mod_list[0]
     if module_record.state != 'activated':
-        logging.info(f"Verificación de módulo: '{module_name}' está en estado '{module_record.state}'. Intentando activarlo.")
+        logging.info(msg['mod_act_try'].format(module_name, module_record.state))
         try:
-            # Usar el wizard para activar el módulo
-            Wizard('ir.module.activate_upgrade').execute('activate', [module_record])
+            module_record.click('activate')
+            Wizard('ir.module.activate_upgrade').execute('upgrade')
             module_record = Module.find([('name', '=', module_name)])[0] # Volver a obtener el estado
             if module_record.state == 'activated':
-                logging.info(f"Verificación de módulo: '{module_name}' activado exitosamente.")
+                logging.info(msg['mod_act_succ'].format(module_name))
                 return True
             else:
-                logging.warning(f"Verificación de módulo: Falló la activación de '{module_name}'. Estado actual: '{module_record.state}'.")
+                logging.warning(msg['mod_act_fail'].format(module_name, module_record.state))
                 return False
         except Exception as e:
-            logging.error(f"Verificación de módulo: Error al activar '{module_name}': {e}.")
+            logging.error(msg['mod_act_err'].format(module_name, str(e)))
             return False
     return True
 
@@ -731,14 +901,14 @@ def _pick_account_for_taxes(company):
     for code in ['47700000', '47200000', '477', '472']:
         acc = Account.find([('company', '=', company.id), attr_filter, ('code', '=', code)], limit=1)
         if acc: 
-            logging.info(f"Fase TAX: Cuenta detectada por código '{code}': {acc[0].name}")
+            logging.info(msg['tax_detect_code'].format(code, acc[0].name))
             return acc[0]
     
     # 2. Búsqueda por nombre (PGC Pymes/Normal inyectado)
     for name in ['%Hacienda Pública, IVA repercutido%', '%Hacienda Pública, IVA soportado%']:
         acc = Account.find([('company', '=', company.id), attr_filter, ('name', 'ilike', name)], limit=1)
         if acc:
-            logging.info(f"Fase TAX: Cuenta detectada por nombre '{name}': {acc[0].name}")
+            logging.info(msg['tax_detect_name'].format(name, acc[0].name))
             return acc[0]
     
     # 3. Fallback para Plan Universal: Buscar por nombre "IVA" o "Tax" que acepte apuntes
@@ -756,7 +926,7 @@ def ensure_spanish_vat_taxes(company, company_conf):
     # En V8+, account_es es opcional pero necesario para tener cuentas imputables.
     # Si no está inyectado, omitimos para evitar errores de dominio con el Plan Universal.
     proxy_es = 'account_es'
-    logging.info(f"Detección de impuestos - Major Ver: {major_ver}, Requisito: {proxy_es}")
+    logging.info(msg['tax_detect_ver'].format(major_ver, proxy_es))
 
     if not is_module_activated(proxy_es):
         logging.info(msg['vat_skipped_no_module'])
@@ -808,6 +978,39 @@ def ensure_spanish_vat_taxes(company, company_conf):
     if already_present:
         logging.info(msg['vat_already_present'].format("/".join(already_present)))
 
+def ensure_argentina_pos(company):
+    """Configura el Punto de Venta necesario para la localización Argentina."""
+    if not is_module_activated('account_invoice_ar'):
+        return
+    Pos = Model.get('account.pos')
+    existing = Pos.find([('number', '=', 2)], limit=1)
+    if not existing:
+        punto = Pos()
+        punto.pos_type = 'manual'
+        punto.number = 2
+        punto.company = company
+        punto.save()
+        
+        # Vincular a la configuración de ventas si existe
+        if is_module_activated('sale_pos_ar'):
+            SaleConfig = Model.get('sale.configuration')
+            sc = SaleConfig.find([])
+            if sc:
+                sc[0].pos = punto
+                sc[0].save()
+        logging.info(msg['ar_pos_created'])
+
+def ensure_ars_currency_rate():
+    """Establece una tasa de cambio base para el Peso Argentino si no existe."""
+    Currency = Model.get('currency.currency')
+    ars = Currency.find([('code', '=', 'ARS')])
+    if ars and not ars[0].rates:
+        rate = ars[0].rates.new()
+        rate.date = date.today()
+        rate.rate = Decimal('1.0') # O el valor que prefieras por defecto
+        ars[0].save()
+        logging.info(msg['ar_rate_set'])
+
 # -------------------------------------------------
 # EJECUCIÓN PRINCIPAL DINÁMICA
 # -------------------------------------------------
@@ -824,15 +1027,16 @@ def run_setup():
     # Detectar la versión mayor de Tryton para ajustar proxies de localización
     tryton_version = trytond.__version__
     major_ver = int(tryton_version.split('.')[0])
-    logging.info(f"Versión de Tryton detectada: {tryton_version}")
+    logging.info(msg['tryton_ver'].format(tryton_version))
 
     # Mapeo dinámico: Si la versión es nueva, usamos 'anclas'. Si es antigua, los módulos originales.
     chart_mapping = {
         'es': 'account_es', # Forzamos account_es para evitar planes "vacíos" en V8
         'fr': 'account_fr' if major_ver < 8 else 'party_siret',
-        'de': 'account_de_skr03' if major_ver < 8 else 'account_statement_mt940'
+        'de': 'account_de_skr03' if major_ver < 8 else 'account_statement_mt940',
+        'ar': 'account_ar'
     }
-    logging.info(f"Módulos ancla de localización seleccionados (Major Ver: {major_ver}): {chart_mapping}")
+    logging.info(msg['anchor_mods'].format(major_ver, chart_mapping))
     
     # 1. PRIMERO: Sincronizar módulos para que 'country' esté disponible en el Pool
     # Esto asegura que Model.get('country.zip') no falle
@@ -864,9 +1068,16 @@ def run_setup():
     if 'FULL' in actions or 'ACC' in actions:
         try:
             conf_data = get_company_config(CONF_FILE)
-            sync_and_clean_modules()
+            
+            # CRÍTICO: Sincronizar contexto de empresa ANTES del bucle de ejercicios
             company = setup_or_get_company(conf_data['name'], conf_data['currency'], DB_NAME, CONF_FILE, TARGET_LANG)
+            config = p_config.get_config()
+            config.context['company'] = company.id
+            
             setup_accounts(company, chart_mapping)
+            if TARGET_LANG == 'ar':
+                ensure_ars_currency_rate()
+                ensure_argentina_pos(company)
             ensure_general_journal(company, conf_data)
             for year in range(2026, 2031):
                 create_fiscalyear(year, company)
@@ -877,8 +1088,9 @@ def run_setup():
     if 'FULL' in actions or 'TAX' in actions:
         try:
             conf_data = get_company_config(CONF_FILE)
-            sync_and_clean_modules()
             company = setup_or_get_company(conf_data['name'], conf_data['currency'], DB_NAME, CONF_FILE, TARGET_LANG)
+            config = p_config.get_config()
+            config.context['company'] = company.id
             ensure_spanish_vat_taxes(company, conf_data)
         except Exception as e:
             logging.exception(msg['error'].format(str(e)))

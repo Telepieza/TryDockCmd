@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<tryton>
+    <data>
+
+        <record model="ir.ui.view" id="invoice_facturae_view_form">
+            <field name="model">account.invoice.facturae</field>
+            <field name="type">form</field>
+            <field name="name">invoice_facturae_form</field>
+        </record>
+        <record model="ir.ui.view" id="invoice_facturae_view_list">
+            <field name="model">account.invoice.facturae</field>
+            <field name="type">tree</field>
+            <field name="name">invoice_facturae_list</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_invoice_facturae_form">
+            <field name="name">Facturae</field>
+            <field name="res_model">account.invoice.facturae</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_invoice_facturae_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="invoice_facturae_view_list"/>
+            <field name="act_window" ref="act_invoice_facturae_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_invoice_facturae_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="invoice_facturae_view_form"/>
+            <field name="act_window" ref="act_invoice_facturae_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_invoice_facturae_form_domain_pending">
+            <field name="name">Pending</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain" eval="[('state', '=', 'pending')]" pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_invoice_facturae_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_invoice_facturae_form_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="act_window" ref="act_invoice_facturae_form"/>
+        </record>
+        <menuitem
+            parent="account_invoice.menu_invoices"
+            action="act_invoice_facturae_form"
+            sequence="50"
+            id="menu_invoice_facturae_form"/>
+
+        <record model="ir.model.button" id="invoice_export_facturae_button">
+            <field name="name">export_facturae</field>
+            <field name="string">Export</field>
+            <field name="model" search="[('model', '=', 'account.invoice.facturae')]"/>
+        </record>
+
+        <record model="ir.model.button" id="invoice_pending_button">
+            <field name="name">pending</field>
+            <field name="string">Pending</field>
+            <field name="model" search="[('model', '=', 'account.invoice.facturae')]"/>
+        </record>
+
+        <record model="ir.model.button" id="invoice_sent_button">
+            <field name="name">sent</field>
+            <field name="string">Sent</field>
+            <field name="model" search="[('model', '=', 'account.invoice.facturae')]"/>
+        </record>
+
+        <record model="ir.model.access" id="access_invoice_facturae">
+            <field name="model" search="[('model', '=', 'account.invoice.facturae')]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_invoice_account_facturae">
+            <field name="model" search="[('model', '=', 'account.invoice.facturae')]"/>
+            <field name="group" ref="account.group_account"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.ui.view" id="export_facturae_start_view_form">
+            <field name="model">account.invoice.facturae.export.start</field>
+            <field name="type">form</field>
+            <field name="name">export_facturae_start</field>
+        </record>
+        <record model="ir.ui.view" id="export_facturae_result_view_form">
+            <field name="model">account.invoice.facturae.export.result</field>
+            <field name="type">form</field>
+            <field name="name">export_facturae_result</field>
+        </record>
+        <record model="ir.action.wizard" id="wizard_export_facturae">
+            <field name="name">Export Facturae</field>
+            <field name="wiz_name">account.invoice.facturae_export</field>
+            <field name="model">account.invoice.facturae</field>
+        </record>
+    </data>
+</tryton>

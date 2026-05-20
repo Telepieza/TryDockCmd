@@ -2,10 +2,10 @@
 :: ==============================================================================
 :: PROGRAM:   message.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR: Telepieza
+:: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.25
-:: DATE:      28/04/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Message version 7 y 8
 :: ==============================================================================
@@ -55,6 +55,7 @@ if /i "!tipo!"=="!LOG-DEBUG!"  set "color_local=!C_B_CYAN!"
 if /i "!tipo!"=="!LOG-SUCC!"   set "color_local=!C_B_GREEN!"
 if /i "!tipo!"=="%ERR%"        set "color_local=!C_B_RED!"
 if /i "!tipo!"=="%INS%"        set "color_local=!C_B_YELLOW!"
+if /i "!tipo!"=="%INFO%"       set "color_local=!C_B_CYAN!"
 if /i "!tipo!"=="%CHECK%"      set "color_local=!C_B_WHITE!"
 :: Visualizar mensaje en pantalla con colores, procesa los echo si hay valor en la variable msg
 :: Si tipo=APP no visualiza en consola, tipo=TXT pone tipo a blanco y no realiza el echo con el tipo para no visualizar un blanco del mensaje en consola
@@ -71,6 +72,7 @@ set "sin_tipo=0"
 if /i "!tipo!"=="%TXT%" set "sin_tipo=1"
 if /i "!tipo!"=="%SQL%" set "sin_tipo=1"
 if /i "!tipo!"=="%MENU%" set "sin_tipo=1"
+if /i "!tipo!"=="%INFO%" set "sin_tipo=1"
 if /i "!tipo!"=="%INS%" set "sin_tipo=1"
 if /i "!tipo!"=="" set "sin_tipo=1"
    
@@ -85,6 +87,7 @@ if "!sin_tipo!"=="1" (
 
 if "!sin_tipo!"=="0" echo !color_local!!tipo! !msg!!C_RESET!
 if /i "!tipo!"=="" set tipo=%TXT%
+if /i "!tipo!"=="%INFO%" set "tipo=%MENU%"
 if /i "!tipo!" NEQ "%MENU%" (echo [%DATE% %TIME%] !tipo! !msg!)>>"%LOGGER%"
 
 :exit

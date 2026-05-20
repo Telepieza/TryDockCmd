@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    [https://www.telepieza.com
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.26
-:: DATE:      10/05/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install trytond tryton version 7 y 8
 :: ==============================================================================
@@ -63,6 +63,7 @@ if /i "%ins_tryton_action%"=="%INS%" (
   call :logger "%MENU%" "7. !INSTALL_MODU_23!" "5"
   call :logger "%MENU%" "8. !INSTALL_MODU_24!" "5"
   call :logger "%MENU%" "9. !INSTALL_MODU_25!" "5"
+  call :logger "%MENU%" "10. !INSTALL_MODU_PAQU00!!CURRENT_VERSION:~0,3!" "4"
   call :logger "%MENU%" "Q. !INSTALL_MODU_29!" "5"
   echo ========================================================
   echo.
@@ -76,6 +77,7 @@ if /i "%ins_tryton_action%"=="%INS%" (
   if "%option%"=="7" goto :logs 
   if "%option%"=="8" goto :compare_menu_modules
   if "%option%"=="9" goto :listing_menu_modules
+  if "%option%"=="10" goto :run_modules_external
   if /i "%option%"=="q" goto :exit
 
   set "MESSAGE=%option% %LOG_ERR_OPT%"
@@ -114,7 +116,7 @@ if /i "%ins_tryton_action%"=="%INS%" (
 :run_modules
 :: Visualizar datos cabecera
 call :head_modules
-if /i "%ins_tryton_action%" EQU "%INS%" call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timetry20%" "1" 
+if /i "%ins_tryton_action%" EQU "%INS%" call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "%wait_timetry20%" "1" "N"
 :: Solicita confirmación por parte del usuario
 if /i "%ins_tryton_action%" NEQ "%INS%" (
   set "confirm="
@@ -191,23 +193,23 @@ call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "trytond_services" "%SERVER%
 :: Crear Emprea, Ejercicio fiscal. secuencias y periodos contables
 call :logger "%INS%" "[10.-] !INSTALL_MODU_HEAD44!" "3"
 call "%DIR_SCRIPT%install_accounts.bat" "%proyecto%" "%INS%"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" "N"
 
 :: Reports Verificar y comprobar que todos los módulos están activated
 call :logger "%INS%" "[11.-] !INSTALL_MODU_HEAD18!" "3"
 call :compare_modules_install "%INS%" "!INSTALL_MODU_HEAD18!" "3"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" "N"
 
 :: Reports Listar todos los modulos 
 call :logger "%INS%" "[12.-] !INSTALL_MODU_HEAD19!" "3"
 call :listing_modules "%INS%" "!INSTALL_MODU_HEAD19!" "3"
-call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1"
+call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" "N"
 
 call :logger "%INS%" "[13.-] !INSTALL_MODU_HEAD20!" "3"
 call :extract_xml_from_log "%file_base%" "%file_xml%"
 
 if /i "%ins_tryton_action%"=="%INS%" (
-  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" 
+  call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" "N"
   exit /b
 )
 
@@ -218,6 +220,11 @@ pause & goto :menu_trytond
 :run_languages
   call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "fill_in_field" "%TXT%" "5. !INSTALL_MODU_21!" "3"
   call "%DIR_SCRIPT%install_language.bat" "%proyecto%" "%APP%"
+  goto :menu_trytond
+
+:run_modules_external
+  call "%DIR_SCRIPT%global_routines.bat" "%TRYTON%" "fill_in_field" "%TXT%" "10. !INSTALL_MODU_PAQU00!!CURRENT_VERSION:~0,3!" "3"
+  call "%DIR_SCRIPT%install_modules.bat" "%proyecto%" "%APP%"
   goto :menu_trytond
 
 :: 05
@@ -251,27 +258,27 @@ pause & goto :menu_trytond
    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" ps "%POSTGRES%" | findstr /I "Up" >nul
    if %ERRORLEVEL% EQU 0 (
      docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" stop "%POSTGRES%" >nul 2>&1
-     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" 
+     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" "N"
    )  
    :: 2.- Activar el servicio de postgres
    call :logger "%INS%" "[2.-] !INSTALL_MODU_HEAD12! - start %POSTGRES%" "3"
    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" start "%POSTGRES%" >nul 2>&1 
-   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" 
+   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" "N"
 
    if /i "%confirm%"=="YES" (
      :: 3.- Realizar una copia de seguridad de la base de datos
      call :logger "%INS%" "[3.-] !INSTALL_MODU_HEAD13! %DB_NAME%" "3"
      call "%DIR_SCRIPT%backup.bat" "%TRYTON%" "%process%"
-     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" 
+     call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" "N"
    )
    :: 4.- Eliminar la base de datos %DB_NAME% si existe
    call :logger "%INS%" "[4.-] !INSTALL_MODU_HEAD14! %DB_NAME%" "3"
    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" dropdb -U postgres --if-exists "%DB_NAME%"
-   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1"
+   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" "N"
    :: 5.- Crear la base de datos %DB_NAME% 
    call :logger "%INS%" "[5.-] !INSTALL_MODU_HEAD15! %DB_NAME%" "3"
    docker compose -f "%DIR_HOME%%COMPOSE_FILE%" -p "%proyecto%" exec -T "%POSTGRES%" createdb -U postgres "%DB_NAME%"
-   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1"
+   call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "timeout_start" "!wait_timetry!" "1" "N"
    :: 6.- Probando conexión a la base de datos
    call :logger "%INS%" "[6.-] !INSTALL_MODU_HEAD16! %DB_NAME%" "3"
    set  "cmd=SELECT current_database();"

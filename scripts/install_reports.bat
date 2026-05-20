@@ -2,10 +2,10 @@
 :: ===============================================================================
 :: PROGRAM:   install_report.bat
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR: Telepieza
+:: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.26
-:: DATE:      10/05/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install reports version 7 y 8
 :: ==============================================================================
@@ -350,10 +350,19 @@ exit /b
 
   set "current_mod="
   :: Leemos el log. Una sola pasada.
-  for /f "usebackq tokens=7,9" %%M in ("%FILE_XML_LOG%") do (
-    set "v_mod=%%M"
-    set "v_file=%%N"
+  for /f "usebackq tokens=7,8,9" %%M in ("%FILE_XML_LOG%") do (
+    set "t7=%%M"
+    set "t8=%%N"
+    set "t9=%%O"
     
+    if /i "!t8!"=="loading" (
+        set "v_mod=!t7!"
+        set "v_file=!t9!"
+    ) else (
+        for /f "tokens=1 delims=:" %%P in ("!t7!") do set "v_mod=%%P"
+        set "v_file=!t8!"
+    )
+
     :: Evitamos paréntesis usando saltos o líneas simples
     if /i "!v_mod!" neq "!current_mod!" (
         echo [ !WORD_MODULE!: !v_mod! ] >> "%file_audit_list%"

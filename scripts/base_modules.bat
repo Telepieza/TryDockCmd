@@ -2,18 +2,18 @@
 :: ===============================================================================
 :: PROGRAM:   base_modules
 :: PROJECT:   Tryton Docker Manager
-:: AUTHOR: Telepieza
+:: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.25
-:: DATE:      29/04/2026
+:: VERSION:   1.1.30
+:: DATE:      20/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: modulos basicos de trypton version 7 y 8
 :: ==============================================================================
 set "proyecto=%~1"
 set "type=%~2"
 
+call "%DIR_SCRIPT%message.bat" "%APP%" "base_modules %type% [%BASE_MODULES_FILTERED%]"
 if "%BASE_MODULES_FILTERED%" EQU "1" exit /b
-
 set "LX="
 set "LL="
 
@@ -52,7 +52,6 @@ set "PYTHON_VERSION_DIR=python3.11"
 if "!CURRENT_VERSION:~0,1!"=="8" set "PYTHON_VERSION_DIR=python3.13"
 set "BASE_PATH=/usr/local/lib/"!PYTHON_VERSION_DIR!"/dist-packages/trytond"
 :: Rutas para localizar los módulos en trytond
-
 if /i "!BASE_I!" EQU "" (
   set "BASE_I=!TRYTON_BASE_IR_V7!"
   if "!CURRENT_VERSION:~0,1!"=="8" set "BASE_I=!TRYTON_BASE_IR_V8!"
@@ -63,7 +62,6 @@ if /i "!BASE_M!" EQU "" (
   if "!CURRENT_VERSION:~0,1!"=="8" set "BASE_M=!TRYTON_BASE_MODULE_V8!"
   if /i "!BASE_M!" EQU "" set "BASE_M=!BASE_PATH!/modules"
 )
-
 if /i "!BASE_R!" EQU "" (
   set "BASE_R=!TRYTON_BASE_RES_V7!"
   if "!CURRENT_VERSION:~0,1!"=="8" set "BASE_R=!TRYTON_BASE_RES_V8!"
@@ -102,23 +100,53 @@ if "!TRYTON_MODULE_FR!"=="" (set "FR=party_siret account_fr account_fr_chorus ac
 if "!TRYTON_MODULE_DE!"=="" (set "DE=account_de_skr03 account_statement_mt940") else (set "DE=!TRYTON_MODULE_DE!")
 
 :: Filter list based on selected language
-if /i "!TRYTON_LANGUAGE!"=="es" (set "LIST=!ES!" & set "L_LABEL=!INSTALL_MODU_LANGES!")
-if /i "!TRYTON_LANGUAGE!"=="fr" (set "LIST=!FR!" & set "L_LABEL=!INSTALL_MODU_LANGFR!")
-if /i "!TRYTON_LANGUAGE!"=="de" (set "LIST=!DE!" & set "L_LABEL=!INSTALL_MODU_LANGDE!")
+if /i "!TRYTON_LANGUAGE!"=="es" (set "LIST=!ES!" & set "L_LABEL=!INSTALL_MODU_LANGES!" & set "LS= [1/1] !INSTALL_MODU_LANGES! (!ES: =, !)")
+if /i "!TRYTON_LANGUAGE!"=="fr" (set "LIST=!FR!" & set "L_LABEL=!INSTALL_MODU_LANGFR!" & set "LR= [1/1] !INSTALL_MODU_LANGFR! (!FR: =, !)")
+if /i "!TRYTON_LANGUAGE!"=="de" (set "LIST=!DE!" & set "L_LABEL=!INSTALL_MODU_LANGDE!" & set "LE= [1/1] !INSTALL_MODU_LANGDE! (!DE: =, !)")
 
 if not defined LIST goto :noList
+
+set "TRYTON_BRANCH=!CURRENT_VERSION:~0,3!"
+set "dir_modules_host=!DIR_MODULES!\!TRYTON_LANGUAGE!\!TRYTON_BRANCH!"
 
 :: Dynamic filtering: Only include modules that exist in the container filesystem
 for %%M in (!LIST!) do (
     set "FOUND_M=0"
-    :: 1. Intento por directorio físico
-    docker exec !CURRENT_TRYTON! test -d "!BASE_M!/%%M" >nul 2>&1
+    :: 1. Comprobar si ya reside en el contenedor (Nativo o Pip)
+    docker exec !CURRENT_TRYTON! test -d "!TRYTON_BASE_MODULE!/%%M" >nul 2>&1
     if !errorlevel! EQU 0 set "FOUND_M=1"
-    
     if !FOUND_M! EQU 0 (
-        :: 2. Intento vía import de Python (robusto para paquetes pip en V8 como los que has listado)
+        :: Intento vía import de Python (útil para módulos pre-instalados o vía Pip)
         docker exec !CURRENT_TRYTON! python3 -c "import trytond.modules.%%M" >nul 2>&1
         if !errorlevel! EQU 0 set "FOUND_M=1"
+    )
+    :: 2. Si se encontró en el contenedor, validar que su versión sea compatible
+    if !FOUND_M! EQU 1 (
+        set "tmp_cfg=%%M_check.cfg"
+        call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "get_container_tryton_cfg" "%%M" "!tmp_cfg!"
+        if !errorlevel! EQU 0 (
+            set "m_ver_c="
+            for /f "usebackq tokens=2 delims==" %%V in (`findstr /b "version=" "!tmp_cfg!"`) do (
+                set "m_ver_c=%%V"
+                set "m_ver_c=!m_ver_c: =!"
+            )
+            if "!m_ver_c!" NEQ "" if "!m_ver_c:~0,3!" NEQ "!TRYTON_BRANCH!" set "FOUND_M=0"
+            if exist "!tmp_cfg!" del "!tmp_cfg!"
+        )
+    )
+    :: 3. Si NO se encontro en el contenedor (o era incompatible), buscar en host para inyectar
+    if !FOUND_M! EQU 0 (
+        if exist "!dir_modules_host!\%%M" (
+            call "%DIR_SCRIPT%global_routines.bat" "%proyecto%" "inject_module_from_host" "%%M" "!dir_modules_host!\%%M" "!TRYTON_BRANCH!" "!TRYTON_BASE_MODULE!"
+            set "res_inj=!errorlevel!"
+            set "m_ver=" & if exist "!DIR_TMP!\inject_ver.txt" set /p m_ver=<"!DIR_TMP!\inject_ver.txt"
+            if !res_inj! EQU 0 (
+                set "FOUND_M=1"
+                call "%DIR_SCRIPT%message.bat" "!LOG-SUCC!" "!WORD_MODULE! !WORD_HOST! '%%M' (!m_ver!) !INSTALL_MODU_PAQMS5!."
+            ) else if !res_inj! EQU 2 (
+                call "%DIR_SCRIPT%message.bat" "!LOG-ERROR!" "!WORD_MODULE! !WORD_HOST! '%%M' (!m_ver!) !INSTALL_MODU_PAQER3! !TRYTON_BRANCH!."
+            )
+        )
     )
     if !FOUND_M! EQU 1 set "LL=!LL! %%M"
 )
