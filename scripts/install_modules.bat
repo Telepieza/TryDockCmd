@@ -73,7 +73,7 @@ call :logger "%APP%" "install_modules !WORD_VERSION!:[!CURRENT_VERSION!]"
   call :logger "%INFO%" "!INSTALL_MODU_PAQU06I!"   "7"
   echo --------------------------------------------------------------------------------------------
   call :logger "%INFO%" "!INSTALL_MODU_PARR02!"    "7"
-  call :logger "%INFO%" "!INSTALL_MODU_PARR03!"    "7"
+  call :logger "%INFO%" "!INSTALL_MODU_PARR03! !TRYTON_MODULE_PROVIDERS!"    "7"
   echo --------------------------------------------------------------------------------------------
   exit /b
 
