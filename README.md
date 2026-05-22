@@ -12,7 +12,13 @@ The true "magic" lies in the integration of Proteus (Python API), which acts as 
 - **Hybrid Module Engine:** Seamlessly injects external modules like Facturae, Verifactu, and SII, handling complex Python dependencies (SignXML, XMLSIG).
 - **Dual-Environment Ready:** Delivers a clean production database tryton and a tryton_demo instance with real data in record time.
 
-Video guide on YouTube: https://youtu.be/4i9TWQKoBeQ
+---
+
+- Video Guide Tryton Erp: https://youtu.be/4i9TWQKoBeQ
+- Video External Modules and Dependencies: https://youtu.be/PaUJ4ZvZxP8
+- Video Deploy Tryton ERP in Minutes, Not Days: https://youtu.be/XofT6zxI1iQ
+- Video Tryton ERP to Production in 30 Minutes: https://youtu.be/um4UiIy0Poo
+- Video What is Tryton ERP and its Analysis? Part 1: https://youtu.be/4P1nCA0mb5o
 
 ---
 

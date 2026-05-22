@@ -2,6 +2,8 @@
 
 This guide details the operation of the Tryton extension system using the **TryDockCmd** manager, focusing on the installation of system packages, Python dependencies, and community or partner modules.
 
+Video External Modules and Dependencies: https://youtu.be/PaUJ4ZvZxP8
+
 ## 1. System Philosophy
 
 As of version 1.1.30, TryDockCmd uses a hybrid engine for managing modules not included in the official Docker image. The system is divided into two layers:
@@ -144,14 +146,6 @@ For the **Chalkboard** style, the video should follow this logical sequence:
 3.  **Injection and Dependencies**: Loading SignXML and cryptographic logic.
 4.  **Legal Compliance**: Activation of Facturae (Crea y Crece Law) and Verifactu (Anti-Fraud Law).
 5.  **Traceability**: Generation of the audit log with Git Hashes.
-
-## 8. Guide for AI Presenters (NotebookLM)
-
-When generating the video, instruct the presenters to focus on:
-*   **Security:** Emphasize that the process is reversible and auditable through the audit log.
-*   **Automation:** Mention that injecting dependencies like `SignXML` eliminates the need for manual library configuration.
-*   **Critical Dates:** Emphasize the **January 1, 2027** date for Verifactu, positioning TryDockCmd as the future-ready solution.
-*   **Resilience:** Explain "Pure Injection" as the definitive solution for modules with legacy installers.
 
 ---
 

@@ -5,7 +5,15 @@ Kit de automatización orientado a producción para desplegar y operar Tryton ER
 TryDockCmd proporciona un flujo controlado por menú para ciclo de vida de infraestructura, instalación de módulos, diagnóstico, backup y recuperación.  
 Combina orquestación Batch (`tcd.bat`) con automatización Python/Proteus (`python/auto_full_setup.py`) para reducir tareas manuales post-instalación.
 
-Video guia en youtube: https://youtu.be/4i9TWQKoBeQ
+---
+
+- Video guia Tryton Erp: https://youtu.be/4i9TWQKoBeQ
+- Video Módulos Externos y Dependencias: https://youtu.be/PaUJ4ZvZxP8
+- Video Despliega Tryton ERP en Minutos, No en Días: https://youtu.be/XofT6zxI1iQ
+- Video Tryton ERP a producción en 30 Minutos: https://youtu.be/um4UiIy0Poo
+- Video ¿Qué es Tryton ERP y su análisis? Parte 1: https://youtu.be/4P1nCA0mb5o
+
+---
 
 ## Por qué este proyecto
 

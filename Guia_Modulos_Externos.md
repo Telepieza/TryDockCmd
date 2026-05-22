@@ -2,6 +2,8 @@
 
 Esta guía detalla el funcionamiento del sistema de extensión de Tryton mediante el gestor **TryDockCmd**, centrándose en la instalación de paquetes de sistema, dependencias Python y módulos de la comunidad o partners.
 
+Video Módulos Externos y Dependencias: https://youtu.be/PaUJ4ZvZxP8
+
 ## 1. Filosofía del Sistema
 
 A partir de la versión 1.1.30, TryDockCmd utiliza un motor híbrido para la gestión de módulos que no vienen incluidos en la imagen oficial de Docker. El sistema se divide en dos capas:
@@ -129,14 +131,6 @@ Para el estilo **Pizarra**, el vídeo debe seguir esta secuencia lógica:
 3.  **Inyección y Dependencias**: Carga de SignXML y lógicas criptográficas.
 4.  **Cumplimiento Legal**: Activación de Facturae (Ley Crea y Crece) y Verifactu (Ley Antifraude).
 5.  **Trazabilidad**: Generación del log de auditoría con Hashes de Git.
-
-## 8. Guía para Presentadores de IA (NotebookLM)
-
-Al generar el vídeo, indica a los presentadores que se centren en:
-*   **Seguridad:** Resaltar que el proceso es reversible y auditable mediante el log de auditoría.
-*   **Automatización:** Mencionar que la inyección de dependencias como `SignXML` elimina la necesidad de configurar librerías manualmente.
-*   **Fechas Críticas:** Enfatizar la fecha del **1 de enero de 2027** para Verifactu, posicionando a TryDockCmd como la solución lista para el futuro.
-*   **Resiliencia:** Explicar la "Inyección Pura" como la solución definitiva para módulos con instaladores antiguos.
 
 ----
 

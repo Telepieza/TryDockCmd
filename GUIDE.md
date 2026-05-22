@@ -2,7 +2,7 @@
 
 Operational guide for deploying and managing Tryton ERP on Docker (Windows).
 
-video guide on YouTube: https://youtu.be/4i9TWQKoBeQ
+Video guide Tryton Erp: https://youtu.be/4i9TWQKoBeQ
 
 ## 1. Prerequisites
 
