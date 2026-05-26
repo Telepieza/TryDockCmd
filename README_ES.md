@@ -12,6 +12,7 @@ Combina orquestación Batch (`tcd.bat`) con automatización Python/Proteus (`pyt
 - Video Despliega Tryton ERP en Minutos, No en Días: https://youtu.be/XofT6zxI1iQ
 - Video Tryton ERP a producción en 30 Minutos: https://youtu.be/um4UiIy0Poo
 - Video ¿Qué es Tryton ERP y su análisis? Parte 1: https://youtu.be/4P1nCA0mb5o
+- Video ¿Qué es Tryton ERP y Error 0? Parte 2: https://youtu.be/pHNCBvbP8Zs
 - Video Tryton ERP Evolución en sus diferentes versiones de la 1 a la 8: https://youtu.be/xpgrXXHwRW8
 - Video NO instales módulos Externos en Tryton sin ver esto : https://youtu.be/mYckwdQX6Qc
 - Video VeriFactu Obligatorio: Adapta Tryton ERP con Facturae y TryDockCmd: https://youtu.be/PaUJ4ZvZxP8

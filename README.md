@@ -19,6 +19,7 @@ The true "magic" lies in the integration of Proteus (Python API), which acts as 
 - Video Deploy Tryton ERP in Minutes, Not Days: https://youtu.be/XofT6zxI1iQ
 - Video Tryton ERP to Production in 30 Minutes: https://youtu.be/um4UiIy0Poo
 - Video What is Tryton ERP and its Analysis? Part 1: https://youtu.be/4P1nCA0mb5o
+- Video What is Tryton ERP and Error 0? Part 2: https://youtu.be/pHNCBvbP8Zs
 - Video Tryton ERP Evolution (versions 1-8): https://youtu.be/xpgrXXHwRW8
 - Video Don't install external modules in Tryton without watching: https://youtu.be/mYckwdQX6Qc
 - Video VeriFactu Mandatory: Adapt Tryton ERP with Facturae and TryDockCmd: https://youtu.be/PaUJ4ZvZxP8
