@@ -145,7 +145,7 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT  
-- **Project Status:** v1.1.30 Stable
+- **Project Status:** v1.1.36 Stable
 
 ---
 

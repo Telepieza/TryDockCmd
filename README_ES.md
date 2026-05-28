@@ -1,4 +1,4 @@
-# TryDockCmd v1.1.35
+# TryDockCmd v1.1.36
 
 Kit de automatización orientado a producción para desplegar y operar Tryton ERP con Docker en Windows.
 
@@ -177,7 +177,7 @@ Tryton-Docker-Manager: Facilita y protege la gestión de Tryton ERP.
 - __Plataforma:__ Windows (CMD/Batch)
 - __Motor:__ Docker & Docker Compose
 - __Licencia:__ MIT
-- __Versión del proyecto:__ v1.1.30 estable
+- __Versión del proyecto:__ v1.1.36 estable
   
 ---
 

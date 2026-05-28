@@ -117,7 +117,7 @@ Main tasks:
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT  
-- **Project Status:** v1.1.25 Stable
+- **Project Status:** v1.1.36 Stable
   
 ---
 

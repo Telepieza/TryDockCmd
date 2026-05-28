@@ -78,7 +78,7 @@ During testing, the **Smart Audit** (`errors.bat`) captured and categorized thes
 - __Platform:__ Windows (CMD/Batch)
 - __Engine:__ Docker & Docker Compose
 - __License:__ MIT  
-- __Project Status:__ v1.1.25 Stable
+- __Project Status:__ v1.1.36 Stable
 ---
 
 ##### Optimized & Documented with the help of Gemini (Google AI)

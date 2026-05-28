@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini (Google AI)
-:: VERSION:   1.1.35
-:: DATE:      27/05/2026
+:: VERSION:   1.1.36
+:: DATE:      28/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: banner
 :: ==============================================================================
