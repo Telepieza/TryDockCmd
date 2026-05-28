@@ -3,6 +3,22 @@
 Todos los cambios notables en este proyecto serán documentados en este archivo. El formato se basa en [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [1.1.36] - 2026-05-28
+
+### Changed
+
+**Integración Proteus:** Se soluciona bug de integración impuestos de iva a partir de la version 8.0
+
+ | Versión | Tryton | Campo detectado	Valor del filtro de vista |	Comportamiento |
+ |---|---|---|---|
+ |7.0 - 7.4	 | type	| ('type', '!=', None) |	Compatible |
+ | 7.6 - 7.8 |	kind | 	('kind', '!=', 'view')	| Compatible |
+ | 8.0	| kind	| ('kind', '!=', 'view') | Corregido/Compatible |
+
+ - **Testing:**
+  
+- Versión 8.0.3: Es correcta su instalación con TrydockCmd.
+
 
 ## [1.1.35] - 2026-05-27
 

@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file. The format 
 
 **[Versión en Español disponible aquí](changelog_es.md)**
 
+## [1.1.36] - 2026-05-28
+
+### Changed
+
+**Proteus Integration:**: Taxes integration bug fixed starting with version 8.0.
+
+ | Version | Tryton | Detected field / View filter value |	actions |
+ |---|---|---|---|
+ |7.0 - 7.4	 | type	| ('type', '!=', None) |	Compatible |
+ | 7.6 - 7.8 |	kind | 	('kind', '!=', 'view')	| Compatible |
+ | 8.0	| kind	| ('kind', '!=', 'view') | Corrected/Compatible |
+
+- **Testing:**
+  
+- Versión 8.0.3: Its installation with TrydockCmd is correct.
+
 ## [1.1.35] - 2026-05-27
 
 ### Fixed

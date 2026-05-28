@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    [https://www.telepieza.com - Gemini (Google AI)]
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.35
-:: DATE:      27/05/2026
+:: VERSION:   1.1.36
+:: DATE:      28/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Tryton Docker Manager (TCD)
 :: ==============================================================================

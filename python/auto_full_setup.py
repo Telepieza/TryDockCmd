@@ -1,8 +1,8 @@
 # ===============================================================================
 # PROGRAM:   auto_full_setup.py
 # PROJECT:   Tryton Docker Manager
-# VERSION:   1.1.35
-# DATE:      27/05/2026
+# VERSION:   1.1.36
+# DATE:      28/05/2026
 # LICENSE:   MIT License
 # DESCRIPTION: Enlace TryDockCmd con proteus version 7 y 8
 # ==============================================================================
@@ -135,7 +135,8 @@ MESSAGES = {
         'diag_py': "Diagnóstico: sys.executable = {}",
         'tax_detect_code': "Fase TAX: Cuenta detectada por código '{}': {}.",
         'tax_detect_name': "Fase TAX: Cuenta detectada por nombre '{}': {}.",
-        'tax_detect_ver': "Detección de impuestos - Major Ver: {}, Requisito: {}."
+        'tax_detect_ver': "Detección de impuestos - Major Ver: {}, Requisito: {}.",
+        'acc_field_not_found': "Ni el campo '{}' ni el campo '{}' se encontraron en el modelo account.account. No se puede continuar con la configuración de cuentas."
     },
     'en': {
         'start': "--- CONNECTION SUCCESSFUL ---",
@@ -210,7 +211,8 @@ MESSAGES = {
         'diag_py': "Diagnostic: sys.executable = {}",
         'tax_detect_code': "TAX Phase: Account detected by code '{}': {}.",
         'tax_detect_name': "TAX Phase: Account detected by name '{}': {}.",
-        'tax_detect_ver': "Tax detection - Major Ver: {}, Requirement: {}."
+        'tax_detect_ver': "Tax detection - Major Ver: {}, Requirement: {}.",
+        'acc_field_not_found': "Neither '{}' nor '{}' field found in account.account model. Cannot proceed with account setup."
     },
     'fr': {
         'start': "--- CONNEXION RÉUSSIE ---",
@@ -285,7 +287,8 @@ MESSAGES = {
         'diag_py': "Diagnostic : sys.executable = {}",
         'tax_detect_code': "Phase TAX : Compte détecté par code '{}' : {}.",
         'tax_detect_name': "Phase TAX : Compte détecté par nom '{}' : {}.",
-        'tax_detect_ver': "Détection des taxes - Major Ver : {}, Requis : {}."
+        'tax_detect_ver': "Détection des taxes - Major Ver : {}, Requis : {}.",
+        'acc_field_not_found': "Ni le champ '{}' ni le champ '{}' n'ont été trouvés dans le modèle account.account. Impossible de poursuivre la configuration des comptes."
     },
     'de': {
         'start': "--- VERBINDUNG ERFOLGREICH ---",
@@ -360,7 +363,8 @@ MESSAGES = {
         'diag_py': "Diagnose: sys.executable = {}",
         'tax_detect_code': "TAX-Phase: Konto anhand des Codes '{}' erkannt: {}.",
         'tax_detect_name': "TAX-Phase: Konto anhand des Namens '{}' erkannt: {}.",
-        'tax_detect_ver': "Steuererkennung - Major Ver: {}, Anforderung: {}."
+        'tax_detect_ver': "Steuererkennung - Major Ver: {}, Anforderung: {}.",
+        'acc_field_not_found': "Weder das Feld '{}' noch das Feld '{}' wurden im Modell account.account gefunden. Die Kontoeinrichtung kann nicht fortgesetzt werden."
     }
 }
 
@@ -843,6 +847,13 @@ def setup_accounts(company, dependencies):
     except Exception as e:
         logging.debug("Error listing templates: %s", str(e))
 
+    # Detección dinámica de campo (kind vs type) para compatibilidad V7/V8
+    acc_field = 'kind' if 'kind' in Account._fields else 'type' if 'type' in Account._fields else None
+    if not acc_field:
+        logging.error(msg['acc_field_not_found'].format('kind', 'type'))
+        return
+    attr_filter = (acc_field, '!=', 'view') if acc_field == 'kind' else (acc_field, '!=', None)
+
     # Mapeo multiversión: busca nombres de módulos tradicionales o integrados en el core (V8)
     mapping = {
         'es': {'names': ['%Pymes%', '%Normal%', '%español%', '%Plan de cuentas universal%'], 'receivable': ['4300', 'Cuentas a cobrar'], 'payable': ['4000', 'Cuentas a pagar']},
@@ -882,17 +893,13 @@ def setup_accounts(company, dependencies):
             try: create_chart.execute('create_account')
             except: pass
             
-            # Búsqueda flexible de cuentas por código o nombre (para Plan Universal)
-            major_ver = int(trytond.__version__.split('.')[0])
-            attr_filter = ('kind', '!=', 'view') if major_ver >= 8 else ('type', '!=', None)
-            
             rec = []
             for r_term in conf['receivable']:
-                rec = Account.find([('company', '=', company.id), attr_filter, ('code', '=', r_term)]) or Account.find([('company', '=', company.id), attr_filter, ('name', 'ilike', f"%{r_term}%")])
+                rec = Account.find([('company', '=', company.id), attr_filter, ('code', '=', r_term)], limit=1) or Account.find([('company', '=', company.id), attr_filter, ('name', 'ilike', f"%{r_term}%")], limit=1)
                 if rec: break
             pay = []
             for p_term in conf['payable']:
-                pay = Account.find([('company', '=', company.id), attr_filter, ('code', '=', p_term)]) or Account.find([('company', '=', company.id), attr_filter, ('name', 'ilike', f"%{p_term}%")])
+                pay = Account.find([('company', '=', company.id), attr_filter, ('code', '=', p_term)], limit=1) or Account.find([('company', '=', company.id), attr_filter, ('name', 'ilike', f"%{p_term}%")], limit=1)
                 if pay: break
                 
             if rec and pay:
@@ -971,10 +978,14 @@ def ensure_general_journal(company, company_conf):
 
 def _pick_account_for_taxes(company):
     Account = Model.get('account.account')
-    major_ver = int(trytond.__version__.split('.')[0])
-    # Verificación estricta de campos: Tryton 7 usa 'type', Tryton 8+ usa 'kind'
-    attr_filter = ('kind', '!=', 'view') if major_ver >= 8 else ('type', '!=', None)
-
+    
+    # Detección dinámica de campo (kind vs type) para compatibilidad V7/V8
+    acc_field = 'kind' if 'kind' in Account._fields else 'type' if 'type' in Account._fields else None
+    if not acc_field:
+        logging.error(msg['acc_field_not_found'].format('kind', 'type'))
+        return None
+    attr_filter = (acc_field, '!=', 'view') if acc_field == 'kind' else (acc_field, '!=', None)
+    
     # 1. Prioridad: Códigos estándar del PGC que permitan asientos
     # Nota: Usamos 'code', '=', valor para ser más precisos en localizaciones reales
     for code in ['47700000', '47200000', '477', '472']:
