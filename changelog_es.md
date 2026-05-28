@@ -3,6 +3,25 @@
 Todos los cambios notables en este proyecto serán documentados en este archivo. El formato se basa en [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+
+## [1.1.35] - 2026-05-27
+
+### Fixed
+
+ **Integración Proteus:** Se soluciona bug de integración ejercicios contables a partir de la version 7.6
+
+### Changed
+
+- **Installation Reports:** Compatibilidad de análisis de ficheros .xml con versiones 7.0 a 8.0.
+
+- **Testing:**
+
+- Versión 7.0.50: Es correcta su instalación con TrydockCmd.
+- Version 7.2.23: Es correcta su instalación con TrydockCmd.
+- Version 7.4.25: Es correcta su instalación con TrydockCmd.
+- Version 7.6.27: Es correcta su instalación con TrydockCmd.
+- Version 7.8.9:  Es correcta su instalación con TrydockCmd.
+
 ## [1.1.30] - 2026-05-18
 
 ### Added

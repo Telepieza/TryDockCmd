@@ -1,4 +1,4 @@
-# TryDockCmd v1.1.30
+# TryDockCmd v1.1.35
 
 Kit de automatización orientado a producción para desplegar y operar Tryton ERP con Docker en Windows.
 

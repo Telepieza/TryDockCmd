@@ -1,4 +1,4 @@
-# 🛡️ Tryton ERP Docker Manager v1.1.30 - SUMMARY
+# 🛡️ Tryton ERP Docker Manager v1.1.35 - SUMMARY
 
 **Core Mission:** Deploy a professional Tryton ERP environment from zero to fully functional in under 30 minutes.
 
@@ -46,7 +46,7 @@ Manage complex business flows not included in official images:
 - __Plataforma:__ Windows (CMD/Batch)
 - __Motor:__ Docker & Docker Compose
 - __Licencia:__ MIT
-- __Versión del proyecto:__ v1.1.30 estable
+- __Versión del proyecto:__ v1.1.35 estable
   
 ---
 

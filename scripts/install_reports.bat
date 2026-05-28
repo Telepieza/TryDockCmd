@@ -4,8 +4,8 @@
 :: PROJECT:   Tryton Docker Manager
 :: AUTHOR:    Telepieza
 :: COLLABORATOR: Gemini Code Assist
-:: VERSION:   1.1.30
-:: DATE:      20/05/2026
+:: VERSION:   1.1.35
+:: DATE:      27/05/2026
 :: LICENSE:   MIT License
 :: DESCRIPTION: Install reports version 7 y 8
 :: ==============================================================================
@@ -354,44 +354,53 @@ exit /b
     set "t7=%%M"
     set "t8=%%N"
     set "t9=%%O"
-    
+    set "v_mod="
+    set "v_file="
+
+    :: Lógica Híbrida: Detectar módulo y fichero XML según la versión del log
     if /i "!t8!"=="loading" (
         set "v_mod=!t7!"
         set "v_file=!t9!"
-    ) else (
-        for /f "tokens=1 delims=:" %%P in ("!t7!") do set "v_mod=%%P"
+    ) else if "!t9:~-4!"==".xml" (
+        set "v_mod=!t7!"
+        set "v_file=!t9!"
+    ) else if "!t8:~-4!"==".xml" (
+        set "v_mod=!t7!"
         set "v_file=!t8!"
     )
 
-    :: Evitamos paréntesis usando saltos o líneas simples
-    if /i "!v_mod!" neq "!current_mod!" (
-        echo [ !WORD_MODULE!: !v_mod! ] >> "%file_audit_list%"
-        echo %cab1% >> "%file_audit_list%"
-        set "current_mod=!v_mod!"
-    )
+    if defined v_file (
+        :: Limpiar el nombre del módulo (quitar dos puntos finales si existen)
+        for /f "tokens=1 delims=:" %%P in ("!v_mod!") do set "v_mod=%%P"
 
-    :: CONSTRUIR RUTA DINÁMICA - Versión sin paréntesis para evitar errores
-    set "fullpath="
-    if /i "!v_mod!"=="ir"  set "fullpath=%BASE_I%/!v_file!"
-    if /i "!v_mod!"=="res" set "fullpath=%BASE_R%/!v_file!"
-    if not defined fullpath set "fullpath=%BASE_M%/!v_mod!/!v_file!"
-    :: ANÁLISIS DIRECTO
-    set "xml_type=!WORD_DATA!"
-    :: 1. Comprobar si existe
-    docker compose -p %proyecto% exec -T %SERVER% ls "!fullpath!" >nul 2>&1
-    if !errorlevel! neq 0 (
-        set "xml_type=!WORD_NOTFOUND!"
-    ) else (
-        :: 2. Si existe, buscamos el patrón (m 1 para velocidad)
-        docker compose -p %proyecto% exec -T %SERVER% grep -m 1 -Eq "ir.ui.view|ir.action" "!fullpath!" >nul 2>&1
-        if !errorlevel! equ 0 set "xml_type=!WORD_STRUCTURE!"
+        if /i "!v_mod!" neq "!current_mod!" (
+            echo [ !WORD_MODULE!: !v_mod! ] >> "%file_audit_list%"
+            echo %cab1% >> "%file_audit_list%"
+            set "current_mod=!v_mod!"
+        )
+
+        set "fullpath="
+        if /i "!v_mod!"=="ir"  set "fullpath=%BASE_I%/!v_file!"
+        if /i "!v_mod!"=="res" set "fullpath=%BASE_R%/!v_file!"
+        if not defined fullpath set "fullpath=%BASE_M%/!v_mod!/!v_file!"
+
+        set "xml_type=!WORD_DATA!"
+        set "target_srv=%SERVER%"
+        if "!target_srv!"=="" set "target_srv=server"
+
+        docker compose -p %proyecto% exec -T !target_srv! ls "!fullpath!" >nul 2>&1
+        if !errorlevel! neq 0 (
+            set "xml_type=!WORD_NOTFOUND!"
+        ) else (
+            docker compose -p %proyecto% exec -T !target_srv! grep -m 1 -Eq "ir.ui.view|ir.action" "!fullpath!" >nul 2>&1
+            if !errorlevel! equ 0 set "xml_type=!WORD_STRUCTURE!"
+        )
+        set "file_fmt=!v_file!!spaces!"
+        set "file_fmt=!file_fmt:~0,35!"
+        echo   !file_fmt! !xml_type! >> "%file_audit_list%"
+        call "%DIR_SCRIPT%message.bat" "%CHECK%" "!file_fmt! !xml_type!"
+        echo [+] !WORD_PROCESSED!: !v_mod! / !v_file!
     )
-    :: FORMATEO DE COLUMNAS
-    set "file_fmt=!v_file!!spaces!"
-    set "file_fmt=!file_fmt:~0,35!"
-    echo   !file_fmt! !xml_type! >> "%file_audit_list%"
-    call "%DIR_SCRIPT%message.bat" "%CHECK%" "!file_fmt! !xml_type!"
-    echo [+] !WORD_PROCESSED!: !v_mod! / !v_file!
   )
   exit /b
 

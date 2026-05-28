@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file. The format 
 
 **[Versión en Español disponible aquí](changelog_es.md)**
 
+## [1.1.35] - 2026-05-27
+
+### Fixed
+
+- **Proteus Integration:** Fixed bug in accounting exercises integration starting with version 7.6
+
+### Changed
+
+- **Installation Reports:** Compatibility of .xml file analysis with versions 7.0 to 8.0.
+
+- **Testing:**  
+- Version 7.0.50: Its installation with TrydockCmd is correct.
+- Version 7.2.23: Its installation with TrydockCmd is correct.
+- Version 7.4.25: Its installation with TrydockCmd is correct.
+- Version 7.6.27: Its installation with TrydockCmd is correct.
+- Version 7.8.9:  Its installation with TrydockCmd is correct.
+
+## Testing : 
+
 ## [1.1.30] - 2026-05-18
 
 ### Added

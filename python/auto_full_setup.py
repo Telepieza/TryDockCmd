@@ -1,13 +1,14 @@
 # ===============================================================================
 # PROGRAM:   auto_full_setup.py
 # PROJECT:   Tryton Docker Manager
-# VERSION:   1.1.30
-# DATE:      20/05/2026
+# VERSION:   1.1.35
+# DATE:      27/05/2026
 # LICENSE:   MIT License
 # DESCRIPTION: Enlace TryDockCmd con proteus version 7 y 8
 # ==============================================================================
 import warnings
 import os
+import re
 
 # 1. Silencio total de Warnings de Python (Deprecation, Import, etc.)
 warnings.filterwarnings("ignore")
@@ -81,6 +82,14 @@ MESSAGES = {
         'ctx_upd': "Contexto actualizado para {}. Moneda: {}",
         'admin_es': "Perfil Admin set en Español.",
         'error': "ERROR EN EL SETUP: {}",
+        'seq_move': "Asientos",
+        'seq_sale': "Ventas",
+        'seq_sale_cn': "Abonos Venta",
+        'seq_purch': "Compras",
+        'seq_purch_cn': "Abonos Compra",
+        'seq_pay': "Recibo Pago",
+        'seq_rec': "Recibo Cobro",
+        'seq_coop': "Recibo Cooperativa",
         'acc_template_not_found': "Plantilla de cuentas '{}' no encontrada para '{}'.",
         'acc_templates_available': "Plantillas de cuentas raíz disponibles: {}",
         'acc_error': "Error en el plan contable {}: {}",
@@ -93,7 +102,6 @@ MESSAGES = {
         'geo_skip1': "Los países ya están importados. Saltamos al siguiente proceso 1/2.",
         'geo_skip2': "Ya existen códigos postales para {}. Se omite el paso 2/2.",
         'geo_error': "Error durante la ejecución: {}",
-        'seq_move': "Asientos {}",
         'geo_error1': "Error en script oficial (Código {})",
         'currency_not_found': "Moneda no encontrada: {}",
         'company_not_created': "El asistente no creó la empresa: {}",
@@ -148,6 +156,14 @@ MESSAGES = {
         'ctx_upd': "Context updated for {}. Currency: {}",
         'admin_es': "Admin profile set to Spanish.",
         'error': "SETUP ERROR: {}",
+        'seq_move': "Account Moves",
+        'seq_sale': "Sales",
+        'seq_sale_cn': "Sales Credit Notes",
+        'seq_purch': "Purchases",
+        'seq_purch_cn': "Purchase Credit Notes",
+        'seq_pay': "Payment Receipt",
+        'seq_rec': "Cash Receipt",
+        'seq_coop': "Cooperative Receipt",
         'acc_template_not_found': "Account template '{}' not found for '{}'.",
         'acc_templates_available': "Available root account templates: {}",
         'read_error': "Configuration reading error: {}",
@@ -161,7 +177,6 @@ MESSAGES = {
         'geo_skip1': "Countries already seem to be loaded. Skipping Step 1/2.",
         'geo_skip2': "Postal codes already exist for {}. Skipping Step 2/2.",
         'geo_error': "Error during execution {}",
-        'seq_move': "Account Moves {}",
         'geo_error1': "Error in official script (Code {})",
         'currency_not_found': "Currency not found: {}",
         'company_not_created': "Company wizard did not create company: {}",
@@ -216,6 +231,14 @@ MESSAGES = {
         'ctx_upd': "Contexte mis à jour pour {}. Devise: {}",
         'admin_es': "Profil Admin configuré en Espagnol.",
         'error': "ERREUR DE CONFIGURATION: {}",
+        'seq_move': "Écritures comptables",
+        'seq_sale': "Ventes",
+        'seq_sale_cn': "Avoirs Vente",
+        'seq_purch': "Achats",
+        'seq_purch_cn': "Avoirs Achat",
+        'seq_pay': "Reçu de paiement",
+        'seq_rec': "Reçu d'encaissement",
+        'seq_coop': "Reçu de coopérative",
         'acc_template_not_found': "Modèle de compte '{}' introuvable pour '{}'.",
         'acc_templates_available': "Modèles de comptes racine disponibles: {}",
         'read_error': "Erreur de lecture de la configuration: {}",
@@ -229,7 +252,6 @@ MESSAGES = {
         'geo_skip1': "Les pays semblent déjà être chargés. Saut de l'étape 1/2.",
         'geo_skip2': "Les codes postaux existent déjà pour {}. Saut de l'étape 2/2.",
         'geo_error': "Erreur lors de l'exécution {}",
-        'seq_move': "Écritures comptables {}",
         'geo_error1': "Erreur dans le script officiel (Code {})",
         'currency_not_found': "Devise introuvable : {}",
         'company_not_created': "L'assistant n'a pas créé l'entreprise : {}",
@@ -284,6 +306,14 @@ MESSAGES = {
         'ctx_upd': "Kontext aktualisiert für {}. Währung: {}",
         'admin_es': "Admin-Profil auf Spanisch gesetzt.",
         'error': "SETUP-FEHLER: {}",
+        'seq_move': "Buchungssätze",
+        'seq_sale': "Verkäufe",
+        'seq_sale_cn': "Gutschriften Verkauf",
+        'seq_purch': "Einkäufe",
+        'seq_purch_cn': "Gutschriften Einkauf",
+        'seq_pay': "Zahlungsbeleg",
+        'seq_rec': "Einnahmebeleg",
+        'seq_coop': "Genossenschaftsbeleg",
         'acc_template_not_found': "Kontenvorlage '{}' für '{}' nicht gefunden.",
         'acc_templates_available': "Verfügbare Root-Kontenvorlagen: {}",
         'read_error': "Fehler beim Lesen der Konfiguration: {}",
@@ -297,7 +327,6 @@ MESSAGES = {
         'geo_skip1': "Länder scheinen bereits geladen zu sein. Schritt 1/2 wird übersprungen.",
         'geo_skip2': "Postleitzahlen existieren bereits für {}. Schritt 2/2 wird übersprungen.",
         'geo_error': "Fehler bei der Ausführung {}",
-        'seq_move': "Buchungssätze {}",
         'geo_error1': "Fehler im offiziellen Skript (Code {})",
         'currency_not_found': "Währung nicht gefunden: {}",
         'company_not_created': "Der Assistent hat das Unternehmen nicht erstellt: {}",
@@ -529,8 +558,14 @@ def get_company_language(lang_code):
     return found[0] if found else None
 
 def connect_and_init(db_name, config_file):
+    major_ver = int(trytond.__version__.split('.')[0])
+    minor_ver = int(trytond.__version__.split('.')[1])
+
     for attempt in range(1, 11):
         try:
+            # A partir de la 7.4/7.6 es necesario actualizar el singleton de config
+            if major_ver > 7 or (major_ver == 7 and minor_ver >= 4):
+                trytond_config.update_etc(config_file)
             p_config.set_trytond(db_name, config_file=config_file)
             pool = Pool(db_name)
             pool.init()
@@ -642,12 +677,17 @@ def get_sequence_type_id(module, name, fallback_id):
 
 def create_fiscalyear(year, company):
     FiscalYear = Model.get('account.fiscalyear')
-    Sequence = Model.get('ir.sequence')
     SequenceType = Model.get('ir.sequence.type') 
-    InvoiceSequence = Model.get('account.fiscalyear.invoice_sequence')
     Period = Model.get('account.period')
     Module = Model.get('ir.module')
-    SequenceStrict = Model.get('ir.sequence.strict')
+
+    # Detección robusta de versión
+    version_parts = re.findall(r'\d+', trytond.__version__)
+    major_ver = int(version_parts[0]) if version_parts else 7
+    minor_ver = int(version_parts[1]) if len(version_parts) > 1 else 0
+
+    is_v76_plus = (major_ver > 7) or (major_ver == 7 and minor_ver >= 6)
+    is_strict = (major_ver > 7) or (major_ver == 7 and minor_ver >= 4)
 
     # 1. Sincronización de contexto (v7 compatible)
     config = p_config.get_config()
@@ -682,14 +722,26 @@ def create_fiscalyear(year, company):
         logging.error(f"Fase ACC: No se encontró tipo de secuencia para asientos ({year}).")
         return None
 
-    # 4. Crear Secuencias (Usando constructor y asignación explícita)
+    # 4. Lógica de Secuencias (Híbrida v7/v8)
     def make_seq(name_part, s_type, strict=False):
-        SModel = SequenceStrict if strict else Sequence
+        target_model = 'ir.sequence.strict' if strict else 'ir.sequence'
+        try:
+            SModel = Model.get(target_model)
+        except:
+            SModel = Model.get('ir.sequence')
+            target_model = 'ir.sequence'
+
         unique_name = f"{name_part} {year} ({company.party.name})"
         
-        # Búsqueda previa para evitar duplicados
-        found = SModel.find([('name', '=', unique_name), ('company', '=', company.id)])
-        if found: return found[0]
+        # Búsqueda filtrando por el modelo exacto para evitar conflictos
+        found = SModel.find([
+            ('name', '=', unique_name), 
+            ('company', '=', company.id),
+        ])
+        
+        for s_obj in found:
+            if s_obj._model == target_model:
+                return s_obj
 
         s = SModel(name=unique_name)
         s.sequence_type = s_type
@@ -698,7 +750,8 @@ def create_fiscalyear(year, company):
         s.save()
         return s
 
-    move_seq = make_seq("Asientos", st_move)
+    # En v7.0/7.2 los asientos usan secuencia normal. En v7.4+ usan secuencia estricta.
+    move_seq = make_seq(msg['seq_move'], st_move, strict=is_strict)
 
     # 5. Construcción del Ejercicio Fiscal
     fy = FiscalYear()
@@ -706,49 +759,75 @@ def create_fiscalyear(year, company):
     fy.start_date = date(year, 1, 1)
     fy.end_date = date(year, 12, 31)
     fy.company = company
-    fy.post_move_sequence = move_seq
 
-    # 6. Secuencias de Facturación (Integridad NotNull v7)
-    if st_inv and fy.invoice_sequences:
-        is_link = fy.invoice_sequences[0]
+    # A. Secuencia de Asientos
+    if is_v76_plus:
+        _safe_set(fy, 'post_move_sequence', move_seq)
+        _safe_set(fy, 'move_sequence', move_seq)
+    else:
+        if not _safe_set(fy, 'post_move_sequence', move_seq):
+            _safe_set(fy, 'move_sequence', move_seq)
+
+    # B. Secuencias de Facturación
+    # Si el campo existe (como en v7.0 o por localizaciones en v7.8+), se debe 
+    # configurar ANTES del save para evitar errores de integridad.
+    if hasattr(fy, 'invoice_sequences') and st_inv:
+        is_link = fy.invoice_sequences[0] if fy.invoice_sequences else fy.invoice_sequences.new()
         is_link.company = company
-        is_link.out_invoice_sequence = make_seq("Ventas", st_inv, True)
-        is_link.out_credit_note_sequence = make_seq("Abonos Venta", st_inv, True)
-        is_link.in_invoice_sequence = make_seq("Compras", st_inv, True)
-        is_link.in_credit_note_sequence = make_seq("Abonos Compra", st_inv, True)
+        is_link.out_invoice_sequence = make_seq(msg['seq_sale'], st_inv, strict=True)
+        is_link.out_credit_note_sequence = make_seq(msg['seq_sale_cn'], st_inv, strict=True)
+        is_link.in_invoice_sequence = make_seq(msg['seq_purch'], st_inv, strict=True)
+        is_link.in_credit_note_sequence = make_seq(msg['seq_purch_cn'], st_inv, strict=True)
 
-    # 3b. Secuencias Argentinas (Recibos y Cooperativas)
-    # Si están los módulos de Argentina, creamos las secuencias que pide el paquete
-    ar_vouchers = Module.find([('name', '=', 'account_voucher_ar'), ('state', '=', 'activated')])
-    if ar_vouchers:
-        # Búsqueda robusta por nombre para tipos de secuencia de recibos
+    # C. Localización Argentina (Vouchers y Cooperativas) - Pre-save
+    if Module.find([('name', '=', 'account_voucher_ar'), ('state', '=', 'activated')]):
         st_pay = SequenceType.find([('name', 'ilike', '%voucher.payment%')])
-        if st_pay:
-            s = make_seq("Recibo Pago", st_pay[0])
-            setattr(fy, 'payment_sequence', s)
-        
+        if st_pay: _safe_set(fy, 'payment_sequence', make_seq(msg['seq_pay'], st_pay[0]))
         st_rec = SequenceType.find([('name', 'ilike', '%voucher.receipt%')])
-        if st_rec:
-            s = make_seq("Recibo Cobro", st_rec[0])
-            setattr(fy, 'receipt_sequence', s)
-        logging.info(msg['ar_voucher_seq'].format(year))
+        if st_rec: _safe_set(fy, 'receipt_sequence', make_seq(msg['seq_rec'], st_rec[0]))
 
-    ar_coop = Module.find([('name', '=', 'cooperative_ar'), ('state', '=', 'activated')])
-    if ar_coop:
+    if Module.find([('name', '=', 'cooperative_ar'), ('state', '=', 'activated')]):
         st_coop = SequenceType.find([('name', 'ilike', '%cooperative.receipt%')])
-        if st_coop:
-            s = make_seq("Recibo Cooperativa", st_coop[0])
-            setattr(fy, 'cooperative_receipt_sequence', s)
+        if st_coop: _safe_set(fy, 'cooperative_receipt_sequence', make_seq(msg['seq_coop'], st_coop[0]))
 
-    # 4. Guardar y crear períodos
+    # D. GUARDADO ÚNICO DEFINITIVO
     try:
         fy.save()
+        if not is_v76_plus and Module.find([('name', '=', 'account_voucher_ar'), ('state', '=', 'activated')]):
+            logging.info(msg['ar_voucher_seq'].format(year))
+    except Exception as e:
+        logging.error(msg['error'].format(f"Al guardar ejercicio {year}: {e}"))
+        return None
+
+    # E. Configuración Global (7.6+ / 8.0)
+    if is_v76_plus:
+        _ensure_account_config_sequence(move_seq, year)
+
+    # F. Períodos
+    try:
         Wizard('account.fiscalyear.create_periods', [fy]).execute('create_periods')
         logging.info(msg['fisc_year'].format(year))
         return fy
     except Exception as e:
         logging.error(msg['error'].format(f"Al guardar {year}: {e}"))
         return None
+
+def _ensure_account_config_sequence(move_seq, year):
+    """Asegura que la secuencia de asientos esté configurada globalmente (Tryton 7.4+)"""
+    try:
+        AccountConfiguration = Model.get('account.configuration')
+        acc_configs = AccountConfiguration.find([])
+        if acc_configs:
+            acc_config = acc_configs[0]
+            # Intentar nombres estándar de configuración global (7.4+)
+            fields_to_try = ['default_post_move_sequence', 'post_move_sequence']
+            for field in fields_to_try:
+                if hasattr(acc_config, field) and not getattr(acc_config, field):
+                    setattr(acc_config, field, move_seq)
+                    acc_config.save()
+                    break
+    except Exception as e:
+        logging.error(msg['error'].format(f"Al configurar secuencia de asientos global para {year}: {e}"))
 
 def setup_accounts(company, dependencies):
     AccountTemplate = Model.get('account.account.template')
@@ -1079,6 +1158,10 @@ def run_setup():
                 ensure_ars_currency_rate()
                 ensure_argentina_pos(company)
             ensure_general_journal(company, conf_data)
+
+            # CRÍTICO: Refrescar Pool para reconocer campos de localizaciones
+            p_config.get_config().pool.init()
+
             for year in range(2026, 2031):
                 create_fiscalyear(year, company)
         except Exception as e:

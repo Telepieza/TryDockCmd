@@ -1,4 +1,4 @@
-# 📋 FICHA TÉCNICA: Proyecto TryDockCmd (v1.1.30)
+# 📋 FICHA TÉCNICA: Proyecto TryDockCmd (v1.1.35)
 
 ## 1. DESCRIPCIÓN GENERAL
 **TryDockCmd** es un framework de automatización para **Tryton ERP** diseñado para entornos Windows/Linux. Su objetivo es la transición inmediata de una infraestructura vacía a un sistema contable profesional plenamente operativo (Producción/Demo) en menos de 30 minutos.

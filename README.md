@@ -1,4 +1,4 @@
-# 🛡️ Tryton ERP Docker Manager v1.1.30 🚀
+# 🛡️ Tryton ERP Docker Manager v1.1.35 🚀
 
 An intuitive, menu-driven automation framework to deploy, manage, and protect your **Tryton ERP** environment on Windows with Docker.
 This suite transforms complex Docker orchestration into a reliable, audited, and resilient infrastructure.
@@ -301,7 +301,7 @@ Tryton-Docker-Manager - Making Tryton ERP management easy and secure.
 - **Platform:** Windows (CMD/Batch)
 - **Engine:** Docker & Docker Compose
 - **License:** MIT
-- **Project Status:** v1.1.30 Stable
+- **Project Status:** v1.1.35 Stable
   
 ---
 
