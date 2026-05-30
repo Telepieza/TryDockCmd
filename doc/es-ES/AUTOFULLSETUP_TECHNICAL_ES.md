@@ -13,7 +13,7 @@ Inspirado en la necesidad de replicar configuraciones complejas de forma fiable,
 *   **Sincronización de Contexto (`User.get_preferences(True, {})`)**: Resuelve el problema del "Cold Start" en bases de datos nuevas. Al inicializar las preferencias del usuario, el script asegura que el entorno de Tryton esté en un estado conocido y funcional antes de aplicar configuraciones, evitando errores comunes de contexto.
 *   **Idempotencia Real**: Cada operación realizada por el script verifica lógicamente la existencia de registros o configuraciones antes de crearlos. Esto permite que el script se ejecute múltiples veces de forma segura sin duplicar datos ni causar conflictos, facilitando la depuración y las re-ejecuciones.
 *   **Proteus como Notario Digital**: En lugar de inyectar SQL directamente, `auto_full_setup.py` utiliza la API de Proteus. Esto garantiza que cada cambio se realice a través de la lógica de negocio de Tryton, validando las reglas contables y asegurando que la base de datos resultante sea legalmente coherente y técnicamente íntegra.
-*   **Compatibilidad Multi-Versión**: El script está diseñado para adaptarse a las particularidades de las versiones de Tryton, desde la **7.0 (LTS)** hasta la **8.0**, y está preparado para futuras versiones como la 8.2.
+*   **Compatibilidad Multi-Versión**: El script está diseñado para adaptarse a las particularidades de las versiones de Tryton, desde la **7.0 (LTS)** hasta la **8.0  (LTS)**, y está preparado para futuras versiones como la 8.2.
 
 ## 3. Fases de Ejecución: Un Manual Paso a Paso
 
