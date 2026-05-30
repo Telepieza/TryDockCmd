@@ -1,4 +1,4 @@
-# 🚀 TryDockCmd: El Framework Definitivo para Tryton ERP (2026) - v1.1.35
+# 🚀 TryDockCmd: El Framework Definitivo para Tryton ERP (2026) - v1.1.36
 
 ## 1. FILOSOFÍA Y VISIÓN DEL PROYECTO
 TryDockCmd no es solo un instalador; es una solución de ingeniería diseñada para democratizar el acceso a Tryton ERP, el sistema más sólido y ético del mercado.
@@ -79,7 +79,7 @@ TryDockCmd convierte un "arte oscuro" en un proceso científico, repetible e imp
 - **Plataforma:** Windows (CMD/Batch)
 - **Motor:** Docker & Docker Compose
 - **Licencia:** MIT  
-- **Versión del proyecto** v1.1.30 Estable
+- **Versión del proyecto** v1.1.36 Estable
 
 ---
 

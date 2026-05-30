@@ -39,9 +39,8 @@ Objetivo: Asegurar que el backup sea completo, consistente y restaurable.
 - **Plataforma:** Windows (CMD/Batch)
 - **Motor:** Docker & Docker Compose
 - **Licencia:** MIT  
-- **Versión del proyecto** v1.1.25 Estable
+- **Versión del proyecto** v1.1.36 Estable
 
 ---
 
 ##### Optimizado y documentado con la ayuda de Gemini (Google AI)
-
