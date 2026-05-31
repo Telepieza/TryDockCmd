@@ -24,8 +24,8 @@ The true "magic" lies in the integration of Proteus (Python API), which acts as 
 - Video Don't install external modules in Tryton without watching: https://youtu.be/mYckwdQX6Qc
 - Video VeriFactu Mandatory: Adapt Tryton ERP with Facturae and TryDockCmd: https://youtu.be/PaUJ4ZvZxP8
 - Video Tryton ERP: The good, the bad, and what nobody tells you: https://youtu.be/zSg1Bdv7hoI
-- Video: VeriFactu and Facturae external modules in Tryton ERP, problems and solutions with TryDockCmd: https://youtu.be/mYckwdQX6Qc
-- Video: Tryton ERP with Proteus and the crown jewel, auto_full_setup.py: https://youtu.be/65RX4aReU9E
+- Video VeriFactu and Facturae external modules, problems and solutions with TryDockCmd: https://youtu.be/mYckwdQX6Qc
+- Video Tryton ERP with Proteus and the crown jewel, auto_full_setup.py: https://youtu.be/65RX4aReU9E
 
 ---
 
