@@ -17,6 +17,9 @@ Combina orquestación Batch (`tcd.bat`) con automatización Python/Proteus (`pyt
 - Video NO instales módulos Externos en Tryton sin ver esto : https://youtu.be/mYckwdQX6Qc
 - Video VeriFactu Obligatorio: Adapta Tryton ERP con Facturae y TryDockCmd: https://youtu.be/PaUJ4ZvZxP8
 - Video Tyrton ERP: lo bueno, lo malo y lo que nadie te cuenta: https://youtu.be/zSg1Bdv7hoI
+- Video VeriFactu y Facturae módulos externos en Tryton ERP, problemas y soluciones con TryDockCmd: https://youtu.be/mYckwdQX6Qc
+- Video Tryton ERP con Proteus y la joya de la corana auto_full_setup.py: https://youtu.be/65RX4aReU9E
+
 
 ---
 
