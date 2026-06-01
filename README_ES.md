@@ -19,7 +19,8 @@ Combina orquestación Batch (`tcd.bat`) con automatización Python/Proteus (`pyt
 - Video Tyrton ERP: lo bueno, lo malo y lo que nadie te cuenta: https://youtu.be/zSg1Bdv7hoI
 - Video VeriFactu y Facturae módulos externos, problemas y soluciones: https://youtu.be/mYckwdQX6Qc
 - Video Tryton ERP con Proteus y la joya de la corana auto_full_setup.py: https://youtu.be/65RX4aReU9E
-
+- Video Tryton ERP NO es GRATIS, NO es para PYMES y se ha quedado ATRÁS: https://youtu.be/bItve9mTSKc
+- 
 ---
 
 ## Por qué este proyecto

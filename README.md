@@ -26,6 +26,7 @@ The true "magic" lies in the integration of Proteus (Python API), which acts as 
 - Video Tryton ERP: The good, the bad, and what nobody tells you: https://youtu.be/zSg1Bdv7hoI
 - Video VeriFactu and Facturae external modules, problems and solutions: https://youtu.be/mYckwdQX6Qc
 - Video Tryton ERP with Proteus and the crown jewel, auto_full_setup.py: https://youtu.be/65RX4aReU9E
+- Video Tryton ERP it's NOT FREE, it's NOT for SMEs, and it's outdated: https://youtu.be/bItve9mTSKc
 
 ---
 
