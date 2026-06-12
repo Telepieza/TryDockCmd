@@ -1,0 +1,416 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:account.configuration,es_verifactu_environment:"
+msgid "Verifactu Environment"
+msgstr "Entorno verifactu"
+
+msgctxt "field:account.credential.verifactu,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:account.credential.verifactu,es_verifactu_environment:"
+msgid "Verifactu Environment"
+msgstr "Entorno verifactu"
+
+msgctxt "field:account.fiscalyear,es_verifactu_send_invoices:"
+msgid "Send invoices to Verifactu"
+msgstr "Enviar facturas a verifactu"
+
+msgctxt "field:account.invoice,es_verifactu_qr_code:"
+msgid "Verifactu QR Code"
+msgstr "Código QR Verifactu"
+
+msgctxt "field:account.invoice,es_verifactu_qr_url:"
+msgid "Verifactu QR URL"
+msgstr "URL QR Verifactu"
+
+msgctxt "field:account.invoice.verifactu,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:account.invoice.verifactu,csv:"
+msgid "CSV"
+msgstr "CSV"
+
+msgctxt "field:account.invoice.verifactu,error_code:"
+msgid "Error Code"
+msgstr "Código error"
+
+msgctxt "field:account.invoice.verifactu,error_description:"
+msgid "Error Description"
+msgstr "Descripción error"
+
+msgctxt "field:account.invoice.verifactu,fingerprint:"
+msgid "FingerPrint"
+msgstr "Huella"
+
+msgctxt "field:account.invoice.verifactu,generated_at:"
+msgid "Generated At"
+msgstr "Generado el"
+
+msgctxt "field:account.invoice.verifactu,invoice:"
+msgid "Invoice"
+msgstr "Factura"
+
+msgctxt "field:account.invoice.verifactu,previous_record:"
+msgid "Previous Record"
+msgstr "Registro anterior"
+
+msgctxt "field:account.invoice.verifactu,state:"
+msgid "State"
+msgstr "Estado"
+
+msgctxt "field:account.period,es_verifactu_send_invoices:"
+msgid "Send invoices to Verifactu"
+msgstr "Enviar facturas a verifactu"
+
+msgctxt "field:account.tax,es_exclude_from_verifactu:"
+msgid "Exclude from Verifactu"
+msgstr "Excluir de Verifactu"
+
+msgctxt "field:account.tax,es_verifactu_operation_key:"
+msgid "Verifactu Operation Key"
+msgstr "Clave operación verifactu"
+
+msgctxt "field:account.tax,es_verifactu_tax_key:"
+msgid "Verifactu Tax Key"
+msgstr "Clave impuesto verifactu"
+
+msgctxt "field:account.tax.template,es_exclude_from_verifactu:"
+msgid "Exclude from Verifactu"
+msgstr "Excluir de Verifactu"
+
+msgctxt "field:account.tax.template,es_verifactu_operation_key:"
+msgid "Verifactu Operation Key"
+msgstr "Clave operación verifactu"
+
+msgctxt "field:account.tax.template,es_verifactu_tax_key:"
+msgid "Verifactu Tax Key"
+msgstr "Clave impuesto verifactu"
+
+msgctxt "field:account.verifactu.declaration,date:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "field:account.verifactu.declaration,direction:"
+msgid "Direction"
+msgstr "Dirección"
+
+msgctxt "field:account.verifactu.declaration,display_name:"
+msgid "Display Name"
+msgstr "Nombre"
+
+msgctxt "field:account.verifactu.declaration,email:"
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgctxt "field:account.verifactu.declaration,fax_company:"
+msgid "Fax"
+msgstr "Fax"
+
+msgctxt "field:account.verifactu.declaration,nif:"
+msgid "NIF"
+msgstr "NIF"
+
+msgctxt "field:account.verifactu.declaration,phone_company:"
+msgid "Phone Number"
+msgstr "Número de teléfono"
+
+msgctxt "field:account.verifactu.declaration,place:"
+msgid "Place"
+msgstr "Lugar"
+
+msgctxt "field:account.verifactu.declaration,software_composition:"
+msgid "Software Composition"
+msgstr "Composición del software"
+
+msgctxt "field:account.verifactu.declaration,software_description:"
+msgid "Software Description"
+msgstr "Descripción del software"
+
+msgctxt "field:account.verifactu.declaration,software_version:"
+msgid "Software Version"
+msgstr "Versión del software"
+
+msgctxt "field:account.verifactu.declaration,web:"
+msgid "Web"
+msgstr "Web"
+
+msgctxt "field:account.verifactu.declaration,web_product:"
+msgid "Product Link"
+msgstr "Enlace del producto"
+
+msgctxt "field:company.company,es_verifactu_certificate:"
+msgid "Verifactu Certificate"
+msgstr "Certificado verifactu"
+
+msgctxt "field:company.company,es_verifactu_private_key:"
+msgid "Verifactu Private Key"
+msgstr "Clave privada verifactu"
+
+msgctxt "field:company.load_credential.verifactu.start,file:"
+msgid "File"
+msgstr "Archivo"
+
+msgctxt "field:company.load_credential.verifactu.start,password:"
+msgid "Password"
+msgstr "Contraseña"
+
+msgctxt "help:account.invoice.verifactu,csv:"
+msgid ""
+"A secure validation code that confirms the delivery of the related invoice."
+msgstr ""
+"Un código seguro de verificación que confirma el envío de la factura "
+"relacionada"
+
+msgctxt "help:account.period,es_verifactu_send_invoices:"
+msgid "Check to create Verifactu records for invoices in the period."
+msgstr ""
+"Marcar para crear los registros verifactu de las facturas de este período."
+
+msgctxt "model:account.credential.verifactu,name:"
+msgid "Account Credential Verifactu"
+msgstr "Credenciales Verifactu"
+
+msgctxt "model:account.invoice.verifactu,name:"
+msgid "Invoice Verifactu"
+msgstr "Registro verifactu"
+
+msgctxt "model:account.verifactu.declaration,name:"
+msgid "Verifactu Declaration"
+msgstr "Declaración verifactu"
+
+msgctxt "model:company.load_credential.verifactu.start,name:"
+msgid "Company Load Credential Verifactu Start"
+msgstr "Inicio cargar credenciales Verifactu"
+
+msgctxt "model:ir.action,name:act_declaration_form"
+msgid "Informatic System Declaration"
+msgstr "Declaración sistema informático"
+
+msgctxt "model:ir.action,name:act_invoice_verifactu_form"
+msgid "Spanish Verifactu"
+msgstr "Verifactu"
+
+msgctxt "model:ir.action,name:act_load_credential_verifactu"
+msgid "Load Verifactu Credentials"
+msgstr "Cargar credenciales verifactu"
+
+msgctxt "model:ir.action,name:report_declaration"
+msgid "Informatic System Responsible Declaration"
+msgstr "Declaración responsable sistema informático"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_verifactu_form_domain_all"
+msgid "All"
+msgstr "Todo"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_verifactu_form_domain_errors"
+msgid "Wrong"
+msgstr "Con errores"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_verifactu_form_domain_pending"
+msgid "Pending"
+msgstr "Pendiente"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_verifactu_form_domain_rejected"
+msgid "Rejected"
+msgstr "Rechazado"
+
+msgctxt "model:ir.message,text:msg_error_loading_credentials"
+msgid "Error loading credentials: %(message)s"
+msgstr "Error al cargar las credenciales: %(message)s"
+
+msgctxt "model:ir.message,text:msg_es_verifactu_invoice_delete_sent"
+msgid ""
+"You cannot delete Verifactu invoice \"%(invoice)s\" because it has already "
+"been sent."
+msgstr ""
+"No puedes eliminar el registro verifactu \"%(invoice)s\" porque ya se ha "
+"enviado."
+
+msgctxt "model:ir.message,text:msg_es_verifactu_invoice_unique"
+msgid "Only one Verifactu invoice can be created for each invoice."
+msgstr "Solo se puede crear una registro de facturación para cada factura"
+
+msgctxt "model:ir.message,text:msg_es_verifactu_no_key_cert"
+msgid ""
+"In order to send Verifactu invoice a private key and a certificate must be "
+"set for company \"%(company)s\"."
+msgstr ""
+"Para enviar registros a Verificatu se debe cargar una clave privada y un "
+"certificado para la empresa \"%(company)s"
+
+msgctxt "model:ir.message,text:msg_es_verifactu_posted_invoices"
+msgid ""
+"You can not change the Verifactu setting for period \"%(period)s\" because "
+"there are already posted invoices."
+msgstr ""
+"No puedes cambiar la configuración del verifactu para el período "
+"\"%(period)s\" porque ya existen facturas contabilidadas."
+
+msgctxt "model:ir.message,text:msg_tax_key_E1"
+msgid "Exempt by Art. 20"
+msgstr "Exento por Art.20"
+
+msgctxt "model:ir.message,text:msg_tax_key_E2"
+msgid "Exempt by Art. 21"
+msgstr "Exento por Art.21"
+
+msgctxt "model:ir.message,text:msg_tax_key_E3"
+msgid "Exempt by Art. 22"
+msgstr "Exento por Art.22"
+
+msgctxt "model:ir.message,text:msg_tax_key_E4"
+msgid "Exempt by Art. 23 and 24"
+msgstr "Exento por Art.23 y 24"
+
+msgctxt "model:ir.message,text:msg_tax_key_E5"
+msgid "Exempt by Art. 25"
+msgstr "Exento por Art.25"
+
+msgctxt "model:ir.message,text:msg_tax_key_E6"
+msgid "Exempt others"
+msgstr "Exento por otros motivos"
+
+msgctxt "model:ir.message,text:msg_tax_key_N1"
+msgid "Not subject by Art. 7, 14, others"
+msgstr "No sujeto por los Art. 7, 14, otros"
+
+msgctxt "model:ir.message,text:msg_tax_key_N2"
+msgid "Not subject by location rules"
+msgstr "No sujeto por reglas de localización"
+
+msgctxt "model:ir.message,text:msg_tax_key_S1"
+msgid "Subject and not exempt - No reverse charge"
+msgstr "Sujeto y no exento - Sin inversión del sujeto pasivo"
+
+msgctxt "model:ir.message,text:msg_tax_key_S2"
+msgid "Subject and not exempt - With reverse charge"
+msgstr "Sujeto y no exento - Con inversión del sujeto pasivo"
+
+msgctxt ""
+"model:ir.model.button,string:company_load_credential_verifactu_button"
+msgid "Load Verifactu Credentials"
+msgstr "Cargar credenciales verifactu"
+
+msgctxt "model:ir.model.button,string:invoice_verifactu_resend_button"
+msgid "Resend"
+msgstr "Reenviar"
+
+msgctxt "model:ir.rule.group,name:rule_group_invoice_verifactu_companies"
+msgid "User in companies"
+msgstr "Usuario en las empresas"
+
+msgctxt "model:ir.ui.menu,name:menu_invoice_verifactu_form"
+msgid "Spanish Verifactu"
+msgstr "Verifactu"
+
+msgctxt "model:ir.ui.menu,name:menuitem_account_declaration"
+msgid "Informatic System Declaration"
+msgstr "Declaración sistema informático"
+
+msgctxt "selection:account.configuration,es_verifactu_environment:"
+msgid "Production"
+msgstr "Producción"
+
+msgctxt "selection:account.configuration,es_verifactu_environment:"
+msgid "Staging"
+msgstr "Pruebas"
+
+msgctxt "selection:account.credential.verifactu,es_verifactu_environment:"
+msgid "Production"
+msgstr "Producción"
+
+msgctxt "selection:account.credential.verifactu,es_verifactu_environment:"
+msgid "Staging"
+msgstr "Pruebas"
+
+msgctxt "selection:account.invoice.verifactu,state:"
+msgid "Pending"
+msgstr "Pendiente"
+
+msgctxt "selection:account.invoice.verifactu,state:"
+msgid "Rejected"
+msgstr "Rechazado"
+
+msgctxt "selection:account.invoice.verifactu,state:"
+msgid "Sent"
+msgstr "Enviado"
+
+msgctxt "selection:account.invoice.verifactu,state:"
+msgid "Wrong"
+msgstr "Con errores"
+
+msgctxt "selection:ir.cron,method:"
+msgid "Send invoices to Verifactu"
+msgstr "Enviar facturas a verifactu"
+
+msgctxt "view:account.configuration:"
+msgid "Verifactu"
+msgstr "Verifactu"
+
+msgctxt "view:account.fiscalyear:"
+msgid "Spanish Verifactu"
+msgstr "Verifactu"
+
+msgctxt "view:account.invoice:"
+msgid "QR Code:"
+msgstr "Código QR:"
+
+msgctxt "view:account.invoice:"
+msgid "URL:"
+msgstr "URL:"
+
+msgctxt "view:account.invoice:"
+msgid "Verifactu"
+msgstr "Verifactu"
+
+msgctxt "view:account.tax.template:"
+msgid "Operation Key:"
+msgstr "Clave operación:"
+
+msgctxt "view:account.tax.template:"
+msgid "Tax Key:"
+msgstr "Clave impuesto:"
+
+msgctxt "view:account.tax.template:"
+msgid "Verifactu"
+msgstr "Verifactu"
+
+msgctxt "view:account.tax:"
+msgid "Operation Key:"
+msgstr "Clave operación:"
+
+msgctxt "view:account.tax:"
+msgid "Tax Key:"
+msgstr "Clave impuesto:"
+
+msgctxt "view:account.tax:"
+msgid "Verifactu"
+msgstr "Verifactu"
+
+msgctxt "view:company.company:"
+msgid "Certificate:"
+msgstr "Certificado:"
+
+msgctxt "view:company.company:"
+msgid "Private Key:"
+msgstr "Clave privada:"
+
+msgctxt "view:company.company:"
+msgid "Verifactu"
+msgstr "Verifactu"
+
+msgctxt "wizard_button:company.load_credential.verifactu,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:company.load_credential.verifactu,start,load:"
+msgid "Load"
+msgstr "Cargar"

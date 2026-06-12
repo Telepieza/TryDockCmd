@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<data>
+    <xpath expr="/form/notebook/page[@id='payment']" position="after">
+        <page string="Verifactu" id="verifactu_qr" col="2">
+            <label name="es_verifactu_qr_url" string="URL:"/>
+            <field name="es_verifactu_qr_url" widget="url"/>
+            <label name="es_verifactu_qr_code" string="QR Code:"/>
+            <field name="es_verifactu_qr_code" widget="image"/>
+        </page>
+    </xpath>
+</data>

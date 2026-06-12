@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="declaration_view_form">
+            <field name="model">account.verifactu.declaration</field>
+            <field name="type">form</field>
+            <field name="name">declaration_form</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_declaration_form">
+            <field name="name">Informatic System Declaration</field>
+            <field name="res_model">account.verifactu.declaration</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_declaration_view">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="declaration_view_form"/>
+            <field name="act_window" ref="act_declaration_form"/>
+        </record>
+
+        <menuitem
+            parent="account.menu_account_configuration"
+            action="act_declaration_form"
+            sequence="1"
+            id="menuitem_account_declaration"
+            icon="tryton-list"/>
+
+        <record model="ir.model.access" id="access_account_declaration">
+            <field name="model">account.verifactu.declaration</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.action.report" id="report_declaration">
+            <field name="name">Informatic System Responsible Declaration</field>
+            <field name="model">account.verifactu.declaration</field>
+            <field name="report_name">account.verifactu.declaration</field>
+            <field name="report">account_es_verifactu/declaration.fodt</field>
+            <field name="translatable" eval="False"/>
+            <field name="template_extension">odt</field>
+            <field name="extension">pdf</field>
+        </record>
+        <record model="ir.action.keyword" id="report_declaration_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">account.verifactu.declaration,-1</field>
+            <field name="action" ref="report_declaration"/>
+        </record>
+    </data>
+</tryton>
